@@ -6,15 +6,23 @@ authors = ["Roberto Fernández Iglesias <roberfi@gmail.com>"]
 readme = "README.md"
 package-mode = false
 
+[tool.mypy]
+python_version = "3.12"
+mypy_path = "$MYPY_CONFIG_FILE_DIR/cv_personal_page"
+plugins = ["mypy_django_plugin.main"]
+
+[tool.django-stubs]
+django_settings_module = "cv_personal_page.settings"
+
 [tool.poetry.dependencies]
 python = "^3.12"
 django = "^5.0.4"
-
 
 [tool.poetry.group.dev.dependencies]
 mypy = "^1.11.0"
 ruff = "^0.5.5"
 pre-commit = "^3.7.0"
+django-stubs = { extras = ["compatible-mypy"], version = "^5.0.4" }
 
 [build-system]
 requires = ["poetry-core"]
