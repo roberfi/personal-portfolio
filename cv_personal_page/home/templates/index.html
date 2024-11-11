@@ -12,10 +12,14 @@
         .section {
             scroll-snap-align: start;
         }
+
+        .js-loading * {
+            visibility: hidden;
+        }
     </style>
 </head>
 
-<body>
+<body class="js-loading">
     <div class="flex flex-col h-screen w-screen">
         <div class="navbar bg-base-200 p-5">
             <div class="navbar-start">
@@ -86,33 +90,33 @@
             }
         }
 
-        // Method to handle a change in the url hash
-        function handleHashChange() {
-            if (window.location.hash) {
-                setTimeout(() => {
-                    window.scrollTo(0, 0);
+        function removeLoadingClass() {
+            document.body.className = document.body.className.replace(/\bjs-loading\b/, '');
+        }
+
+        // Page load event, remove loading class to display body and scroll into hash element
+        function onLoad() {
+            setTimeout(() => {
+                container.scrollTo(0, 0);
+                removeLoadingClass();
+
+                if (window.location.hash) {
                     setTimeout(() => {
                         smoothScroll(window.location.hash, false);
                     }, 100);
-                }, 10);
-            }
+                }
+            }, 10);
         }
 
-        // Event on scroll to change overlay opacity
-        container.addEventListener("scroll", function ()
-        {
-            // Change class name to add opacity when scrolling down
-            overlay.className = overlay.className.replace(/bg-base-100\/\d+/, "bg-base-100/" + (container.scrollTop > 0 ? 60 : 10));
-
-            // Set the progress of the progress bar
-            progress_bar.value = (container.scrollTop / (container.scrollHeight - container.clientHeight)) * 100;
-        });
-
-        // Page load event, scroll into hash element
-        window.addEventListener('load', handleHashChange);
+        if (document.readyState === 'complete') {
+            onLoad();
+        } else {
+            window.addEventListener('load', onLoad);
+        }
 
         // Clicks on buttons
-        document.addEventListener('click', function(event) {
+        document.addEventListener('click', (event) =>
+        {
             const target = event.target;
 
             if (target.tagName === 'A' && target.hash && target.host === window.location.host) {
@@ -123,12 +127,24 @@
         });
 
         // Changes in the history, like browser navigation buttons
-        window.addEventListener('popstate', function() {
+        window.addEventListener('popstate', () =>
+        {
             if (event.state && event.state.scrollTarget) {
                 smoothScroll(event.state.scrollTarget, false);
             } else {
                 handleHashChange();
             }
+        });
+
+
+        // Event on scroll to change overlay opacity
+        container.addEventListener("scroll", () =>
+        {
+            // Change class name to add opacity when scrolling down
+            overlay.className = overlay.className.replace(/bg-base-100\/\d+/, "bg-base-100/" + (container.scrollTop > 0 ? 60 : 10));
+
+            // Set the progress of the progress bar
+            progress_bar.value = (container.scrollTop / (container.scrollHeight - container.clientHeight)) * 100;
         });
     </script>
 </body>
