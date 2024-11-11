@@ -39,8 +39,8 @@
 
         <div id="container" class="bg-scroll overflow-auto h-full w-full"
             style="background-image: url(/background.jpg); background-size: cover; scroll-snap-type: y mandatory;">
-            <div id="overlay" class="min-h-full w-full bg-base-100/10">
-                <div class="max-w-screen-lg text-base-content align-middle px-2 mx-auto">
+            <div id="overlay" class="h-full w-full bg-base-100/10">
+                <div class="max-w-screen-lg text-base-content align-middle px-2 mx-auto h-full">
                     <div id="home" class="section flex flex-col py-5 min-h-full text-primary-content">
                         <h1 class="text-5xl font-bold text-center mb-auto">
                             {{personal_info.name}}
@@ -64,11 +64,41 @@
     </div>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
+        // TODO: move into a separated file
+
         const container = document.getElementById("container");
         const overlay = document.getElementById("overlay");
 
         const progress_bar = document.getElementById("progress-bar");
 
+        // Method to scroll smoothly into element
+        function smoothScroll(target, push = true) {
+            const element = document.querySelector(target);
+
+            if (element) {
+                if (push) {
+                    history.pushState({ scrollTarget: target }, '', target);
+                }
+                element.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        }
+
+        // Method to handle a change in the url hash
+        function handleHashChange() {
+            if (window.location.hash) {
+                setTimeout(() => {
+                    window.scrollTo(0, 0);
+                    setTimeout(() => {
+                        smoothScroll(window.location.hash, false);
+                    }, 100);
+                }, 10);
+            }
+        }
+
+        // Event on scroll to change overlay opacity
         container.addEventListener("scroll", function ()
         {
             // Change class name to add opacity when scrolling down
@@ -76,6 +106,29 @@
 
             // Set the progress of the progress bar
             progress_bar.value = (container.scrollTop / (container.scrollHeight - container.clientHeight)) * 100;
+        });
+
+        // Page load event, scroll into hash element
+        window.addEventListener('load', handleHashChange);
+
+        // Clicks on buttons
+        document.addEventListener('click', function(event) {
+            const target = event.target;
+
+            if (target.tagName === 'A' && target.hash && target.host === window.location.host) {
+                event.preventDefault();
+                history.pushState(null, '', target.href);
+                smoothScroll(target.hash);
+            }
+        });
+
+        // Changes in the history, like browser navigation buttons
+        window.addEventListener('popstate', function() {
+            if (event.state && event.state.scrollTarget) {
+                smoothScroll(event.state.scrollTarget, false);
+            } else {
+                handleHashChange();
+            }
         });
     </script>
 </body>
