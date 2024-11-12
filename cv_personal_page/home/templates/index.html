@@ -18,6 +18,10 @@
         .js-loading * {
             visibility: hidden;
         }
+
+        #menu-toggle:checked + #menu {
+            display: block;
+        }
     </style>
 
     <script type="module" src="{% static 'load.js' %}?v=1.0.2"> </script>
@@ -27,12 +31,20 @@
 <body class="js-loading overflow-hidden">
     <div class="absolute h-full w-full -z-20" style="background-image: url({% static 'background.jpg' %}); background-size: cover;"></div>
     <div id="overlay" class="absolute h-full w-full bg-base-100/10 -z-10"></div>
-    <div class="flex flex-col h-screen w-screen">
-        <div class="navbar bg-base-200 p-5">
-            <div class="navbar-start">
-                <a class="btn btn-ghost text-xl" href="#home">{{home_link_text}}</a>
-                <a class="btn btn-ghost text-xl" href="#biography">{{biography_link_text}}</a>
-                <a class="btn btn-ghost text-xl" href="#experience">{{experience_link_text}}</a>
+    <div class="flex flex-wrap h-screen w-screen">
+        <nav class="flex flex-wrap navbar bg-base-200 md:p-5">
+            <label for="menu-toggle" type="button" class="btn btn-ghost md:hidden">
+                <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15"/>
+                </svg>
+            </label>
+            <input class="hidden" type="checkbox" id="menu-toggle" />
+            <div class="hidden w-full bg-base-200 z-10 md:block md:navbar-start md:flex" id="menu">
+                <ul class="md:flex">
+                    <li><a class="btn btn-ghost text-xl" href="#home">{{home_link_text}}</a></li>
+                    <li><a class="btn btn-ghost text-xl" href="#biography">{{biography_link_text}}</a></li>
+                    <li><a class="btn btn-ghost text-xl" href="#experience">{{experience_link_text}}</a></li>
+                </ul>
             </div>
             <!--<div class=" navbar-end">
                 <button class="btn btn-square btn-ghost">
@@ -44,7 +56,7 @@
                     </svg>
                 </button>
             </div>-->
-        </div>
+        </nav>
 
         <progress id="progress-bar" class="progress w-full" value="0" max="100"></progress>
 
