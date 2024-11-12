@@ -24,7 +24,9 @@
     <script src="https://cdn.tailwindcss.com" defer></script>
 </head>
 
-<body class="js-loading">
+<body class="js-loading overflow-hidden">
+    <div class="absolute h-full w-full -z-20" style="background-image: url({% static 'background.jpg' %}); background-size: cover;"></div>
+    <div id="overlay" class="absolute h-full w-full bg-base-100/10 -z-10"></div>
     <div class="flex flex-col h-screen w-screen">
         <div class="navbar bg-base-200 p-5">
             <div class="navbar-start">
@@ -46,9 +48,8 @@
 
         <progress id="progress-bar" class="progress w-full" value="0" max="100"></progress>
 
-        <div id="container" class="bg-scroll overflow-auto h-full w-full"
-            style="background-image: url(/background.jpg); background-size: cover; scroll-snap-type: y mandatory;">
-            <div id="overlay" class="h-full w-full bg-base-100/10">
+        <div class="h-full w-full">
+            <div id="container" class="bg-scroll overflow-auto h-full w-full" style="scroll-snap-type: y mandatory;">
                 <div class="max-w-screen-lg text-base-content align-middle px-2 mx-auto h-full">
                     <div id="home" class="section flex flex-col py-5 min-h-full text-primary-content">
                         <h1 class="text-5xl font-bold text-center mb-auto">
