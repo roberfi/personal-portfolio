@@ -14,9 +14,10 @@ function smoothScroll(target, push = true)
         {
             history.pushState({ scrollTarget: target }, '', target);
         }
-        element.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start'
+
+        container.scrollTo({
+            top: element.offsetTop,
+            behavior: 'smooth'
         });
     }
 }
