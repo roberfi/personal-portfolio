@@ -9,7 +9,7 @@ class PersonalInfo(models.Model):
 
 class Experience(models.Model):
     title = models.CharField(max_length=200)
-    # TODO: location = models.CharField(max_length=200)
+    location = models.CharField(max_length=200)
     company = models.CharField(max_length=200)
     description = models.TextField()
     start_date = models.DateField()
