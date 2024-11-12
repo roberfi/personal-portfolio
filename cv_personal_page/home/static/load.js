@@ -40,7 +40,7 @@ function onLoad()
             setTimeout(() =>
             {
                 smoothScroll(window.location.hash, false);
-            }, 100);
+            }, 300);
         }
     }, 10);
 }
@@ -75,7 +75,9 @@ window.addEventListener('popstate', () =>
 container.addEventListener("scroll", () =>
 {
     // Change class name to add opacity when scrolling down
-    overlay.className = overlay.className.replace(/bg-base-100\/\d+/, "bg-base-100/" + (container.scrollTop > 0 ? 60 : 10));
+    const rounded_percentage = Math.round(container.scrollTop / container.clientHeight * 10) * 10;
+    const overlay_opacity = Math.min(Math.max(rounded_percentage, 10), 70);
+    overlay.className = overlay.className.replace(/bg-base-100\/\d+/, "bg-base-100/" + overlay_opacity);
 
     // Set the progress of the progress bar
     progress_bar.value = (container.scrollTop / (container.scrollHeight - container.clientHeight)) * 100;
