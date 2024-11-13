@@ -83,6 +83,31 @@ container.addEventListener("scroll", () =>
     progress_bar.value = (container.scrollTop / (container.scrollHeight - container.clientHeight)) * 100;
 });
 
+/******** Navigation buttons *********/
+const navigationMenuButton = document.querySelector("#navigation-menu-button");
+const navigationMenu = document.querySelector("#navigation-menu");
+const navigationMenuLinks = document.querySelectorAll("#navigation-menu > ul > li > a");
+
+const hiddenClassName = "max-md:hidden";
+
+function hideNavigationMenu()
+{
+    if (!navigationMenu.classList.contains(hiddenClassName))
+    {
+        navigationMenu.classList.add(hiddenClassName);
+    }
+}
+
+navigationMenuButton.addEventListener("click", () =>
+{
+    navigationMenu.classList.toggle(hiddenClassName);
+});
+
+navigationMenuLinks.forEach((element) =>
+{
+    element.addEventListener("click", hideNavigationMenu);
+});
+
 if (document.readyState === 'complete')
 {
     onLoad();

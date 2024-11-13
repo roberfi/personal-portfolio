@@ -18,13 +18,9 @@
         .js-loading * {
             visibility: hidden;
         }
-
-        #menu-toggle:checked + #menu {
-            display: block;
-        }
     </style>
 
-    <script type="module" src="{% static 'load.js' %}?v=1.0.2"> </script>
+    <script type="module" src="{% static 'load.js' %}?v=1.0.3"> </script>
     <script src="https://cdn.tailwindcss.com" defer></script>
 </head>
 
@@ -33,29 +29,30 @@
     <div id="overlay" class="absolute h-full w-full bg-base-100/10 -z-10"></div>
     <div class="flex flex-wrap h-screen w-screen">
         <nav class="flex flex-wrap navbar bg-base-200 md:p-5">
-            <label for="menu-toggle" type="button" class="btn btn-ghost md:hidden">
-                <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15"/>
-                </svg>
-            </label>
-            <input class="hidden" type="checkbox" id="menu-toggle" />
-            <div class="hidden w-full bg-base-200 z-10 md:block md:navbar-start md:flex" id="menu">
-                <ul class="md:flex">
-                    <li><a class="btn btn-ghost text-xl" href="#home">{{home_link_text}}</a></li>
-                    <li><a class="btn btn-ghost text-xl" href="#biography">{{biography_link_text}}</a></li>
-                    <li><a class="btn btn-ghost text-xl" href="#experience">{{experience_link_text}}</a></li>
-                </ul>
-            </div>
-            <!--<div class=" navbar-end">
-                <button class="btn btn-square btn-ghost">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                        class="inline-block h-5 w-5 stroke-current">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z">
-                        </path>
+            <div class="relative inline-block">
+                <button id="navigation-menu-button" class="btn btn-ghost md:hidden">
+                    <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15"/>
                     </svg>
                 </button>
-            </div>-->
+                <div class="bg-base-200 max-md:hidden max-md:absolute max_md:z-10 max-md:mt-5 max-md:rounded-md max-md:shadow-lg" id="navigation-menu" role="menu" aria-orientation="vertical" aria-labelledby="menu-button">
+                    <ul class="md:flex">
+                        <li><a class="btn btn-ghost text-xl" href="#home">{{ home_link_text }}</a></li>
+                        <li><a class="btn btn-ghost text-xl" href="#biography">{{ biography_link_text }}</a></li>
+                        <li><a class="btn btn-ghost text-xl" href="#experience">{{ experience_link_text }}</a></li>
+                    </ul>
+                </div>
+                <!--<div class=" navbar-end">
+                    <button class="btn btn-square btn-ghost">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                            class="inline-block h-5 w-5 stroke-current">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z">
+                            </path>
+                        </svg>
+                    </button>
+                </div>-->
+            </div>
         </nav>
 
         <progress id="progress-bar" class="progress w-full" value="0" max="100"></progress>
@@ -65,11 +62,11 @@
                 <div class="max-w-screen-lg text-base-content align-middle px-2 mx-auto h-full">
                     <div id="home" class="section flex flex-col py-5 min-h-full text-primary-content">
                         <h1 class="text-5xl font-bold text-center mb-auto">
-                            {{personal_info.name}}
+                            {{ personal_info.name }}
                         </h1>
                     </div>
                     <div id="biography" id="summary" class="section py-5 text-left space-y-4 min-h-full">
-                        {{personal_info.biography}}
+                        {{ personal_info.biography|linebreaksbr }}
                     </div>
                     <div id="experience" class="section py-5 text-left space-y-4 min-h-full">
                         {% for exp in experience %}
@@ -81,7 +78,7 @@
                                     <p>{{ exp.location }}</p>
                                 </div>
                             </div>
-                            <p>{{ exp.description|linebreaks }}</p>
+                            <p>{{ exp.description|linebreaksbr }}</p>
                         </div>
                         {% endfor %}
                     </div>
