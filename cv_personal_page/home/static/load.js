@@ -2,11 +2,13 @@ const container = document.getElementById("container");
 const overlay = document.getElementById("overlay");
 
 const progress_bar = document.getElementById("progress-bar");
+const navigation_bar = document.querySelector("#nav-bar");
 
 // Method to scroll smoothly into element
 function smoothScroll(target, push = true)
 {
     const element = document.querySelector(target);
+    const navBarHeight = progress_bar.clientHeight + navigation_bar.clientHeight;
 
     if (element)
     {
@@ -16,7 +18,7 @@ function smoothScroll(target, push = true)
         }
 
         container.scrollTo({
-            top: element.offsetTop,
+            top: element.offsetTop - navBarHeight,
             behavior: 'smooth'
         });
     }

@@ -20,22 +20,22 @@
         }
     </style>
 
-    <script type="module" src="{% static 'load.js' %}?v=1.0.3"> </script>
+    <script type="module" src="{% static 'load.js' %}?v=1.0.6"> </script>
     <script src="https://cdn.tailwindcss.com" defer></script>
 </head>
 
 <body class="js-loading overflow-hidden">
     <div class="absolute h-full w-full -z-20" style="background-image: url({% static 'background.jpg' %}); background-size: cover;"></div>
     <div id="overlay" class="absolute h-full w-full bg-base-100/10 -z-10"></div>
-    <div class="flex flex-wrap h-screen w-screen">
-        <nav class="flex flex-wrap navbar bg-base-200 md:p-5">
+    <div class="flex flex-col h-screen w-screen">
+        <nav id="nav-bar" class="navbar bg-base-200 md:p-5">
             <div class="relative inline-block">
                 <button id="navigation-menu-button" class="btn btn-ghost md:hidden">
                     <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15"/>
                     </svg>
                 </button>
-                <div class="bg-base-200 max-md:hidden max-md:absolute max_md:z-10 max-md:mt-5 max-md:rounded-md max-md:shadow-lg" id="navigation-menu" role="menu" aria-orientation="vertical" aria-labelledby="menu-button">
+                <div class="bg-base-200 max-md:hidden max-md:absolute max-md:z-10 max-md:mt-5 max-md:rounded-md max-md:shadow-lg" id="navigation-menu" role="menu" aria-orientation="vertical" aria-labelledby="menu-button">
                     <ul class="md:flex">
                         <li><a class="btn btn-ghost text-xl" href="#home">{{ home_link_text }}</a></li>
                         <li><a class="btn btn-ghost text-xl" href="#biography">{{ biography_link_text }}</a></li>
@@ -55,20 +55,20 @@
             </div>
         </nav>
 
-        <progress id="progress-bar" class="progress w-full" value="0" max="100"></progress>
+        <progress id="progress-bar" class="flex progress w-full h-5" value="0" max="100"></progress>
 
-        <div class="h-full w-full">
-            <div id="container" class="bg-scroll overflow-auto h-full w-full" style="scroll-snap-type: y mandatory;">
-                <div class="max-w-screen-lg text-base-content align-middle px-2 mx-auto h-full">
-                    <div id="home" class="section flex flex-col py-5 min-h-full text-primary-content">
+        <div class="flex-grow flex overflow-hidden w-full">
+            <div id="container" class="flex-1 bg-scroll overflow-y-scroll w-full" style="scroll-snap-type: y mandatory;">
+                <div class="max-w-screen-lg text-base-content align-middle px-2 mx-auto">
+                    <div id="home" class="section flex flex-col py-5 text-primary-content min-h-screen pb-20">
                         <h1 class="text-5xl font-bold text-center mb-auto">
                             {{ personal_info.name }}
                         </h1>
                     </div>
-                    <div id="biography" id="summary" class="section py-5 text-left space-y-4 min-h-full">
-                        {{ personal_info.biography|linebreaksbr }}
+                    <div id="biography" class="section py-5 text-left space-y-4 min-h-screen pb-20">
+                        <p>{{ personal_info.biography|linebreaksbr }}</p>
                     </div>
-                    <div id="experience" class="section py-5 text-left space-y-4 min-h-full">
+                    <div id="experience" class="section py-5 text-left space-y-4 min-h-screen">
                         {% for exp in experience %}
                         <div class="p-5 border-solid border-2 border-yellow-700 rounded-lg">
                             <div class="pb-10">
