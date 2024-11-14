@@ -25,11 +25,11 @@
         }
     </style>
 
-    <script type="module" src="{% static 'load.js' %}?v=1.0.6"> </script>
-
     <script>
         const csrftoken = '{{ csrf_token }}';
     </script>
+
+    <script type="module" src="{% static '/js/main.js' %}?v=1.0.3"></script>
 
     <script src="https://cdn.tailwindcss.com" defer></script>
 </head>
