@@ -1,4 +1,9 @@
 {% load static %}
+{% load i18n %}
+
+{% get_current_language as CURRENT_LANGUAGE %}
+{% get_available_languages as AVAILABLE_LANGUAGES %}
+{% get_language_info_list for AVAILABLE_LANGUAGES as languages %}
 
 <!DOCTYPE html>
 <html lang="en" data-theme="luxury">
@@ -21,6 +26,11 @@
     </style>
 
     <script type="module" src="{% static 'load.js' %}?v=1.0.6"> </script>
+
+    <script>
+        const csrftoken = '{{ csrf_token }}';
+    </script>
+
     <script src="https://cdn.tailwindcss.com" defer></script>
 </head>
 
@@ -29,7 +39,7 @@
     <div id="overlay" class="absolute h-full w-full bg-base-100/10 -z-10"></div>
     <div class="flex flex-col h-screen w-screen">
         <nav id="nav-bar" class="navbar bg-base-200 md:p-5">
-            <div class="relative inline-block">
+            <div class="relative max-md:inline-block md:flex navbar-start">
                 <button id="navigation-menu-button" class="btn btn-ghost md:hidden">
                     <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15"/>
@@ -42,16 +52,24 @@
                         <li><a class="btn btn-ghost text-xl" href="#experience">{{ experience_link_text }}</a></li>
                     </ul>
                 </div>
-                <!--<div class=" navbar-end">
-                    <button class="btn btn-square btn-ghost">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                            class="inline-block h-5 w-5 stroke-current">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z">
-                            </path>
-                        </svg>
-                    </button>
-                </div>-->
+            </div>
+            <div class="relative inline-block navbar-end text-end">
+                <button id="language-menu-button" class="btn btn-ghost">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" aria-hidden="true" fill="none" viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-width="2" d="M12,23 C18.0751322,23 23,18.0751322 23,12 C23,5.92486775 18.0751322,1 12,1 C5.92486775,1 1,5.92486775 1,12 C1,18.0751322 5.92486775,23 12,23 Z M12,23 C15,23 16,18 16,12 C16,6 15,1 12,1 C9,1 8,6 8,12 C8,18 9,23 12,23 Z M2,16 L22,16 M2,8 L22,8"></path>
+                    </svg>
+                </button>
+                <div class="bg-base-200 hidden absolute right-0 z-10 mt-5 rounded-md shadow-lg p-2" id="language-menu" role="menu" aria-orientation="vertical" aria-labelledby="menu-button">
+                    <ul class="flex flex-col space-y-2 text-start">
+                        {% for language in languages %}
+                        <li>
+                            <button onclick="changeLanguage('{% url 'set_language' %}', '{{ language.code }}');" class="btn btn-ghost text-xl p-2 block text-start {% if language.code == CURRENT_LANGUAGE %}btn-active{% endif %}">
+                                {{ language.name_local | title }}
+                            </button>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
             </div>
         </nav>
 

@@ -66,9 +66,6 @@ window.addEventListener('popstate', () =>
     if (event.state && event.state.scrollTarget)
     {
         smoothScroll(event.state.scrollTarget, false);
-    } else
-    {
-        handleHashChange();
     }
 });
 
@@ -90,25 +87,82 @@ const navigationMenuButton = document.querySelector("#navigation-menu-button");
 const navigationMenu = document.querySelector("#navigation-menu");
 const navigationMenuLinks = document.querySelectorAll("#navigation-menu > ul > li > a");
 
-const hiddenClassName = "max-md:hidden";
+const maxMdHiddenClassName = "max-md:hidden";
 
 function hideNavigationMenu()
 {
-    if (!navigationMenu.classList.contains(hiddenClassName))
+    if (!navigationMenu.classList.contains(maxMdHiddenClassName))
     {
-        navigationMenu.classList.add(hiddenClassName);
+        navigationMenu.classList.add(maxMdHiddenClassName);
     }
 }
 
 navigationMenuButton.addEventListener("click", () =>
 {
-    navigationMenu.classList.toggle(hiddenClassName);
+    navigationMenu.classList.toggle(maxMdHiddenClassName);
 });
 
 navigationMenuLinks.forEach((element) =>
 {
     element.addEventListener("click", hideNavigationMenu);
 });
+
+/******** Language buttons *********/
+const languageMenuButton = document.querySelector("#language-menu-button");
+const languageMenu = document.querySelector("#language-menu");
+const languageMenuLinks = document.querySelectorAll("#language-menu > ul > li > a");
+
+const hiddenClassName = "hidden";
+
+function hideLanguageMenu()
+{
+    if (!languageMenu.classList.contains(hiddenClassName))
+    {
+        languageMenu.classList.add(hiddenClassName);
+    }
+}
+
+languageMenuButton.addEventListener("click", () =>
+{
+    languageMenu.classList.toggle(hiddenClassName);
+});
+
+languageMenuLinks.forEach((element) =>
+{
+    element.addEventListener("click", hideLanguageMenu);
+});
+
+function changeLanguage(url, languageCode)
+{
+    fetch(url, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+            'X-CSRFToken': csrftoken,
+        },
+        body: new URLSearchParams(
+            {
+                "language": languageCode,
+                "next": window.location.pathname.replace(/^\/(en|es)/, ""),
+            }
+        )
+    }).then(response =>
+    {
+        if (response.redirected)
+        {
+            let redirect_url = response.url;
+
+            if (window.location.hash)
+            {
+                redirect_url += window.location.hash;
+            }
+
+            window.location.href = redirect_url;
+        }
+    });
+}
+
+window.changeLanguage = changeLanguage;
 
 if (document.readyState === 'complete')
 {
