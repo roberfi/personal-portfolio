@@ -1,5 +1,12 @@
 from home.models import PersonalInfo, Experience
-from django.contrib import admin
+from django.contrib.admin import register, ModelAdmin
 
-admin.site.register(PersonalInfo)
-admin.site.register(Experience)
+
+@register(PersonalInfo)
+class PersonalInfoAdmin(ModelAdmin):
+    pass
+
+
+@register(Experience)
+class ExperienceAdmin(ModelAdmin):
+    pass
