@@ -16,6 +16,10 @@
     <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.min.css" rel="stylesheet" type="text/css" />
 
     <style type="text/css">
+        #container {
+            scroll-snap-type: y mandatory;
+        }
+
         .section {
             scroll-snap-align: start;
         }
@@ -37,7 +41,7 @@
 <body class="js-loading overflow-hidden">
     <div class="absolute h-full w-full -z-20" style="background-image: url({% static 'background.jpg' %}); background-size: cover;"></div>
     <div id="overlay" class="absolute h-full w-full bg-base-100/10 -z-10"></div>
-    <div class="flex flex-col h-screen w-screen">
+    <div class="flex flex-col h-dvh w-screen">
         <nav id="nav-bar" class="navbar bg-base-200 md:p-5">
             <div class="relative max-md:inline-block md:flex navbar-start">
                 <button id="navigation-menu-button" class="btn btn-ghost md:hidden">
@@ -77,20 +81,20 @@
             </div>
         </nav>
 
-        <progress id="progress-bar" class="flex progress w-full h-5" value="0" max="100"></progress>
+        <progress id="progress-bar" class="flex progress w-full" value="0" max="100"></progress>
 
         <div class="flex-grow flex overflow-hidden w-full">
-            <div id="container" class="flex-1 bg-scroll overflow-y-scroll w-full" style="scroll-snap-type: y mandatory;">
-                <div class="max-w-screen-lg text-base-content align-middle px-2 mx-auto">
-                    <div id="home" class="section flex flex-col py-5 text-primary-content min-h-screen pb-20">
+            <div id="container" class="flex-1 bg-scroll overflow-y-scroll w-full">
+                <div class="max-w-screen-lg text-base-content align-middle px-2 mx-auto h-full">
+                    <div id="home" class="section flex flex-col py-5 text-primary-content min-h-full">
                         <h1 class="text-5xl font-bold text-center mb-auto">
                             {{ personal_info.name }}
                         </h1>
                     </div>
-                    <div id="biography" class="section py-5 text-left space-y-4 min-h-screen pb-20">
+                    <div id="biography" class="section py-5 text-left space-y-4 min-h-full">
                         <p>{{ personal_info.biography|linebreaksbr }}</p>
                     </div>
-                    <div id="experience" class="section py-5 text-left space-y-4 min-h-screen">
+                    <div id="experience" class="section py-5 text-left space-y-4 min-h-full">
                         {% for exp in experience %}
                         <div class="p-5 border-solid border-2 border-yellow-700 rounded-lg">
                             <div class="pb-10">
