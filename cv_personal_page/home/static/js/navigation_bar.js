@@ -9,8 +9,13 @@ export const navigationMenuLinks = document.querySelectorAll("#navigation-menu >
 
 const maxMdHiddenClassName = "max-md:hidden";
 
-function hideNavigationMenu()
+function handleButtonClick(event)
 {
+    const target = event.target;
+
+    event.preventDefault();
+    smoothScroll(target.hash);
+
     if (!navigationMenu.classList.contains(maxMdHiddenClassName))
     {
         navigationMenu.classList.add(maxMdHiddenClassName);
@@ -19,35 +24,14 @@ function hideNavigationMenu()
 
 export function initNavigationBar()
 {
-    // Clicks on navigation menu buttons
-    document.addEventListener('click', (event) =>
-    {
-        const target = event.target;
-
-        if (target.tagName === 'A' && target.hash && target.host === window.location.host)
-        {
-            event.preventDefault();
-            history.pushState(null, '', target.href);
-            smoothScroll(target.hash);
-        }
-    });
-
-    // Changes in the history, like browser navigation buttons
-    window.addEventListener('popstate', () =>
-    {
-        if (event.state && event.state.scrollTarget)
-        {
-            smoothScroll(event.state.scrollTarget, false);
-        }
-    });
-
     navigationMenuButton.addEventListener("click", () =>
     {
         navigationMenu.classList.toggle(maxMdHiddenClassName);
     });
 
+    // Clicks on navigation menu buttons
     navigationMenuLinks.forEach((element) =>
     {
-        element.addEventListener("click", hideNavigationMenu);
+        element.addEventListener("click", handleButtonClick);
     });
 }

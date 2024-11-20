@@ -4,18 +4,13 @@ export const container = document.getElementById("container");
 const progress_bar = document.getElementById("progress-bar");
 
 // Method to scroll smoothly into element
-export function smoothScroll(target, push = true)
+export function smoothScroll(target)
 {
     const element = document.querySelector(target);
     const navBarHeight = progress_bar.clientHeight + navigation_bar.clientHeight;
 
     if (element)
     {
-        if (push)
-        {
-            history.pushState({ scrollTarget: target }, '', target);
-        }
-
         container.scrollTo({
             top: element.offsetTop - navBarHeight,
             behavior: 'smooth'
@@ -42,16 +37,28 @@ export function initScroll()
         // Set the progress of the progress bar
         progress_bar.value = (containerScrollTop / (container.scrollHeight - containerClientHeight)) * 100;
 
+        const containerScrollValue = containerScrollTop + containerOffsetTop;
+
         // Change active section when corresponds
         navigationMenuLinks.forEach((link) =>
         {
-            const section = document.querySelector(link.getAttribute("href"));
+            const sectionHash = link.getAttribute("href");
+            const section = document.querySelector(sectionHash);
 
-            if (section.offsetTop <= (containerScrollTop + containerOffsetTop))
+            if (section.offsetTop <= containerScrollValue && (section.offsetTop + section.clientHeight) > containerScrollValue)
             {
+                // Update button state
                 navigationMenuLinks.forEach((other_link) => other_link.classList.remove("btn-active"));
                 link.classList.add("btn-active");
-                document.getElementById("active-section-title").innerHTML = link.innerHTML;
+
+                // Update text of title for mobiles
+                document.getElementById("active-section-title").textContent = link.textContent;
+
+                // Update hash
+                if (sectionHash != window.location.hash)
+                {
+                    history.replaceState(null, null, sectionHash);
+                }
             }
         });
     });
