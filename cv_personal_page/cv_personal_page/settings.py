@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "modeltranslation",
     "home",
 ]
 
@@ -113,6 +114,8 @@ LANGUAGES = (
     ("en", _("English")),
     ("es", _("Spanish")),
 )
+
+MODELTRANSLATION_DEFAULT_LANGUAGE = "en"
 
 TIME_ZONE = "UTC"
 
