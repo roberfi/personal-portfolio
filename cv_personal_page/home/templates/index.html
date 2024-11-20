@@ -33,7 +33,7 @@
         const csrftoken = '{{ csrf_token }}';
     </script>
 
-    <script type="module" src="{% static '/js/main.js' %}?v=1.0.4"></script>
+    <script type="module" src="{% static '/js/main.js' %}?v=1.0.6"></script>
 
     <script src="https://cdn.tailwindcss.com" defer></script>
 </head>
@@ -49,14 +49,15 @@
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15"/>
                     </svg>
                 </button>
-                <div class="bg-base-200 max-md:hidden max-md:absolute max-md:z-10 max-md:mt-5 max-md:rounded-md max-md:shadow-lg" id="navigation-menu" role="menu" aria-orientation="vertical" aria-labelledby="menu-button">
-                    <ul class="md:flex">
-                        <li><a class="btn btn-ghost text-xl" href="#home">{% translate "Home" %}</a></li>
-                        <li><a class="btn btn-ghost text-xl" href="#biography">{% translate "Biography" %}</a></li>
-                        <li><a class="btn btn-ghost text-xl" href="#experience">{% translate "Experience" %}</a></li>
+                <div class="bg-base-200 max-md:hidden max-md:absolute max-md:z-10 max-md:mt-5 max-md:rounded-md max-md:shadow-lg max-md:p-2" id="navigation-menu" role="menu" aria-orientation="vertical" aria-labelledby="menu-button">
+                    <ul class="md:flex max-md:space-y-2">
+                        <li><a class="btn btn-ghost max-md:w-full justify-start text-xl btn-active" href="#home">{% translate "Home" %}</a></li>
+                        <li><a class="btn btn-ghost max-md:w-full justify-start text-xl" href="#biography">{% translate "Biography" %}</a></li>
+                        <li><a class="btn btn-ghost max-md:w-full justify-start text-xl" href="#experience">{% translate "Experience" %}</a></li>
                     </ul>
                 </div>
             </div>
+            <span id="active-section-title" class="md:hidden">{% translate "Home" %}</span>
             <div class="relative inline-block navbar-end text-end">
                 <button id="language-menu-button" class="btn btn-ghost">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" aria-hidden="true" fill="none" viewBox="0 0 24 24">
@@ -65,12 +66,12 @@
                     <span>{{ CURRENT_LANGUAGE }}</span>
                 </button>
                 <div class="bg-base-200 hidden absolute right-0 z-10 mt-5 rounded-md shadow-lg p-2" id="language-menu" role="menu" aria-orientation="vertical" aria-labelledby="menu-button">
-                    <ul class="flex flex-col space-y-2 text-start">
+                    <ul class="space-y-2">
                         {% for language in languages %}
                         <li>
                             <form action="{% url 'set_language' %}" method="post">{% csrf_token %}
                                 <input name="next" type="hidden" value="/">
-                                <button type="submit" class="btn btn-ghost text-xl p-2 block text-start {% if language.code == CURRENT_LANGUAGE %}btn-active{% endif %}" name="language" value="{{ language.code }}">
+                                <button type="submit" class="btn btn-ghost w-full justify-start text-xl {% if language.code == CURRENT_LANGUAGE %}btn-active{% endif %}" name="language" value="{{ language.code }}">
                                     {{ language.name_local | title }}
                                 </button>
                             </form>
