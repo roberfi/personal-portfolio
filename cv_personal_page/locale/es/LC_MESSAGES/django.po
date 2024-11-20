@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-11-15 13:33+0100\n"
+"POT-Creation-Date: 2024-11-20 09:06+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -27,6 +27,18 @@ msgstr "Inglés"
 msgid "Spanish"
 msgstr "Español"
 
+#: home/templates/index.html:50
+msgid "Home"
+msgstr "Inicio"
+
+#: home/templates/index.html:51
+msgid "Biography"
+msgstr "Biografía"
+
+#: home/templates/index.html:52
+msgid "Experience"
+msgstr "Experiencia"
+
 #: home/templates/index.html:97
 msgid "at"
 msgstr "en"
@@ -34,15 +46,3 @@ msgstr "en"
 #: home/templates/index.html:99
 msgid "Present"
 msgstr "Actualmente"
-
-#: home/views.py:12
-msgid "Home"
-msgstr "Inicio"
-
-#: home/views.py:13
-msgid "Biography"
-msgstr "Biografía"
-
-#: home/views.py:14
-msgid "Experience"
-msgstr "Experiencia"
