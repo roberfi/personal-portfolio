@@ -20,7 +20,7 @@ window.addEventListener('load', () =>
         {
             setTimeout(() =>
             {
-                smoothScroll(window.location.hash, false);
+                smoothScroll(window.location.hash);
             }, 300);
         }
     }, 10);
