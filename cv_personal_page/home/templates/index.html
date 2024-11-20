@@ -94,9 +94,9 @@
                         {% for exp in experience %}
                         <div class="p-5 border-solid border-2 border-yellow-700 rounded-lg">
                             <div class="pb-10">
-                                <h2 class="text-3xl bold">{{ exp.title }} at {{ exp.company }}</h2> <!-- TODO: translations -->
+                                <h2 class="text-3xl bold">{{ exp.title }} {% translate "at" %} {{ exp.company }}</h2>
                                 <div class="text-sm text-yellow-700">
-                                    <p>{{ exp.start_date }} - {% if exp.end_date %}{{ exp.end_date }}{% else %}Present{% endif %}</p> <!-- TODO: translations -->
+                                    <p>{{ exp.start_date }} - {% if exp.end_date %}{{ exp.end_date }}{% else %}{% translate "Present" %}{% endif %}</p> <!-- TODO: translations -->
                                     <p>{{ exp.location }}</p>
                                 </div>
                             </div>

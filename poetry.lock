@@ -57,6 +57,20 @@ argon2 = ["argon2-cffi (>=19.1.0)"]
 bcrypt = ["bcrypt"]
 
 [[package]]
+name = "django-modeltranslation"
+version = "0.19.11"
+description = "Translates Django models using a registration approach."
+optional = false
+python-versions = "*"
+files = [
+    {file = "django_modeltranslation-0.19.11-py3-none-any.whl", hash = "sha256:fe36ecb8d943aaa406e4045d34e2160e90b170b0c71c8d0b5336e5031030b202"},
+    {file = "django_modeltranslation-0.19.11.tar.gz", hash = "sha256:c65a2652554c22bbe11f5db2e81e0c66d58434077d31dce7089cc7bd3ce4e79c"},
+]
+
+[package.dependencies]
+Django = ">=4.2"
+
+[[package]]
 name = "django-stubs"
 version = "5.1.1"
 description = "Mypy stubs for Django"
@@ -410,4 +424,4 @@ test = ["covdefaults (>=2.3)", "coverage (>=7.2.7)", "coverage-enable-subprocess
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.12"
-content-hash = "84d142bf40ddca7347ac5dfa4728cb69b4e41c23f9bce918eaf4439cf6aca3c5"
+content-hash = "0640750902ee349d05845ced719ed70361f14ed006c94ea1c197e65603bdc375"
