@@ -1,4 +1,4 @@
-import { navigation_bar } from "./navigation_bar.js";
+import { navigation_bar, navigationMenuLinks } from "./navigation_bar.js";
 
 export const container = document.getElementById("container");
 const progress_bar = document.getElementById("progress-bar");
@@ -30,13 +30,30 @@ export function initScroll()
     // Event on scroll to change overlay opacity
     container.addEventListener("scroll", () =>
     {
+        const containerScrollTop = container.scrollTop;
+        const containerClientHeight = container.clientHeight;
+        const containerOffsetTop = Math.ceil(container.getBoundingClientRect().top);
+
         // Change class name to add opacity when scrolling down
-        const rounded_percentage = Math.round(container.scrollTop / container.clientHeight * 10) * 10;
+        const rounded_percentage = Math.round(containerScrollTop / containerClientHeight * 10) * 10;
         const overlay_opacity = Math.min(Math.max(rounded_percentage, 10), 70);
         overlay.className = overlay.className.replace(/bg-base-100\/\d+/, "bg-base-100/" + overlay_opacity);
 
         // Set the progress of the progress bar
-        progress_bar.value = (container.scrollTop / (container.scrollHeight - container.clientHeight)) * 100;
+        progress_bar.value = (containerScrollTop / (container.scrollHeight - containerClientHeight)) * 100;
+
+        // Change active section when corresponds
+        navigationMenuLinks.forEach((link) =>
+        {
+            const section = document.querySelector(link.getAttribute("href"));
+
+            if (section.offsetTop <= (containerScrollTop + containerOffsetTop))
+            {
+                navigationMenuLinks.forEach((other_link) => other_link.classList.remove("btn-active"));
+                link.classList.add("btn-active");
+                document.getElementById("active-section-title").innerHTML = link.innerHTML;
+            }
+        });
     });
 
 }
