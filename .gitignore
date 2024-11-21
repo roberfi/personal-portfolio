@@ -6,3 +6,4 @@ __pycache__
 # File extensions
 *.sqlite3
 *.jpg
+*.ico
