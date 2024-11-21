@@ -88,22 +88,26 @@
         <div class="flex-grow flex overflow-hidden w-full">
             <div id="container" class="flex-1 bg-scroll overflow-y-scroll w-full">
                 <div class="max-w-screen-lg text-base-content align-middle px-2 mx-auto h-full">
-                    <div id="home" class="section flex flex-col py-5 min-h-full">
-                        <div class="p-5 bg-base-200/70 rounded-lg">
-                            <h1 class="text-5xl text-center my-10">
-                                {{ personal_info.name }}
-                            </h1>
-                            <h3 class="text-xl text-center text-neutral-content">
-                                {{ personal_info.description }}
-                            </h3>
+                    <div id="home" class="section py-4 min-h-full">
+                        <div class="card bg-base-200/70">
+                            <div class="card-body">
+                                <h1 class="text-5xl text-center my-10">
+                                    {{ personal_info.name }}
+                                </h1>
+                                <h3 class="text-xl text-center text-neutral-content">
+                                    {{ personal_info.description }}
+                                </h3>
+                            </div>
                         </div>
                     </div>
-                    <div id="biography" class="section py-5 text-left space-y-4 min-h-full">
-                        <div class="p-5 bg-base-200 rounded-lg">
-                            <p>{{ personal_info.biography|linebreaksbr }}</p>
+                    <div id="biography" class="section py-4 min-h-full">
+                        <div class="card bg-base-200">
+                            <div class="card-body">
+                                <p>{{ personal_info.biography|linebreaksbr }}</p>
+                            </div>
                         </div>
                     </div>
-                    <div id="experience" class="section py-5 text-left space-y-4 min-h-full">
+                    <div id="experience" class="section py-4 min-h-full space-y-4">
                         {% for exp in experience %}
                         <div class="card bg-base-200">
                             <div class="card-body">
