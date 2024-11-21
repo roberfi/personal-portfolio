@@ -27,17 +27,12 @@ export function initScroll()
     {
         const containerScrollTop = container.scrollTop;
         const containerClientHeight = container.clientHeight;
-        const containerOffsetTop = Math.ceil(container.getBoundingClientRect().top);
-
-        // Change class name to add opacity when scrolling down
-        const rounded_percentage = Math.round(containerScrollTop / containerClientHeight * 10) * 10;
-        const overlay_opacity = Math.min(Math.max(rounded_percentage, 10), 70);
-        overlay.className = overlay.className.replace(/bg-base-100\/\d+/, "bg-base-100/" + overlay_opacity);
+        const containerOffsetTop = container.getBoundingClientRect().top;
 
         // Set the progress of the progress bar
         progress_bar.value = (containerScrollTop / (container.scrollHeight - containerClientHeight)) * 100;
 
-        const containerScrollValue = containerScrollTop + containerOffsetTop;
+        const containerScrollValue = Math.ceil(containerScrollTop + containerOffsetTop);
 
         // Change active section when corresponds
         navigationMenuLinks.forEach((link) =>
