@@ -4,6 +4,7 @@ from django.db import models
 # TODO: make row unique
 class PersonalInfo(models.Model):  # type: ignore[django-manager-missing] # https://github.com/typeddjango/django-stubs/issues/1023
     name = models.CharField(max_length=100)
+    description = models.CharField(max_length=100)
     biography = models.TextField()
 
 

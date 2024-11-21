@@ -4,7 +4,10 @@ from .models import PersonalInfo, Experience
 
 @register(PersonalInfo)
 class PersonalInfoTranslationOptions(TranslationOptions):
-    fields = ("biography",)
+    fields = (
+        "description",
+        "biography",
+    )
 
 
 @register(Experience)
