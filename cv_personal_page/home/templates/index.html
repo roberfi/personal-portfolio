@@ -118,7 +118,9 @@
                                         <p>{{ exp.location }}</p>
                                     </div>
                                 </div>
-                                <p>{{ exp.description|linebreaksbr }}</p>
+                                <div>
+                                    {{ exp.description|safe }}
+                                </div>
                             </div>
                         </div>
                         {% endfor %}
