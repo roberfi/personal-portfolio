@@ -5,33 +5,30 @@ export const navigation_bar = document.querySelector("#nav-bar");
 // Control of navigation menu buttons
 const navigationMenuButton = document.querySelector("#navigation-menu-button");
 const navigationMenu = document.querySelector("#navigation-menu");
-export const navigationMenuLinks = document.querySelectorAll("#navigation-menu > ul > li > a");
+export const navigationMenuLinks = document.querySelectorAll(
+  "#navigation-menu > ul > li > a",
+);
 
 const maxMdHiddenClassName = "max-md:hidden";
 
-function handleButtonClick(event)
-{
-    const target = event.target;
+function handleButtonClick(event) {
+  const target = event.target;
 
-    event.preventDefault();
-    smoothScroll(target.hash);
+  event.preventDefault();
+  smoothScroll(target.hash);
 
-    if (!navigationMenu.classList.contains(maxMdHiddenClassName))
-    {
-        navigationMenu.classList.add(maxMdHiddenClassName);
-    }
+  if (!navigationMenu.classList.contains(maxMdHiddenClassName)) {
+    navigationMenu.classList.add(maxMdHiddenClassName);
+  }
 }
 
-export function initNavigationBar()
-{
-    navigationMenuButton.addEventListener("click", () =>
-    {
-        navigationMenu.classList.toggle(maxMdHiddenClassName);
-    });
+export function initNavigationBar() {
+  navigationMenuButton.addEventListener("click", () => {
+    navigationMenu.classList.toggle(maxMdHiddenClassName);
+  });
 
-    // Clicks on navigation menu buttons
-    navigationMenuLinks.forEach((element) =>
-    {
-        element.addEventListener("click", handleButtonClick);
-    });
+  // Clicks on navigation menu buttons
+  navigationMenuLinks.forEach((element) => {
+    element.addEventListener("click", handleButtonClick);
+  });
 }

@@ -1,0 +1,9 @@
+# Not repo dirs
+.mypy_cache/
+.ruff_cache/
+.vscode/
+node_modules/
+
+# HTML files and bundle
+*.html
+cv_personal_page/static/
