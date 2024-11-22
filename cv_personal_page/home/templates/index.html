@@ -14,13 +14,12 @@
     <title>{{personal_info.name}}</title>
 
     <link rel="shortcut icon" href="{%  static 'favicon.ico' %}">
-    <link href="{% static '/css/main.min.css' %}" rel="stylesheet">
 
     <script>
         const csrftoken = '{{ csrf_token }}';
     </script>
 
-    <script type="module" src="{% static '/js/main.js' %}?v=1.0.6"></script>
+    <script type="module" src="{% static '/bundle.js' %}"></script>
 </head>
 
 <body class="js-loading overflow-hidden">
