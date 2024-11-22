@@ -16,8 +16,6 @@ export function smoothScroll(target) {
   }
 }
 
-const overlay = document.getElementById("overlay");
-
 export function initScroll() {
   // Event on scroll to change overlay opacity
   container.addEventListener("scroll", () => {
