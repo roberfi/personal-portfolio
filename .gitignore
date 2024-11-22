@@ -7,3 +7,6 @@ __pycache__
 *.sqlite3
 *.jpg
 *.ico
+
+# Node
+node_modules
