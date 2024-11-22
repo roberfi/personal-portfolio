@@ -3,7 +3,7 @@ repos:
     rev: v4.5.0
     hooks:
       - id: check-added-large-files
-        args: ['--maxkb=123']
+        args: ["--maxkb=123"]
       - id: check-ast
       - id: check-json
       - id: check-toml
@@ -23,5 +23,5 @@ repos:
     hooks:
       - id: mypy
         additional_dependencies:
-        - django-stubs==5.1.1
-        - django-modeltranslation==0.19.11
+          - django-stubs==5.1.1
+          - django-modeltranslation==0.19.11
