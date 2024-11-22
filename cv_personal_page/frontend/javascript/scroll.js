@@ -1,12 +1,12 @@
-import { navigation_bar, navigationMenuLinks } from "./navigation_bar.js";
+import { navigationBar, navigationMenuLinks } from "./navigation_bar.js";
 
 export const container = document.getElementById("container");
-const progress_bar = document.getElementById("progress-bar");
+const progressBar = document.getElementById("progress-bar");
 
 // Method to scroll smoothly into element
 export function smoothScroll(target) {
   const element = document.querySelector(target);
-  const navBarHeight = progress_bar.clientHeight + navigation_bar.clientHeight;
+  const navBarHeight = progressBar.clientHeight + navigationBar.clientHeight;
 
   if (element) {
     container.scrollTo({
@@ -24,7 +24,7 @@ export function initScroll() {
     const containerOffsetTop = container.getBoundingClientRect().top;
 
     // Set the progress of the progress bar
-    progress_bar.value =
+    progressBar.value =
       (containerScrollTop / (container.scrollHeight - containerClientHeight)) *
       100;
 

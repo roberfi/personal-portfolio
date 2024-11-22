@@ -1,6 +1,6 @@
 import { smoothScroll } from "./scroll.js";
 
-export const navigation_bar = document.querySelector("#nav-bar");
+export const navigationBar = document.querySelector("#nav-bar");
 
 // Control of navigation menu buttons
 const navigationMenuButton = document.querySelector("#navigation-menu-button");
