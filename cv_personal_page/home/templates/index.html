@@ -1,116 +1,137 @@
 {% load static %}
 {% load i18n %}
-
 {% get_current_language as CURRENT_LANGUAGE %}
 {% get_available_languages as AVAILABLE_LANGUAGES %}
 {% get_language_info_list for AVAILABLE_LANGUAGES as languages %}
-
 <!DOCTYPE html>
-<html lang="{{CURRENT_LANGUAGE}}" data-theme="luxury">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{personal_info.name}}</title>
-
-    <link rel="shortcut icon" href="{%  static 'favicon.ico' %}">
-
-    <script>
-        const csrftoken = '{{ csrf_token }}';
-    </script>
-
-    <script type="module" src="{% static '/bundle.js' %}"></script>
-</head>
-
-<body class="js-loading overflow-hidden">
-    <div class="absolute h-full w-full -z-20" style="background-image: url({% static 'background.jpg' %}); background-size: cover;"></div>
-    <div class="flex flex-col h-dvh w-screen">
-        <nav id="nav-bar" class="navbar bg-base-200 md:p-5">
-            <div class="relative max-md:inline-block md:flex navbar-start">
-                <button id="navigation-menu-button" class="btn btn-ghost md:hidden">
-                    <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15"/>
-                    </svg>
-                </button>
-                <div class="bg-base-200 max-md:hidden max-md:absolute max-md:z-10 max-md:mt-5 max-md:rounded-md max-md:shadow-lg max-md:p-2" id="navigation-menu" role="menu" aria-orientation="vertical" aria-labelledby="menu-button">
-                    <ul class="md:flex max-md:space-y-2">
-                        <li><a class="btn btn-ghost max-md:w-full justify-start text-xl btn-active" href="#home">{% translate "Home" %}</a></li>
-                        <li><a class="btn btn-ghost max-md:w-full justify-start text-xl" href="#biography">{% translate "Biography" %}</a></li>
-                        <li><a class="btn btn-ghost max-md:w-full justify-start text-xl" href="#experience">{% translate "Experience" %}</a></li>
-                    </ul>
+<html lang="{{ CURRENT_LANGUAGE }}" data-theme="luxury">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="description" content="Personal web of {{ personal_info.name }}">
+        <meta name="keywords" content="CV, Biography, Experience">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{{ personal_info.name }}</title>
+        <link rel="shortcut icon" href="{% static 'favicon.ico' %}">
+        <script>const csrftoken = '{{ csrf_token }}';</script>
+        <script type="module" src="{% static '/bundle.js' %}"></script>
+    </head>
+    <body class="js-loading overflow-hidden">
+        <div class="absolute h-full w-full -z-20"
+             style="background-image: url({% static 'background.jpg' %});
+                    background-size: cover"></div>
+        <div class="flex flex-col h-dvh w-screen">
+            <nav id="nav-bar" class="navbar bg-base-200 md:p-5">
+                <div class="relative max-md:inline-block md:flex navbar-start">
+                    <button id="navigation-menu-button" class="btn btn-ghost md:hidden">
+                        <svg class="w-5 h-5"
+                             aria-hidden="true"
+                             xmlns="http://www.w3.org/2000/svg"
+                             fill="none"
+                             viewBox="0 0 17 14">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15" />
+                        </svg>
+                    </button>
+                    <div class="bg-base-200 max-md:hidden max-md:absolute max-md:z-10 max-md:mt-5 max-md:rounded-md max-md:shadow-lg max-md:p-2"
+                         id="navigation-menu"
+                         role="menu"
+                         aria-orientation="vertical"
+                         aria-labelledby="menu-button">
+                        <ul class="md:flex max-md:space-y-2">
+                            <li>
+                                <a class="btn btn-ghost max-md:w-full justify-start text-xl btn-active"
+                                   href="#home">{% translate "Home" %}</a>
+                            </li>
+                            <li>
+                                <a class="btn btn-ghost max-md:w-full justify-start text-xl"
+                                   href="#biography">{% translate "Biography" %}</a>
+                            </li>
+                            <li>
+                                <a class="btn btn-ghost max-md:w-full justify-start text-xl"
+                                   href="#experience">{% translate "Experience" %}</a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
-            </div>
-            <span id="active-section-title" class="md:hidden">{% translate "Home" %}</span>
-            <div class="relative inline-block navbar-end text-end">
-                <button id="language-menu-button" class="btn btn-ghost">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" aria-hidden="true" fill="none" viewBox="0 0 24 24">
-                        <path stroke="currentColor" stroke-width="2" d="M12,23 C18.0751322,23 23,18.0751322 23,12 C23,5.92486775 18.0751322,1 12,1 C5.92486775,1 1,5.92486775 1,12 C1,18.0751322 5.92486775,23 12,23 Z M12,23 C15,23 16,18 16,12 C16,6 15,1 12,1 C9,1 8,6 8,12 C8,18 9,23 12,23 Z M2,16 L22,16 M2,8 L22,8"></path>
-                    </svg>
-                    <span>{{ CURRENT_LANGUAGE }}</span>
-                </button>
-                <div class="bg-base-200 hidden absolute right-0 z-10 mt-5 rounded-md shadow-lg p-2" id="language-menu" role="menu" aria-orientation="vertical" aria-labelledby="menu-button">
-                    <ul class="space-y-2">
-                        {% for language in languages %}
-                        <li>
-                            <form action="{% url 'set_language' %}" method="post">{% csrf_token %}
-                                <input name="next" type="hidden" value="/">
-                                <button type="submit" class="btn btn-ghost w-full justify-start text-xl {% if language.code == CURRENT_LANGUAGE %}btn-active{% endif %}" name="language" value="{{ language.code }}">
-                                    {{ language.name_local | title }}
-                                </button>
-                            </form>
-                        </li>
-                        {% endfor %}
-                    </ul>
+                <span id="active-section-title" class="md:hidden">{% translate "Home" %}</span>
+                <div class="relative inline-block navbar-end text-end">
+                    <button id="language-menu-button" class="btn btn-ghost">
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                             class="w-5 h-5"
+                             aria-hidden="true"
+                             fill="none"
+                             viewBox="0 0 24 24">
+                            <path stroke="currentColor" stroke-width="2" d="M12,23 C18.0751322,23 23,18.0751322 23,12 C23,5.92486775 18.0751322,1 12,1 C5.92486775,1 1,5.92486775 1,12 C1,18.0751322 5.92486775,23 12,23 Z M12,23 C15,23 16,18 16,12 C16,6 15,1 12,1 C9,1 8,6 8,12 C8,18 9,23 12,23 Z M2,16 L22,16 M2,8 L22,8">
+                            </path>
+                        </svg>
+                        <span>{{ CURRENT_LANGUAGE }}</span>
+                    </button>
+                    <div class="bg-base-200 hidden absolute right-0 z-10 mt-5 rounded-md shadow-lg p-2"
+                         id="language-menu"
+                         role="menu"
+                         aria-orientation="vertical"
+                         aria-labelledby="menu-button">
+                        <ul class="space-y-2">
+                            {% for language in languages %}
+                                <li>
+                                    <form action="{% url 'set_language' %}" method="post">
+                                        {% csrf_token %}
+                                        <input name="next" type="hidden" value="/">
+                                        <button type="submit"
+                                                class="btn btn-ghost w-full justify-start text-xl {% if language.code == CURRENT_LANGUAGE %}btn-active{% endif %}"
+                                                name="language"
+                                                value="{{ language.code }}">{{ language.name_local | title }}</button>
+                                    </form>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
                 </div>
-            </div>
-        </nav>
-
-        <progress id="progress-bar" class="flex progress w-full" value="0" max="100"></progress>
-
-        <div class="flex-grow flex overflow-hidden w-full">
-            <div id="container" class="flex-1 bg-scroll overflow-y-scroll w-full">
-                <div class="max-w-screen-lg text-base-content align-middle px-2 mx-auto h-full">
-                    <div id="home" class="section py-4 min-h-full">
-                        <div class="card bg-base-200/70">
-                            <div class="card-body">
-                                <h1 class="text-5xl text-center my-10">
-                                    {{ personal_info.name }}
-                                </h1>
-                                <h3 class="text-xl text-center text-neutral-content">
-                                    {{ personal_info.description }}
-                                </h3>
+            </nav>
+            <progress id="progress-bar" class="flex progress w-full" value="0" max="100"></progress>
+            <div class="flex-grow flex overflow-hidden w-full">
+                <div id="container" class="flex-1 bg-scroll overflow-y-scroll w-full">
+                    <div class="max-w-screen-lg text-base-content align-middle px-2 mx-auto h-full">
+                        <div id="home" class="section py-4 min-h-full">
+                            <div class="card bg-base-200/70">
+                                <div class="card-body">
+                                    <h1 class="text-5xl text-center my-10">{{ personal_info.name }}</h1>
+                                    <h3 class="text-xl text-center text-neutral-content">{{ personal_info.description }}</h3>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div id="biography" class="section py-4 min-h-full">
-                        <div class="card bg-base-200">
-                            <div class="card-body">
-                                <p>{{ personal_info.biography|linebreaksbr }}</p>
+                        <div id="biography" class="section py-4 min-h-full">
+                            <div class="card bg-base-200">
+                                <div class="card-body">
+                                    <p>{{ personal_info.biography|linebreaksbr }}</p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div id="experience" class="section py-4 min-h-full space-y-4">
-                        {% for exp in experience %}
-                        <div class="card bg-base-200">
-                            <div class="card-body">
-                                <div class="pb-5">
-                                    <h2 class="text-3xl bold">{{ exp.title }} {% translate "at" %} {{ exp.company }}</h2>
-                                    <div class="text-sm text-neutral-content">
-                                        <p>{{ exp.start_date }} - {% if exp.end_date %}{{ exp.end_date }}{% else %}{% translate "Present" %}{% endif %}</p> <!-- TODO: translations -->
-                                        <p>{{ exp.location }}</p>
+                        <div id="experience" class="section py-4 min-h-full space-y-4">
+                            {% for exp in experience %}
+                                <div class="card bg-base-200">
+                                    <div class="card-body">
+                                        <div class="pb-5">
+                                            <h2 class="text-3xl bold">{{ exp.title }} {% translate "at" %} {{ exp.company }}</h2>
+                                            <div class="text-sm text-neutral-content">
+                                                <p>
+                                                    {{ exp.start_date }} -
+                                                    {% if exp.end_date %}
+                                                        {{ exp.end_date }}
+                                                    {% else %}
+                                                        {% translate "Present" %}
+                                                    {% endif %}
+                                                </p>
+                                                <p>{{ exp.location }}</p>
+                                            </div>
+                                        </div>
+                                        <div>{{ exp.description|safe }}</div>
                                     </div>
                                 </div>
-                                <div>
-                                    {{ exp.description|safe }}
-                                </div>
-                            </div>
+                            {% endfor %}
                         </div>
-                        {% endfor %}
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</body>
-
+    </body>
 </html>

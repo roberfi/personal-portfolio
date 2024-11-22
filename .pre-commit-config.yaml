@@ -25,3 +25,13 @@ repos:
         additional_dependencies:
           - django-stubs==5.1.1
           - django-modeltranslation==0.19.11
+
+  - repo: https://github.com/djlint/djLint
+    rev: v1.35.4
+    hooks:
+      - id: djlint-reformat-handlebars
+        files: "\\.html"
+        types_or: ["html"]
+      - id: djlint-handlebars
+        files: "\\.html"
+        types_or: ["html"]
