@@ -1,6 +1,8 @@
-import { container, smoothScroll, initScroll } from "./scroll.js";
-import { initLanguage } from "./language.js";
-import { initNavigationBar } from "./navigation_bar.js";
+import "./styles/main.css";
+
+import { container, smoothScroll, initScroll } from "./javascript/scroll.js";
+import { initLanguage } from "./javascript/language.js";
+import { initNavigationBar } from "./javascript/navigation_bar.js";
 
 window.addEventListener('load', () =>
 {
