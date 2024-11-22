@@ -11,13 +11,13 @@
         <meta name="keywords" content="CV, Biography, Experience">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>{{ personal_info.name }}</title>
-        <link rel="shortcut icon" href="{% static 'favicon.ico' %}">
+        <link rel="shortcut icon" href="{{ MEDIA_URL }}favicon.ico">
         <script>const csrftoken = '{{ csrf_token }}';</script>
         <script type="module" src="{% static '/bundle.js' %}"></script>
     </head>
     <body class="js-loading overflow-hidden">
         <div class="absolute h-full w-full -z-20"
-             style="background-image: url({% static 'background.jpg' %});
+             style="background-image: url({{ MEDIA_URL }}background.jpg);
                     background-size: cover"></div>
         <div class="flex flex-col h-dvh w-screen">
             <nav id="nav-bar" class="navbar bg-base-200 md:p-5">
