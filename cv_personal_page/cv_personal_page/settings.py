@@ -129,6 +129,8 @@ USE_TZ = True
 
 STATIC_URL = "static/"
 
+STATICFILES_DIRS = (BASE_DIR / "static/",)
+
 LOCALE_PATHS = (BASE_DIR / "locale/",)
 
 # Default primary key field type
