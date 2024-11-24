@@ -11,6 +11,20 @@ python_version = "3.11"
 mypy_path = "$MYPY_CONFIG_FILE_DIR/cv_personal_page"
 plugins = ["mypy_django_plugin.main"]
 
+[tool.ruff]
+line-length = 120
+indent-width = 4
+target-version = "py311"
+
+[tool.ruff.lint]
+select = [
+    "E",  # pycodestyle error
+    "I",  # isort
+    "N",  # pep8-naming
+    "TC", # flake8-type-checking
+    "W",  # pycodestyle warning
+]
+
 [tool.djlint]
 files = ["\\.html"]
 
@@ -24,7 +38,7 @@ django-modeltranslation = "^0.19.11"
 
 [tool.poetry.group.dev.dependencies]
 mypy = "^1.13.0"
-ruff = "^0.7.3"
+ruff = "^0.8.0"
 pre-commit = "^3.7.0"
 django-stubs = { extras = ["compatible-mypy"], version = "^5.1.1" }
 djlint = "^1.36.1"
