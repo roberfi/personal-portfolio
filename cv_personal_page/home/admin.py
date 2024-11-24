@@ -1,5 +1,6 @@
-from home.models import PersonalInfo, Experience
-from django.contrib.admin import register, ModelAdmin
+from django.contrib.admin import ModelAdmin, register
+
+from home.models import Experience, PersonalInfo
 
 
 @register(PersonalInfo)

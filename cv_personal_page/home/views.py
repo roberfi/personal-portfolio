@@ -1,6 +1,7 @@
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render
-from .models import PersonalInfo, Experience
+
+from .models import Experience, PersonalInfo
 
 
 def home_view(request: HttpRequest) -> HttpResponse:
