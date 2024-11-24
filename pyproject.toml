@@ -44,6 +44,14 @@ pre-commit = "^3.7.0"
 django-stubs = { extras = ["compatible-mypy"], version = "^5.1.1" }
 djlint = "^1.36.1"
 
+[tool.poetry.group.prod.dependencies]
+gunicorn = "^23.0.0"
+uvicorn = "^0.32.1"
+psycopg2-binary = "^2.9.10"
+dj-database-url = "^2.3.0"
+whitenoise = { extras = ["brotli"], version = "^6.8.2" }
+django-storages = { extras = ["dropbox"], version = "^1.14.4" }
+
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
