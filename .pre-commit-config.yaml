@@ -25,6 +25,7 @@ repos:
         additional_dependencies:
           - django-stubs==5.1.1
           - django-modeltranslation==0.19.11
+          - python-dotenv==1.0.1
 
   - repo: https://github.com/djlint/djLint
     rev: v1.35.4
