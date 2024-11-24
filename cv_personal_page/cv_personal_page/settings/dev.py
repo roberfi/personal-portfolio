@@ -1,11 +1,11 @@
 from dotenv import load_dotenv
 
-from cv_personal_page.settings.base import *
-
 load_dotenv()
 
+from cv_personal_page.settings.base import *  # noqa: E402
+
 DEBUG = True
-ALLOWED_HOSTS: list[str] = ["*"]
+ALLOWED_HOSTS.append("*")
 
 DATABASES = {
     "default": {

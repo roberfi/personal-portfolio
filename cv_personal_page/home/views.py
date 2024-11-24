@@ -1,3 +1,4 @@
+from django.core.files.storage import default_storage
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render
 
@@ -9,6 +10,8 @@ def home_view(request: HttpRequest) -> HttpResponse:
         request,
         "index.html",
         {
+            "favicon_url": default_storage.url("favicon.ico"),
+            "background_url": default_storage.url("background.jpg"),
             "personal_info": PersonalInfo.objects.first(),
             "experience": Experience.objects.all(),
         },
