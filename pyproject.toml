@@ -7,7 +7,7 @@ readme = "README.md"
 package-mode = false
 
 [tool.mypy]
-python_version = "3.12"
+python_version = "3.11"
 mypy_path = "$MYPY_CONFIG_FILE_DIR/cv_personal_page"
 plugins = ["mypy_django_plugin.main"]
 
@@ -18,7 +18,7 @@ files = ["\\.html"]
 django_settings_module = "cv_personal_page.settings"
 
 [tool.poetry.dependencies]
-python = "^3.12"
+python = "^3.11"
 django = "^5.1.3"
 django-modeltranslation = "^0.19.11"
 
