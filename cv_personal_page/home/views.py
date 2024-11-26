@@ -13,6 +13,6 @@ def home_view(request: HttpRequest) -> HttpResponse:
             "favicon_url": default_storage.url("favicon.ico"),
             "background_url": default_storage.url("background.jpg"),
             "personal_info": PersonalInfo.objects.first(),
-            "experience": Experience.objects.all(),
+            "experience": Experience.objects.all().order_by("-end_date"),
         },
     )
