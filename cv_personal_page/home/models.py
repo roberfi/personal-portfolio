@@ -5,7 +5,7 @@ from functools import cached_property
 from typing import NamedTuple
 
 from django.db import models
-from django.utils.translation import ngettext
+from django.utils.translation import gettext, ngettext
 
 
 # TODO: make row unique
@@ -13,6 +13,9 @@ class PersonalInfo(models.Model):  # type: ignore[django-manager-missing] # http
     name = models.CharField(max_length=100)
     description = models.CharField(max_length=100)
     biography = models.TextField()
+
+    def __str__(self) -> str:
+        return self.name
 
 
 class Experience(models.Model):  # type: ignore[django-manager-missing] # https://github.com/typeddjango/django-stubs/issues/1023
@@ -56,3 +59,6 @@ class Experience(models.Model):  # type: ignore[django-manager-missing] # https:
         )
 
         return ", ".join((p for p in parts if p))
+
+    def __str__(self) -> str:
+        return gettext("%(job)s at %(company)s") % {"job": self.title, "company": self.company}
