@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-11-27 10:56+0000\n"
+"POT-Creation-Date: 2024-11-27 12:12+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26,19 +26,24 @@ msgstr "Inglés"
 msgid "Spanish"
 msgstr "Español"
 
-#: home/models.py:54
+#: home/models.py:57
 #, python-format
 msgid "%d year"
 msgid_plural "%d years"
 msgstr[0] "%d año"
 msgstr[1] "%d años"
 
-#: home/models.py:55
+#: home/models.py:58
 #, python-format
 msgid "%d month"
 msgid_plural "%d months"
 msgstr[0] "%d mes"
 msgstr[1] "%d meses"
+
+#: home/models.py:64
+#, python-format
+msgid "%(job)s at %(company)s"
+msgstr "%(job)s en %(company)s"
 
 #: home/templates/index.html:42 home/templates/index.html:55
 msgid "Home"
@@ -51,10 +56,6 @@ msgstr "Biografía"
 #: home/templates/index.html:50
 msgid "Experience"
 msgstr "Experiencia"
-
-#: home/templates/index.html:114
-msgid "at"
-msgstr "en"
 
 #: home/templates/index.html:121
 msgid "Present"
