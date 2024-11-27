@@ -114,12 +114,13 @@
                                             <h2 class="text-3xl bold">{{ exp.title }} {% translate "at" %} {{ exp.company }}</h2>
                                             <div class="text-sm text-neutral-content">
                                                 <p>
-                                                    {{ exp.start_date }} -
+                                                    {{ exp.start_date | date:"M, Y"}} -
                                                     {% if exp.end_date %}
-                                                        {{ exp.end_date }}
+                                                        {{ exp.end_date | date:"M, Y" }}
                                                     {% else %}
                                                         {% translate "Present" %}
                                                     {% endif %}
+                                                    ({{ exp.duration }})
                                                 </p>
                                                 <p>{{ exp.location }}</p>
                                             </div>
