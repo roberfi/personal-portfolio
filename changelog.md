@@ -1,6 +1,6 @@
 # Changelog
 
-## Next release
+## v0.0.2
 
 - Sort experiences by end_date
 - Add experiences duration and remove the day from dates displaying
