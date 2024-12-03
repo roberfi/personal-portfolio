@@ -14,10 +14,7 @@ window.addEventListener("load", () => {
     container.scrollTo(0, 0);
 
     // Remove loading class
-    document.body.className = document.body.className.replace(
-      /\bjs-loading\b/,
-      "",
-    );
+    document.body.classList.remove("js-loading");
 
     if (window.location.hash) {
       setTimeout(() => {
