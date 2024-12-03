@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-11-27 12:12+0000\n"
+"POT-Creation-Date: 2024-12-03 18:03+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -45,18 +45,18 @@ msgstr[1] "%d meses"
 msgid "%(job)s at %(company)s"
 msgstr "%(job)s en %(company)s"
 
-#: home/templates/index.html:42 home/templates/index.html:55
+#: home/templates/index.html:39 home/templates/index.html:50
 msgid "Home"
 msgstr "Inicio"
 
-#: home/templates/index.html:46
-msgid "Biography"
-msgstr "Biografía"
+#: home/templates/index.html:42 home/templates/index.html:103
+msgid "About me"
+msgstr "Sobre mí"
 
-#: home/templates/index.html:50
-msgid "Experience"
-msgstr "Experiencia"
+#: home/templates/index.html:45 home/templates/index.html:110
+msgid "My Career"
+msgstr "Mi Experiencia"
 
-#: home/templates/index.html:121
+#: home/templates/index.html:129 home/templates/index.html:161
 msgid "Present"
 msgstr "Actualmente"

@@ -8,6 +8,20 @@ module.exports = {
   ],
   plugins: [require("daisyui")],
   daisyui: {
-    themes: ["luxury"],
+    themes: [
+      {
+        cv_personal_page: {
+          primary: "#fdba74",
+          secondary: "#93c5fd",
+          accent: "#f97316",
+          neutral: "#111827",
+          "base-100": "#4b5563",
+          info: "#0ea5e9",
+          success: "#4ade80",
+          warning: "#fef08a",
+          error: "#f87171",
+        },
+      },
+    ],
   },
 };

@@ -19,33 +19,30 @@ export function smoothScroll(target) {
 export function initScroll() {
   // Event on scroll to change overlay opacity
   container.addEventListener("scroll", () => {
-    const containerScrollTop = container.scrollTop;
-    const containerClientHeight = container.clientHeight;
-    const containerOffsetTop = container.getBoundingClientRect().top;
+    // Change the section on the 1/4 of the container
+    const containerScrollPosition =
+      container.scrollTop + container.offsetTop + container.clientHeight / 4;
 
     // Set the progress of the progress bar
     progressBar.value =
-      (containerScrollTop / (container.scrollHeight - containerClientHeight)) *
+      (container.scrollTop /
+        (container.scrollHeight - container.clientHeight)) *
       100;
 
-    const containerScrollValue = Math.ceil(
-      containerScrollTop + containerOffsetTop,
-    );
-
     // Change active section when corresponds
-    navigationMenuLinks.forEach((link) => {
+    Array.from(navigationMenuLinks).every((link) => {
       const sectionHash = link.getAttribute("href");
       const section = document.querySelector(sectionHash);
 
       if (
-        section.offsetTop <= containerScrollValue &&
-        section.offsetTop + section.clientHeight > containerScrollValue
+        section.offsetTop <= containerScrollPosition &&
+        section.offsetTop + section.clientHeight > containerScrollPosition
       ) {
         // Update button state
         navigationMenuLinks.forEach((other_link) =>
-          other_link.classList.remove("btn-active"),
+          other_link.classList.remove("md:btn-active"),
         );
-        link.classList.add("btn-active");
+        link.classList.add("md:btn-active");
 
         // Update text of title for mobiles
         document.getElementById("active-section-title").textContent =
@@ -55,7 +52,11 @@ export function initScroll() {
         if (sectionHash != window.location.hash) {
           history.replaceState(null, null, sectionHash);
         }
+
+        return false;
       }
+
+      return true;
     });
   });
 }
