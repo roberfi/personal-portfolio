@@ -1,5 +1,9 @@
 # Changelog
 
+## Next release
+
+-
+
 ## v0.0.2
 
 - Sort experiences by end_date
