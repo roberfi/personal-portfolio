@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "cv-personal-page"
-version = "0.0.2.dev0"
+version = "0.0.2"
 description = ""
 authors = ["Roberto Fernández Iglesias <roberfi@gmail.com>"]
 readme = "README.md"
