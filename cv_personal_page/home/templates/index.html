@@ -8,14 +8,16 @@
 {% endblock web_description %}
 {% block menu_items %}
     <li>
-        <a class="btn max-md:w-full justify-start text-xl md:btn-active"
+        <a class="btn btn-ghost max-md:w-full justify-start text-xl md:btn-active"
            href="#home">{% translate "Home" %}</a>
     </li>
     <li>
-        <a class="btn max-md:w-full justify-start text-xl" href="#about-me">{% translate "About me" %}</a>
+        <a class="btn btn-ghost max-md:w-full justify-start text-xl"
+           href="#about-me">{% translate "About me" %}</a>
     </li>
     <li>
-        <a class="btn max-md:w-full justify-start text-xl" href="#my-career">{% translate "My Career" %}</a>
+        <a class="btn btn-ghost max-md:w-full justify-start text-xl"
+           href="#my-career">{% translate "My Career" %}</a>
     </li>
 {% endblock menu_items %}
 {% block content %}
@@ -23,14 +25,14 @@
         <div class="absolute h-full w-full -z-20"
              style="background-image: url({{ background_url }});
                     background-size: cover"></div>
-        <div class="absolute right-1/4 top-2/4 h-fit md:mx-auto max-md:mx-5">
+        <div class="absolute right-1/4 top-2/4 h-fit px-5">
             <h1 class="text-5xl mb-10 text-primary">{{ personal_info.name }}</h1>
             <h3 class="text-xl text-neutral-content">{{ personal_info.description }}</h3>
         </div>
     </div>
     <div id="about-me"
          class="relative w-full bg-base-300 text-neutral-content py-32">
-        <div class="max-w-screen-lg h-fit py-4 md:mx-auto max-md:mx-5">
+        <div class="h-fit py-4 lg:max-w-screen-lg lg:mx-auto px-5">
             <div>
                 <h1 class="text-5xl mb-10 text-primary">{% translate "About me" %}</h1>
                 <p>{{ personal_info.biography|linebreaksbr }}</p>
@@ -38,7 +40,7 @@
         </div>
     </div>
     <div id="my-career" class="w-full py-32 min-h-full">
-        <div class="max-w-screen-lg h-fit py-4 md:mx-auto max-md:mx-5">
+        <div class="h-fit py-4 lg:max-w-screen-lg lg:mx-auto px-5">
             <h1 class="text-5xl mb-10 text-primary">{% translate "My Career" %}</h1>
             <ul class="timeline timeline-snap-icon max-md:timeline-compact timeline-vertical">
                 {% for exp in experience %}

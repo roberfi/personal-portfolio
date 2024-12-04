@@ -2,7 +2,7 @@
 
 ## Next release
 
--
+- Minor UI improvements
 
 ## v0.0.2
 
