@@ -1,6 +1,10 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ["cv_personal_page/*/templates/*.{html, js}"],
+  content: [
+    "cv_personal_page/templates/*.html",
+    "cv_personal_page/frontend/**/*.js",
+    "cv_personal_page/*/templates/*.html",
+  ],
   safelist: [
     // List classes used in database fields
     "list-disc",
