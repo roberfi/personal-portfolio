@@ -1,185 +1,114 @@
-{% load static %}
+{% extends "base.html" %}
 {% load i18n %}
-{% get_current_language as CURRENT_LANGUAGE %}
-{% get_available_languages as AVAILABLE_LANGUAGES %}
-{% get_language_info_list for AVAILABLE_LANGUAGES as languages %}
-<!DOCTYPE html>
-<html lang="{{ CURRENT_LANGUAGE }}" data-theme="cv_personal_page">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="description" content="Personal web of {{ personal_info.name }}">
-        <meta name="keywords" content="CV, Biography, Career">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>{{ personal_info.name }}</title>
-        <link rel="shortcut icon" href="{{ favicon_url }}">
-        <script>const csrftoken = '{{ csrf_token }}';</script>
-        <script type="module" src="{% static '/bundle.js' %}"></script>
-    </head>
-    <body class="js-loading overflow-hidden">
-        <div class="flex flex-col h-dvh w-screen">
-            <nav id="nav-bar" class="navbar bg-base-200 md:p-5">
-                <div class="relative max-md:inline-block md:flex navbar-start">
-                    <button id="navigation-menu-button" class="btn md:hidden">
-                        <svg class="w-5 h-5"
-                             aria-hidden="true"
-                             xmlns="http://www.w3.org/2000/svg"
-                             fill="none"
-                             viewBox="0 0 17 14">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15" />
-                        </svg>
-                    </button>
-                    <div class="bg-base-200 max-md:hidden max-md:absolute max-md:z-10 max-md:mt-5 max-md:rounded-md max-md:shadow-lg max-md:p-2"
-                         id="navigation-menu"
-                         role="menu"
-                         aria-orientation="vertical"
-                         aria-labelledby="menu-button">
-                        <ul class="md:flex max-md:space-y-2 whitespace-nowrap">
-                            <li>
-                                <a class="btn max-md:w-full justify-start text-xl md:btn-active"
-                                   href="#home">{% translate "Home" %}</a>
-                            </li>
-                            <li>
-                                <a class="btn max-md:w-full justify-start text-xl" href="#about-me">{% translate "About me" %}</a>
-                            </li>
-                            <li>
-                                <a class="btn max-md:w-full justify-start text-xl" href="#my-career">{% translate "My Career" %}</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <span id="active-section-title" class="md:hidden whitespace-nowrap">{% translate "Home" %}</span>
-                <div class="relative inline-block navbar-end text-end">
-                    <button id="language-menu-button" class="btn">
-                        <svg xmlns="http://www.w3.org/2000/svg"
-                             class="w-5 h-5"
-                             aria-hidden="true"
-                             fill="none"
-                             viewBox="0 0 24 24">
-                            <path stroke="currentColor" stroke-width="2" d="M12,23 C18.0751322,23 23,18.0751322 23,12 C23,5.92486775 18.0751322,1 12,1 C5.92486775,1 1,5.92486775 1,12 C1,18.0751322 5.92486775,23 12,23 Z M12,23 C15,23 16,18 16,12 C16,6 15,1 12,1 C9,1 8,6 8,12 C8,18 9,23 12,23 Z M2,16 L22,16 M2,8 L22,8">
-                            </path>
-                        </svg>
-                        <span>{{ CURRENT_LANGUAGE }}</span>
-                    </button>
-                    <div class="bg-base-200 hidden absolute right-0 z-10 mt-5 rounded-md shadow-lg p-2"
-                         id="language-menu"
-                         role="menu"
-                         aria-orientation="vertical"
-                         aria-labelledby="menu-button">
-                        <ul class="space-y-2">
-                            {% for language in languages %}
-                                <li>
-                                    <form action="{% url 'set_language' %}" method="post">
-                                        {% csrf_token %}
-                                        <input name="next" type="hidden" value="/">
-                                        <button type="submit"
-                                                class="btn w-full justify-start text-xl {% if language.code == CURRENT_LANGUAGE %}btn-disabled{% endif %}"
-                                                name="language"
-                                                value="{{ language.code }}">{{ language.name_local | title }}</button>
-                                    </form>
-                                </li>
-                            {% endfor %}
-                        </ul>
-                    </div>
-                </div>
-            </nav>
-            <progress id="progress-bar"
-                      class="flex progress progress-primary w-full max-md:h-4"
-                      value="0"
-                      max="100"></progress>
-            <div id="container" class="overflow-y-auto">
-                <div id="home" class="relative w-full h-full">
-                    <div class="absolute h-full w-full -z-20"
-                         style="background-image: url({{ background_url }});
-                                background-size: cover"></div>
-                    <div class="absolute right-1/4 top-2/4 h-fit md:mx-auto max-md:mx-5">
-                        <h1 class="text-5xl mb-10 text-primary">{{ personal_info.name }}</h1>
-                        <h3 class="text-xl text-neutral-content">{{ personal_info.description }}</h3>
-                    </div>
-                </div>
-                <div id="about-me"
-                     class="relative w-full bg-base-300 text-neutral-content py-32">
-                    <div class="max-w-screen-lg h-fit py-4 md:mx-auto max-md:mx-5">
-                        <div>
-                            <h1 class="text-5xl mb-10 text-primary">{% translate "About me" %}</h1>
-                            <p>{{ personal_info.biography|linebreaksbr }}</p>
-                        </div>
-                    </div>
-                </div>
-                <div id="my-career" class="w-full py-32 min-h-full">
-                    <div class="max-w-screen-lg h-fit py-4 md:mx-auto max-md:mx-5">
-                        <h1 class="text-5xl mb-10 text-primary">{% translate "My Career" %}</h1>
-                        <ul class="timeline timeline-snap-icon max-md:timeline-compact timeline-vertical">
-                            {% for exp in experience %}
-                                <li>
-                                    {% if not forloop.first %}<hr />{% endif %}
-                                    <div class="timeline-middle text-primary">
-                                        <svg xmlns="http://www.w3.org/2000/svg"
-                                             viewBox="0 0 20 20"
-                                             fill="currentColor"
-                                             class="h-5 w-5">
-                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" />
-                                        </svg>
-                                    </div>
-                                    <div class="!mb-10 w-full {% if forloop.counter|divisibleby:2 %}timeline-start md:text-end{% else %}timeline-end{% endif %}">
-                                        <time class="font-mono text-primary">
-                                            {{ exp.start_date | date:"M, Y" }} -
-                                            {% if exp.end_date %}
-                                                {{ exp.end_date | date:"M, Y" }}
-                                            {% else %}
-                                                {% translate "Present" %}
-                                            {% endif %}
-                                        </time>
-                                        <div class="font-mono text-primary">({{ exp.duration }})</div>
-                                        <div class="text-lg font-black mt-5">{{ exp.title }}</div>
-                                        <div class="font-mono text-secondary">{{ exp.company }}</div>
-                                        <div class="font-mono text-secondary">{{ exp.location }}</div>
-                                        <div class="mb-1">
-                                            <!-- Button to show modal with experience info -->
-                                            <button class="btn btn-ghost"
-                                                    onclick="experience_modal_{{ exp.id }}.showModal()">
-                                                <svg class="h-5 w-5"
-                                                     viewBox="0 0 20 20"
-                                                     xmlns="http://www.w3.org/2000/svg"
-                                                     xmlns:xlink="http://www.w3.org/1999/xlink"
-                                                     xmlns:sketch="http://www.bohemiancoding.com/sketch/ns"
-                                                     fill="currentColor">
-                                                    <path fill-rule="evenodd" d="M10 3a7 7 0 100 14 7 7 0 000-14zm-9 7a9 9 0 1118 0 9 9 0 01-18 0zm14 .069a1 1 0 01-1 1h-2.931V14a1 1 0 11-2 0v-2.931H6a1 1 0 110-2h3.069V6a1 1 0 112 0v3.069H14a1 1 0 011 1z">
-                                                    </path>
-                                                </svg>
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <dialog id="experience_modal_{{ exp.id }}" class="modal">
-                                        <div class="modal-box w-11/12 max-w-5xl flex flex-col max-md:p-4">
-                                            <div class="flex-1 overflow-y-auto">
-                                                <h3 class="text-lg font-bold">{{ exp.title }}</h3>
-                                                <time class="font-mono text-primary">
-                                                    {{ exp.start_date | date:"M, Y" }} -
-                                                    {% if exp.end_date %}
-                                                        {{ exp.end_date | date:"M, Y" }}
-                                                    {% else %}
-                                                        {% translate "Present" %}
-                                                    {% endif %}
-                                                </time>
-                                                <div class="font-mono text-primary">({{ exp.duration }})</div>
-                                                <div class="font-mono text-secondary">{{ exp.company }}</div>
-                                                <div class="font-mono text-secondary">{{ exp.location }}</div>
-                                                <p class="py-4">{{ exp.description|safe }}</p>
-                                            </div>
-                                            <div class="modal-action">
-                                                <form method="dialog">
-                                                    <button class="btn">Close</button>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </dialog>
-                                    {% if not forloop.last %}<hr />{% endif %}
-                                </li>
-                            {% endfor %}
-                        </ul>
-                    </div>
-                </div>
+{% block title %}
+    {{ personal_info.name }}
+{% endblock title %}
+{% block web_description %}
+    Personal web of {{ personal_info.name }}
+{% endblock web_description %}
+{% block menu_items %}
+    <li>
+        <a class="btn max-md:w-full justify-start text-xl md:btn-active"
+           href="#home">{% translate "Home" %}</a>
+    </li>
+    <li>
+        <a class="btn max-md:w-full justify-start text-xl" href="#about-me">{% translate "About me" %}</a>
+    </li>
+    <li>
+        <a class="btn max-md:w-full justify-start text-xl" href="#my-career">{% translate "My Career" %}</a>
+    </li>
+{% endblock menu_items %}
+{% block content %}
+    <div id="home" class="relative w-full h-full">
+        <div class="absolute h-full w-full -z-20"
+             style="background-image: url({{ background_url }});
+                    background-size: cover"></div>
+        <div class="absolute right-1/4 top-2/4 h-fit md:mx-auto max-md:mx-5">
+            <h1 class="text-5xl mb-10 text-primary">{{ personal_info.name }}</h1>
+            <h3 class="text-xl text-neutral-content">{{ personal_info.description }}</h3>
+        </div>
+    </div>
+    <div id="about-me"
+         class="relative w-full bg-base-300 text-neutral-content py-32">
+        <div class="max-w-screen-lg h-fit py-4 md:mx-auto max-md:mx-5">
+            <div>
+                <h1 class="text-5xl mb-10 text-primary">{% translate "About me" %}</h1>
+                <p>{{ personal_info.biography|linebreaksbr }}</p>
             </div>
         </div>
-    </body>
-</html>
+    </div>
+    <div id="my-career" class="w-full py-32 min-h-full">
+        <div class="max-w-screen-lg h-fit py-4 md:mx-auto max-md:mx-5">
+            <h1 class="text-5xl mb-10 text-primary">{% translate "My Career" %}</h1>
+            <ul class="timeline timeline-snap-icon max-md:timeline-compact timeline-vertical">
+                {% for exp in experience %}
+                    <li>
+                        {% if not forloop.first %}<hr />{% endif %}
+                        <div class="timeline-middle text-primary">
+                            <svg xmlns="http://www.w3.org/2000/svg"
+                                 viewBox="0 0 20 20"
+                                 fill="currentColor"
+                                 class="h-5 w-5">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" />
+                            </svg>
+                        </div>
+                        <div class="!mb-10 w-full {% if forloop.counter|divisibleby:2 %}timeline-start md:text-end{% else %}timeline-end{% endif %}">
+                            <time class="font-mono text-primary">
+                                {{ exp.start_date | date:"M, Y" }} -
+                                {% if exp.end_date %}
+                                    {{ exp.end_date | date:"M, Y" }}
+                                {% else %}
+                                    {% translate "Present" %}
+                                {% endif %}
+                            </time>
+                            <div class="font-mono text-primary">({{ exp.duration }})</div>
+                            <div class="text-lg font-black mt-5">{{ exp.title }}</div>
+                            <div class="font-mono text-secondary">{{ exp.company }}</div>
+                            <div class="font-mono text-secondary">{{ exp.location }}</div>
+                            <div class="mb-1">
+                                <!-- Button to show modal with experience info -->
+                                <button class="btn btn-ghost"
+                                        onclick="experience_modal_{{ exp.id }}.showModal()">
+                                    <svg class="h-5 w-5"
+                                         viewBox="0 0 20 20"
+                                         xmlns="http://www.w3.org/2000/svg"
+                                         xmlns:xlink="http://www.w3.org/1999/xlink"
+                                         xmlns:sketch="http://www.bohemiancoding.com/sketch/ns"
+                                         fill="currentColor">
+                                        <path fill-rule="evenodd" d="M10 3a7 7 0 100 14 7 7 0 000-14zm-9 7a9 9 0 1118 0 9 9 0 01-18 0zm14 .069a1 1 0 01-1 1h-2.931V14a1 1 0 11-2 0v-2.931H6a1 1 0 110-2h3.069V6a1 1 0 112 0v3.069H14a1 1 0 011 1z">
+                                        </path>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                        <dialog id="experience_modal_{{ exp.id }}" class="modal">
+                            <div class="modal-box w-11/12 max-w-5xl flex flex-col max-md:p-4">
+                                <div class="flex-1 overflow-y-auto">
+                                    <h3 class="text-lg font-bold">{{ exp.title }}</h3>
+                                    <time class="font-mono text-primary">
+                                        {{ exp.start_date | date:"M, Y" }} -
+                                        {% if exp.end_date %}
+                                            {{ exp.end_date | date:"M, Y" }}
+                                        {% else %}
+                                            {% translate "Present" %}
+                                        {% endif %}
+                                    </time>
+                                    <div class="font-mono text-primary">({{ exp.duration }})</div>
+                                    <div class="font-mono text-secondary">{{ exp.company }}</div>
+                                    <div class="font-mono text-secondary">{{ exp.location }}</div>
+                                    <p class="py-4">{{ exp.description|safe }}</p>
+                                </div>
+                                <div class="modal-action">
+                                    <form method="dialog">
+                                        <button class="btn">Close</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </dialog>
+                        {% if not forloop.last %}<hr />{% endif %}
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+{% endblock content %}

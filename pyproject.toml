@@ -26,6 +26,7 @@ select = [
 ]
 
 [tool.djlint]
+profile = "django"
 files = ["\\.html"]
 
 [tool.django-stubs]
