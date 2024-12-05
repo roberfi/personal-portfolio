@@ -31,12 +31,6 @@ STORAGES = {
         },
     },
     "staticfiles": {
-        # TODO: use when https://github.com/evansd/whitenoise/issues/561 is fixed
-        # "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
-        "BACKEND": "whitenoise.storage.CompressedStaticFilesStorage",
-        "OPTIONS": {
-            "location": BASE_DIR / "staticfiles",
-            "base_url": STATIC_URL,
-        },
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
     },
 }

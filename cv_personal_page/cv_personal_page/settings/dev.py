@@ -12,19 +12,5 @@ DATABASES = {
     }
 }
 
-STORAGES = {
-    "default": {
-        "BACKEND": "django.core.files.storage.FileSystemStorage",
-        "OPTIONS": {
-            "location": BASE_DIR / "media",
-            "base_url": "/media/",
-        },
-    },
-    "staticfiles": {
-        "BACKEND": "django.core.files.storage.FileSystemStorage",
-        "OPTIONS": {
-            "location": BASE_DIR / "staticfiles",
-            "base_url": STATIC_URL,
-        },
-    },
-}
+MEDIA_ROOT = BASE_DIR / "media"
+MEDIA_URL = "/media/"
