@@ -10,7 +10,6 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
-import os
 from pathlib import Path
 
 from django.utils.translation import gettext_lazy as _
@@ -23,9 +22,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv("SECRET_KEY", "")
-
-ALLOWED_HOSTS: list[str] = []
 
 # Application definition
 INSTALLED_APPS = [
@@ -111,16 +107,11 @@ USE_I18N = True
 
 USE_TZ = True
 
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.0/howto/static-files/
-
-STATIC_URL = "static/"
+STATIC_URL = "/static/"
 STATICFILES_DIRS = (BASE_DIR / "static/",)
 
-LOCALE_PATHS = (BASE_DIR / "locale/",)
 
-MEDIA_ROOT = BASE_DIR / "media/"
+LOCALE_PATHS = (BASE_DIR / "locale/",)
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
