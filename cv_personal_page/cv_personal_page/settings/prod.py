@@ -1,13 +1,12 @@
+# ruff: noqa: F405 # undefined-local-with-import-star-usage
 import os
 
 import dj_database_url
 
-from cv_personal_page.settings.base import *
+from cv_personal_page.settings.base import *  # noqa: F403 # undefined-local-with-import-star
 
 DEBUG = False
-
-if RENDER_EXTERNAL_HOSTNAME := os.environ.get("RENDER_EXTERNAL_HOSTNAME"):
-    ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
+ALLOWED_HOSTS = (os.getenv("RENDER_EXTERNAL_HOSTNAME"),)
 
 DATABASES = {
     "default": dj_database_url.config(
@@ -22,19 +21,22 @@ MIDDLEWARE.insert(
     "whitenoise.middleware.WhiteNoiseMiddleware",
 )
 
-STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
-
 STORAGES = {
     "default": {
         "BACKEND": "storages.backends.dropbox.DropboxStorage",
+        "OPTIONS": {
+            "oauth2_refresh_token": os.getenv("DROPBOX_OAUTH2_REFRESH_TOKEN"),
+            "app_secret": os.getenv("DROPBOX_APP_SECRET"),
+            "app_key": os.getenv("DROPBOX_APP_KEY"),
+        },
     },
     "staticfiles": {
         # TODO: use when https://github.com/evansd/whitenoise/issues/561 is fixed
         # "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
         "BACKEND": "whitenoise.storage.CompressedStaticFilesStorage",
+        "OPTIONS": {
+            "location": BASE_DIR / "staticfiles",
+            "base_url": STATIC_URL,
+        },
     },
 }
-
-DROPBOX_OAUTH2_REFRESH_TOKEN = os.getenv("DROPBOX_OAUTH2_REFRESH_TOKEN")
-DROPBOX_APP_SECRET = os.getenv("DROPBOX_APP_SECRET")
-DROPBOX_APP_KEY = os.getenv("DROPBOX_APP_KEY")
