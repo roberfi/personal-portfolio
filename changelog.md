@@ -3,6 +3,7 @@
 ## Next release
 
 - Minor UI improvements
+- Create views to serve media files
 
 ## v0.0.2
 

@@ -15,7 +15,7 @@
             {% block title %}
             {% endblock title %}
         </title>
-        <link rel="shortcut icon" href="{{ favicon_url }}">
+        <link rel="shortcut icon" href="{% url "favicon" %}">
         <script>const csrftoken = '{{ csrf_token }}';</script>
         <script type="module" src="{% static '/bundle.js' %}"></script>
     </head>
