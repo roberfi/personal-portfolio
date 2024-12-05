@@ -10,8 +10,6 @@ def home_view(request: HttpRequest) -> HttpResponse:
         request,
         "index.html",
         {
-            "favicon_url": default_storage.url("favicon.ico"),
-            "background_url": default_storage.url("background.jpg"),
             "personal_info": PersonalInfo.objects.first(),
             "experience": sorted(
                 Experience.objects.all(),
@@ -20,3 +18,8 @@ def home_view(request: HttpRequest) -> HttpResponse:
             ),
         },
     )
+
+
+def background_view(request: HttpRequest) -> HttpResponse:
+    with default_storage.open("background.jpg", "rb") as favicon:
+        return HttpResponse(favicon.read(), content_type="image/jpeg")
