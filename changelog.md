@@ -4,6 +4,7 @@
 
 - Minor UI improvements
 - Create views to serve media files
+- Implement CompressedManifestStaticFilesStorage staticfiles storage after fixing the error
 
 ## v0.0.2
 
