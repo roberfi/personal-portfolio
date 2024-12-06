@@ -5,11 +5,6 @@ module.exports = {
     "cv_personal_page/frontend/**/*.js",
     "cv_personal_page/*/templates/*.html",
   ],
-  safelist: [
-    // List classes used in database fields
-    "list-disc",
-    "list-inside",
-  ],
   plugins: [require("daisyui")],
   daisyui: {
     themes: [

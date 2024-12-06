@@ -37,7 +37,7 @@
                          role="menu"
                          aria-orientation="vertical"
                          aria-labelledby="menu-button">
-                        <ul class="md:flex max-md:space-y-2 whitespace-nowrap">
+                        <ul class="list-none md:flex max-md:space-y-2 whitespace-nowrap">
                             {% block menu_items %}
                             {% endblock menu_items %}
                         </ul>
@@ -61,7 +61,7 @@
                          role="menu"
                          aria-orientation="vertical"
                          aria-labelledby="menu-button">
-                        <ul class="space-y-2">
+                        <ul class="list-none space-y-2">
                             {% for language in languages %}
                                 <li>
                                     <form action="{% url 'set_language' %}" method="post">

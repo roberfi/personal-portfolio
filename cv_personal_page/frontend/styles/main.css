@@ -2,14 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
-#container {
-  scroll-snap-type: y mandatory;
-}
-
-.section {
-  scroll-snap-align: start;
-}
-
 .js-loading * {
   visibility: hidden;
+}
+
+ul {
+  @apply list-disc list-inside;
 }

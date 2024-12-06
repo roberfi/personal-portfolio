@@ -5,6 +5,7 @@
 - Minor UI improvements
 - Create views to serve media files
 - Implement CompressedManifestStaticFilesStorage staticfiles storage after fixing the error
+- Add support for markdown in experiences description field
 
 ## v0.0.2
 

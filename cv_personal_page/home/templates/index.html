@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load i18n %}
+{% load filters %}
 {% block title %}
     {{ personal_info.name }}
 {% endblock title %}
@@ -42,7 +43,7 @@
     <div id="my-career" class="w-full py-32 min-h-full">
         <div class="h-fit py-4 lg:max-w-screen-lg lg:mx-auto px-5">
             <h1 class="text-5xl mb-10 text-primary">{% translate "My Career" %}</h1>
-            <ul class="timeline timeline-snap-icon max-md:timeline-compact timeline-vertical">
+            <ul class="list-none timeline timeline-snap-icon max-md:timeline-compact timeline-vertical">
                 {% for exp in experience %}
                     <li>
                         {% if not forloop.first %}<hr />{% endif %}
@@ -98,7 +99,7 @@
                                     <div class="font-mono text-primary">({{ exp.duration }})</div>
                                     <div class="font-mono text-secondary">{{ exp.company }}</div>
                                     <div class="font-mono text-secondary">{{ exp.location }}</div>
-                                    <p class="py-4">{{ exp.description|safe }}</p>
+                                    <p class="py-4">{{ exp.description|md }}</p>
                                 </div>
                                 <div class="modal-action">
                                     <form method="dialog">
