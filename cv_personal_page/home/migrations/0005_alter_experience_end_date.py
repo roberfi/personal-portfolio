@@ -4,14 +4,12 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-    dependencies = [
-        ("home", "0004_personalinfo_description_personalinfo_description_en_and_more"),
-    ]
+    dependencies = (("home", "0004_personalinfo_description_personalinfo_description_en_and_more"),)
 
-    operations = [
+    operations = (
         migrations.AlterField(
             model_name="experience",
             name="end_date",
             field=models.DateField(blank=True, null=True),
         ),
-    ]
+    )
