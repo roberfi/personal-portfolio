@@ -5,6 +5,10 @@ set -o errexit
 # Modify this line as needed for your package manager (pip, poetry, etc.)
 poetry install --with prod
 
+# Node commands to build the frontend part
+npm install --production
+npm run build
+
 # Convert static asset files
 python manage.py collectstatic --no-input
 
