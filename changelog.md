@@ -1,9 +1,10 @@
 # Changelog
 
-## Next release
+## v0.1.0
 
 - Minor UI improvements
 - Create views to serve media files
+- Implement Django cache system
 - Implement CompressedManifestStaticFilesStorage staticfiles storage after fixing the error
 - Add support for markdown in experiences description field
 
