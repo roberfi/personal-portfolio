@@ -4,6 +4,7 @@
 
 - Implement frontend building on deploy
 - Implement deployment by docker compose
+- Use Roboto font
 
 ## v0.1.0
 

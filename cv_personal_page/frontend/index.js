@@ -1,3 +1,4 @@
+import "@fontsource/roboto";
 import "./styles/main.css";
 
 import { container, smoothScroll, initScroll } from "./javascript/scroll.js";
