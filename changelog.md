@@ -2,7 +2,7 @@
 
 ## Next release
 
--
+- Implement frontend building on deploy
 
 ## v0.1.0
 

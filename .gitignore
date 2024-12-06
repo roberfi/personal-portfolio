@@ -2,6 +2,7 @@
 .venv
 .vscode
 __pycache__
+static
 
 # File extensions
 *.sqlite3
