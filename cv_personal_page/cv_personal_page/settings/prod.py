@@ -6,6 +6,7 @@ import dj_database_url
 from cv_personal_page.settings.base import *  # noqa: F403 # undefined-local-with-import-star
 
 DEBUG = False
+SECRET_KEY = os.getenv("SECRET_KEY")
 ALLOWED_HOSTS = (os.getenv("RENDER_EXTERNAL_HOSTNAME"),)
 
 DATABASES = {
