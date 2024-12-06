@@ -4,11 +4,9 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-    dependencies = [
-        ("home", "0002_experience_location"),
-    ]
+    dependencies = (("home", "0002_experience_location"),)
 
-    operations = [
+    operations = (
         migrations.AddField(
             model_name="experience",
             name="description_en",
@@ -49,4 +47,4 @@ class Migration(migrations.Migration):
             name="biography_es",
             field=models.TextField(null=True),
         ),
-    ]
+    )

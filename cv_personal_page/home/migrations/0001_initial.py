@@ -6,9 +6,9 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
     initial = True
 
-    dependencies = []
+    dependencies = ()
 
-    operations = [
+    operations = (
         migrations.CreateModel(
             name="Experience",
             fields=[
@@ -44,4 +44,4 @@ class Migration(migrations.Migration):
                 ("biography", models.TextField()),
             ],
         ),
-    ]
+    )

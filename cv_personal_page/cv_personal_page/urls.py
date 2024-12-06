@@ -21,10 +21,11 @@ from django.urls import include, path
 
 from .views import favicon_view
 
-urlpatterns = i18n_patterns(
-    path("admin/", admin.site.urls),
-    path("", include("home.urls")),
-    path("i18n/", include("django.conf.urls.i18n")),
-) + [
+urlpatterns = (
+    *i18n_patterns(
+        path("admin/", admin.site.urls),
+        path("", include("home.urls")),
+        path("i18n/", include("django.conf.urls.i18n")),
+    ),
     path("favicon.ico", favicon_view, name="favicon"),
-]
+)

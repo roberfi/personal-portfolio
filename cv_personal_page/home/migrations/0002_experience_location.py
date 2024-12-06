@@ -4,15 +4,13 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-    dependencies = [
-        ("home", "0001_initial"),
-    ]
+    dependencies = (("home", "0001_initial"),)
 
-    operations = [
+    operations = (
         migrations.AddField(
             model_name="experience",
             name="location",
             field=models.CharField(default="", max_length=200),
             preserve_default=False,
         ),
-    ]
+    )
