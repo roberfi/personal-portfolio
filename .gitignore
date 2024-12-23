@@ -8,6 +8,7 @@ static
 *.sqlite3
 *.jpg
 *.ico
+*.pem
 
 # Node
 node_modules

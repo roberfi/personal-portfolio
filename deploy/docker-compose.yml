@@ -1,0 +1,51 @@
+services:
+  db:
+    image: postgres:17.2-bookworm
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 1s
+      timeout: 5s
+      retries: 10
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+
+  web:
+    build: ../
+    command: gunicorn cv_personal_page.wsgi:application --bind 0.0.0.0:8000 --workers 3
+    volumes:
+      - ./media:/app/src/media/
+      - staticfiles:/app/src/staticfiles
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: always
+    environment:
+      DEBUG: false
+      SECRET_KEY: ${SECRET_KEY}
+      DATABASE_URL: postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}
+      ALLOWED_HOSTS: ${SERVER_NAME}
+
+  nginx:
+    image: nginx:1.27.3-alpine
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/templates/default.conf.template:ro
+      - staticfiles:/staticfiles
+      - ./ssl/key.pem:/root/ssl/key.pem
+      - ./ssl/cert.pem:/root/ssl/cert.pem
+    depends_on:
+      - web
+    environment:
+      SERVER_NAME: ${SERVER_NAME}
+
+volumes:
+  postgres_data:
+    name: cv_personal_page_db_data
+  staticfiles:
+    name: cv_personal_page_staticfiles

@@ -10,18 +10,35 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
+import os
 from pathlib import Path
 
+import dj_database_url
+import environ
 from django.utils.translation import gettext_lazy as _
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent
 
+env = environ.Env(
+    DEBUG=(bool, False),
+    SECRET_KEY=str,
+    ALLOWED_HOSTS=(list, []),
+)
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
+environ.Env.read_env(os.path.join(BASE_DIR, ".env"))
 
-# SECURITY WARNING: keep the secret key used in production secret!
+DEBUG = env("DEBUG")
+SECRET_KEY = env("SECRET_KEY")
+ALLOWED_HOSTS = env("ALLOWED_HOSTS")
+CSRF_TRUSTED_ORIGINS = [f"https://{allowed_host}" for allowed_host in env("ALLOWED_HOSTS")]
+
+DATABASES = {
+    "default": dj_database_url.config(
+        default=env("DATABASE_URL"),
+        conn_max_age=600,
+    )
+}
 
 # Application definition
 INSTALLED_APPS = (
@@ -111,6 +128,9 @@ STATIC_URL = "/static/"
 STATICFILES_DIRS = (BASE_DIR / "static",)
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
+MEDIA_URL = "/media/"
+MEDIA_ROOT = BASE_DIR / "media"
+
 
 LOCALE_PATHS = (BASE_DIR / "locale/",)
 
@@ -118,3 +138,6 @@ LOCALE_PATHS = (BASE_DIR / "locale/",)
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+if DEBUG:
+    CACHE_MIDDLEWARE_SECONDS = 0
