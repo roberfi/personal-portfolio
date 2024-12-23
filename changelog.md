@@ -3,6 +3,7 @@
 ## Next release
 
 - Implement frontend building on deploy
+- Implement deployment by docker compose
 
 ## v0.1.0
 

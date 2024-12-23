@@ -20,34 +20,72 @@ This is a project to create a single personal CV page with a clear and simple st
    ```
    pre-commit install
    ```
-5. Run migrations
+5. Go into django project directory
    ```
-   python cv_personal_page/manage.py migrate
+   cd cv_personal_page
    ```
-6. Create a superuser
+6. Create a media folder and add `background.jpg` and `favicon.ico` inside.
+7. Create an environment file (`.env`) with the following enviornment variables:
    ```
-   python cv_personal_page/manage.py createsuperuser
+   DEBUG=true
+   SECRET_KEY=<your dev secret key>
+   DATABASE_URL=sqlite:///<path to db.sqlite3 file>
    ```
-7. Run django
+8. Run migrations
    ```
-   python cv_personal_page/manage.py runserver
+   python manage.py migrate
    ```
-8. To enter in frontend environment mode, open a new terminal and install node environment
+9. Create a superuser
    ```
-   npm install
+   python manage.py createsuperuser
    ```
-9. Run webpack in watch mode
-   ```
-   npm run dev
-   ```
-10. Navigate to localhost:8000 and enjoy
+10. Run django
+    ```
+    python manage.py runserver
+    ```
+11. To enter in frontend environment mode, open a new terminal and install node environment
+    ```
+    npm install
+    ```
+12. Run webpack in watch mode
+    ```
+    npm run dev
+    ```
+13. Navigate to localhost:8000 and enjoy
 
-## Required Media
+## How to deploy
 
-### Background picture
-
-It has to be located in `cv_personal_page/media/background.jpg`
-
-### Favicon
-
-It has to be located in `cv_personal_page/media/favicon.ico`
+1. Clone the repository:
+   ```
+   git clone https://github.com/roberfi/cv-personal-page.git
+   ```
+2. Go into deploy directory:
+   ```
+   cd cv-personal-page/deploy
+   ```
+3. Create an environment file (`.env`) with the following enviornment variables:
+   ```
+   SERVER_NAME=<name of the host>
+   SECRET_KEY=<strong secret key>
+   POSTGRES_DB=<name of the postgres database>
+   POSTGRES_USER=<name of the postgres user>
+   POSTGRES_PASSWORD=<name of the postgres password for the given user>
+   ```
+4. Create a folder called `ssl` and store there your `cert.pem` and `key.pem` files
+   Note: to test it locally, dummy untrusted certificates can be generated with the following command:
+   ```
+   openssl req -x509 -nodes -newkey rsa:2048 -keyout key.pem -out cert.pem -sha256 -days 365
+   ```
+5. Create a media folder and add `background.jpg` and `favicon.ico` inside.
+6. Build the docker image with docker compose:
+   ```
+   docker compose build
+   ```
+7. Run the docker compose containers:
+   ```
+   docker compose up -d
+   ```
+8. To stop them, execute:
+   ```
+   docker compose down
+   ```
