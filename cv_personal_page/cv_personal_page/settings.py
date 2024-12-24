@@ -14,7 +14,7 @@ import os
 from pathlib import Path
 
 import dj_database_url
-import environ
+import environ  # type: ignore[import-untyped]
 from django.utils.translation import gettext_lazy as _
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.

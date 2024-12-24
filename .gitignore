@@ -3,11 +3,10 @@
 .vscode
 __pycache__
 static
+media
 
 # File extensions
 *.sqlite3
-*.jpg
-*.ico
 *.pem
 
 # Node
