@@ -5,6 +5,7 @@
 - Implement frontend building on deploy
 - Implement deployment by docker compose
 - Use Roboto font
+- Bump python version to 3.12
 
 ## v0.1.0
 

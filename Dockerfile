@@ -1,5 +1,5 @@
 # Oficial python image
-FROM python:3.11.11-slim-bookworm AS base
+FROM python:3.12.8-slim-bookworm AS base
 
 # Set env variables
 ENV PYTHONFAULTHANDLER=1 \
