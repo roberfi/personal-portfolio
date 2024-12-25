@@ -27,7 +27,7 @@ services:
       DEBUG: false
       SECRET_KEY: ${SECRET_KEY}
       DATABASE_URL: postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}
-      ALLOWED_HOSTS: ${SERVER_NAME}
+      ALLOWED_HOSTS: ${SERVER_NAMES}
 
   nginx:
     image: nginx:1.27.3-alpine
@@ -42,7 +42,7 @@ services:
     depends_on:
       - web
     environment:
-      SERVER_NAME: ${SERVER_NAME}
+      SERVER_NAMES: ${SERVER_NAMES}
 
 volumes:
   postgres_data:

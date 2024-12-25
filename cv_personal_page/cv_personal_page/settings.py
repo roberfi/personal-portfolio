@@ -23,15 +23,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 env = environ.Env(
     DEBUG=(bool, False),
     SECRET_KEY=str,
-    ALLOWED_HOSTS=(list, []),
+    ALLOWED_HOSTS=(str, ""),
 )
 
 environ.Env.read_env(os.path.join(BASE_DIR, ".env"))
 
 DEBUG = env("DEBUG")
 SECRET_KEY = env("SECRET_KEY")
-ALLOWED_HOSTS = env("ALLOWED_HOSTS")
-CSRF_TRUSTED_ORIGINS = [f"https://{allowed_host}" for allowed_host in env("ALLOWED_HOSTS")]
+ALLOWED_HOSTS = env("ALLOWED_HOSTS").split(" ")
+CSRF_TRUSTED_ORIGINS = [f"https://{allowed_host}" for allowed_host in ALLOWED_HOSTS]
 
 DATABASES = {
     "default": dj_database_url.config(

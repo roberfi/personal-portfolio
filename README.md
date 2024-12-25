@@ -65,7 +65,7 @@ This is a project to create a single personal CV page with a clear and simple st
    ```
 3. Create an environment file (`.env`) with the following enviornment variables:
    ```
-   SERVER_NAME=<name of the host>
+   SERVER_NAMES=<name of the hosts separated by spaces>
    SECRET_KEY=<strong secret key>
    POSTGRES_DB=<name of the postgres database>
    POSTGRES_USER=<name of the postgres user>
