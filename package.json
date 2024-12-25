@@ -1,6 +1,6 @@
 {
   "name": "cv_personal_page",
-  "version": "0.1.1.dev4",
+  "version": "0.1.1.dev5",
   "main": "./cv_personal_page/frontend/javascript/index.js",
   "scripts": {
     "dev": "webpack --mode development --watch",

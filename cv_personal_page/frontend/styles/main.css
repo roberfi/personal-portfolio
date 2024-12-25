@@ -6,10 +6,6 @@ body {
   font-family: "Roboto";
 }
 
-.js-loading * {
-  visibility: hidden;
-}
-
 ul {
   @apply list-disc list-inside;
 }

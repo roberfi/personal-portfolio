@@ -6,6 +6,7 @@
 - Implement deployment by docker compose
 - Use Roboto font
 - Bump python version to 3.12
+- Fix showing the elements with no css styles
 
 ## v0.1.0
 

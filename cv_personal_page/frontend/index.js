@@ -14,9 +14,6 @@ window.addEventListener("load", () => {
   setTimeout(() => {
     container.scrollTo(0, 0);
 
-    // Remove loading class
-    document.body.classList.remove("js-loading");
-
     if (window.location.hash) {
       setTimeout(() => {
         smoothScroll(window.location.hash);
