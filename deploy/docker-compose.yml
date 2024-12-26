@@ -17,8 +17,8 @@ services:
     build: ../
     command: gunicorn core.wsgi:application --bind 0.0.0.0:8000 --workers 3
     volumes:
-      - ./media:/app/src/media/
       - staticfiles:/app/src/staticfiles
+      - ./mediafiles:/app/src/mediafiles
     depends_on:
       db:
         condition: service_healthy
@@ -37,6 +37,7 @@ services:
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/templates/default.conf.template:ro
       - staticfiles:/staticfiles
+      - ./mediafiles:/mediafiles
       - ./ssl/key.pem:/root/ssl/key.pem
       - ./ssl/cert.pem:/root/ssl/cert.pem
     depends_on:
