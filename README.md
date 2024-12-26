@@ -1,12 +1,12 @@
-# CV Personal Page
+# Personal Portfolio
 
-This is a project to create a single personal CV page with a clear and simple structure.
+This is a project to create a single personal portfolio page with a clear and simple structure.
 
 ## How to configure a development environment
 
 1. Clone the repository:
    ```
-   git clone https://github.com/roberfi/cv-personal-page.git
+   git clone https://github.com/roberfi/personal-portfolio.git
    ```
 2. Install python development environment with Poetry:
    ```
@@ -22,7 +22,7 @@ This is a project to create a single personal CV page with a clear and simple st
    ```
 5. Go into django project directory
    ```
-   cd cv_personal_page
+   cd src
    ```
 6. Create a media folder and add `background.jpg` and `favicon.ico` inside.
 7. Create an environment file (`.env`) with the following enviornment variables:
@@ -57,11 +57,11 @@ This is a project to create a single personal CV page with a clear and simple st
 
 1. Clone the repository:
    ```
-   git clone https://github.com/roberfi/cv-personal-page.git
+   git clone https://github.com/roberfi/personal-portfolio.git
    ```
 2. Go into deploy directory:
    ```
-   cd cv-personal-page/deploy
+   cd src/deploy
    ```
 3. Create an environment file (`.env`) with the following enviornment variables:
    ```

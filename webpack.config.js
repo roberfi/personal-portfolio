@@ -1,10 +1,10 @@
 const path = require("path");
 
 module.exports = {
-  entry: "./cv_personal_page/frontend/index.js",
+  entry: "./src/frontend/index.js",
   output: {
     filename: "bundle.js",
-    path: path.resolve(__dirname, "./cv_personal_page/static"),
+    path: path.resolve(__dirname, "./src/static"),
   },
   module: {
     rules: [
