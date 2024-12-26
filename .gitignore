@@ -3,7 +3,7 @@
 .vscode
 __pycache__
 static
-media
+mediafiles
 
 # File extensions
 *.sqlite3

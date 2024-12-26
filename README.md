@@ -24,7 +24,7 @@ This is a project to create a single personal portfolio page with a clear and si
    ```
    cd src
    ```
-6. Create a media folder and add `background.jpg` and `favicon.ico` inside.
+6. Create a mediafiles folder and add `background.jpg`, `background_preview.jpg` and `favicon.ico` inside.
 7. Create an environment file (`.env`) with the following enviornment variables:
    ```
    DEBUG=true
@@ -76,7 +76,7 @@ This is a project to create a single personal portfolio page with a clear and si
    ```
    openssl req -x509 -nodes -newkey rsa:2048 -keyout key.pem -out cert.pem -sha256 -days 365
    ```
-5. Create a media folder and add `background.jpg` and `favicon.ico` inside.
+5. Create a mediafiles folder and add `background.jpg`, `background_preview.jpg` and `favicon.ico` inside.
 6. Build the docker image with docker compose:
    ```
    docker compose build

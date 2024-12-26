@@ -8,6 +8,8 @@
 - Bump python version to 3.12
 - Fix showing the elements with no css styles
 - Rename the project to personal-portfolio
+- Move media files serving to nginx
+- Add HTML meta cards
 
 ## v0.1.0
 

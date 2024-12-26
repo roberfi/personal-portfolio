@@ -4,18 +4,15 @@
 {% get_available_languages as AVAILABLE_LANGUAGES %}
 {% get_language_info_list for AVAILABLE_LANGUAGES as languages %}
 <!DOCTYPE html>
+<!-- djlint:off H016,H030--> <!-- TODO: improve extending/including to add title and description blocks -->
 <html lang="{{ CURRENT_LANGUAGE }}" data-theme="portfolio">
     <head>
         <meta charset="UTF-8">
-        <meta name="description"
-              content="{% spaceless %}{% block web_description %}{% endblock web_description %}{% endspaceless %}">
         <meta name="keywords" content="Portfolio, CV, Biography, Career">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>
-            {% block title %}
-            {% endblock title %}
-        </title>
-        <link rel="shortcut icon" href="{% url "favicon" %}">
+        <link rel="shortcut icon" href="/media/favicon.ico" type="image/x-icon">
+        {% block meta_cards %}
+        {% endblock meta_cards %}
         <script>const csrftoken = '{{ csrf_token }}';</script>
         <script type="module" src="{% static 'bundle.js' %}"></script>
         <style>

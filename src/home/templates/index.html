@@ -1,12 +1,25 @@
 {% extends "base.html" %}
 {% load i18n %}
 {% load filters %}
-{% block title %}
-    {{ personal_info.name }}
-{% endblock title %}
-{% block web_description %}
-    Personal web of {{ personal_info.name }}
-{% endblock web_description %}
+{% block meta_cards %}
+    <title>{{ personal_info.name }}</title>
+    <meta name="description"
+          content="{% translate "Personal web of" %} {{ personal_info.name }}">
+    <meta property="og:title" content="{{ personal_info.name }}" />
+    <meta property="og:description"
+          content="{% translate "Personal web of" %} {{ personal_info.name }}" />
+    <meta property="og:image"
+          itemprop="image"
+          content="{{ request.scheme }}://{{ request.get_host }}/media/background_preview.jpg">
+    <meta property="og:url"
+          content="{{ request.scheme }}://{{ request.get_host }}" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="{{ personal_info.name }}" />
+    <meta name="twitter:description"
+          content="{% translate "Personal web of" %} {{ personal_info.name }}" />
+    <meta name="twitter:image"
+          content="{{ request.scheme }}://{{ request.get_host }}/media/background_preview.jpg" />
+{% endblock meta_cards %}
 {% block menu_items %}
     <li>
         <a class="btn btn-ghost max-md:w-full justify-start text-xl md:btn-active"
@@ -23,9 +36,11 @@
 {% endblock menu_items %}
 {% block content %}
     <div id="home" class="relative w-full h-full">
+        <!-- djlint:off H021-->  <!-- TODO: improve extending/including to move background to css styles -->
         <div class="absolute h-full w-full -z-20"
-             style="background-image: url({% url "background" %});
+             style="background-image: url(/media/background.jpg);
                     background-size: cover"></div>
+        <!-- djlint:on -->
         <div class="absolute right-1/4 top-2/4 h-fit px-5">
             <h1 class="text-5xl mb-10 text-primary">{{ personal_info.name }}</h1>
             <h3 class="text-xl text-neutral-content">{{ personal_info.description }}</h3>
