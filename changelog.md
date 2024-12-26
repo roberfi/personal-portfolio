@@ -1,5 +1,9 @@
 # Changelog
 
+## Next release
+
+-
+
 ## v0.2.0
 
 - Implement frontend building on deploy
