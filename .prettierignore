@@ -6,4 +6,4 @@ node_modules/
 
 # HTML files and bundle
 *.html
-cv_personal_page/static/
+src/static/

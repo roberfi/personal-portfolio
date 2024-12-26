@@ -4,12 +4,12 @@
 {% get_available_languages as AVAILABLE_LANGUAGES %}
 {% get_language_info_list for AVAILABLE_LANGUAGES as languages %}
 <!DOCTYPE html>
-<html lang="{{ CURRENT_LANGUAGE }}" data-theme="cv_personal_page">
+<html lang="{{ CURRENT_LANGUAGE }}" data-theme="portfolio">
     <head>
         <meta charset="UTF-8">
         <meta name="description"
               content="{% spaceless %}{% block web_description %}{% endblock web_description %}{% endspaceless %}">
-        <meta name="keywords" content="CV, Biography, Career">
+        <meta name="keywords" content="Portfolio, CV, Biography, Career">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>
             {% block title %}

@@ -4,7 +4,7 @@ import pluginJs from "@eslint/js";
 /** @type {import('eslint').Linter.Config[]} */
 export default [
   {
-    ignores: ["cv_personal_page/static/"],
+    ignores: ["src/static/"],
   },
   {
     languageOptions: { globals: globals.browser },

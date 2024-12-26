@@ -15,7 +15,7 @@ services:
 
   web:
     build: ../
-    command: gunicorn cv_personal_page.wsgi:application --bind 0.0.0.0:8000 --workers 3
+    command: gunicorn core.wsgi:application --bind 0.0.0.0:8000 --workers 3
     volumes:
       - ./media:/app/src/media/
       - staticfiles:/app/src/staticfiles
@@ -46,6 +46,6 @@ services:
 
 volumes:
   postgres_data:
-    name: cv_personal_page_db_data
+    name: personal_portfolio_db_data
   staticfiles:
-    name: cv_personal_page_staticfiles
+    name: personal_portfolio_staticfiles

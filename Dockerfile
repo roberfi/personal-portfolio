@@ -53,7 +53,7 @@ FROM base AS final
 
 # Copy the project from builder image
 COPY --from=builder $VIRTUAL_ENV $VIRTUAL_ENV
-COPY --from=builder /app/cv_personal_page ./src
+COPY --from=builder /app/src ./src
 
 # Copy entrypoint file
 COPY ./entrypoint.sh ./

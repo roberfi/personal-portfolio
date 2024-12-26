@@ -1,7 +1,7 @@
 {
-  "name": "cv_personal_page",
-  "version": "0.1.1.dev6",
-  "main": "./cv_personal_page/frontend/javascript/index.js",
+  "name": "personal-portfolio",
+  "version": "0.1.1.dev7",
+  "main": "./src/frontend/javascript/index.js",
   "scripts": {
     "dev": "webpack --mode development --watch",
     "build": "webpack --mode production",

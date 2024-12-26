@@ -1,15 +1,15 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-    "cv_personal_page/templates/*.html",
-    "cv_personal_page/frontend/**/*.js",
-    "cv_personal_page/*/templates/*.html",
+    "src/templates/*.html",
+    "src/frontend/**/*.js",
+    "src/*/templates/*.html",
   ],
   plugins: [require("daisyui")],
   daisyui: {
     themes: [
       {
-        cv_personal_page: {
+        portfolio: {
           primary: "#fdba74",
           secondary: "#93c5fd",
           accent: "#f97316",

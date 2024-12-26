@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-12-03 18:03+0000\n"
+"POT-Creation-Date: 2024-12-26 09:14+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,11 +18,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n == 1 ? 0 : 1;\n"
 
-#: cv_personal_page/settings/base.py:100
+#: core/settings.py:115
 msgid "English"
 msgstr "Inglés"
 
-#: cv_personal_page/settings/base.py:101
+#: core/settings.py:116
 msgid "Spanish"
 msgstr "Español"
 
@@ -45,18 +45,18 @@ msgstr[1] "%d meses"
 msgid "%(job)s at %(company)s"
 msgstr "%(job)s en %(company)s"
 
-#: home/templates/index.html:39 home/templates/index.html:50
+#: home/templates/index.html:13 templates/base.html:56
 msgid "Home"
 msgstr "Inicio"
 
-#: home/templates/index.html:42 home/templates/index.html:103
+#: home/templates/index.html:17 home/templates/index.html:38
 msgid "About me"
 msgstr "Sobre mí"
 
-#: home/templates/index.html:45 home/templates/index.html:110
+#: home/templates/index.html:21 home/templates/index.html:45
 msgid "My Career"
 msgstr "Mi Experiencia"
 
-#: home/templates/index.html:129 home/templates/index.html:161
+#: home/templates/index.html:64 home/templates/index.html:96
 msgid "Present"
 msgstr "Actualmente"
