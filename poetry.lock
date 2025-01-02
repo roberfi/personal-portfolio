@@ -112,6 +112,20 @@ argon2 = ["argon2-cffi (>=19.1.0)"]
 bcrypt = ["bcrypt"]
 
 [[package]]
+name = "django-cotton"
+version = "1.5.1"
+description = "Bringing component based design to Django templates."
+optional = false
+python-versions = "<4,>=3.8"
+files = [
+    {file = "django_cotton-1.5.1-py3-none-any.whl", hash = "sha256:fab92c8d85146f96106ba1c0a36eb7a1bb19fd836bb679a1d25d22ff85cdda3d"},
+    {file = "django_cotton-1.5.1.tar.gz", hash = "sha256:e758729ccb415fff9a1d6fe94e81cd1392ab91fc7ea7b0835995848eb5ea4920"},
+]
+
+[package.dependencies]
+django = ">=4.2,<5.2"
+
+[[package]]
 name = "django-environ"
 version = "0.11.2"
 description = "A package that allows you to utilize 12factor inspired environment variables to configure your Django application."
@@ -855,4 +869,4 @@ test = ["covdefaults (>=2.3)", "coverage (>=7.2.7)", "coverage-enable-subprocess
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.12"
-content-hash = "3504ff253bdef4b8e2c0fef83ce6715b33e722afbaca26835a0b599c16f8b3ba"
+content-hash = "43b71fa67da7da8488baff0f2c02b836ab297b2eeeb137f2dd2ed975a46301b3"

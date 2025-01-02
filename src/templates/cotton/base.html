@@ -1,0 +1,61 @@
+{% load i18n %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="{{ CURRENT_LANGUAGE }}" data-theme="portfolio">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="keywords" content="Portfolio, CV, Biography, Career">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <title>{{ name }}</title>
+        <link rel="shortcut icon" href="/media/favicon.ico" type="image/x-icon">
+
+        <!-- Open Graph Cards -->
+        <meta name="description"
+              content="{% translate "Personal web of" %} {{ name }}">
+        <meta property="og:title" content="{{ name }}" />
+        <meta property="og:description"
+              content="{% translate "Personal web of" %} {{ name }}" />
+        <meta property="og:image"
+              itemprop="image"
+              content="{{ request.scheme }}://{{ request.get_host }}/media/background_preview.jpg">
+        <meta property="og:url"
+              content="{{ request.scheme }}://{{ request.get_host }}" />
+
+        <!-- Twitter Cards -->
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:title" content="{{ name }}" />
+        <meta name="twitter:description"
+              content="{% translate "Personal web of" %} {{ name }}" />
+        <meta name="twitter:image"
+              content="{{ request.scheme }}://{{ request.get_host }}/media/background_preview.jpg" />
+
+        <script type="module" src="{% static 'bundle.js' %}"></script>
+
+        <style>
+            .js-loading * {
+                visibility: hidden;
+            }
+        </style>
+        <script>
+              window.addEventListener('load', () => {
+                    document.body.classList.remove('js-loading');
+              });
+        </script>
+
+        {{ extra_head }}
+    </head>
+    <body class="js-loading overflow-hidden">
+        <div class="flex flex-col h-dvh w-screen">
+            <c-nav-bar :sections="sections" :csrf_token="csrf_token" only />
+            <progress id="progress-bar"
+                      class="flex progress progress-primary w-full max-md:h-4"
+                      value="0"
+                      max="100"></progress>
+            <div id="container" class="overflow-y-auto">
+                {{ slot }}
+            </div>
+        </div>
+    </body>
+</html>
