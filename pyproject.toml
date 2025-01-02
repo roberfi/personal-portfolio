@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "personal-portfolio"
-version = "0.2.1.dev0"
+version = "0.2.1.dev1"
 description = ""
 authors = ["Roberto Fernández Iglesias <roberfi@gmail.com>"]
 readme = "README.md"
@@ -30,6 +30,10 @@ select = [
 [tool.djlint]
 profile = "django"
 files = ["\\.html"]
+custom_html = "c-[\\w-]+"
+max_blank_lines = 1
+max_line_length = 120
+line_break_after_multiline_tag = true
 
 [tool.django-stubs]
 django_settings_module = "core.settings"
@@ -41,6 +45,7 @@ django-environ = "^0.11.2"
 django-modeltranslation = "^0.19.11"
 dj-database-url = "^2.3.0"
 markdown = "^3.7"
+django-cotton = "^1.5.1"
 
 [tool.poetry.group.dev]
 optional = true

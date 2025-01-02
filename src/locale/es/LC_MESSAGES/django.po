@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-12-26 10:16+0000\n"
+"POT-Creation-Date: 2025-01-02 18:08+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,11 +18,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n == 1 ? 0 : 1;\n"
 
-#: core/settings.py:115
+#: core/settings.py:116
 msgid "English"
 msgstr "Inglés"
 
-#: core/settings.py:116
+#: core/settings.py:117
 msgid "Spanish"
 msgstr "Español"
 
@@ -45,22 +45,24 @@ msgstr[1] "%d meses"
 msgid "%(job)s at %(company)s"
 msgstr "%(job)s en %(company)s"
 
-#: home/templates/index.html:8
-msgid "Personal web of"
-msgstr "Página personal de"
+#: home/templates/cotton/experience_timeline.html:24
+#: home/templates/cotton/experience_timeline.html:66
+msgid "Present"
+msgstr "Actualmente"
 
-#: home/templates/index.html:16 templates/base.html:65
-msgid "Home"
-msgstr "Inicio"
-
-#: home/templates/index.html:20 home/templates/index.html:41
+#: home/templates/index.html:30 home/views.py:15
 msgid "About me"
 msgstr "Sobre mí"
 
-#: home/templates/index.html:24 home/templates/index.html:48
+#: home/templates/index.html:41 home/views.py:16
 msgid "My Career"
 msgstr "Mi Experiencia"
 
-#: home/templates/index.html:67 home/templates/index.html:99
-msgid "Present"
-msgstr "Actualmente"
+#: home/views.py:14
+msgid "Home"
+msgstr "Inicio"
+
+#: templates/cotton/base.html:16 templates/cotton/base.html:19
+#: templates/cotton/base.html:30
+msgid "Personal web of"
+msgstr "Página personal de"
