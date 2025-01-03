@@ -3,6 +3,7 @@
 ## Next release
 
 - Implement django-cotton
+- Add footer with "Legal & Privacy" section
 
 ## v0.2.0
 

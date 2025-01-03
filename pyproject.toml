@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "personal-portfolio"
-version = "0.2.1.dev1"
+version = "0.2.1.dev2"
 description = ""
 authors = ["Roberto Fernández Iglesias <roberfi@gmail.com>"]
 readme = "README.md"

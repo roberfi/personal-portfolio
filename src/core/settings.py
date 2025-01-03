@@ -50,6 +50,7 @@ INSTALLED_APPS = (
     "django.contrib.staticfiles",
     "modeltranslation",
     "django_cotton",
+    "base",
     "home",
 )
 
@@ -71,7 +72,7 @@ ROOT_URLCONF = "core.urls"
 TEMPLATES = (
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": (BASE_DIR / "templates/",),
+        "DIRS": (),
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -81,6 +82,9 @@ TEMPLATES = (
                 "django.contrib.messages.context_processors.messages",
                 "django.template.context_processors.media",
             ],
+            "libraries": {
+                "filters": "core.templatetags.filters",
+            },
         },
     },
 )

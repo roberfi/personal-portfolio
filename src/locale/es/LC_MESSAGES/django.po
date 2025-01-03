@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-02 18:08+0000\n"
+"POT-Creation-Date: 2025-01-03 21:39+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,11 +18,20 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n == 1 ? 0 : 1;\n"
 
-#: core/settings.py:116
+#: base/templates/cotton/base.html:16 base/templates/cotton/base.html:19
+#: base/templates/cotton/base.html:30
+msgid "Personal web of"
+msgstr "Página personal de"
+
+#: base/templates/cotton/footer.html:14
+msgid "Legal & Privacy"
+msgstr "Condiciones y Privacidad"
+
+#: core/settings.py:120
 msgid "English"
 msgstr "Inglés"
 
-#: core/settings.py:117
+#: core/settings.py:121
 msgid "Spanish"
 msgstr "Español"
 
@@ -61,8 +70,3 @@ msgstr "Mi Experiencia"
 #: home/views.py:14
 msgid "Home"
 msgstr "Inicio"
-
-#: templates/cotton/base.html:16 templates/cotton/base.html:19
-#: templates/cotton/base.html:30
-msgid "Personal web of"
-msgstr "Página personal de"

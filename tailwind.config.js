@@ -1,9 +1,9 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-    "src/templates/*.html",
+    "src/templates/**/*.html",
     "src/frontend/**/*.js",
-    "src/*/templates/*.html",
+    "src/*/templates/**/*.html",
   ],
   plugins: [require("daisyui")],
   daisyui: {
