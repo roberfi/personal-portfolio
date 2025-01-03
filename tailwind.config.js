@@ -5,7 +5,7 @@ module.exports = {
     "src/frontend/**/*.js",
     "src/*/templates/**/*.html",
   ],
-  plugins: [require("daisyui")],
+  plugins: [require("@tailwindcss/typography"), require("daisyui")],
   daisyui: {
     themes: [
       {
