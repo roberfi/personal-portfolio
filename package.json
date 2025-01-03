@@ -1,6 +1,6 @@
 {
   "name": "personal-portfolio",
-  "version": "0.2.1.dev2",
+  "version": "0.2.1.dev3",
   "main": "./src/frontend/javascript/index.js",
   "scripts": {
     "dev": "webpack --mode development --watch",
@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "@fontsource/roboto": "^5.1.0",
+    "@tailwindcss/typography": "^0.5.15",
     "autoprefixer": "^10.4.20",
     "css-loader": "^7.1.2",
     "daisyui": "^4.12.14",

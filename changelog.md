@@ -4,6 +4,7 @@
 
 - Implement django-cotton
 - Add footer with "Legal & Privacy" section
+- Implement @tailwindcss/typography module for markdown rendering styles
 
 ## v0.2.0
 
