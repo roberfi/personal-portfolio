@@ -1,0 +1,46 @@
+{% load i18n %}
+{% load base_tags %}
+{% load filters %}
+
+{% footer_data as data %}
+
+<div class="bg-base-300 text-base-content p-10">
+    <footer class="footer lg:max-w-screen-lg lg:mx-auto">
+
+        {% with legal_and_privacy=data.legal_and_privacy %}
+            {% if legal_and_privacy %}
+                <nav>
+                    <h6 class="footer-title">
+                        {% translate "Legal & Privacy" %}
+                    </h6>
+
+                    {% for section in legal_and_privacy %}
+                        <a class="link link-hover"
+                           onclick="{{ section.modal_name }}.showModal()">{{ section.title }}</a>
+                        <dialog id="{{ section.modal_name }}" class="modal">
+                            <div class="modal-box w-11/12 max-w-5xl flex flex-col max-md:p-4">
+                                <div class="flex-1 overflow-y-auto">
+                                    <h3 class="text-lg font-bold">
+                                        {{ legal_and_privacy.legal_disclaimer }}
+                                    </h3>
+                                    <div class="py-4">
+                                        {{ section.text|md }}
+                                    </div>
+                                </div>
+                                <div class="modal-action">
+                                    <form method="dialog">
+                                        <button class="btn">
+                                            Close
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </dialog>
+                    {% endfor %}
+
+                </nav>
+            {% endif %}
+        {% endwith %}
+
+    </footer>
+</div>
