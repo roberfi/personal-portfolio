@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-03 21:39+0000\n"
+"POT-Creation-Date: 2025-01-04 13:04+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26,6 +26,10 @@ msgstr "Página personal de"
 #: base/templates/cotton/footer.html:14
 msgid "Legal & Privacy"
 msgstr "Condiciones y Privacidad"
+
+#: base/templates/cotton/footer.html:49
+msgid "Follow Me"
+msgstr "Sígueme"
 
 #: core/settings.py:120
 msgid "English"
