@@ -26,6 +26,9 @@ class Experience(models.Model):  # type: ignore[django-manager-missing] # https:
     start_date = models.DateField()
     end_date = models.DateField(null=True, blank=True)
 
+    def __str__(self) -> str:
+        return gettext("%(job)s at %(company)s") % {"job": self.title, "company": self.company}
+
     @cached_property
     def actual_end_date(self) -> datetime.date:
         return self.end_date or datetime.date.today()
@@ -59,6 +62,3 @@ class Experience(models.Model):  # type: ignore[django-manager-missing] # https:
         )
 
         return ", ".join((p for p in parts if p))
-
-    def __str__(self) -> str:
-        return gettext("%(job)s at %(company)s") % {"job": self.title, "company": self.company}
