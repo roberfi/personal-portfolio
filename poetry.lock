@@ -156,6 +156,20 @@ files = [
 Django = ">=4.2"
 
 [[package]]
+name = "django-solo"
+version = "2.4.0"
+description = "Django Solo helps working with singletons"
+optional = false
+python-versions = ">=3.9"
+files = [
+    {file = "django_solo-2.4.0-py3-none-any.whl", hash = "sha256:62e9c7d929620a61848515839833750ca142840051595cf5c8e617dcefc9e5cf"},
+    {file = "django_solo-2.4.0.tar.gz", hash = "sha256:ec92dc00aec75034a3f93b3a85152e57c4b03d7987f8cfd0ea8a47cc6e3c2084"},
+]
+
+[package.dependencies]
+django = ">=4.2"
+
+[[package]]
 name = "django-stubs"
 version = "5.1.1"
 description = "Mypy stubs for Django"
@@ -869,4 +883,4 @@ test = ["covdefaults (>=2.3)", "coverage (>=7.2.7)", "coverage-enable-subprocess
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.12"
-content-hash = "43b71fa67da7da8488baff0f2c02b836ab297b2eeeb137f2dd2ed975a46301b3"
+content-hash = "f19ccdc953740b22c6372d0d91e9df5b4d48e84e8c847ac43794678cdc3b7782"

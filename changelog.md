@@ -5,6 +5,7 @@
 - Implement django-cotton
 - Add footer with "Legal & Privacy" section
 - Implement @tailwindcss/typography module for markdown rendering styles
+- Implement django-solo for singleton Django models
 
 ## v0.2.0
 
