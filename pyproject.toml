@@ -1,9 +1,11 @@
-[tool.poetry]
+[project]
 name = "personal-portfolio"
 version = "0.2.1.dev4"
 description = ""
-authors = ["Roberto Fernández Iglesias <roberfi@gmail.com>"]
+authors = [{ name = "Roberto Fernández Iglesias", email = "roberfi@gmail.com" }]
 readme = "README.md"
+
+[tool.poetry]
 package-mode = false
 
 [tool.mypy]
