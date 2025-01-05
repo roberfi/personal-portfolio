@@ -6,6 +6,7 @@
 - Add footer with "Legal & Privacy" section
 - Implement @tailwindcss/typography module for markdown rendering styles
 - Implement django-solo for singleton Django models
+- Bump dependencies
 
 ## v0.2.0
 
