@@ -1,9 +1,9 @@
 # Changelog
 
-## Next release
+## 0.3.0
 
 - Implement django-cotton
-- Add footer with "Legal & Privacy" section
+- Add footer with "Legal & Privacy" and "Follow me" sections
 - Implement @tailwindcss/typography module for markdown rendering styles
 - Implement django-solo for singleton Django models
 - Bump dependencies
