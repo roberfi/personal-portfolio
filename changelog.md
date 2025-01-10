@@ -2,7 +2,7 @@
 
 ## Next release
 
--
+- Implement cookie consent management
 
 ## 0.3.0
 

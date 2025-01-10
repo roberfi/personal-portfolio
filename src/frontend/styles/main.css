@@ -5,3 +5,9 @@
 body {
   font-family: "Roboto";
 }
+
+.toggle-success:disabled {
+  border-color: var(--fallback-su, oklch(var(--su) / var(--tw-border-opacity)));
+  background-color: var(--fallback-su, oklch(var(--su) / var(--tw-bg-opacity)));
+  --togglehandleborder: 0 0;
+}
