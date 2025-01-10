@@ -2,8 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  scrollbar-gutter: auto !important; /* https://github.com/saadeghi/daisyui/issues/3040 */
+}
+
 body {
   font-family: "Roboto";
+}
+
+.btn {
+  @apply outline-none;
 }
 
 .toggle-success:disabled {

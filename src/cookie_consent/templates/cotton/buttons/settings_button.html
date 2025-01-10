@@ -19,6 +19,9 @@
 </button>
 <dialog id="cookies_settings_modal" class="modal">
     <div class="modal-box w-11/12 max-w-5xl flex flex-col max-md:p-4">
+        <form method="dialog">
+            <c-buttons.close-button position-classes="right-2 top-2" />
+        </form>
         <form class="inline-block"
               action="{% url 'set_cookie_preferences' %}"
               method="post">

@@ -7,7 +7,7 @@
     {% if banner.show_banner %}
         <div id="cookie_consent_banner"
              class="absolute w-full bottom-0 left-0 md:p-10 p-5">
-            <div role="alert" class="alert md:px-10 outline">
+            <div role="alert" class="alert md:px-10 outline outline-neutral">
 
                 <div class="sm:col-span-2">
                     <h2 class="mb-2 text-xl font-heading">
@@ -27,7 +27,7 @@
                     <c-buttons.accept-button />
                 </div>
 
-                <c-buttons.close-button />
+                <c-buttons.close-button position-classes="md:right-12 md:top-12 right-7 top-7" onclick="document.getElementById('cookie_consent_banner').classList.add('hidden')" />
 
             </div>
         </div>
