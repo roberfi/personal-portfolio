@@ -1,5 +1,9 @@
 # Changelog
 
+## Next release
+
+-
+
 ## 0.3.0
 
 - Implement django-cotton
