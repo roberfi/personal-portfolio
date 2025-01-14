@@ -2,6 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  scrollbar-gutter: auto !important; /* https://github.com/saadeghi/daisyui/issues/3040 */
+}
+
 body {
   font-family: "Roboto";
+}
+
+.btn {
+  @apply outline-none;
+}
+
+.toggle-success:disabled {
+  border-color: var(--fallback-su, oklch(var(--su) / var(--tw-border-opacity)));
+  background-color: var(--fallback-su, oklch(var(--su) / var(--tw-bg-opacity)));
+  --togglehandleborder: 0 0;
 }

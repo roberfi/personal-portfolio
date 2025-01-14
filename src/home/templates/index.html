@@ -1,9 +1,6 @@
 {% load i18n %}
 
-<c-base name="{{ personal_info.name }}"
-        :sections="sections"
-        :csrf_token="csrf_token"
-        only>
+<c-base name="{{ personal_info.name }}">
     <c-slot name="extra_head">
         <style>
         #background-picture {
