@@ -11,4 +11,4 @@ class BannerConfigAdmin(SingletonModelAdmin):
 
 @register(CookieGroup)
 class CookieGroupAdmin(ModelAdmin):
-    pass
+    readonly_fields = ("version",)
