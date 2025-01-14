@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-04 13:04+0000\n"
+"POT-Creation-Date: 2025-01-09 17:14+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,8 +18,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n == 1 ? 0 : 1;\n"
 
-#: base/templates/cotton/base.html:16 base/templates/cotton/base.html:19
-#: base/templates/cotton/base.html:30
+#: base/templates/cotton/base.html:21 base/templates/cotton/base.html:24
+#: base/templates/cotton/base.html:35
 msgid "Personal web of"
 msgstr "Página personal de"
 
@@ -31,32 +31,48 @@ msgstr "Condiciones y Privacidad"
 msgid "Follow Me"
 msgstr "Sígueme"
 
-#: core/settings.py:120
+#: cookie_consent/templates/cotton/buttons/accept_button.html:20
+msgid "Accept"
+msgstr "Aceptar"
+
+#: cookie_consent/templates/cotton/buttons/settings_button.html:18
+msgid "Settings"
+msgstr "Opciones"
+
+#: cookie_consent/templates/cotton/buttons/settings_button.html:29
+msgid "Cookie Settings"
+msgstr "Configuración de Cookies"
+
+#: cookie_consent/templates/cotton/buttons/settings_button.html:57
+msgid "Save"
+msgstr "Guardar"
+
+#: core/settings.py:122
 msgid "English"
 msgstr "Inglés"
 
-#: core/settings.py:121
+#: core/settings.py:123
 msgid "Spanish"
 msgstr "Español"
 
-#: home/models.py:57
+#: home/models.py:30
+#, python-format
+msgid "%(job)s at %(company)s"
+msgstr "%(job)s en %(company)s"
+
+#: home/models.py:60
 #, python-format
 msgid "%d year"
 msgid_plural "%d years"
 msgstr[0] "%d año"
 msgstr[1] "%d años"
 
-#: home/models.py:58
+#: home/models.py:61
 #, python-format
 msgid "%d month"
 msgid_plural "%d months"
 msgstr[0] "%d mes"
 msgstr[1] "%d meses"
-
-#: home/models.py:64
-#, python-format
-msgid "%(job)s at %(company)s"
-msgstr "%(job)s en %(company)s"
 
 #: home/templates/cotton/experience_timeline.html:24
 #: home/templates/cotton/experience_timeline.html:66

@@ -28,7 +28,11 @@ urlpatterns = (
         path("", include("home.urls")),
         path("i18n/", include("django.conf.urls.i18n")),
     ),
+    path("cookie-consent/", include("cookie_consent.urls")),
 )
 
 if settings.DEBUG:
-    urlpatterns = (*urlpatterns, *static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT))
+    urlpatterns = (
+        *urlpatterns,
+        *static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT),
+    )

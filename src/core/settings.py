@@ -52,6 +52,7 @@ INSTALLED_APPS = (
     "modeltranslation",
     "django_cotton",
     "base",
+    "cookie_consent",
     "home",
 )
 

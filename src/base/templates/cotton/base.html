@@ -1,5 +1,8 @@
 {% load i18n %}
 {% load static %}
+{% load cookie_consent_tags %}
+
+{% get_cookie_consent_manager request as cookie_consent_manager %}
 
 <!DOCTYPE html>
 <html lang="{{ CURRENT_LANGUAGE }}" data-theme="portfolio">
@@ -58,5 +61,8 @@
                 <c-footer only />
             </div>
         </div>
+        {% if cookie_consent_manager|ask_for_cookie_consent %}
+            <c-cookie-consent-banner />
+        {% endif %}
     </body>
 </html>
