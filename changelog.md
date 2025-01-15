@@ -3,6 +3,7 @@
 ## Next release
 
 - Implement cookie consent management
+- Some improvements in navbar
 
 ## 0.3.0
 
