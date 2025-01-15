@@ -1,6 +1,7 @@
 from django.contrib.admin import ModelAdmin, register
+from solo.admin import SingletonModelAdmin
 
-from base.models import FollowMeLink, LegalAndPrivacy
+from base.models import FollowMeLink, GoogleAnalytics, LegalAndPrivacy
 
 
 @register(LegalAndPrivacy)
@@ -10,4 +11,9 @@ class LegalAndPrivacyAdmin(ModelAdmin):
 
 @register(FollowMeLink)
 class FollowMeLinkAdmin(ModelAdmin):
+    pass
+
+
+@register(GoogleAnalytics)
+class GoogleAnalyticsAdmin(SingletonModelAdmin):
     pass
