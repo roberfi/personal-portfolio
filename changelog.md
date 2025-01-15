@@ -4,6 +4,7 @@
 
 - Implement cookie consent management
 - Implement Google Analytics
+- Some improvements in navbar
 
 ## 0.3.0
 
