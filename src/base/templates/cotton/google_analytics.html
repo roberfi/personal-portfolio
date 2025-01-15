@@ -1,0 +1,26 @@
+{% load base_tags %}
+{% load cookie_consent_tags %}
+
+{% get_google_analytics as analytics %}
+{% if analytics.use_analytics %}
+    <!-- Google Analytics -->
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+
+        gtag("consent", "default", {
+            "analytics_storage": {% if cookie_consent_manager|is_cookie_group_accepted:analytics.cookie_consent %}"granted"{% else %}"denied"{% endif%}
+        });
+    </script>
+
+    <!-- Google tag (gtag.js) -->
+    <script async
+            src="https://www.googletagmanager.com/gtag/js?id={{ analytics.gtag }}"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+
+        gtag("js", new Date());
+        gtag("config", "{{ analytics.gtag }}"{%if analytics.debug_mode %}, {"debug_mode": true}{% endif %});
+    </script>
+{% endif %}

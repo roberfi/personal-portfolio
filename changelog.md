@@ -3,6 +3,7 @@
 ## Next release
 
 - Implement cookie consent management
+- Implement Google Analytics
 
 ## 0.3.0
 
