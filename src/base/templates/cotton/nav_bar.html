@@ -14,15 +14,15 @@
                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15" />
             </svg>
         </button>
-        <div class="bg-base-200 max-md:hidden max-md:absolute max-md:z-10 max-md:mt-5 max-md:rounded-md max-md:shadow-lg max-md:p-2"
+        <div class="max-md:hidden max-md:absolute max-md:z-10 max-md:mt-5"
              id="navigation-menu"
              role="menu"
              aria-orientation="vertical"
              aria-labelledby="menu-button">
-            <ul class="list-none md:flex max-md:space-y-2 whitespace-nowrap">
+            <ul class="bg-base-200 menu md:menu-horizontal max-md:menu-lg max-md:rounded-box max-md:w-56">
                 {% for section_name, section_id in sections %}
                     <li>
-                        <a class="btn btn-ghost max-md:w-full justify-start text-xl {% if forloop.first %}md:btn-active{% endif %}"
+                        <a class="{% if forloop.first %}active{% endif %}"
                            href="#{{ section_id }}">{{ section_name }}</a>
                     </li>
                 {% endfor %}
@@ -33,7 +33,7 @@
     <div class="relative inline-block navbar-end text-end">
         <button id="language-menu-button" class="btn btn-ghost">
             <svg xmlns="http://www.w3.org/2000/svg"
-                 class="w-5 h-5"
+                 class="w-4 h-4"
                  aria-hidden="true"
                  fill="none"
                  viewBox="0 0 24 24">
@@ -42,23 +42,23 @@
             </svg>
             <span>{{ CURRENT_LANGUAGE }}</span>
         </button>
-        <div class="bg-base-200 hidden absolute right-0 z-10 mt-5 rounded-md shadow-lg p-2"
+        <div class="hidden absolute right-0 z-10 mt-5"
              id="language-menu"
              role="menu"
              aria-orientation="vertical"
              aria-labelledby="menu-button">
-            <ul class="list-none space-y-2">
+            <ul class="menu bg-base-200 rounded-box w-35 max-md:menu-lg">
                 {% for language in languages %}
-                    <li>
-                        <form action="{% url 'set_language' %}" method="post">
+                    <li class="{% if language.code == CURRENT_LANGUAGE %}disabled{% endif %}">
+                        <a onclick="document.getElementById('language_form_{{ language.code }}').submit();"
+                           {% if language.code == CURRENT_LANGUAGE %}inert{% endif %}>{{ language.name_local | title }}</a>
+                        <form id="language_form_{{ language.code }}"
+                              class="hidden"
+                              action="{% url 'set_language' %}"
+                              method="post">
                             {% csrf_token %}
                             <input name="next" type="hidden" value="/">
-                            <button type="submit"
-                                    class="btn w-full justify-start text-xl {% if language.code == CURRENT_LANGUAGE %}btn-disabled{% endif %}"
-                                    name="language"
-                                    value="{{ language.code }}">
-                                {{ language.name_local | title }}
-                            </button>
+                            <input name="language" type="hidden" value="{{ language.code }}">
                         </form>
                     </li>
                 {% endfor %}

@@ -14,8 +14,14 @@ body {
   @apply outline-none;
 }
 
+/* For disabled success toggle in cookie settings modal */
 .toggle-success:disabled {
   border-color: var(--fallback-su, oklch(var(--su) / var(--tw-border-opacity)));
   background-color: var(--fallback-su, oklch(var(--su) / var(--tw-bg-opacity)));
   --togglehandleborder: 0 0;
+}
+
+/* To avoid focus background on menu link */
+.menu a:focus {
+  background-color: inherit;
 }

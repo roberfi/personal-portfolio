@@ -39,10 +39,11 @@ export function initScroll() {
         section.offsetTop + section.clientHeight > containerScrollPosition
       ) {
         // Update button state
-        navigationMenuLinks.forEach((other_link) =>
-          other_link.classList.remove("md:btn-active"),
-        );
-        link.classList.add("md:btn-active");
+        navigationMenuLinks.forEach((other_link) => {
+          other_link.classList.remove("active");
+          //other_link.blur(); // Remove the focus
+        });
+        link.classList.add("active");
 
         // Update text of title for mobiles
         document.getElementById("active-section-title").textContent =
