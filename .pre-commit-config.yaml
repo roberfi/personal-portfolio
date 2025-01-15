@@ -43,12 +43,12 @@ repos:
         types_or: ["html"]
 
   - repo: https://github.com/rbubley/mirrors-prettier # The official one was archived
-    rev: v3.3.3
+    rev: v3.4.2
     hooks:
       - id: prettier
 
   - repo: https://github.com/pre-commit/mirrors-eslint
-    rev: v9.15.0
+    rev: v9.18.0
     hooks:
       - id: eslint
         args: ["--no-warn-ignored"]
