@@ -13,7 +13,7 @@ class LegalAndPrivacy(models.Model):  # type: ignore[django-manager-missing] # h
 
     @cached_property
     def modal_name(self) -> str:
-        return f"{self.title.lower().replace(" ", "_")}_modal"
+        return f"{self.title.lower().replace(' ', '_')}_modal"
 
 
 class FollowMeLink(models.Model):  # type: ignore[django-manager-missing] # https://github.com/typeddjango/django-stubs/issues/1023
