@@ -1,12 +1,13 @@
 # Changelog
 
-## Next release
+## v0.4.0
 
 - Implement cookie consent management
 - Implement Google Analytics
 - Some improvements in navbar
+- Bump dependencies
 
-## 0.3.0
+## v0.3.0
 
 - Implement django-cotton
 - Add footer with "Legal & Privacy" and "Follow me" sections
