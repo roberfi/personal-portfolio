@@ -16,12 +16,11 @@ class CookieGroup(models.Model):  # type: ignore[django-manager-missing] # https
     name = models.CharField(max_length=50)
     description = models.TextField()
     is_required = models.BooleanField()
-    version = models.PositiveBigIntegerField(default=1, editable=False)
+    version = models.PositiveBigIntegerField(default=0, editable=False)
 
     def __str__(self) -> str:
         return self.name
 
     def save(self, *args, **kwargs):
-        if self.pk:
-            self.version += 1
+        self.version += 1
         super().save(*args, **kwargs)

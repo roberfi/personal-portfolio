@@ -3,6 +3,7 @@
 ## Next release
 
 - Fix no cookie consent banner if no optional cookies set
+- Fix CookieGroup version starting with value 2
 
 ## v0.4.0
 
