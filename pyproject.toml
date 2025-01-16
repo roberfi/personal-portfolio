@@ -1,6 +1,6 @@
 [project]
 name = "personal-portfolio"
-version = "0.4.1.dev1"
+version = "0.4.1"
 description = ""
 authors = [{ name = "Roberto Fernández Iglesias", email = "roberfi@gmail.com" }]
 readme = "README.md"
