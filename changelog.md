@@ -1,5 +1,9 @@
 # Changelog
 
+## Next release
+
+- Fix no cookie consent banner if no optional cookies set
+
 ## v0.4.0
 
 - Implement cookie consent management

@@ -1,5 +1,5 @@
 import json
-from collections.abc import Sequence
+from collections.abc import Iterable, Sequence
 from typing import Any, NamedTuple, Self
 
 from django.db.models.query import QuerySet
@@ -32,11 +32,16 @@ class CookieConsentManager:
     ONE_YEAR_IN_SECONDS = 60 * 60 * 24 * 365 * 1
     DEFAULT_COOKIE_CONSENT_STATUS = CookieConsentStatus(0, False)
 
-    def __init__(self, *cookie_consent: CookieConsent) -> None:
-        self.cookie_consents = cookie_consent
+    def __init__(self, cookie_consent: Iterable[CookieConsent] | None) -> None:
+        if cookie_consent is not None:
+            self.__cookie_consents = tuple(cookie_consent)
+            self.__is_cookie_consent_set = True
+        else:
+            self.__cookie_consents = ()
+            self.__is_cookie_consent_set = False
 
     def __getitem__(self, cookie_id: str) -> CookieConsent:
-        for cookie_consent in self.cookie_consents:
+        for cookie_consent in self.__cookie_consents:
             if cookie_consent.cookie_id == cookie_id:
                 return cookie_consent
 
@@ -50,9 +55,9 @@ class CookieConsentManager:
     @classmethod
     def from_request(cls, request: HttpRequest) -> Self:
         try:
-            cookie_consent_dict = json.loads(request.COOKIES.get(cls.COOKIE_CONSENT_COOKIE_NAME, "{}"))
-        except json.decoder.JSONDecodeError:
-            cookie_consent_dict = {}
+            cookie_consent_dict = json.loads(request.COOKIES[cls.COOKIE_CONSENT_COOKIE_NAME])
+        except (KeyError, json.decoder.JSONDecodeError):
+            return cls(None)
 
         _cookie_consents = []
 
@@ -75,12 +80,12 @@ class CookieConsentManager:
                 )
             )
 
-        return cls(*_cookie_consents)
+        return cls(_cookie_consents)
 
     @classmethod
     def parse_cookie_consent_form(cls, cookie_consent_form: dict[str, Any]) -> Self:
         return cls(
-            *(
+            (
                 CookieConsent(
                     cookie_id=cookie_group.cookie_id,
                     current_version=cookie_group.version,
@@ -95,7 +100,7 @@ class CookieConsentManager:
     @classmethod
     def all_cookies_accepted(cls) -> Self:
         return cls(
-            *(
+            (
                 CookieConsent(
                     cookie_id=cookie_group.cookie_id,
                     current_version=cookie_group.version,
@@ -111,7 +116,7 @@ class CookieConsentManager:
             json.dumps(
                 {
                     cookie_consent.cookie_id: cookie_consent.cookie_consent_status
-                    for cookie_consent in self.cookie_consents
+                    for cookie_consent in self.__cookie_consents
                 }
             ),
             max_age=self.ONE_YEAR_IN_SECONDS,
@@ -121,7 +126,9 @@ class CookieConsentManager:
         return response
 
     def is_any_cookie_consent_outdated(self) -> bool:
-        return any(cookie_consent.is_version_outdated for cookie_consent in self.cookie_consents)
+        return not self.__is_cookie_consent_set or any(
+            cookie_consent.is_version_outdated for cookie_consent in self.__cookie_consents
+        )
 
     def is_cookie_group_accepted(self, cookie_id: str) -> bool:
-        return self[cookie_id].is_accepted
+        return self.__is_cookie_consent_set and self[cookie_id].is_accepted
