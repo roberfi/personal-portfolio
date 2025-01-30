@@ -1,8 +1,8 @@
 {% load i18n %}
 {% load static %}
-{% load cookie_consent_tags %}
+{% load cooco %}
 
-{% get_cookie_consent_manager request as cookie_consent_manager %}
+{% get_cooco_manager request as cooco_manager %}
 
 <!DOCTYPE html>
 <html lang="{{ CURRENT_LANGUAGE }}" data-theme="portfolio">
@@ -63,7 +63,7 @@
                 <c-footer only />
             </div>
         </div>
-        {% if cookie_consent_manager|ask_for_cookie_consent %}
+        {% if cooco_manager|ask_for_cooco %}
             <c-cookie-consent-banner />
         {% endif %}
     </body>
