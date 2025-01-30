@@ -1,5 +1,5 @@
 {% load base_tags %}
-{% load cookie_consent_tags %}
+{% load cooco %}
 
 {% get_google_analytics as analytics %}
 {% if analytics.use_analytics %}
@@ -9,7 +9,7 @@
         function gtag(){dataLayer.push(arguments);}
 
         gtag("consent", "default", {
-            "analytics_storage": {% if cookie_consent_manager|is_cookie_group_accepted:analytics.cookie_consent %}"granted"{% else %}"denied"{% endif%}
+            "analytics_storage": {% if cooco_manager|is_cookie_group_accepted:analytics.cookie_consent %}"granted"{% else %}"denied"{% endif%}
         });
     </script>
 

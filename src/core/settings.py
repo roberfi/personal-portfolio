@@ -40,6 +40,7 @@ DATABASES = {
     )
 }
 
+
 # Application definition
 INSTALLED_APPS = (
     "django.contrib.admin",
@@ -51,10 +52,18 @@ INSTALLED_APPS = (
     "solo",
     "modeltranslation",
     "django_cotton",
+    "django_cooco",
     "base",
     "cookie_consent",
     "home",
 )
+
+MIGRATION_MODULES = {
+    "cooco": "third_party.django_cooco.migrations",
+}
+
+MODELTRANSLATION_TRANSLATION_FILES = ("third_party.django_cooco.translation",)
+
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -145,6 +154,8 @@ LOCALE_PATHS = (BASE_DIR / "locale/",)
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+COOCO_COOKIE_NAME = "cookie_consent"
 
 if DEBUG:
     CACHE_MIDDLEWARE_SECONDS = 0

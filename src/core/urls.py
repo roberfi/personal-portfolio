@@ -28,7 +28,7 @@ urlpatterns = (
         path("", include("home.urls")),
         path("i18n/", include("django.conf.urls.i18n")),
     ),
-    path("cookie-consent/", include("cookie_consent.urls")),
+    path("cookie-consent/", include("django_cooco.urls")),
 )
 
 if settings.DEBUG:
