@@ -120,6 +120,22 @@ argon2 = ["argon2-cffi (>=19.1.0)"]
 bcrypt = ["bcrypt"]
 
 [[package]]
+name = "django-cooco"
+version = "0.0.1"
+description = "Django app to manage cookie consents"
+optional = false
+python-versions = ">=3.10"
+groups = ["main"]
+files = [
+    {file = "django_cooco-0.0.1-py3-none-any.whl", hash = "sha256:5634555340ae5f618d0ccabae7bffd901612319c7480b465ca1cb50572715589"},
+    {file = "django_cooco-0.0.1.tar.gz", hash = "sha256:40076cf6c546f9628678960b6d353dae63298af9d7fdbd65c8e2904575ebdaae"},
+]
+
+[package.dependencies]
+django = ">=5.0,<6.0"
+django-solo = ">=2.4,<2.5"
+
+[[package]]
 name = "django-cotton"
 version = "1.5.2"
 description = "Bringing component based design to Django templates."
@@ -915,4 +931,4 @@ test = ["covdefaults (>=2.3)", "coverage (>=7.2.7)", "coverage-enable-subprocess
 [metadata]
 lock-version = "2.1"
 python-versions = "^3.13"
-content-hash = "c1cba1a5a9ee863acfb7bac6bc0867c17a71fb5b00c48227e8800612a4e85eb5"
+content-hash = "72783a1cff1251209be998a1ff242c115276d737835552724b7fbe796c83e818"

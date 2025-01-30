@@ -1,6 +1,5 @@
+from django_cooco.models import BannerConfig, CookieGroup
 from modeltranslation.translator import TranslationOptions, register
-
-from cookie_consent.models import BannerConfig, CookieGroup
 
 
 @register(BannerConfig)
