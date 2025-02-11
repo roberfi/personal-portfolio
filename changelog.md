@@ -1,5 +1,10 @@
 # Changelog
 
+## Next release
+
+- Implement django-cooco library
+- Bump dependencies
+
 ## v0.4.1
 
 - Fix no cookie consent banner if no optional cookies set
