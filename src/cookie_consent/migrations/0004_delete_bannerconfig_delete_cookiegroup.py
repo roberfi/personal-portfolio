@@ -5,7 +5,10 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-    dependencies = (("cookie_consent", "0003_alter_cookiegroup_version"),)
+    dependencies = (
+        ("cookie_consent", "0003_alter_cookiegroup_version"),
+        ("base", "0003_googleanalytics"),
+    )
 
     operations = (
         migrations.SeparateDatabaseAndState(
