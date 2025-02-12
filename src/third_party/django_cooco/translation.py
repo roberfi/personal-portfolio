@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from django_cooco.models import BannerConfig, CookieGroup
 from modeltranslation.translator import TranslationOptions, register
 

@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from modeltranslation.translator import TranslationOptions, register
 
 from base.models import LegalAndPrivacy

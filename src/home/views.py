@@ -1,8 +1,14 @@
-from django.http import HttpRequest, HttpResponse
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
 from django.shortcuts import render
 from django.utils.translation import gettext
 
 from .models import Experience, PersonalInfo
+
+if TYPE_CHECKING:
+    from django.http import HttpRequest, HttpResponse
 
 
 def home_view(request: HttpRequest) -> HttpResponse:

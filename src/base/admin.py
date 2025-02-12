@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from django.contrib.admin import ModelAdmin, register
 from solo.admin import SingletonModelAdmin
 
