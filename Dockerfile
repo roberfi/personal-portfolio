@@ -14,38 +14,34 @@ WORKDIR /app
 # Use builder image
 FROM base AS builder
 
-# Configure Poetry
-ENV PIP_DEFAULT_TIMEOUT=100 \
+# Configure Pip
+ENV PATH="/root/.local/bin:$PATH" \
+    PIP_DEFAULT_TIMEOUT=100 \
     PIP_DISABLE_PIP_VERSION_CHECK=1 \
-    PIP_NO_CACHE_DIR=1 \
-    POETRY_VERSION=2.0.1 \
-    POETRY_NO_INTERACTION=1 \
-    POETRY_VIRTUALENVS_IN_PROJECT=1 \
-    POETRY_VIRTUALENVS_CREATE=1
-
-# Install poetry
-RUN pip install "poetry==$POETRY_VERSION"
+    PIP_NO_CACHE_DIR=1
 
 # Install nodejs
 RUN apt-get update \
     && apt-get install -y curl \
     && apt-get -y autoclean \
+    && curl -fsSL https://astral.sh/uv/0.6.2/install.sh | bash - \
     && curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
     && apt-get install -y nodejs
 
 # Copy installation files
-COPY package.json package-lock.json poetry.lock pyproject.toml /app/
+COPY package.json package-lock.json uv.lock pyproject.toml /app/
 
-# Instal poetry environment
-RUN poetry install --with prod
+# Copy the code
+COPY ./src /app/src
+
+# Instal virtual environment
+RUN uv sync --frozen --no-dev --group prod
 
 # Install node dependencies
 RUN npm install --omit=dev
 
-# Copy the code
-COPY . .
-
 # Build frontend
+COPY tailwind.config.js webpack.config.js /app/
 RUN npm run build
 
 # Use final image
@@ -56,7 +52,7 @@ COPY --from=builder $VIRTUAL_ENV $VIRTUAL_ENV
 COPY --from=builder /app/src ./src
 
 # Copy entrypoint file
-COPY ./entrypoint.sh ./
+COPY ./entrypoint.sh /app/
 RUN chmod +x ./entrypoint.sh
 
 # Set new workdir
