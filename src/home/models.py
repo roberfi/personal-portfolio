@@ -33,22 +33,18 @@ class Experience(models.Model):  # type: ignore[django-manager-missing] # https:
     def actual_end_date(self) -> datetime.date:
         return self.end_date or datetime.date.today()
 
-    @cached_property
-    def __total_days(self) -> int:
-        return (self.actual_end_date - self.start_date).days
-
     class _YearsAndMonths(NamedTuple):
         years: int
         months: int
 
     @cached_property
     def __years_and_months(self) -> _YearsAndMonths:
-        years = int(self.__total_days / 365)
+        years = self.actual_end_date.year - self.start_date.year
+        months = self.actual_end_date.month - self.start_date.month
 
-        months = self.actual_end_date.month - self.start_date.month + 1
-
-        # If substraction is negative, we have to sum one year
-        if self.actual_end_date.month < self.start_date.month:
+        # Adjust for negative months (when end month is earlier in the year than start month)
+        if months < 0:
+            years -= 1
             months += 12
 
         return self._YearsAndMonths(years, months)

@@ -3,7 +3,9 @@
 ## Next release
 
 - Implement django-cooco library
+- Update the way experiences duration is calculated
 - Bump dependencies
+- Use uv as python package manager
 
 ## v0.4.1
 
