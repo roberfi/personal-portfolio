@@ -4,7 +4,7 @@ import pluginJs from "@eslint/js";
 /** @type {import('eslint').Linter.Config[]} */
 export default [
   {
-    ignores: ["src/static/"],
+    ignores: [".venv", "src/static/"],
   },
   {
     languageOptions: { globals: globals.browser },
