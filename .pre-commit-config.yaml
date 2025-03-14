@@ -31,6 +31,7 @@ repos:
           - django-cotton==1.5.2
           - django-solo==2.4.0
           - django-cooco==0.0.1
+          - types-beautifulsoup4==4.12.0.20250204
 
   - repo: https://github.com/djlint/djLint
     rev: v1.36.4
