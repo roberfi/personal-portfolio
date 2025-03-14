@@ -5,8 +5,10 @@
   "scripts": {
     "dev": "webpack --mode development --watch",
     "build": "webpack --mode production",
-    "prettier": "npx prettier . --write",
-    "eslint": "npx eslint ."
+    "prettier": "npx prettier . --check",
+    "prettier-fix": "npx prettier . --write",
+    "eslint": "npx eslint .",
+    "eslint-fix": "npx eslint . --fix"
   },
   "keywords": [],
   "author": "",
