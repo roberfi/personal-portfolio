@@ -1,0 +1,25 @@
+name: Python and UV Setup
+
+inputs:
+  python-version:
+    required: true
+    type: string
+  uv-version:
+    required: true
+    type: string
+
+runs:
+  using: "composite"
+
+  steps:
+    - name: Set up Python ${{ inputs.python-version }}
+      uses: actions/setup-python@v5
+      with:
+        python-version: ${{ inputs.python-version }}
+    - name: Install uv ${{ inputs.uv-version }}
+      uses: astral-sh/setup-uv@v5
+      with:
+        version: ${{ inputs.uv-version }}
+    - name: Install dependencies
+      shell: bash
+      run: uv sync --frozen
