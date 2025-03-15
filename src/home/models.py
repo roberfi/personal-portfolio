@@ -5,6 +5,7 @@ from functools import cached_property
 from typing import NamedTuple
 
 from django.db import models
+from django.forms import ValidationError
 from django.utils.translation import gettext, ngettext
 from solo.models import SingletonModel
 
@@ -29,9 +30,21 @@ class Experience(models.Model):  # type: ignore[django-manager-missing] # https:
     def __str__(self) -> str:
         return gettext("%(job)s at %(company)s") % {"job": self.title, "company": self.company}
 
+    def clean(self) -> None:
+        if self.end_date and self.end_date < self.start_date:
+            error_message = gettext("End date must be after start date")
+            raise ValidationError(error_message, code="invalid_dates")
+
     @cached_property
     def actual_end_date(self) -> datetime.date:
         return self.end_date or datetime.date.today()
+
+    @cached_property
+    def period(self) -> str:
+        start_date = self.start_date.strftime("%b, %Y")
+        end_date = self.actual_end_date.strftime("%b, %Y") if self.end_date else gettext("Present")
+
+        return f"{start_date} - {end_date}"
 
     class _YearsAndMonths(NamedTuple):
         years: int
@@ -51,7 +64,14 @@ class Experience(models.Model):  # type: ignore[django-manager-missing] # https:
 
     @cached_property
     def duration(self) -> str:
+        if self.start_date > datetime.date.today():
+            return gettext("Not yet started")
+
         years, months = self.__years_and_months
+
+        if years == 0 and months == 0:
+            return gettext("Less than a month")
+
         parts = (
             ngettext("%d year", "%d years", years) % years if years else "",
             ngettext("%d month", "%d months", months) % months if months else "",

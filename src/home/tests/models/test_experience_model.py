@@ -4,22 +4,25 @@ from datetime import date
 from typing import ClassVar
 from unittest.mock import MagicMock, patch
 
+from django.forms import ValidationError
 from django.test import TestCase
 
 from home.models import Experience
 
 
-class TestExperienceModel(TestCase):
+class BaseTestExperienceModel(TestCase):
     experience: ClassVar[Experience]
 
     @staticmethod
-    def _get_new_experience_instance(*, end_date: date | None) -> Experience:
+    def _get_new_experience_instance(
+        *, start_date: date = date(2012, 10, 25), end_date: date | None = None
+    ) -> Experience:
         return Experience(
             title="Test Title",
             location="Any Location",
             company="Any Company",
             description="Description of the experience",
-            start_date=date(2012, 10, 25),
+            start_date=start_date,
             end_date=end_date,
         )
 
@@ -38,7 +41,7 @@ class TestExperienceModel(TestCase):
         )
 
 
-class TestBaseExperienceModel(TestExperienceModel):
+class TestExperienceModel(BaseTestExperienceModel):
     @classmethod
     def setUpTestData(cls) -> None:
         cls.experience = cls._get_new_experience_instance(end_date=date(2015, 8, 29))
@@ -60,7 +63,7 @@ class TestBaseExperienceModel(TestExperienceModel):
         self._assert_duration_value("2 years, 10 months")
 
 
-class TestNoEndDateExperienceModel(TestExperienceModel):
+class TestNoEndDateExperienceModel(BaseTestExperienceModel):
     @classmethod
     def setUpTestData(cls) -> None:
         cls.experience = cls._get_new_experience_instance(end_date=None)
@@ -80,7 +83,7 @@ class TestNoEndDateExperienceModel(TestExperienceModel):
         self._assert_duration_value("4 years, 11 months")
 
 
-class TestOnlyMonthsDurationExperienceModel(TestExperienceModel):
+class TestOnlyMonthsDurationExperienceModel(BaseTestExperienceModel):
     @classmethod
     def setUpTestData(cls) -> None:
         cls.experience = cls._get_new_experience_instance(end_date=date(2012, 12, 25))
@@ -89,7 +92,7 @@ class TestOnlyMonthsDurationExperienceModel(TestExperienceModel):
         self._assert_duration_value("2 months")
 
 
-class TestOnlyYearsDurationExperienceModel(TestExperienceModel):
+class TestOnlyYearsDurationExperienceModel(BaseTestExperienceModel):
     @classmethod
     def setUpTestData(cls) -> None:
         cls.experience = cls._get_new_experience_instance(end_date=date(2014, 10, 25))
@@ -98,10 +101,44 @@ class TestOnlyYearsDurationExperienceModel(TestExperienceModel):
         self._assert_duration_value("2 years")
 
 
-class TestSingularDurationWordingExperienceModel(TestExperienceModel):
+class TestSingularDurationWordingExperienceModel(BaseTestExperienceModel):
     @classmethod
     def setUpTestData(cls) -> None:
         cls.experience = cls._get_new_experience_instance(end_date=date(2013, 11, 25))
 
     def test_duration(self) -> None:
         self._assert_duration_value("1 year, 1 month")
+
+
+class TestLessThanAMonthExperienceModel(BaseTestExperienceModel):
+    @classmethod
+    def setUpTestData(cls) -> None:
+        cls.experience = cls._get_new_experience_instance(start_date=date(2017, 10, 15), end_date=date(2017, 10, 25))
+
+    def test_duration(self) -> None:
+        self._assert_duration_value("Less than a month")
+
+
+class TestNotStartedExperienceModel(BaseTestExperienceModel):
+    @classmethod
+    def setUpTestData(cls) -> None:
+        cls.experience = cls._get_new_experience_instance(start_date=date(2017, 10, 25))
+
+    @patch("home.models.datetime.date")
+    def test_duration(self, mock_date: MagicMock) -> None:
+        mock_date.today.return_value = date(2017, 9, 15)
+        mock_date.side_effect = lambda *args, **kw: date(*args, **kw)
+
+        self._assert_duration_value("Not yet started")
+
+
+class TesInvalidDatesExperienceModel(BaseTestExperienceModel):
+    @classmethod
+    def setUpTestData(cls) -> None:
+        cls.experience = cls._get_new_experience_instance(start_date=date(2017, 10, 25), end_date=date(2017, 10, 24))
+
+    def test_validation_error(self) -> None:
+        with self.assertRaises(ValidationError) as cm:
+            self.experience.full_clean()
+            self.assertEqual(cm.exception.code, "invalid_dates")
+            self.assertEqual(cm.exception.message, "End date must be after start date")

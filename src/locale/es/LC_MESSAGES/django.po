@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-09 17:14+0000\n"
+"POT-Creation-Date: 2025-03-15 10:17+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -23,6 +23,22 @@ msgstr ""
 msgid "Personal web of"
 msgstr "Página personal de"
 
+#: base/templates/cotton/buttons/accept_button.html:20
+msgid "Accept"
+msgstr "Aceptar"
+
+#: base/templates/cotton/buttons/settings_button.html:18
+msgid "Settings"
+msgstr "Opciones"
+
+#: base/templates/cotton/buttons/settings_button.html:33
+msgid "Cookie Settings"
+msgstr "Configuración de Cookies"
+
+#: base/templates/cotton/buttons/settings_button.html:61
+msgid "Save"
+msgstr "Guardar"
+
 #: base/templates/cotton/footer.html:14
 msgid "Legal & Privacy"
 msgstr "Condiciones y Privacidad"
@@ -31,62 +47,57 @@ msgstr "Condiciones y Privacidad"
 msgid "Follow Me"
 msgstr "Sígueme"
 
-#: cookie_consent/templates/cotton/buttons/accept_button.html:20
-msgid "Accept"
-msgstr "Aceptar"
-
-#: cookie_consent/templates/cotton/buttons/settings_button.html:18
-msgid "Settings"
-msgstr "Opciones"
-
-#: cookie_consent/templates/cotton/buttons/settings_button.html:29
-msgid "Cookie Settings"
-msgstr "Configuración de Cookies"
-
-#: cookie_consent/templates/cotton/buttons/settings_button.html:57
-msgid "Save"
-msgstr "Guardar"
-
-#: core/settings.py:122
+#: core/settings.py:133
 msgid "English"
 msgstr "Inglés"
 
-#: core/settings.py:123
+#: core/settings.py:134
 msgid "Spanish"
 msgstr "Español"
 
-#: home/models.py:30
+#: home/models.py:31
 #, python-format
 msgid "%(job)s at %(company)s"
 msgstr "%(job)s en %(company)s"
 
-#: home/models.py:60
+#: home/models.py:35
+msgid "End date must be after start date"
+msgstr "Las fecha final debe ser posterior a la fecha de inicio"
+
+#: home/models.py:45
+msgid "Present"
+msgstr "Actualmente"
+
+#: home/models.py:68
+msgid "Not yet started"
+msgstr "Aún no empezado"
+
+#: home/models.py:73
+msgid "Less than a month"
+msgstr "Menos de un mes"
+
+#: home/models.py:76
 #, python-format
 msgid "%d year"
 msgid_plural "%d years"
 msgstr[0] "%d año"
 msgstr[1] "%d años"
 
-#: home/models.py:61
+#: home/models.py:77
 #, python-format
 msgid "%d month"
 msgid_plural "%d months"
 msgstr[0] "%d mes"
 msgstr[1] "%d meses"
 
-#: home/templates/cotton/experience_timeline.html:24
-#: home/templates/cotton/experience_timeline.html:66
-msgid "Present"
-msgstr "Actualmente"
-
-#: home/templates/index.html:30 home/views.py:15
+#: home/templates/index.html:30 home/views.py:21
 msgid "About me"
 msgstr "Sobre mí"
 
-#: home/templates/index.html:41 home/views.py:16
+#: home/templates/index.html:41 home/views.py:22
 msgid "My Career"
 msgstr "Mi Experiencia"
 
-#: home/views.py:14
+#: home/views.py:20
 msgid "Home"
 msgstr "Inicio"
