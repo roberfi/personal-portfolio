@@ -6,6 +6,7 @@ from typing import NamedTuple
 
 from django.db import models
 from django.forms import ValidationError
+from django.template.defaultfilters import date as datefilter
 from django.utils.translation import gettext, ngettext
 from solo.models import SingletonModel
 
@@ -41,8 +42,8 @@ class Experience(models.Model):  # type: ignore[django-manager-missing] # https:
 
     @cached_property
     def period(self) -> str:
-        start_date = self.start_date.strftime("%b, %Y")
-        end_date = self.actual_end_date.strftime("%b, %Y") if self.end_date else gettext("Present")
+        start_date = datefilter(self.start_date, "M, Y")
+        end_date = datefilter(self.end_date, "M, Y") if self.end_date else gettext("Present")
 
         return f"{start_date} - {end_date}"
 
