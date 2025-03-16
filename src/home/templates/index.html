@@ -14,10 +14,10 @@
         <div id="background-picture" class="absolute h-full w-full -z-20">
         </div>
         <div class="absolute right-1/4 top-2/4 h-fit px-5">
-            <h1 class="text-5xl mb-10 text-primary">
+            <h1 id="personal-info-name" class="text-5xl mb-10 text-primary">
                 {{ personal_info.name }}
             </h1>
-            <h3 class="text-xl text-neutral-content">
+            <h3 id="personal-info-description" class="text-xl text-neutral-content">
                 {{ personal_info.description }}
             </h3>
         </div>
@@ -26,10 +26,10 @@
          class="relative w-full bg-base-300 text-neutral-content py-32">
         <div class="h-fit py-4 lg:max-w-screen-lg lg:mx-auto px-5">
             <div>
-                <h1 class="text-5xl mb-10 text-primary">
+                <h1 id="about-me-title" class="text-5xl mb-10 text-primary">
                     {% translate "About me" %}
                 </h1>
-                <p>
+                <p id="personal-info-biography">
                     {{ personal_info.biography|linebreaksbr }}
                 </p>
             </div>
@@ -37,7 +37,7 @@
     </div>
     <div id="my-career" class="w-full py-32 min-h-full">
         <div class="h-fit py-4 lg:max-w-screen-lg lg:mx-auto px-5">
-            <h1 class="text-5xl mb-10 text-primary">
+            <h1 id="my-career-title" class="text-5xl mb-10 text-primary">
                 {% translate "My Career" %}
             </h1>
             <c-experience-timeline :experiences="experiences" only />
