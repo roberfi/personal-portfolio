@@ -3,7 +3,7 @@
 
 <ul class="list-none timeline timeline-snap-icon max-md:timeline-compact timeline-vertical">
     {% for experience in experiences %}
-        <li>
+        <li id="experience-item-{{ experience.id }}">
             {% if not forloop.first %}
                 <hr />
             {% endif %}
@@ -16,19 +16,24 @@
                 </svg>
             </div>
             <div class="!mb-10 w-full {% if forloop.counter|divisibleby:2 %}timeline-start md:text-end{% else %}timeline-end{% endif %}">
-                <time class="font-mono text-primary">
+                <time id="experience-period-{{ experience.id }}"
+                      class="font-mono text-primary">
                     {{ experience.period }}
                 </time>
-                <div class="font-mono text-primary">
+                <div id="experience-duration-{{ experience.id }}"
+                     class="font-mono text-primary">
                     ({{ experience.duration }})
                 </div>
-                <div class="text-lg font-black mt-5">
+                <div id="experience-title-{{ experience.id }}"
+                     class="text-lg font-black mt-5">
                     {{ experience.title }}
                 </div>
-                <div class="font-mono text-secondary">
+                <div id="experience-company-{{ experience.id }}"
+                     class="font-mono text-secondary">
                     {{ experience.company }}
                 </div>
-                <div class="font-mono text-secondary">
+                <div id="experience-location-{{ experience.id }}"
+                     class="font-mono text-secondary">
                     {{ experience.location }}
                 </div>
                 <div class="mb-1">
@@ -50,22 +55,28 @@
             <dialog id="experience_modal_{{ experience.id }}" class="modal">
                 <div class="modal-box w-11/12 max-w-5xl flex flex-col max-md:p-4">
                     <div class="flex-1 overflow-y-auto">
-                        <h3 class="text-lg font-bold">
+                        <h3 id="modal-experience-title-{{ experience.id }}"
+                            class="text-lg font-bold">
                             {{ experience.title }}
                         </h3>
-                        <time class="font-mono text-primary">
+                        <time id="modal-experience-period-{{ experience.id }}"
+                              class="font-mono text-primary">
                             {{ experience.period }}
                         </time>
-                        <div class="font-mono text-primary">
+                        <div id="modal-experience-duration-{{ experience.id }}"
+                             class="font-mono text-primary">
                             ({{ experience.duration }})
                         </div>
-                        <div class="font-mono text-secondary">
+                        <div id="modal-experience-company-{{ experience.id }}"
+                             class="font-mono text-secondary">
                             {{ experience.company }}
                         </div>
-                        <div class="font-mono text-secondary">
+                        <div id="modal-experience-location-{{ experience.id }}"
+                             class="font-mono text-secondary">
                             {{ experience.location }}
                         </div>
-                        <div class="prose max-w-none py-4">
+                        <div id="modal-experience-description-{{ experience.id }}"
+                             class="prose max-w-none py-4">
                             {{ experience.description|md }}
                         </div>
                     </div>

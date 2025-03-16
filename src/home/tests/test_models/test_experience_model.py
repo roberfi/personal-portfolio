@@ -2,12 +2,22 @@ from __future__ import annotations
 
 from datetime import date
 from typing import ClassVar
-from unittest.mock import MagicMock, patch
+from unittest.mock import patch
 
 from django.forms import ValidationError
 from django.test import TestCase
 
 from home.models import Experience
+from utils.testing_utils import get_date_with_mocked_today
+
+# Constants
+TEST_TITLE = "Test Title"
+TEST_LOCATION = "Any Location"
+TEST_COMPANY = "Any Company"
+TEST_DESCRIPTION = "Description of the experience"
+DEFAULT_START_DATE = date(2012, 10, 25)
+
+MOCKED_TODAY_DATE = date(2017, 9, 15)
 
 
 class BaseTestExperienceModel(TestCase):
@@ -15,13 +25,13 @@ class BaseTestExperienceModel(TestCase):
 
     @staticmethod
     def _get_new_experience_instance(
-        *, start_date: date = date(2012, 10, 25), end_date: date | None = None
+        *, start_date: date = DEFAULT_START_DATE, end_date: date | None = None
     ) -> Experience:
         return Experience(
-            title="Test Title",
-            location="Any Location",
-            company="Any Company",
-            description="Description of the experience",
+            title=TEST_TITLE,
+            location=TEST_LOCATION,
+            company=TEST_COMPANY,
+            description=TEST_DESCRIPTION,
             start_date=start_date,
             end_date=end_date,
         )
@@ -68,18 +78,12 @@ class TestNoEndDateExperienceModel(BaseTestExperienceModel):
     def setUpTestData(cls) -> None:
         cls.experience = cls._get_new_experience_instance(end_date=None)
 
-    @patch("home.models.datetime.date")
-    def test_actual_end_date(self, mock_date: MagicMock) -> None:
-        mock_date.today.return_value = date(2017, 9, 15)
-        mock_date.side_effect = lambda *args, **kw: date(*args, **kw)
+    @patch("home.models.datetime.date", get_date_with_mocked_today(MOCKED_TODAY_DATE))
+    def test_actual_end_date(self) -> None:
+        self._assert_actual_end_date_value(MOCKED_TODAY_DATE)
 
-        self._assert_actual_end_date_value(date(2017, 9, 15))
-
-    @patch("home.models.datetime.date")
-    def test_duration(self, mock_date: MagicMock) -> None:
-        mock_date.today.return_value = date(2017, 9, 15)
-        mock_date.side_effect = lambda *args, **kw: date(*args, **kw)
-
+    @patch("home.models.datetime.date", get_date_with_mocked_today(MOCKED_TODAY_DATE))
+    def test_duration(self) -> None:
         self._assert_duration_value("4 years, 11 months")
 
 
@@ -124,11 +128,8 @@ class TestNotStartedExperienceModel(BaseTestExperienceModel):
     def setUpTestData(cls) -> None:
         cls.experience = cls._get_new_experience_instance(start_date=date(2017, 10, 25))
 
-    @patch("home.models.datetime.date")
-    def test_duration(self, mock_date: MagicMock) -> None:
-        mock_date.today.return_value = date(2017, 9, 15)
-        mock_date.side_effect = lambda *args, **kw: date(*args, **kw)
-
+    @patch("home.models.datetime.date", get_date_with_mocked_today(MOCKED_TODAY_DATE))
+    def test_duration(self) -> None:
         self._assert_duration_value("Not yet started")
 
 
