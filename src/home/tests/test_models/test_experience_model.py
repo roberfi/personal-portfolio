@@ -2,12 +2,13 @@ from __future__ import annotations
 
 from datetime import date
 from typing import ClassVar
-from unittest.mock import MagicMock, patch
+from unittest.mock import patch
 
 from django.forms import ValidationError
 from django.test import TestCase
 
 from home.models import Experience
+from utils.testing_utils import get_date_with_mocked_today
 
 
 class BaseTestExperienceModel(TestCase):
@@ -68,18 +69,12 @@ class TestNoEndDateExperienceModel(BaseTestExperienceModel):
     def setUpTestData(cls) -> None:
         cls.experience = cls._get_new_experience_instance(end_date=None)
 
-    @patch("home.models.datetime.date")
-    def test_actual_end_date(self, mock_date: MagicMock) -> None:
-        mock_date.today.return_value = date(2017, 9, 15)
-        mock_date.side_effect = lambda *args, **kw: date(*args, **kw)
-
+    @patch("home.models.datetime.date", get_date_with_mocked_today(2017, 9, 15))
+    def test_actual_end_date(self) -> None:
         self._assert_actual_end_date_value(date(2017, 9, 15))
 
-    @patch("home.models.datetime.date")
-    def test_duration(self, mock_date: MagicMock) -> None:
-        mock_date.today.return_value = date(2017, 9, 15)
-        mock_date.side_effect = lambda *args, **kw: date(*args, **kw)
-
+    @patch("home.models.datetime.date", get_date_with_mocked_today(2017, 9, 15))
+    def test_duration(self) -> None:
         self._assert_duration_value("4 years, 11 months")
 
 
@@ -124,11 +119,8 @@ class TestNotStartedExperienceModel(BaseTestExperienceModel):
     def setUpTestData(cls) -> None:
         cls.experience = cls._get_new_experience_instance(start_date=date(2017, 10, 25))
 
-    @patch("home.models.datetime.date")
-    def test_duration(self, mock_date: MagicMock) -> None:
-        mock_date.today.return_value = date(2017, 9, 15)
-        mock_date.side_effect = lambda *args, **kw: date(*args, **kw)
-
+    @patch("home.models.datetime.date", get_date_with_mocked_today(2017, 9, 15))
+    def test_duration(self) -> None:
         self._assert_duration_value("Not yet started")
 
 
