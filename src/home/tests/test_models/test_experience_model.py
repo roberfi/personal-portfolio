@@ -133,7 +133,7 @@ class TestNotStartedExperienceModel(BaseTestExperienceModel):
         self._assert_duration_value("Not yet started")
 
 
-class TesInvalidDatesExperienceModel(BaseTestExperienceModel):
+class TestInvalidDatesExperienceModel(BaseTestExperienceModel):
     @classmethod
     def setUpTestData(cls) -> None:
         cls.experience = cls._get_new_experience_instance(start_date=date(2017, 10, 25), end_date=date(2017, 10, 24))
