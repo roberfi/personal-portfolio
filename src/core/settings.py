@@ -159,5 +159,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 COOCO_COOKIE_NAME = "cookie_consent"
 
+TEST_RUNNER = "utils.testing_utils.CustomTestRunner"
+
 if DEBUG:
     CACHE_MIDDLEWARE_SECONDS = 0
