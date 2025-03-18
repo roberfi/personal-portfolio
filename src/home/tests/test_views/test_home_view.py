@@ -1,14 +1,35 @@
 from __future__ import annotations
 
 from datetime import date
+from enum import StrEnum
 from typing import ClassVar, NamedTuple
 from unittest.mock import patch
 
 from bs4 import BeautifulSoup, Tag
 from django.test import Client, TestCase
 
+from base.models import LegalAndPrivacy
 from home.models import Experience, PersonalInfo
 from utils.testing_utils import get_date_with_mocked_today
+
+
+class HtmlTag(StrEnum):
+    H1 = "h1"
+    H2 = "h2"
+    H3 = "h3"
+    H4 = "h4"
+    H5 = "h5"
+    H6 = "h6"
+    DIV = "div"
+    P = "p"
+    A = "a"
+    UL = "ul"
+    LI = "li"
+    NAV = "nav"
+    FOOTER = "footer"
+    TIME = "time"
+    DIALOG = "dialog"
+
 
 # Home ids
 HOME_ID = "home"
@@ -36,6 +57,14 @@ MODAL_EXPERIENCE_TITLE_ID_PREFIX = "modal-experience-title-"
 MODAL_EXPERIENCE_COMPANY_ID_PREFIX = "modal-experience-company-"
 MODAL_EXPERIENCE_LOCATION_ID_PREFIX = "modal-experience-location-"
 MODAL_EXPERIENCE_DESCRIPTION_ID_PREFIX = "modal-experience-description-"
+
+# Footer ids
+FOOTER_ID = "footer"
+LEGAL_AND_PRIVACY_ID = "legal-and-privacy"
+LEGAL_AND_PRIVACY_TITLE_ID = "legal-and-privacy-title"
+LEGAL_AND_PRIVACY_LINK_ID_PREFIX = "legal_and_privacy-link-"
+LEGAL_AND_PRIVACY_MODAL_ID_PREFIX = "legal_and_privacy_modal_"
+LEGAL_AND_PRIVACY_TEXT_ID_PREFIX = "legal-and-privacy-text-"
 
 ENGLISH = "en"
 SPANISH = "es"
@@ -118,6 +147,31 @@ EXPECTED_NUMBER_OF_EXPERIENCES = 2
 MOCKED_TODAY = date(2024, 7, 15)
 
 
+# Footer
+LEGAL_AND_PRIVACY_TITLE = {
+    ENGLISH: "Legal & Privacy",
+    SPANISH: "Condiciones y Privacidad",
+}
+
+LEGAL_SECTION_1 = {
+    ENGLISH: "Legal Section 1",
+    SPANISH: "Sección Legal 1",
+}
+LEGAL_TEXT_1 = {
+    ENGLISH: "Legal Text 1",
+    SPANISH: "Texto Legal 1",
+}
+
+LEGAL_SECTION_2 = {
+    ENGLISH: "Legal Section 2",
+    SPANISH: "Sección Legal 2",
+}
+LEGAL_TEXT_2 = {
+    ENGLISH: "Legal Text 2",
+    SPANISH: "Texto Legal 2",
+}
+
+
 class ResponseData(NamedTuple):
     status_code: int
     templates: list[str]
@@ -134,6 +188,7 @@ class ResponseData(NamedTuple):
 
 
 class ElementText(NamedTuple):
+    html_tag: HtmlTag
     element_id: str
     expected_text: str
 
@@ -145,16 +200,22 @@ class BaseTestHomeView(TestCase):
 
         return element
 
-    def _assert_text_of_element(self, soup: Tag, element_id: str, expected_text: str) -> None:
+    def _find_element_by_tag_and_id(self, soup: Tag, html_tag: HtmlTag, element_id: str) -> Tag:
+        if not isinstance(element := soup.find(html_tag, id=element_id), Tag):
+            self.fail(f"Element with tag '{html_tag}' and id '{element_id}' not found")
+
+        return element
+
+    def _assert_text_of_element(self, soup: Tag, html_tag: HtmlTag, element_id: str, expected_text: str) -> None:
         self.assertEqual(
-            actual_text := self._find_element_by_id(soup, element_id).get_text(strip=True),
+            actual_text := self._find_element_by_tag_and_id(soup, html_tag, element_id).get_text(strip=True),
             expected_text,
             msg=f"Text of element '{element_id}' is '{actual_text}'; expected text '{expected_text}'",
         )
 
     def _assert_text_of_elements(self, soup: Tag, *elements: ElementText) -> None:
         for element in elements:
-            self._assert_text_of_element(soup, element.element_id, element.expected_text)
+            self._assert_text_of_element(soup, element.html_tag, element.element_id, element.expected_text)
 
     @classmethod
     def setUpTestData(cls) -> None:
@@ -191,6 +252,20 @@ class BaseTestHomeView(TestCase):
             start_date=EXPERIENCE_2_START_DATE,
         )
 
+        LegalAndPrivacy.objects.create(
+            title=LEGAL_SECTION_1[ENGLISH],
+            title_es=LEGAL_SECTION_1[SPANISH],
+            text=LEGAL_TEXT_1[ENGLISH],
+            text_es=LEGAL_TEXT_1[SPANISH],
+        )
+
+        LegalAndPrivacy.objects.create(
+            title=LEGAL_SECTION_2[ENGLISH],
+            title_es=LEGAL_SECTION_2[SPANISH],
+            text=LEGAL_TEXT_2[ENGLISH],
+            text_es=LEGAL_TEXT_2[SPANISH],
+        )
+
 
 class TestHomeView(BaseTestHomeView):
     def test_home_view_redirects(self) -> None:
@@ -210,17 +285,27 @@ class BaseTestHomeViewContent(BaseTestHomeView):
 
     def test_response(self) -> None:
         self.assertEqual(self.response_data.status_code, 200, "The response status code is not 200")
-        self.assertIn("index.html", self.response_data.templates, "The 'index.html' template is not used")
-        self.assertIn("cotton/base.html", self.response_data.templates, "The 'base.html' template is not used")
+        self.assertIn(
+            "index.html",
+            self.response_data.templates,
+            "The 'index.html' template is not used",
+        )
+        self.assertIn(
+            "cotton/base.html",
+            self.response_data.templates,
+            "The 'base.html' template is not used",
+        )
 
     def test_personal_info(self) -> None:
         self._assert_text_of_elements(
             self._find_element_by_id(self.response_data.soup, HOME_ID),
             ElementText(
+                html_tag=HtmlTag.H1,
                 element_id=PERSONAL_INFO_NAME_ID,
                 expected_text=PERSONAL_INFO_NAME,
             ),
             ElementText(
+                html_tag=HtmlTag.H3,
                 element_id=PERSONAL_INFO_DESCRIPTION_ID,
                 expected_text=PERSONAL_INFO_DESCRIPTION[self.language],
             ),
@@ -229,10 +314,12 @@ class BaseTestHomeViewContent(BaseTestHomeView):
         self._assert_text_of_elements(
             self._find_element_by_id(self.response_data.soup, ABOUT_ME_ID),
             ElementText(
+                html_tag=HtmlTag.H1,
                 element_id=ABOUT_ME_TITLE_ID,
                 expected_text=ABOUT_ME_TITLE[self.language],
             ),
             ElementText(
+                html_tag=HtmlTag.P,
                 element_id=PERSONAL_INFO_BIOGRAPHY_ID,
                 expected_text=PERSONAL_INFO_BIOGRAPHY[self.language],
             ),
@@ -241,9 +328,9 @@ class BaseTestHomeViewContent(BaseTestHomeView):
     def test_experiences(self) -> None:
         my_career = self._find_element_by_id(self.response_data.soup, MY_CAREER_ID)
 
-        self._assert_text_of_element(my_career, MY_CAREER_TITLE_ID, MY_CAREER_TITLE[self.language])
+        self._assert_text_of_element(my_career, HtmlTag.H1, MY_CAREER_TITLE_ID, MY_CAREER_TITLE[self.language])
 
-        experiences = my_career.find_all("li", id=lambda _id: _id and _id.startswith(EXPERIENCE_ITEM_ID_PREFIX))
+        experiences = my_career.find_all(HtmlTag.LI, id=lambda _id: _id and _id.startswith(EXPERIENCE_ITEM_ID_PREFIX))
         self.assertEqual(
             number_of_experiences := len(experiences),
             EXPECTED_NUMBER_OF_EXPERIENCES,
@@ -253,22 +340,27 @@ class BaseTestHomeViewContent(BaseTestHomeView):
         self._assert_text_of_elements(
             experiences[0],
             ElementText(
+                html_tag=HtmlTag.TIME,
                 element_id=f"{EXPERIENCE_PERIOD_ID_PREFIX}2",
                 expected_text=EXPERIENCE_2_PERIOD[self.language],
             ),
             ElementText(
+                html_tag=HtmlTag.DIV,
                 element_id=f"{EXPERIENCE_DURATION_ID_PREFIX}2",
                 expected_text=EXPERIENCE_2_DURATION[self.language],
             ),
             ElementText(
+                html_tag=HtmlTag.DIV,
                 element_id=f"{EXPERIENCE_TITLE_ID_PREFIX}2",
                 expected_text=EXPERIENCE_2_TITLE[self.language],
             ),
             ElementText(
+                html_tag=HtmlTag.DIV,
                 element_id=f"{EXPERIENCE_COMPANY_ID_PREFIX}2",
                 expected_text=EXPERIENCE_2_COMPANY,
             ),
             ElementText(
+                html_tag=HtmlTag.DIV,
                 element_id=f"{EXPERIENCE_LOCATION_ID_PREFIX}2",
                 expected_text=EXPERIENCE_2_LOCATION[self.language],
             ),
@@ -277,26 +369,32 @@ class BaseTestHomeViewContent(BaseTestHomeView):
         self._assert_text_of_elements(
             self._find_element_by_id(experiences[0], f"{EXPERIENCE_MODAL_ID_PREFIX}2"),
             ElementText(
+                html_tag=HtmlTag.TIME,
                 element_id=f"{MODAL_EXPERIENCE_PERIOD_ID_PREFIX}2",
                 expected_text=EXPERIENCE_2_PERIOD[self.language],
             ),
             ElementText(
+                html_tag=HtmlTag.DIV,
                 element_id=f"{MODAL_EXPERIENCE_DURATION_ID_PREFIX}2",
                 expected_text=EXPERIENCE_2_DURATION[self.language],
             ),
             ElementText(
+                html_tag=HtmlTag.H3,
                 element_id=f"{MODAL_EXPERIENCE_TITLE_ID_PREFIX}2",
                 expected_text=EXPERIENCE_2_TITLE[self.language],
             ),
             ElementText(
+                html_tag=HtmlTag.DIV,
                 element_id=f"{MODAL_EXPERIENCE_COMPANY_ID_PREFIX}2",
                 expected_text=EXPERIENCE_2_COMPANY,
             ),
             ElementText(
+                html_tag=HtmlTag.DIV,
                 element_id=f"{MODAL_EXPERIENCE_LOCATION_ID_PREFIX}2",
                 expected_text=EXPERIENCE_2_LOCATION[self.language],
             ),
             ElementText(
+                html_tag=HtmlTag.DIV,
                 element_id=f"{MODAL_EXPERIENCE_DESCRIPTION_ID_PREFIX}2",
                 expected_text=EXPERIENCE_2_DESCRIPTION[self.language],
             ),
@@ -305,22 +403,27 @@ class BaseTestHomeViewContent(BaseTestHomeView):
         self._assert_text_of_elements(
             experiences[1],
             ElementText(
+                html_tag=HtmlTag.TIME,
                 element_id=f"{EXPERIENCE_PERIOD_ID_PREFIX}1",
                 expected_text=EXPERIENCE_1_PERIOD[self.language],
             ),
             ElementText(
+                html_tag=HtmlTag.DIV,
                 element_id=f"{EXPERIENCE_DURATION_ID_PREFIX}1",
                 expected_text=EXPERIENCE_1_DURATION[self.language],
             ),
             ElementText(
+                html_tag=HtmlTag.DIV,
                 element_id=f"{EXPERIENCE_TITLE_ID_PREFIX}1",
                 expected_text=EXPERIENCE_1_TITLE[self.language],
             ),
             ElementText(
+                html_tag=HtmlTag.DIV,
                 element_id=f"{EXPERIENCE_COMPANY_ID_PREFIX}1",
                 expected_text=EXPERIENCE_1_COMPANY,
             ),
             ElementText(
+                html_tag=HtmlTag.DIV,
                 element_id=f"{EXPERIENCE_LOCATION_ID_PREFIX}1",
                 expected_text=EXPERIENCE_1_LOCATION[self.language],
             ),
@@ -329,29 +432,85 @@ class BaseTestHomeViewContent(BaseTestHomeView):
         self._assert_text_of_elements(
             self._find_element_by_id(experiences[1], f"{EXPERIENCE_MODAL_ID_PREFIX}1"),
             ElementText(
+                html_tag=HtmlTag.TIME,
                 element_id=f"{MODAL_EXPERIENCE_PERIOD_ID_PREFIX}1",
                 expected_text=EXPERIENCE_1_PERIOD[self.language],
             ),
             ElementText(
+                html_tag=HtmlTag.DIV,
                 element_id=f"{MODAL_EXPERIENCE_DURATION_ID_PREFIX}1",
                 expected_text=EXPERIENCE_1_DURATION[self.language],
             ),
             ElementText(
+                html_tag=HtmlTag.H3,
                 element_id=f"{MODAL_EXPERIENCE_TITLE_ID_PREFIX}1",
                 expected_text=EXPERIENCE_1_TITLE[self.language],
             ),
             ElementText(
+                html_tag=HtmlTag.DIV,
                 element_id=f"{MODAL_EXPERIENCE_COMPANY_ID_PREFIX}1",
                 expected_text=EXPERIENCE_1_COMPANY,
             ),
             ElementText(
+                html_tag=HtmlTag.DIV,
                 element_id=f"{MODAL_EXPERIENCE_LOCATION_ID_PREFIX}1",
                 expected_text=EXPERIENCE_1_LOCATION[self.language],
             ),
             ElementText(
+                html_tag=HtmlTag.DIV,
                 element_id=f"{MODAL_EXPERIENCE_DESCRIPTION_ID_PREFIX}1",
                 expected_text=EXPERIENCE_1_DESCRIPTION[self.language],
             ),
+        )
+
+    def test_legal_and_privacy(self) -> None:
+        legal_and_privacy_section = self._find_element_by_tag_and_id(
+            self._find_element_by_tag_and_id(self.response_data.soup, HtmlTag.FOOTER, FOOTER_ID),
+            HtmlTag.NAV,
+            LEGAL_AND_PRIVACY_ID,
+        )
+
+        self._assert_text_of_element(
+            legal_and_privacy_section,
+            html_tag=HtmlTag.H6,
+            element_id=LEGAL_AND_PRIVACY_TITLE_ID,
+            expected_text=LEGAL_AND_PRIVACY_TITLE[self.language],
+        )
+
+        self._assert_text_of_elements(
+            legal_and_privacy_section,
+            ElementText(
+                html_tag=HtmlTag.A,
+                element_id=f"{LEGAL_AND_PRIVACY_LINK_ID_PREFIX}1",
+                expected_text=LEGAL_SECTION_1[self.language],
+            ),
+            ElementText(
+                html_tag=HtmlTag.A,
+                element_id=f"{LEGAL_AND_PRIVACY_LINK_ID_PREFIX}2",
+                expected_text=LEGAL_SECTION_2[self.language],
+            ),
+        )
+
+        self._assert_text_of_element(
+            self._find_element_by_tag_and_id(
+                legal_and_privacy_section,
+                html_tag=HtmlTag.DIALOG,
+                element_id=f"{LEGAL_AND_PRIVACY_MODAL_ID_PREFIX}1",
+            ),
+            html_tag=HtmlTag.DIV,
+            element_id=f"{LEGAL_AND_PRIVACY_TEXT_ID_PREFIX}1",
+            expected_text=LEGAL_TEXT_1[self.language],
+        )
+
+        self._assert_text_of_element(
+            self._find_element_by_tag_and_id(
+                legal_and_privacy_section,
+                html_tag=HtmlTag.DIALOG,
+                element_id=f"{LEGAL_AND_PRIVACY_MODAL_ID_PREFIX}2",
+            ),
+            html_tag=HtmlTag.DIV,
+            element_id=f"{LEGAL_AND_PRIVACY_TEXT_ID_PREFIX}2",
+            expected_text=LEGAL_TEXT_2[self.language],
         )
 
 
