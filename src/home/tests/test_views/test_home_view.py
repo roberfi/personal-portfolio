@@ -8,7 +8,7 @@ from unittest.mock import patch
 from bs4 import BeautifulSoup, Tag
 from django.test import Client, TestCase
 
-from base.models import LegalAndPrivacy
+from base.models import FollowMeLink, LegalAndPrivacy
 from home.models import Experience, PersonalInfo
 from utils.testing_utils import get_date_with_mocked_today
 
@@ -29,7 +29,19 @@ class HtmlTag(StrEnum):
     FOOTER = "footer"
     TIME = "time"
     DIALOG = "dialog"
+    SVG = "svg"
+    PATH = "path"
 
+
+# Class Names
+CLASS_TOOLTIP = "tooltip"
+
+# HTML Attributes
+ATTR_D = "d"
+ATTR_DATA_TIP = "data-tip"
+ATTR_HREF = "href"
+ATTR_TARGET = "target"
+ATTR_VIEW_BOX = "viewbox"
 
 # Home ids
 HOME_ID = "home"
@@ -65,6 +77,10 @@ LEGAL_AND_PRIVACY_TITLE_ID = "legal-and-privacy-title"
 LEGAL_AND_PRIVACY_LINK_ID_PREFIX = "legal_and_privacy-link-"
 LEGAL_AND_PRIVACY_MODAL_ID_PREFIX = "legal_and_privacy_modal_"
 LEGAL_AND_PRIVACY_TEXT_ID_PREFIX = "legal-and-privacy-text-"
+FOLLOW_ME_LINKS_ID = "follow-me-links"
+FOLLOW_ME_LINKS_TITLE_ID = "follow-me-links-title"
+FOLLOW_ME_LINK_CONTAINER_ID_PREFIX = "follow-me-link-container-"
+FOLLOW_ME_LINK_ID_PREFIX = "follow-me-link-"
 
 ENGLISH = "en"
 SPANISH = "es"
@@ -171,6 +187,32 @@ LEGAL_TEXT_2 = {
     SPANISH: "Texto Legal 2",
 }
 
+FOLLOW_ME_LINKS_TITLE = {
+    ENGLISH: "Follow Me",
+    SPANISH: "Sígueme",
+}
+
+FOLLOW_ME_LINK_NAME = "Test Name"
+FOLLOW_ME_LINK = "https://test.com"
+FOLLOW_ME_LINK_VIEW_BOX = "0 0 186 186"
+FOLLOW_ME_LINK_PATH = (
+    "M5,52.888h33.334c2.762,0,5-2.239,5-5V14.555c0-2.761-2.238-5-5-5H5c-2.762,0-5,2.239-5,5v33.333 "
+    "C0,50.649,2.238,52.888,5,52.888z M10,19.555h23.334v23.333H10V19.555z M38.334,132.779H5c-2.762,0-5,2.239-5,"
+    "5v33.334 c0,2.761,2.238,5,5,5h33.334c2.762,0,5-2.239,5-5v-33.334C43.334,135.018,41.096,132.779,38.334,132."
+    "779z M33.334,166.112H10 v-23.334h23.334V166.112z M55.167,20.446c0-2.761,2.238-5,5-5h120.5c2.762,0,5,2.239,"
+    "5,5s-2.238,5-5,5h-120.5 C57.405,25.446,55.167,23.208,55.167,20.446z M55.167,40.242c0-2.761,2.238-5,5-"
+    "5h75c2.762,0,5,2.239,5,5s-2.238,5-5,5h-75 C57.405,45.242,55.167,43.003,55.167,40.242z M55.167,82.935c0-2."
+    "761,2.238-5,5-5h96.5c2.762,0,5,2.239,5,5c0,2.761-2.238,5-5,5 h-96.5C57.405,87.935,55.167,85.696,55.167,82."
+    "935z M55.167,102.731c0-2.761,2.238-5,5-5h75c2.762,0,5,2.239,5,5 c0,2.761-2.238,5-5,5h-75C57.405,107.731,"
+    "55.167,105.493,55.167,102.731z M55.167,144.547c0-2.761,2.238-5,5-5h96.5 c2.762,0,5,2.239,5,5c0,2.761-2."
+    "238,5-5,5h-96.5C57.405,149.547,55.167,147.309,55.167,144.547z M185.667,164.343 c0,2.761-2.238,5-5,5h-120."
+    "5c-2.762,0-5-2.239-5-5c0-2.761,2.238-5,5-5h120.5C183.429,159.343,185.667,161.582,185.667,164.343z M52.093,"
+    "56.566c-2.328-1.484-5.42-0.799-6.903,1.53l-8.329,13.071H5c-2.762,0-5,2.239-5,5V109.5c0,2.761,2.238,5,5,5h33."
+    "334 c2.762,0,5-2.239,5-5V79.617L53.623,63.47C55.106,61.141,54.422,58.05,52.093,56.566z M30.488,81.166l-9."
+    "124,14.319l-9.761-14.016 c-0.078-0.112-0.175-0.2-0.26-0.303H30.488z M10,96.666l5.455,7.834H10V96.666z "
+    "M33.334,104.5h-5.856l5.856-9.19V104.5z"
+)
+
 
 class ResponseData(NamedTuple):
     status_code: int
@@ -200,6 +242,12 @@ class BaseTestHomeView(TestCase):
 
         return element
 
+    def _find_element_by_html_tag(self, soup: Tag, html_tag: HtmlTag) -> Tag:
+        if not isinstance(element := soup.find(html_tag), Tag):
+            self.fail(f"Element with tag '{html_tag}' not found")
+
+        return element
+
     def _find_element_by_tag_and_id(self, soup: Tag, html_tag: HtmlTag, element_id: str) -> Tag:
         if not isinstance(element := soup.find(html_tag, id=element_id), Tag):
             self.fail(f"Element with tag '{html_tag}' and id '{element_id}' not found")
@@ -216,6 +264,29 @@ class BaseTestHomeView(TestCase):
     def _assert_text_of_elements(self, soup: Tag, *elements: ElementText) -> None:
         for element in elements:
             self._assert_text_of_element(soup, element.html_tag, element.element_id, element.expected_text)
+
+    def _assert_element_contains_class_name(self, element: Tag, expected_class_name: str) -> None:
+        self.assertIn(
+            expected_class_name,
+            element["class"],
+            (
+                f"Element '<{element.name}>'"
+                f"{f" with id '{element['id']}'" if 'id' in element.attrs else ''} "
+                f"does not contain class name '{expected_class_name}'; "
+                f"actual class list = '{element['class']}'"
+            ),
+        )
+
+    def _assert_attribute_of_element(self, element: Tag, attribute: str, expected_content: str) -> None:
+        self.assertEqual(
+            element[attribute],
+            expected_content,
+            (
+                f"Attribute of element '<{element.name}>'"
+                f"{f" with id '{element['id']}'" if 'id' in element.attrs else ''} "
+                f"is not equal to '{expected_content}'; actual value = '{element[attribute]}'"
+            ),
+        )
 
     @classmethod
     def setUpTestData(cls) -> None:
@@ -264,6 +335,13 @@ class BaseTestHomeView(TestCase):
             title_es=LEGAL_SECTION_2[SPANISH],
             text=LEGAL_TEXT_2[ENGLISH],
             text_es=LEGAL_TEXT_2[SPANISH],
+        )
+
+        FollowMeLink.objects.create(
+            name=FOLLOW_ME_LINK_NAME,
+            link=FOLLOW_ME_LINK,
+            svg_view_box=FOLLOW_ME_LINK_VIEW_BOX,
+            svg_path=FOLLOW_ME_LINK_PATH,
         )
 
 
@@ -512,6 +590,38 @@ class BaseTestHomeViewContent(BaseTestHomeView):
             element_id=f"{LEGAL_AND_PRIVACY_TEXT_ID_PREFIX}2",
             expected_text=LEGAL_TEXT_2[self.language],
         )
+
+    def test_follow_me_links(self) -> None:
+        follow_me_links_section = self._find_element_by_tag_and_id(
+            self._find_element_by_tag_and_id(self.response_data.soup, HtmlTag.FOOTER, FOOTER_ID),
+            HtmlTag.NAV,
+            FOLLOW_ME_LINKS_ID,
+        )
+
+        self._assert_text_of_element(
+            follow_me_links_section,
+            html_tag=HtmlTag.H6,
+            element_id=FOLLOW_ME_LINKS_TITLE_ID,
+            expected_text=FOLLOW_ME_LINKS_TITLE[self.language],
+        )
+
+        follow_me_link_container = self._find_element_by_tag_and_id(
+            follow_me_links_section, html_tag=HtmlTag.DIV, element_id=f"{FOLLOW_ME_LINK_CONTAINER_ID_PREFIX}1"
+        )
+        self._assert_element_contains_class_name(follow_me_link_container, CLASS_TOOLTIP)
+        self._assert_attribute_of_element(follow_me_link_container, ATTR_DATA_TIP, FOLLOW_ME_LINK_NAME)
+
+        follow_me_link = self._find_element_by_tag_and_id(
+            follow_me_link_container, html_tag=HtmlTag.A, element_id=f"{FOLLOW_ME_LINK_ID_PREFIX}1"
+        )
+        self._assert_attribute_of_element(follow_me_link, ATTR_HREF, FOLLOW_ME_LINK)
+        self._assert_attribute_of_element(follow_me_link, ATTR_TARGET, "_blank")
+
+        follow_me_link_svg = self._find_element_by_html_tag(follow_me_link, html_tag=HtmlTag.SVG)
+        self._assert_attribute_of_element(follow_me_link_svg, ATTR_VIEW_BOX, FOLLOW_ME_LINK_VIEW_BOX)
+
+        follow_me_link_path = self._find_element_by_html_tag(follow_me_link_svg, html_tag=HtmlTag.PATH)
+        self._assert_attribute_of_element(follow_me_link_path, ATTR_D, FOLLOW_ME_LINK_PATH)
 
 
 class TestHomeViewEnglish(BaseTestHomeViewContent):
