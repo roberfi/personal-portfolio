@@ -1,7 +1,8 @@
 {% load i18n %}
 {% load filters %}
 
-<ul class="list-none timeline timeline-snap-icon max-md:timeline-compact timeline-vertical">
+<ul id="experiences-list"
+    class="list-none timeline timeline-snap-icon max-md:timeline-compact timeline-vertical">
     {% for experience in experiences %}
         <li id="experience-item-{{ experience.id }}">
             {% if not forloop.first %}
