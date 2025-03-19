@@ -8,7 +8,7 @@ from django.forms import ValidationError
 from django.test import TestCase
 
 from home.models import Experience
-from utils.testing_utils import get_date_with_mocked_today
+from utils.test_utils.mocks import get_date_with_mocked_today
 
 # Constants
 TEST_TITLE = "Test Title"
