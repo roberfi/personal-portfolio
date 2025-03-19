@@ -43,14 +43,17 @@
 
         {% with follow_me_links=data.follow_me_links %}
             {% if follow_me_links %}
-                <nav>
-                    <h6 class="footer-title">
+                <nav id="follow-me-links">
+                    <h6 id="follow-me-links-title" class="footer-title">
                         {% translate "Follow Me" %}
                     </h6>
                     <div class="grid grid-flow-col gap-4">
                         {% for link in follow_me_links %}
-                            <div class="tooltip" data-tip="{{ link.name }}">
-                                <a class="inline-block"
+                            <div id="follow-me-link-container-{{ link.id }}"
+                                 class="tooltip"
+                                 data-tip="{{ link.name }}">
+                                <a id="follow-me-link-{{ link.id }}"
+                                   class="inline-block"
                                    role="button"
                                    href="{{ link.link }}"
                                    target="_blank">
