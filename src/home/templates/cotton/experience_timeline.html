@@ -4,7 +4,7 @@
 <ul id="experiences-list"
     class="list-none timeline timeline-snap-icon max-md:timeline-compact timeline-vertical">
     {% for experience in experiences %}
-        <li id="experience-item-{{ experience.id }}">
+        <li id="experience-{{ experience.id }}-item">
             {% if not forloop.first %}
                 <hr />
             {% endif %}
@@ -17,23 +17,23 @@
                 </svg>
             </div>
             <div class="!mb-10 w-full {% if forloop.counter|divisibleby:2 %}timeline-start md:text-end{% else %}timeline-end{% endif %}">
-                <time id="experience-period-{{ experience.id }}"
+                <time id="experience-{{ experience.id }}-period"
                       class="font-mono text-primary">
                     {{ experience.period }}
                 </time>
-                <div id="experience-duration-{{ experience.id }}"
+                <div id="experience-{{ experience.id }}-duration"
                      class="font-mono text-primary">
                     ({{ experience.duration }})
                 </div>
-                <div id="experience-title-{{ experience.id }}"
+                <div id="experience-{{ experience.id }}-title"
                      class="text-lg font-black mt-5">
                     {{ experience.title }}
                 </div>
-                <div id="experience-company-{{ experience.id }}"
+                <div id="experience-{{ experience.id }}-company"
                      class="font-mono text-secondary">
                     {{ experience.company }}
                 </div>
-                <div id="experience-location-{{ experience.id }}"
+                <div id="experience-{{ experience.id }}-location"
                      class="font-mono text-secondary">
                     {{ experience.location }}
                 </div>
@@ -53,30 +53,30 @@
                     </button>
                 </div>
             </div>
-            <dialog id="experience_modal_{{ experience.id }}" class="modal">
+            <dialog id="experience-{{ experience.id }}-modal" class="modal">
                 <div class="modal-box w-11/12 max-w-5xl flex flex-col max-md:p-4">
                     <div class="flex-1 overflow-y-auto">
-                        <h3 id="modal-experience-title-{{ experience.id }}"
+                        <h3 id="modal-experience-{{ experience.id }}-title"
                             class="text-lg font-bold">
                             {{ experience.title }}
                         </h3>
-                        <time id="modal-experience-period-{{ experience.id }}"
+                        <time id="modal-experience-{{ experience.id }}-period"
                               class="font-mono text-primary">
                             {{ experience.period }}
                         </time>
-                        <div id="modal-experience-duration-{{ experience.id }}"
+                        <div id="modal-experience-{{ experience.id }}-duration"
                              class="font-mono text-primary">
                             ({{ experience.duration }})
                         </div>
-                        <div id="modal-experience-company-{{ experience.id }}"
+                        <div id="modal-experience-{{ experience.id }}-company"
                              class="font-mono text-secondary">
                             {{ experience.company }}
                         </div>
-                        <div id="modal-experience-location-{{ experience.id }}"
+                        <div id="modal-experience-{{ experience.id }}-location"
                              class="font-mono text-secondary">
                             {{ experience.location }}
                         </div>
-                        <div id="modal-experience-description-{{ experience.id }}"
+                        <div id="modal-experience-{{ experience.id }}-description"
                              class="prose max-w-none py-4">
                             {{ experience.description|md }}
                         </div>
