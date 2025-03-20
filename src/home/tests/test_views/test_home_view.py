@@ -290,26 +290,40 @@ class BaseTestHomeViewContent(BaseViewTestCase):
             ),
         )
 
-        self._assert_text_of_element(
+        self._assert_text_of_elements(
             self._find_element_by_tag_and_id(
                 legal_and_privacy_section,
                 html_tag=HtmlTag.DIALOG,
                 element_id=home_view_constants.LEGAL_AND_PRIVACY_MODAL_ID_TEMPLATE.format(id=1),
             ),
-            html_tag=HtmlTag.DIV,
-            element_id=home_view_constants.LEGAL_AND_PRIVACY_TEXT_ID_TEMPLATE.format(id=1),
-            expected_text=home_view_constants.LEGAL_TEXT_1[self.language],
+            ElementText(
+                html_tag=HtmlTag.H1,
+                element_id=home_view_constants.LEGAL_AND_PRIVACY_TITLE_ID_TEMPLATE.format(id=1),
+                expected_text=home_view_constants.LEGAL_SECTION_1[self.language],
+            ),
+            ElementText(
+                html_tag=HtmlTag.DIV,
+                element_id=home_view_constants.LEGAL_AND_PRIVACY_TEXT_ID_TEMPLATE.format(id=1),
+                expected_text=home_view_constants.LEGAL_TEXT_1[self.language],
+            ),
         )
 
-        self._assert_text_of_element(
+        self._assert_text_of_elements(
             self._find_element_by_tag_and_id(
                 legal_and_privacy_section,
                 html_tag=HtmlTag.DIALOG,
                 element_id=home_view_constants.LEGAL_AND_PRIVACY_MODAL_ID_TEMPLATE.format(id=2),
             ),
-            html_tag=HtmlTag.DIV,
-            element_id=home_view_constants.LEGAL_AND_PRIVACY_TEXT_ID_TEMPLATE.format(id=2),
-            expected_text=home_view_constants.LEGAL_TEXT_2[self.language],
+            ElementText(
+                html_tag=HtmlTag.H1,
+                element_id=home_view_constants.LEGAL_AND_PRIVACY_TITLE_ID_TEMPLATE.format(id=2),
+                expected_text=home_view_constants.LEGAL_SECTION_2[self.language],
+            ),
+            ElementText(
+                html_tag=HtmlTag.DIV,
+                element_id=home_view_constants.LEGAL_AND_PRIVACY_TEXT_ID_TEMPLATE.format(id=2),
+                expected_text=home_view_constants.LEGAL_TEXT_2[self.language],
+            ),
         )
 
     def test_follow_me_links(self) -> None:

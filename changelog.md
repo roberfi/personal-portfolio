@@ -4,8 +4,8 @@
 
 - Implement django-cooco library
 - Update the way experiences duration is calculated
+- Use the name of the Legal and Privacy Sections to title the text
 - Bump dependencies
-- Use uv as python package manager
 
 ## v0.4.1
 
