@@ -15,15 +15,19 @@
                     </h6>
 
                     {% for section in legal_and_privacy %}
-                        <a id="legal_and_privacy-link-{{ section.id }}"
+                        <a id="legal-and-privacy-{{ section.id }}-link"
                            class="link link-hover"
                            onclick="{{ section.modal_name }}.showModal()">{{ section.title }}</a>
                         <dialog id="{{ section.modal_name }}" class="modal">
                             <div class="modal-box w-11/12 max-w-5xl flex flex-col max-md:p-4">
                                 <div class="flex-1 overflow-y-auto">
-                                    <div id="legal-and-privacy-text-{{ section.id }}"
-                                         class="prose max-w-none py-4">
-                                        {{ section.text|md }}
+                                    <div class="prose max-w-none py-4">
+                                        <h1 id="legal-and-privacy-{{ section.id }}-title">
+                                            {{ section.title }}
+                                        </h1>
+                                        <div id="legal-and-privacy-{{ section.id }}-text">
+                                            {{ section.text|md }}
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="modal-action">
@@ -49,7 +53,7 @@
                     </h6>
                     <div class="grid grid-flow-col gap-4">
                         {% for link in follow_me_links %}
-                            <div id="follow-me-link-container-{{ link.id }}"
+                            <div id="follow-me-link-{{ link.id }}-container"
                                  class="tooltip"
                                  data-tip="{{ link.name }}">
                                 <a id="follow-me-link-{{ link.id }}"
