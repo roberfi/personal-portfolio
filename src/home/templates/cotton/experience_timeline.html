@@ -39,8 +39,9 @@
                 </div>
                 <div class="mb-1">
                     <!-- Button to show modal with experience info -->
-                    <button class="btn btn-ghost"
-                            onclick="experience_modal_{{ experience.id }}.showModal()">
+                    <button id="experience-{{ experience.id }}-more-button"
+                            class="btn btn-ghost"
+                            onclick="experience_{{ experience.id }}_modal.showModal()">
                         <svg class="h-5 w-5"
                              viewBox="0 0 20 20"
                              xmlns="http://www.w3.org/2000/svg"
@@ -53,7 +54,7 @@
                     </button>
                 </div>
             </div>
-            <dialog id="experience-{{ experience.id }}-modal" class="modal">
+            <dialog id="experience_{{ experience.id }}_modal" class="modal">
                 <div class="modal-box w-11/12 max-w-5xl flex flex-col max-md:p-4">
                     <div class="flex-1 overflow-y-auto">
                         <h3 id="modal-experience-{{ experience.id }}-title"

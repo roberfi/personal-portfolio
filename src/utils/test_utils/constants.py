@@ -21,6 +21,7 @@ class HtmlTag(StrEnum):
     DIALOG = "dialog"
     SVG = "svg"
     PATH = "path"
+    BUTTON = "button"
 
 
 # Class Names
@@ -30,6 +31,7 @@ CLASS_TOOLTIP = "tooltip"
 ATTR_D = "d"
 ATTR_DATA_TIP = "data-tip"
 ATTR_HREF = "href"
+ATTR_ONCLICK = "onclick"
 ATTR_TARGET = "target"
 ATTR_VIEW_BOX = "viewbox"
 
