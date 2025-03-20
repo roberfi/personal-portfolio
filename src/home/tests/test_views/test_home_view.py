@@ -165,8 +165,18 @@ class BaseTestHomeViewContent(BaseViewTestCase):
             ),
         )
 
+        self._assert_attribute_of_element(
+            self._find_element_by_tag_and_id(
+                experiences[0], HtmlTag.BUTTON, home_view_constants.EXPERIENCE_MORE_BUTTON_ID_TEMPLATE.format(id=2)
+            ),
+            common_constants.ATTR_ONCLICK,
+            f"{home_view_constants.EXPERIENCE_MODAL_ID_TEMPLATE.format(id=2)}.showModal()",
+        )
+
         self._assert_text_of_elements(
-            self._find_element_by_id(experiences[0], home_view_constants.EXPERIENCE_MODAL_ID_TEMPLATE.format(id=2)),
+            self._find_element_by_tag_and_id(
+                experiences[0], HtmlTag.DIALOG, home_view_constants.EXPERIENCE_MODAL_ID_TEMPLATE.format(id=2)
+            ),
             ElementText(
                 html_tag=HtmlTag.TIME,
                 element_id=home_view_constants.MODAL_EXPERIENCE_PERIOD_ID_TEMPLATE.format(id=2),
@@ -228,8 +238,18 @@ class BaseTestHomeViewContent(BaseViewTestCase):
             ),
         )
 
+        self._assert_attribute_of_element(
+            self._find_element_by_tag_and_id(
+                experiences[1], HtmlTag.BUTTON, home_view_constants.EXPERIENCE_MORE_BUTTON_ID_TEMPLATE.format(id=1)
+            ),
+            common_constants.ATTR_ONCLICK,
+            f"{home_view_constants.EXPERIENCE_MODAL_ID_TEMPLATE.format(id=1)}.showModal()",
+        )
+
         self._assert_text_of_elements(
-            self._find_element_by_id(experiences[1], home_view_constants.EXPERIENCE_MODAL_ID_TEMPLATE.format(id=1)),
+            self._find_element_by_tag_and_id(
+                experiences[1], HtmlTag.DIALOG, home_view_constants.EXPERIENCE_MODAL_ID_TEMPLATE.format(id=1)
+            ),
             ElementText(
                 html_tag=HtmlTag.TIME,
                 element_id=home_view_constants.MODAL_EXPERIENCE_PERIOD_ID_TEMPLATE.format(id=1),
@@ -288,6 +308,26 @@ class BaseTestHomeViewContent(BaseViewTestCase):
                 element_id=home_view_constants.LEGAL_AND_PRIVACY_LINK_ID_TEMPLATE.format(id=2),
                 expected_text=home_view_constants.LEGAL_SECTION_2[self.language],
             ),
+        )
+
+        self._assert_attribute_of_element(
+            self._find_element_by_tag_and_id(
+                legal_and_privacy_section,
+                HtmlTag.A,
+                home_view_constants.LEGAL_AND_PRIVACY_LINK_ID_TEMPLATE.format(id=1),
+            ),
+            common_constants.ATTR_ONCLICK,
+            f"{home_view_constants.LEGAL_AND_PRIVACY_MODAL_ID_TEMPLATE.format(id=1)}.showModal()",
+        )
+
+        self._assert_attribute_of_element(
+            self._find_element_by_tag_and_id(
+                legal_and_privacy_section,
+                HtmlTag.A,
+                home_view_constants.LEGAL_AND_PRIVACY_LINK_ID_TEMPLATE.format(id=2),
+            ),
+            common_constants.ATTR_ONCLICK,
+            f"{home_view_constants.LEGAL_AND_PRIVACY_MODAL_ID_TEMPLATE.format(id=2)}.showModal()",
         )
 
         self._assert_text_of_elements(
