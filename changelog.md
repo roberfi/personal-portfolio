@@ -5,7 +5,8 @@
 - Implement django-cooco library
 - Update the way experiences duration is calculated
 - Use the name of the Legal and Privacy Sections to title the text
-- Bump dependencies
+- Bump tailwindcss to v4 and daisyui to v5
+- Bump other dependencies
 
 ## v0.4.1
 
