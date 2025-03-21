@@ -19,10 +19,10 @@
              role="menu"
              aria-orientation="vertical"
              aria-labelledby="menu-button">
-            <ul class="bg-base-200 menu md:menu-horizontal max-md:menu-lg max-md:rounded-box max-md:w-56">
+            <ul class="bg-base-200 menu menu-lg md:menu-horizontal max-md:rounded-box max-md:w-56">
                 {% for section_name, section_id in sections %}
                     <li>
-                        <a class="{% if forloop.first %}active{% endif %}"
+                        <a class="{% if forloop.first %}menu-active{% endif %}"
                            href="#{{ section_id }}">{{ section_name }}</a>
                     </li>
                 {% endfor %}
@@ -47,9 +47,9 @@
              role="menu"
              aria-orientation="vertical"
              aria-labelledby="menu-button">
-            <ul class="menu bg-base-200 rounded-box w-35 max-md:menu-lg">
+            <ul class="menu menu-lg bg-base-200 rounded-box w-35">
                 {% for language in languages %}
-                    <li class="{% if language.code == CURRENT_LANGUAGE %}disabled{% endif %}">
+                    <li class="{% if language.code == CURRENT_LANGUAGE %}menu-disabled{% endif %}">
                         <a onclick="document.getElementById('language_form_{{ language.code }}').submit();"
                            {% if language.code == CURRENT_LANGUAGE %}inert{% endif %}>{{ language.name_local | title }}</a>
                         <form id="language_form_{{ language.code }}"

@@ -40,10 +40,9 @@ export function initScroll() {
       ) {
         // Update button state
         navigationMenuLinks.forEach((other_link) => {
-          other_link.classList.remove("active");
-          //other_link.blur(); // Remove the focus
+          other_link.classList.remove("menu-active");
         });
-        link.classList.add("active");
+        link.classList.add("menu-active");
 
         // Update text of title for mobiles
         document.getElementById("active-section-title").textContent =
