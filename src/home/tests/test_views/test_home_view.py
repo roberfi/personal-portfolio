@@ -25,7 +25,10 @@ class BaseTestHomeViewContent(BaseViewTestCase):
 
     @classmethod
     def _mock_on_request(cls) -> ContextManager:
-        return patch("home.models.datetime.date", get_date_with_mocked_today(home_view_constants.MOCKED_TODAY))
+        return patch(
+            "home.models.datetime.date",
+            get_date_with_mocked_today(home_view_constants.MOCKED_TODAY),
+        )
 
     @classmethod
     def init_db(cls) -> None:
@@ -167,7 +170,9 @@ class BaseTestHomeViewContent(BaseViewTestCase):
 
         self._assert_attribute_of_element(
             self._find_element_by_tag_and_id(
-                experiences[0], HtmlTag.BUTTON, home_view_constants.EXPERIENCE_MORE_BUTTON_ID_TEMPLATE.format(id=2)
+                experiences[0],
+                HtmlTag.BUTTON,
+                home_view_constants.EXPERIENCE_MORE_BUTTON_ID_TEMPLATE.format(id=2),
             ),
             common_constants.ATTR_ONCLICK,
             f"{home_view_constants.EXPERIENCE_MODAL_ID_TEMPLATE.format(id=2)}.showModal()",
@@ -175,7 +180,9 @@ class BaseTestHomeViewContent(BaseViewTestCase):
 
         self._assert_text_of_elements(
             self._find_element_by_tag_and_id(
-                experiences[0], HtmlTag.DIALOG, home_view_constants.EXPERIENCE_MODAL_ID_TEMPLATE.format(id=2)
+                experiences[0],
+                HtmlTag.DIALOG,
+                home_view_constants.EXPERIENCE_MODAL_ID_TEMPLATE.format(id=2),
             ),
             ElementText(
                 html_tag=HtmlTag.TIME,
@@ -240,7 +247,9 @@ class BaseTestHomeViewContent(BaseViewTestCase):
 
         self._assert_attribute_of_element(
             self._find_element_by_tag_and_id(
-                experiences[1], HtmlTag.BUTTON, home_view_constants.EXPERIENCE_MORE_BUTTON_ID_TEMPLATE.format(id=1)
+                experiences[1],
+                HtmlTag.BUTTON,
+                home_view_constants.EXPERIENCE_MORE_BUTTON_ID_TEMPLATE.format(id=1),
             ),
             common_constants.ATTR_ONCLICK,
             f"{home_view_constants.EXPERIENCE_MODAL_ID_TEMPLATE.format(id=1)}.showModal()",
@@ -248,7 +257,9 @@ class BaseTestHomeViewContent(BaseViewTestCase):
 
         self._assert_text_of_elements(
             self._find_element_by_tag_and_id(
-                experiences[1], HtmlTag.DIALOG, home_view_constants.EXPERIENCE_MODAL_ID_TEMPLATE.format(id=1)
+                experiences[1],
+                HtmlTag.DIALOG,
+                home_view_constants.EXPERIENCE_MODAL_ID_TEMPLATE.format(id=1),
             ),
             ElementText(
                 html_tag=HtmlTag.TIME,
@@ -299,12 +310,12 @@ class BaseTestHomeViewContent(BaseViewTestCase):
         self._assert_text_of_elements(
             legal_and_privacy_section,
             ElementText(
-                html_tag=HtmlTag.A,
+                html_tag=HtmlTag.BUTTON,
                 element_id=home_view_constants.LEGAL_AND_PRIVACY_LINK_ID_TEMPLATE.format(id=1),
                 expected_text=home_view_constants.LEGAL_SECTION_1[self.language],
             ),
             ElementText(
-                html_tag=HtmlTag.A,
+                html_tag=HtmlTag.BUTTON,
                 element_id=home_view_constants.LEGAL_AND_PRIVACY_LINK_ID_TEMPLATE.format(id=2),
                 expected_text=home_view_constants.LEGAL_SECTION_2[self.language],
             ),
@@ -313,7 +324,7 @@ class BaseTestHomeViewContent(BaseViewTestCase):
         self._assert_attribute_of_element(
             self._find_element_by_tag_and_id(
                 legal_and_privacy_section,
-                HtmlTag.A,
+                HtmlTag.BUTTON,
                 home_view_constants.LEGAL_AND_PRIVACY_LINK_ID_TEMPLATE.format(id=1),
             ),
             common_constants.ATTR_ONCLICK,
@@ -323,7 +334,7 @@ class BaseTestHomeViewContent(BaseViewTestCase):
         self._assert_attribute_of_element(
             self._find_element_by_tag_and_id(
                 legal_and_privacy_section,
-                HtmlTag.A,
+                HtmlTag.BUTTON,
                 home_view_constants.LEGAL_AND_PRIVACY_LINK_ID_TEMPLATE.format(id=2),
             ),
             common_constants.ATTR_ONCLICK,
@@ -387,7 +398,9 @@ class BaseTestHomeViewContent(BaseViewTestCase):
         )
         self._assert_element_contains_class_name(follow_me_link_container, common_constants.CLASS_TOOLTIP)
         self._assert_attribute_of_element(
-            follow_me_link_container, common_constants.ATTR_DATA_TIP, home_view_constants.FOLLOW_ME_LINK_NAME
+            follow_me_link_container,
+            common_constants.ATTR_DATA_TIP,
+            home_view_constants.FOLLOW_ME_LINK_NAME,
         )
 
         follow_me_link = self._find_element_by_tag_and_id(
@@ -396,18 +409,24 @@ class BaseTestHomeViewContent(BaseViewTestCase):
             element_id=home_view_constants.FOLLOW_ME_LINK_ID_TEMPLATE.format(id=1),
         )
         self._assert_attribute_of_element(
-            follow_me_link, common_constants.ATTR_HREF, home_view_constants.FOLLOW_ME_LINK
+            follow_me_link,
+            common_constants.ATTR_HREF,
+            home_view_constants.FOLLOW_ME_LINK,
         )
         self._assert_attribute_of_element(follow_me_link, common_constants.ATTR_TARGET, "_blank")
 
         follow_me_link_svg = self._find_element_by_html_tag(follow_me_link, html_tag=HtmlTag.SVG)
         self._assert_attribute_of_element(
-            follow_me_link_svg, common_constants.ATTR_VIEW_BOX, home_view_constants.FOLLOW_ME_LINK_VIEW_BOX
+            follow_me_link_svg,
+            common_constants.ATTR_VIEW_BOX,
+            home_view_constants.FOLLOW_ME_LINK_VIEW_BOX,
         )
 
         follow_me_link_path = self._find_element_by_html_tag(follow_me_link_svg, html_tag=HtmlTag.PATH)
         self._assert_attribute_of_element(
-            follow_me_link_path, common_constants.ATTR_D, home_view_constants.FOLLOW_ME_LINK_PATH
+            follow_me_link_path,
+            common_constants.ATTR_D,
+            home_view_constants.FOLLOW_ME_LINK_PATH,
         )
 
 

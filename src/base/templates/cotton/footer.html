@@ -5,7 +5,8 @@
 {% footer_data as data %}
 
 <div class="bg-base-300 text-base-content p-10">
-    <footer id="footer" class="footer lg:max-w-(--breakpoint-lg) lg:mx-auto">
+    <footer id="footer"
+            class="footer lg:footer-horizontal lg:max-w-(--breakpoint-lg) lg:mx-auto">
 
         {% with legal_and_privacy=data.legal_and_privacy %}
             {% if legal_and_privacy %}
@@ -15,9 +16,11 @@
                     </h6>
 
                     {% for section in legal_and_privacy %}
-                        <a id="legal-and-privacy-{{ section.id }}-link"
-                           class="link link-hover"
-                           onclick="{{ section.modal_name }}.showModal()">{{ section.title }}</a>
+                        <button id="legal-and-privacy-{{ section.id }}-link"
+                                class="link link-hover"
+                                onclick="{{ section.modal_name }}.showModal()">
+                            {{ section.title }}
+                        </button>
                         <dialog id="{{ section.modal_name }}" class="modal">
                             <div class="modal-box w-11/12 max-w-5xl flex flex-col max-md:p-4">
                                 <div class="flex-1 overflow-y-auto">
