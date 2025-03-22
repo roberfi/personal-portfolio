@@ -1,6 +1,6 @@
 # Changelog
 
-## Next release
+## 0.5.0
 
 - Implement django-cooco library
 - Update the way experiences duration is calculated
