@@ -1,0 +1,51 @@
+name: Bump dev version
+
+on:
+  push:
+    branches: ["develop"]
+
+permissions:
+  contents: write
+
+env:
+  PYTHON_VERSION: 3.13
+  UV_VERSION: 0.6.2
+  NODE_VERSION: 22
+
+jobs:
+  bump-dev-version:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout the code
+        uses: actions/checkout@v4
+      - uses: ./.github/actions/python-setup
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          uv-version: ${{ env.UV_VERSION }}
+      - uses: ./.github/actions/node-setup
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+      - name: Read current version
+        id: read-version
+        run: python -m utils.version_manager read
+        working-directory: src
+      - name: Bump version
+        id: bump-version
+        run: python -m utils.version_manager bump-dev --current-version ${{ steps.read-version.outputs.version }}
+        working-directory: src
+      - name: Run uv lock
+        run: uv lock
+      - name: Run npm lock
+        run: npm i --package-lock-only
+      - name: Run prettier fix
+        run: npm run prettier-fix
+      - name: Set up Git
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+      - name: Commit and push changes
+        run: |
+          git add .
+          git commit -m "Bump dev version to '${{ steps.bump-version.outputs.version }}'"
+          git push
