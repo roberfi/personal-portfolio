@@ -13,7 +13,8 @@ from solo.models import SingletonModel
 
 class PersonalInfo(SingletonModel):  # type: ignore[django-manager-missing] # https://github.com/typeddjango/django-stubs/issues/1023
     name = models.CharField(max_length=100)
-    description = models.CharField(max_length=100)
+    title = models.CharField(max_length=100)
+    introduction = models.TextField(max_length=500)
     biography = models.TextField()
 
     def __str__(self) -> str:

@@ -18,7 +18,6 @@ def home_view(request: HttpRequest) -> HttpResponse:
         {
             "sections": (
                 (gettext("Home"), "home"),
-                (gettext("About me"), "about-me"),
                 (gettext("My Career"), "my-career"),
             ),
             "personal_info": PersonalInfo.objects.first(),

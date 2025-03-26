@@ -8,7 +8,8 @@ from .models import Experience, PersonalInfo
 @register(PersonalInfo)
 class PersonalInfoTranslationOptions(TranslationOptions):
     fields = (
-        "description",
+        "title",
+        "introduction",
         "biography",
     )
 

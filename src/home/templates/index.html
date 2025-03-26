@@ -1,39 +1,54 @@
 {% load i18n %}
+{% load filters %}
 
 <c-base name="{{ personal_info.name }}">
-    <c-slot name="extra_head">
-        <style>
-        #background-picture {
-            background-image: url(/media/background.jpg);
-            background-size: cover;
-        }
-        </style>
-    </c-slot>
-
-    <div id="home" class="relative w-full h-full">
-        <div id="background-picture" class="absolute h-full w-full -z-20">
-        </div>
-        <div class="absolute right-1/4 top-2/4 h-fit px-5">
-            <h1 id="personal-info-name" class="text-5xl mb-10 text-primary">
-                {{ personal_info.name }}
-            </h1>
-            <h3 id="personal-info-description" class="text-xl text-neutral-content">
-                {{ personal_info.description }}
-            </h3>
-        </div>
-    </div>
-    <div id="about-me"
-         class="relative w-full bg-base-300 text-neutral-content py-32">
-        <div class="h-fit py-4 lg:max-w-(--breakpoint-lg) lg:mx-auto px-5">
-            <div>
-                <h1 id="about-me-title" class="text-5xl mb-10 text-primary">
-                    {% translate "About me" %}
+    <div id="home" class="relative lg:size-full p-5">
+        <div class="card shadow-sm bg-base-300 lg:size-full">
+            <figure class="lg:rounded-xl lg:h-full">
+                <img class="h-full w-full object-cover"
+                     src="/media/background.jpg"
+                     alt="{{ personal_info.name }}" />
+            </figure>
+            <div class="card-body lg:absolute lg:right-1/16 lg:bottom-1/8 lg:bg-base-300/70 lg:rounded-xl">
+                <h1 id="personal-info-name"
+                    class="text-3xl lg:text-5xl mb-3 text-primary">
+                    {{ personal_info.name }}
                 </h1>
-                <p id="personal-info-biography">
-                    {{ personal_info.biography|linebreaksbr }}
-                </p>
+                <h3 id="personal-info-title"
+                    class="text-lg lg:text-xl text-secondary font-mono">
+                    {{ personal_info.title }}
+                </h3>
+                <div id="personal-info-introduction" class="prose text-lg mt-4">
+                    {{ personal_info.introduction|md }}
+                </div>
+                <div class="card-actions justify-end mt-auto">
+                    <button id="about-me-button"
+                            class="btn btn-primary"
+                            onclick="about_me_modal.showModal()">
+                        {% translate "More about me" %}
+                    </button>
+                </div>
             </div>
         </div>
+        <dialog id="about_me_modal" class="modal">
+            <div class="modal-box w-11/12 max-w-5xl flex flex-col max-md:p-4">
+                <div id="about-me" class="flex-1 overflow-y-auto py-4">
+                    <h1 id="about-me-title" class="text-5xl mb-10 text-primary">
+                        {% translate "About me" %}
+                    </h1>
+                    <div id="personal-info-biography" class="prose max-w-none px-1">
+                        {{ personal_info.biography|md }}
+                    </div>
+                </div>
+                <div class="modal-action">
+                    <form method="dialog">
+                        <button class="btn">
+                            Close
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </dialog>
     </div>
     <div id="my-career" class="w-full py-32 min-h-full">
         <div class="h-fit py-4 lg:max-w-(--breakpoint-lg) lg:mx-auto px-5">
