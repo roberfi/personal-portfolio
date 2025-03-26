@@ -62,6 +62,7 @@ custom_html = "c-[\\w-]+"
 max_blank_lines = 1
 max_line_length = 120
 line_break_after_multiline_tag = true
+ignore = "H006"
 
 [tool.django-stubs]
 django_settings_module = "core.settings"
