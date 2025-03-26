@@ -9,7 +9,8 @@ from home.models import PersonalInfo
 # Constants
 TEST_NAME = "Test Name"
 TEST_DESCRIPTION = "Test description"
-TEST_BIOGRAPHY = "That's me"
+TEST_INTRODUCTION = "That's me"
+TEST_BIOGRAPHY = "That's my biography"
 
 
 class TestPersonalInfoModel(TestCase):
@@ -17,7 +18,9 @@ class TestPersonalInfoModel(TestCase):
 
     @classmethod
     def setUpTestData(cls) -> None:
-        cls.personal_info = PersonalInfo(name=TEST_NAME, description=TEST_DESCRIPTION, biography=TEST_BIOGRAPHY)
+        cls.personal_info = PersonalInfo(
+            name=TEST_NAME, title=TEST_DESCRIPTION, introduction=TEST_INTRODUCTION, biography=TEST_BIOGRAPHY
+        )
 
     def test_str(self) -> None:
         self.assertEqual(

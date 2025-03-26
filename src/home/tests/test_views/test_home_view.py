@@ -34,8 +34,10 @@ class BaseTestHomeViewContent(BaseViewTestCase):
     def init_db(cls) -> None:
         PersonalInfo.objects.create(
             name=home_view_constants.PERSONAL_INFO_NAME,
-            description=home_view_constants.PERSONAL_INFO_DESCRIPTION[Language.ENGLISH],
-            description_es=home_view_constants.PERSONAL_INFO_DESCRIPTION[Language.SPANISH],
+            title=home_view_constants.PERSONAL_INFO_TITLE[Language.ENGLISH],
+            title_es=home_view_constants.PERSONAL_INFO_TITLE[Language.SPANISH],
+            introduction=home_view_constants.PERSONAL_INFO_INTRODUCTION[Language.ENGLISH],
+            introduction_es=home_view_constants.PERSONAL_INFO_INTRODUCTION[Language.SPANISH],
             biography=home_view_constants.PERSONAL_INFO_BIOGRAPHY[Language.ENGLISH],
             biography_es=home_view_constants.PERSONAL_INFO_BIOGRAPHY[Language.SPANISH],
         )
@@ -90,8 +92,10 @@ class BaseTestHomeViewContent(BaseViewTestCase):
         self._assert_template_is_used("cotton/base.html")
 
     def test_personal_info(self) -> None:
+        home = self._find_element_by_tag_and_id(self.response_data.soup, HtmlTag.DIV, home_view_constants.HOME_ID)
+
         self._assert_text_of_elements(
-            self._find_element_by_id(self.response_data.soup, home_view_constants.HOME_ID),
+            home,
             ElementText(
                 html_tag=HtmlTag.H1,
                 element_id=home_view_constants.PERSONAL_INFO_NAME_ID,
@@ -99,20 +103,40 @@ class BaseTestHomeViewContent(BaseViewTestCase):
             ),
             ElementText(
                 html_tag=HtmlTag.H3,
-                element_id=home_view_constants.PERSONAL_INFO_DESCRIPTION_ID,
-                expected_text=home_view_constants.PERSONAL_INFO_DESCRIPTION[self.language],
+                element_id=home_view_constants.PERSONAL_INFO_TITLE_ID,
+                expected_text=home_view_constants.PERSONAL_INFO_TITLE[self.language],
+            ),
+            ElementText(
+                html_tag=HtmlTag.DIV,
+                element_id=home_view_constants.PERSONAL_INFO_INTRODUCTION_ID,
+                expected_text=home_view_constants.PERSONAL_INFO_INTRODUCTION[self.language],
+            ),
+            ElementText(
+                html_tag=HtmlTag.BUTTON,
+                element_id=home_view_constants.ABOUT_ME_BUTTON_ID,
+                expected_text=home_view_constants.ABOUT_ME_BUTTON_TEXT[self.language],
             ),
         )
 
+        self._assert_attribute_of_element(
+            self._find_element_by_tag_and_id(home, HtmlTag.BUTTON, home_view_constants.ABOUT_ME_BUTTON_ID),
+            common_constants.ATTR_ONCLICK,
+            f"{home_view_constants.ABOUT_ME_MODAL_ID}.showModal()",
+        )
+
         self._assert_text_of_elements(
-            self._find_element_by_id(self.response_data.soup, home_view_constants.ABOUT_ME_ID),
+            self._find_element_by_tag_and_id(
+                self._find_element_by_tag_and_id(home, HtmlTag.DIALOG, home_view_constants.ABOUT_ME_MODAL_ID),
+                HtmlTag.DIV,
+                home_view_constants.ABOUT_ME_ID,
+            ),
             ElementText(
                 html_tag=HtmlTag.H1,
                 element_id=home_view_constants.ABOUT_ME_TITLE_ID,
                 expected_text=home_view_constants.ABOUT_ME_TITLE[self.language],
             ),
             ElementText(
-                html_tag=HtmlTag.P,
+                html_tag=HtmlTag.DIV,
                 element_id=home_view_constants.PERSONAL_INFO_BIOGRAPHY_ID,
                 expected_text=home_view_constants.PERSONAL_INFO_BIOGRAPHY[self.language],
             ),
