@@ -7,9 +7,10 @@ from utils.test_utils.constants import Language
 # Home ids
 HOME_ID = "home"
 PERSONAL_INFO_NAME_ID = "personal-info-name"
-PERSONAL_INFO_DESCRIPTION_ID = "personal-info-description"
-
-# About me ids
+PERSONAL_INFO_TITLE_ID = "personal-info-title"
+PERSONAL_INFO_INTRODUCTION_ID = "personal-info-introduction"
+ABOUT_ME_BUTTON_ID = "about-me-button"
+ABOUT_ME_MODAL_ID = "about_me_modal"
 ABOUT_ME_ID = "about-me"
 ABOUT_ME_TITLE_ID = "about-me-title"
 PERSONAL_INFO_BIOGRAPHY_ID = "personal-info-biography"
@@ -51,6 +52,11 @@ ABOUT_ME_TITLE = {
     Language.ENGLISH: "About me",
     Language.SPANISH: "Sobre mí",
 }
+ABOUT_ME_BUTTON_TEXT = {
+    Language.ENGLISH: "More about me",
+    Language.SPANISH: "Más sobre mí",
+}
+
 
 # My Career texts
 MY_CAREER_TITLE = {
@@ -60,9 +66,13 @@ MY_CAREER_TITLE = {
 
 # Personal Info data
 PERSONAL_INFO_NAME = "Test Name"
-PERSONAL_INFO_DESCRIPTION = {
-    Language.ENGLISH: "Test description",
-    Language.SPANISH: "Descripción de prueba",
+PERSONAL_INFO_TITLE = {
+    Language.ENGLISH: "Test title",
+    Language.SPANISH: "Título de prueba",
+}
+PERSONAL_INFO_INTRODUCTION = {
+    Language.ENGLISH: "Test introduction",
+    Language.SPANISH: "Introducción de prueba",
 }
 PERSONAL_INFO_BIOGRAPHY = {
     Language.ENGLISH: "Test biography",

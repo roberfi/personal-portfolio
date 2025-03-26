@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-15 10:17+0000\n"
+"POT-Creation-Date: 2025-03-26 09:07+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -35,15 +35,15 @@ msgstr "Opciones"
 msgid "Cookie Settings"
 msgstr "Configuración de Cookies"
 
-#: base/templates/cotton/buttons/settings_button.html:61
+#: base/templates/cotton/buttons/settings_button.html:59
 msgid "Save"
 msgstr "Guardar"
 
-#: base/templates/cotton/footer.html:14
+#: base/templates/cotton/footer.html:15
 msgid "Legal & Privacy"
 msgstr "Condiciones y Privacidad"
 
-#: base/templates/cotton/footer.html:49
+#: base/templates/cotton/footer.html:55
 msgid "Follow Me"
 msgstr "Sígueme"
 
@@ -55,46 +55,50 @@ msgstr "Inglés"
 msgid "Spanish"
 msgstr "Español"
 
-#: home/models.py:31
+#: home/models.py:33
 #, python-format
 msgid "%(job)s at %(company)s"
 msgstr "%(job)s en %(company)s"
 
-#: home/models.py:35
+#: home/models.py:37
 msgid "End date must be after start date"
 msgstr "Las fecha final debe ser posterior a la fecha de inicio"
 
-#: home/models.py:45
+#: home/models.py:47
 msgid "Present"
 msgstr "Actualmente"
 
-#: home/models.py:68
+#: home/models.py:70
 msgid "Not yet started"
 msgstr "Aún no empezado"
 
-#: home/models.py:73
+#: home/models.py:75
 msgid "Less than a month"
 msgstr "Menos de un mes"
 
-#: home/models.py:76
+#: home/models.py:78
 #, python-format
 msgid "%d year"
 msgid_plural "%d years"
 msgstr[0] "%d año"
 msgstr[1] "%d años"
 
-#: home/models.py:77
+#: home/models.py:79
 #, python-format
 msgid "%d month"
 msgid_plural "%d months"
 msgstr[0] "%d mes"
 msgstr[1] "%d meses"
 
-#: home/templates/index.html:30 home/views.py:21
+#: home/templates/index.html:26
+msgid "More about me"
+msgstr "Más sobre mí"
+
+#: home/templates/index.html:35
 msgid "About me"
 msgstr "Sobre mí"
 
-#: home/templates/index.html:41 home/views.py:22
+#: home/templates/index.html:54 home/views.py:21
 msgid "My Career"
 msgstr "Mi Experiencia"
 
