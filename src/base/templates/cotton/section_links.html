@@ -1,0 +1,6 @@
+{% for section_name, section_id in sections %}
+    <div class="max-lg:w-full">
+        <a class="section-link tab{% if forloop.first %} tab-active{% endif %} text-lg max-lg:w-full max-lg:justify-start"
+           href="#{{ section_id }}">{{ section_name }}</a>
+    </div>
+{% endfor %}
