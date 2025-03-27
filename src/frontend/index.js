@@ -2,21 +2,21 @@ import "@fontsource/roboto";
 import "./styles/main.css";
 
 import { container, smoothScroll, initScroll } from "./javascript/scroll.js";
-import { initLanguage } from "./javascript/language.js";
 import { initNavigationBar } from "./javascript/navigation_bar.js";
 
 window.addEventListener("load", () => {
   initNavigationBar();
-  initLanguage();
   initScroll();
 
-  // remove loading class to display body and scroll into hash element
+  // scroll into hash element
   setTimeout(() => {
+    const initial_hash = window.location.hash;
+
     container.scrollTo(0, 0);
 
-    if (window.location.hash) {
+    if (initial_hash) {
       setTimeout(() => {
-        smoothScroll(window.location.hash);
+        smoothScroll(initial_hash);
       }, 300);
     }
   }, 10);

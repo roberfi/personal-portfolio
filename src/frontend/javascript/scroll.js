@@ -17,6 +17,8 @@ export function smoothScroll(target) {
 }
 
 export function initScroll() {
+  const activeLinkClass = "tab-active";
+
   // Event on scroll to change overlay opacity
   container.addEventListener("scroll", () => {
     // Change the section on the 1/4 of the container
@@ -30,7 +32,7 @@ export function initScroll() {
       100;
 
     // Change active section when corresponds
-    Array.from(navigationMenuLinks).every((link) => {
+    Array.from(navigationMenuLinks).forEach((link) => {
       const sectionHash = link.getAttribute("href");
       const section = document.querySelector(sectionHash);
 
@@ -38,11 +40,9 @@ export function initScroll() {
         section.offsetTop <= containerScrollPosition &&
         section.offsetTop + section.clientHeight > containerScrollPosition
       ) {
-        // Update button state
-        navigationMenuLinks.forEach((other_link) => {
-          other_link.classList.remove("menu-active");
-        });
-        link.classList.add("menu-active");
+        if (!link.classList.contains(activeLinkClass)) {
+          link.classList.add(activeLinkClass);
+        }
 
         // Update text of title for mobiles
         document.getElementById("active-section-title").textContent =
@@ -52,11 +52,9 @@ export function initScroll() {
         if (sectionHash != window.location.hash) {
           history.replaceState(null, null, sectionHash);
         }
-
-        return false;
+      } else {
+        link.classList.remove(activeLinkClass);
       }
-
-      return true;
     });
   });
 }
