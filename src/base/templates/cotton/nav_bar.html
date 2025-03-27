@@ -3,64 +3,59 @@
 {% get_available_languages as AVAILABLE_LANGUAGES %}
 {% get_language_info_list for AVAILABLE_LANGUAGES as languages %}
 
-<nav id="nav-bar" class="navbar bg-base-200 md:p-5">
-    <div class="relative max-md:inline-block md:flex navbar-start">
-        <button id="navigation-menu-button" class="btn btn-ghost md:hidden">
-            <svg class="w-5 h-5"
-                 aria-hidden="true"
-                 xmlns="http://www.w3.org/2000/svg"
-                 fill="none"
-                 viewBox="0 0 17 14">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15" />
-            </svg>
-        </button>
-        <div class="max-md:hidden max-md:absolute max-md:z-10 max-md:mt-5"
-             id="navigation-menu"
-             role="menu"
-             aria-orientation="vertical"
-             aria-labelledby="menu-button">
-            <ul class="bg-base-200 menu menu-lg md:menu-horizontal max-md:rounded-box max-md:w-56">
-                {% for section_name, section_id in sections %}
-                    <li>
-                        <a class="{% if forloop.first %}menu-active{% endif %}"
-                           href="#{{ section_id }}">{{ section_name }}</a>
-                    </li>
-                {% endfor %}
+<nav id="nav-bar" class="navbar bg-base-200">
+    <div class="navbar-start">
+        <div class="dropdown">
+            <div tabindex="0" role="button" class="btn btn-ghost btn-circle lg:hidden">
+                <svg class="w-5 h-5"
+                     aria-hidden="true"
+                     xmlns="http://www.w3.org/2000/svg"
+                     fill="none"
+                     viewBox="0 0 17 14">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15" />
+                </svg>
+            </div>
+            <ul tabindex="0"
+                class="menu dropdown-content bg-base-100 rounded-box z-1 mt-5 w-52 p-2 shadow">
+                <c-section-links :sections="sections" only />
             </ul>
         </div>
+        <a class="btn btn-ghost btn-circle lg:mx-5" href="{% url "home" %}">
+            <image class="w-8 h-8" src="/media/icon.png" />
+        </a>
+        <div role="tablist" class="tabs tabs-border max-lg:hidden">
+            <c-section-links :sections="sections" only />
+        </div>
     </div>
-    <span id="active-section-title" class="md:hidden whitespace-nowrap">{{ sections.0.0 }}</span>
-    <div class="relative inline-block navbar-end text-end">
-        <button id="language-menu-button" class="btn btn-ghost">
-            <svg xmlns="http://www.w3.org/2000/svg"
-                 class="w-4 h-4"
-                 aria-hidden="true"
-                 fill="none"
-                 viewBox="0 0 24 24">
-                <path stroke="currentColor" stroke-width="2" d="M12,23 C18.0751322,23 23,18.0751322 23,12 C23,5.92486775 18.0751322,1 12,1 C5.92486775,1 1,5.92486775 1,12 C1,18.0751322 5.92486775,23 12,23 Z M12,23 C15,23 16,18 16,12 C16,6 15,1 12,1 C9,1 8,6 8,12 C8,18 9,23 12,23 Z M2,16 L22,16 M2,8 L22,8">
-                </path>
-            </svg>
-            <span>{{ CURRENT_LANGUAGE }}</span>
-        </button>
-        <div class="hidden absolute right-0 z-10 mt-5"
-             id="language-menu"
-             role="menu"
-             aria-orientation="vertical"
-             aria-labelledby="menu-button">
-            <ul class="menu menu-lg bg-base-200 rounded-box w-35">
+    <div class="navbar-center">
+        <span id="active-section-title" class="lg:hidden whitespace-nowrap">{{ sections.0.0 }}</span>
+    </div>
+    <div class="navbar-end">
+        <div class="dropdown dropdown-end">
+            <div tabindex="0" role="button" class="btn btn-ghost">
+                <svg xmlns="http://www.w3.org/2000/svg"
+                     class="w-5 h-5"
+                     aria-hidden="true"
+                     fill="none"
+                     viewBox="0 0 24 24">
+                    <path stroke="currentColor" stroke-width="2" d="M12,23 C18.0751322,23 23,18.0751322 23,12 C23,5.92486775 18.0751322,1 12,1 C5.92486775,1 1,5.92486775 1,12 C1,18.0751322 5.92486775,23 12,23 Z M12,23 C15,23 16,18 16,12 C16,6 15,1 12,1 C9,1 8,6 8,12 C8,18 9,23 12,23 Z M2,16 L22,16 M2,8 L22,8">
+                    </path>
+                </svg>
+                <span>{{ CURRENT_LANGUAGE }}</span>
+            </div>
+            <ul tabindex="0"
+                class="menu dropdown-content bg-base-100 rounded-box z-1 mt-5 w-52 p-2 shadow">
                 {% for language in languages %}
-                    <li class="{% if language.code == CURRENT_LANGUAGE %}menu-disabled{% endif %}">
-                        <a onclick="document.getElementById('language_form_{{ language.code }}').submit();"
-                           {% if language.code == CURRENT_LANGUAGE %}inert{% endif %}>{{ language.name_local | title }}</a>
-                        <form id="language_form_{{ language.code }}"
-                              class="hidden"
-                              action="{% url 'set_language' %}"
-                              method="post">
-                            {% csrf_token %}
-                            <input name="next" type="hidden" value="/">
-                            <input name="language" type="hidden" value="{{ language.code }}">
-                        </form>
-                    </li>
+                    <form class="block p-0" action="{% url 'set_language' %}" method="post">
+                        {% csrf_token %}
+                        <input name="next" type="hidden" value="/">
+                        <input name="language" type="hidden" value="{{ language.code }}">
+                        <button type="submit"
+                                class="w-full tab{% if language.code == CURRENT_LANGUAGE %} tab-active{% endif %} text-lg justify-start"
+                                {% if language.code == CURRENT_LANGUAGE %}inert{% endif %}>
+                            {{ language.name_local | title }}
+                        </button>
+                    </form>
                 {% endfor %}
             </ul>
         </div>
