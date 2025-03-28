@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from abc import ABC, abstractmethod
 from contextlib import nullcontext
-from typing import TYPE_CHECKING, ClassVar, ContextManager, NamedTuple
+from typing import TYPE_CHECKING, Any, ClassVar, ContextManager, NamedTuple
 
 from bs4 import BeautifulSoup, Tag
 from django.test import Client, TestCase
@@ -38,7 +38,7 @@ class BaseViewTestCase(TestCase, ABC):
     response_data: ClassVar[ResponseData]
 
     @classmethod
-    def _mock_on_request(cls) -> ContextManager:
+    def _mock_on_request(cls) -> ContextManager[Any]:
         """Override this method to mock anything at the request made by the client."""
         return nullcontext()
 
