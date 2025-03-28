@@ -7,12 +7,12 @@ from base.models import FollowMeLink, GoogleAnalytics, LegalAndPrivacy
 
 
 @register(LegalAndPrivacy)
-class LegalAndPrivacyAdmin(ModelAdmin):
+class LegalAndPrivacyAdmin(ModelAdmin[LegalAndPrivacy]):
     pass
 
 
 @register(FollowMeLink)
-class FollowMeLinkAdmin(ModelAdmin):
+class FollowMeLinkAdmin(ModelAdmin[FollowMeLink]):
     pass
 
 

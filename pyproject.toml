@@ -33,6 +33,7 @@ prod = ["gunicorn==23.0.0", "psycopg2-binary==2.9.10"]
 python_version = "3.13"
 mypy_path = "$MYPY_CONFIG_FILE_DIR/src"
 plugins = ["mypy_django_plugin.main"]
+strict = true
 
 [tool.ruff]
 line-length = 120

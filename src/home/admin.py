@@ -12,5 +12,5 @@ class PersonalInfoAdmin(SingletonModelAdmin):
 
 
 @register(Experience)
-class ExperienceAdmin(ModelAdmin):
+class ExperienceAdmin(ModelAdmin[Experience]):
     pass

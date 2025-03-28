@@ -19,7 +19,7 @@ class LegalAndPrivacy(models.Model):  # type: ignore[django-manager-missing] # h
         return f"legal_and_privacy_{self.id}_modal"
 
 
-class FollowMeLink(models.Model):  # type: ignore[django-manager-missing] # https://github.com/typeddjango/django-stubs/issues/1023
+class FollowMeLink(models.Model):
     name = models.CharField(max_length=50)
     link = models.URLField()
     svg_view_box = models.CharField(max_length=16)
@@ -35,5 +35,5 @@ class GoogleAnalytics(SingletonModel):
     cookie_consent = models.ForeignKey(CookieGroup, on_delete=models.RESTRICT, null=True)
     debug_mode = models.BooleanField(default=False)
 
-    def __str__(self):
+    def __str__(self) -> str:
         return "Google Analytics"
