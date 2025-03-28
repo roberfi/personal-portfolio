@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import ContextManager
+from typing import TYPE_CHECKING, ContextManager
 from unittest.mock import patch
 
 from django.test import TestCase
@@ -13,6 +13,9 @@ from utils.test_utils.base_view_test_case import BaseViewTestCase, ElementText
 from utils.test_utils.constants import HtmlTag, Language
 from utils.test_utils.mocks import get_date_with_mocked_today
 
+if TYPE_CHECKING:
+    from datetime import date
+
 
 class TestHomeViewBasics(TestCase):
     def test_home_view_redirects(self) -> None:
@@ -24,7 +27,7 @@ class BaseTestHomeViewContent(BaseViewTestCase):
     request_path = ""
 
     @classmethod
-    def _mock_on_request(cls) -> ContextManager:
+    def _mock_on_request(cls) -> ContextManager[type[date]]:
         return patch(
             "home.models.datetime.date",
             get_date_with_mocked_today(home_view_constants.MOCKED_TODAY),
