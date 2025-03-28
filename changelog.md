@@ -2,7 +2,7 @@
 
 # Next release
 
--
+- Improvements in the Navigation Bar
 
 ## 0.5.0
 
