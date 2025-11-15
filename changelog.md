@@ -1,8 +1,9 @@
 # Changelog
 
-# Next release
+## Next release
 
 - Improvements in the Navigation Bar
+- Bump python and javascript dependencies
 
 ## 0.5.0
 

@@ -24,7 +24,7 @@ ENV PATH="/root/.local/bin:$PATH" \
 RUN apt-get update \
     && apt-get install -y curl \
     && apt-get -y autoclean \
-    && curl -fsSL https://astral.sh/uv/0.6.2/install.sh | bash - \
+    && curl -fsSL https://astral.sh/uv/0.9.9/install.sh | bash - \
     && curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
     && apt-get install -y nodejs
 
