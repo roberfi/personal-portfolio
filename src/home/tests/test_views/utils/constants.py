@@ -60,7 +60,7 @@ ABOUT_ME_BUTTON_TEXT = {
 
 # My Career texts
 MY_CAREER_TITLE = {
-    Language.ENGLISH: "My Career",
+    Language.ENGLISH: "My Experience",
     Language.SPANISH: "Mi Experiencia",
 }
 

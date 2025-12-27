@@ -6,6 +6,7 @@ from typing import TYPE_CHECKING, Any, ClassVar, ContextManager, NamedTuple
 
 from bs4 import BeautifulSoup, Tag
 from django.test import Client, TestCase
+from django.utils import translation
 
 if TYPE_CHECKING:
     from utils.test_utils.constants import HtmlTag, Language
@@ -44,6 +45,9 @@ class BaseViewTestCase(TestCase, ABC):
 
     @classmethod
     def setUpTestData(cls) -> None:
+        # Ensure we're in the default language when creating database objects
+        # to avoid django-modeltranslation storing values in the wrong fields
+        translation.activate("en")
         cls.init_db()
         cls.client = Client()
         with cls._mock_on_request():
