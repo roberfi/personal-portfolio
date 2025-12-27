@@ -2,7 +2,7 @@
 {% load filters %}
 
 <c-base name="{{ personal_info.name }}">
-    <div id="home" class="relative lg:size-full p-5">
+    <div id="home" class="relative p-5 lg:size-full">
         <div class="card shadow-sm bg-base-300 lg:size-full">
             <figure class="lg:rounded-xl lg:h-full">
                 <img class="h-full w-full object-cover"
@@ -49,13 +49,5 @@
                 </div>
             </div>
         </dialog>
-    </div>
-    <div id="my-career" class="w-full py-32 min-h-full">
-        <div class="h-fit py-4 lg:max-w-(--breakpoint-lg) lg:mx-auto px-5">
-            <h1 id="my-career-title" class="text-5xl mb-10 text-primary">
-                {% translate "My Career" %}
-            </h1>
-            <c-experience-timeline :experiences="experiences" only />
-        </div>
     </div>
 </c-base>
