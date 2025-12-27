@@ -2,6 +2,8 @@
 
 ## Next release
 
+- Re-design Home view
+- Split my career into a different view
 - Improvements in the Navigation Bar
 - Bump python and javascript dependencies
 

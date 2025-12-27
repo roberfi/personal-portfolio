@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-26 09:07+0000\n"
+"POT-Creation-Date: 2025-03-28 15:49+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -46,6 +46,14 @@ msgstr "Condiciones y Privacidad"
 #: base/templates/cotton/footer.html:55
 msgid "Follow Me"
 msgstr "Sígueme"
+
+#: base/templatetags/base_tags.py:26
+msgid "Home"
+msgstr "Inicio"
+
+#: base/templatetags/base_tags.py:30 home/templates/my-career.html:3
+msgid "My Career"
+msgstr "Mi Carrera"
 
 #: core/settings.py:133
 msgid "English"
@@ -90,18 +98,14 @@ msgid_plural "%d months"
 msgstr[0] "%d mes"
 msgstr[1] "%d meses"
 
-#: home/templates/index.html:26
+#: home/templates/index.html:28
 msgid "More about me"
 msgstr "Más sobre mí"
 
-#: home/templates/index.html:35
+#: home/templates/index.html:37
 msgid "About me"
 msgstr "Sobre mí"
 
-#: home/templates/index.html:54 home/views.py:21
-msgid "My Career"
+#: home/templates/my-career.html:7
+msgid "My Experience"
 msgstr "Mi Experiencia"
-
-#: home/views.py:20
-msgid "Home"
-msgstr "Inicio"

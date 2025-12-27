@@ -53,7 +53,7 @@
     </head>
     <body class="js-loading overflow-hidden">
         <div class="flex flex-col h-dvh w-screen">
-            <c-nav-bar :sections="sections" :csrf_token="csrf_token" only />
+            <c-nav-bar :request="request" :csrf_token="csrf_token" only />
             <progress id="progress-bar"
                       class="flex progress progress-primary w-full max-md:h-4"
                       value="0"
