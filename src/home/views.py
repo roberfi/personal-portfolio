@@ -3,7 +3,7 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 from django.shortcuts import render
-from django.utils.translation import gettext
+from django.views import View
 
 from .models import Experience, PersonalInfo
 
@@ -11,20 +11,27 @@ if TYPE_CHECKING:
     from django.http import HttpRequest, HttpResponse
 
 
-def home_view(request: HttpRequest) -> HttpResponse:
-    return render(
-        request,
-        "index.html",
-        {
-            "sections": (
-                (gettext("Home"), "home"),
-                (gettext("My Career"), "my-career"),
-            ),
-            "personal_info": PersonalInfo.objects.first(),
-            "experiences": sorted(
-                Experience.objects.all(),
-                key=lambda experience: experience.actual_end_date,
-                reverse=True,
-            ),
-        },
-    )
+class HomeView(View):
+    def get(self, request: HttpRequest) -> HttpResponse:
+        return render(
+            request,
+            "index.html",
+            {
+                "personal_info": PersonalInfo.objects.first(),
+            },
+        )
+
+
+class MyCareerView(View):
+    def get(self, request: HttpRequest) -> HttpResponse:
+        return render(
+            request,
+            "my-career.html",
+            {
+                "experiences": sorted(
+                    Experience.objects.all(),
+                    key=lambda experience: experience.actual_end_date,
+                    reverse=True,
+                ),
+            },
+        )

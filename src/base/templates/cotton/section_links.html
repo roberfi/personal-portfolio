@@ -1,6 +1,22 @@
-{% for section_name, section_id in sections %}
-    <div class="max-lg:w-full">
-        <a class="section-link tab{% if forloop.first %} tab-active{% endif %} text-lg max-lg:w-full max-lg:justify-start"
-           href="#{{ section_id }}">{{ section_name }}</a>
-    </div>
-{% endfor %}
+{% load base_tags %}
+
+{% get_navbar_data as navbar_data %}
+
+<div class="max-lg:w-full">
+    {% with request.resolver_match.url_name as url_name %}
+        {% for link in navbar_data.links %}
+            {% if mode == "tabs" %}
+                <a class="section-link tab{% if url_name == link.url %} tab-active{% endif %} text-lg"
+                   href="{% url link.url %}">{{ link.name }}</a>
+            {% elif mode == "dropdown" %}
+                <li>
+                    <a class="btn btn-lg w-full justify-start font-normal{% if url_name == link.url %} bg-soft{% else %} btn-ghost{% endif %}"
+                       role="button"
+                       href="{% url link.url %}">
+                        <span class="flex-1 text-left">{{ link.name }}</span>
+                    </a>
+                </li>
+            {% endif %}
+        {% endfor %}
+    {% endwith %}
+</div>

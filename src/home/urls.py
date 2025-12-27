@@ -2,6 +2,9 @@ from __future__ import annotations
 
 from django.urls import path
 
-from home.views import home_view
+from home.views import HomeView, MyCareerView
 
-urlpatterns = (path("", home_view, name="home"),)
+urlpatterns = (
+    path("", HomeView.as_view(), name="home"),
+    path("my-career/", MyCareerView.as_view(), name="my-career"),
+)

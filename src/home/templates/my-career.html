@@ -1,0 +1,12 @@
+{% load i18n %}
+
+<c-base name="{% translate "My Career" %}">
+    <div id="my-career" class="w-full min-h-full p-5">
+        <div class="h-fit py-4 lg:max-w-(--breakpoint-lg) lg:mx-auto px-5">
+            <h1 id="my-career-title" class="text-5xl mb-10 text-primary">
+                {% translate "My Experience" %}
+            </h1>
+            <c-experience-timeline :experiences="experiences" only />
+        </div>
+    </div>
+</c-base>
