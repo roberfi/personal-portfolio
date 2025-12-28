@@ -115,6 +115,13 @@ class BaseViewTestCase(TestCase, ABC):
             ),
         )
 
+    def _assert_list_of_strings(self, element: Tag, expected_list: list[str]) -> None:
+        self.assertListEqual(
+            actual_list := list(element.stripped_strings),
+            expected_list,
+            msg=f"List of strings is {actual_list}; expected {expected_list}",
+        )
+
     @classmethod
     @abstractmethod
     def init_db(cls) -> None: ...

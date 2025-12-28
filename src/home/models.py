@@ -11,11 +11,24 @@ from django.utils.translation import gettext, ngettext
 from solo.models import SingletonModel
 
 
+class Technology(models.Model):  # type: ignore[django-manager-missing] # https://github.com/typeddjango/django-stubs/issues/1023
+    name = models.CharField(max_length=100, unique=True)
+    priority = models.PositiveIntegerField(default=0)
+
+    class Meta:
+        verbose_name_plural = "Technologies"
+        ordering = ("priority", "name")
+
+    def __str__(self) -> str:
+        return self.name
+
+
 class PersonalInfo(SingletonModel):  # type: ignore[django-manager-missing] # https://github.com/typeddjango/django-stubs/issues/1023
     name = models.CharField(max_length=100)
     title = models.CharField(max_length=100)
     introduction = models.TextField(max_length=500)
     biography = models.TextField()
+    technologies = models.ManyToManyField(Technology, blank=True, related_name="personal_info")
 
     def __str__(self) -> str:
         return self.name
@@ -26,6 +39,7 @@ class Experience(models.Model):  # type: ignore[django-manager-missing] # https:
     location = models.CharField(max_length=200)
     company = models.CharField(max_length=200)
     description = models.TextField()
+    technologies = models.ManyToManyField(Technology, blank=True, related_name="experiences")
     start_date = models.DateField()
     end_date = models.DateField(null=True, blank=True)
 
