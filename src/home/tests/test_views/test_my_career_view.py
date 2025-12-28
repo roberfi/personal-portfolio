@@ -74,6 +74,13 @@ class BaseTestMyCareerViewContent(BaseViewTest):
             ),
         )
 
+        self._assert_list_of_strings(
+            self._find_element_by_id(
+                experiences[0], test_view_constants.EXPERIENCE_TECHNOLOGIES_ID_TEMPLATE.format(id=2)
+            ),
+            [test_view_constants.TECHNOLOGY_3[self.language]],
+        )
+
         self._assert_attribute_of_element(
             self._find_element_by_tag_and_id(
                 experiences[0],
@@ -122,6 +129,13 @@ class BaseTestMyCareerViewContent(BaseViewTest):
             ),
         )
 
+        self._assert_list_of_strings(
+            self._find_element_by_id(
+                experiences[0], test_view_constants.MODAL_EXPERIENCE_TECHNOLOGIES_ID_TEMPLATE.format(id=2)
+            ),
+            [test_view_constants.TECHNOLOGY_3[self.language]],
+        )
+
         self._assert_text_of_elements(
             experiences[1],
             ElementText(
@@ -149,6 +163,17 @@ class BaseTestMyCareerViewContent(BaseViewTest):
                 element_id=test_view_constants.EXPERIENCE_LOCATION_ID_TEMPLATE.format(id=1),
                 expected_text=test_view_constants.EXPERIENCE_1_LOCATION[self.language],
             ),
+        )
+
+        self._assert_list_of_strings(
+            self._find_element_by_id(
+                experiences[1], test_view_constants.EXPERIENCE_TECHNOLOGIES_ID_TEMPLATE.format(id=1)
+            ),
+            [
+                test_view_constants.TECHNOLOGY_1[self.language],
+                test_view_constants.TECHNOLOGY_2[self.language],
+                test_view_constants.TECHNOLOGY_4[self.language],
+            ],
         )
 
         self._assert_attribute_of_element(
@@ -197,6 +222,17 @@ class BaseTestMyCareerViewContent(BaseViewTest):
                 element_id=test_view_constants.MODAL_EXPERIENCE_DESCRIPTION_ID_TEMPLATE.format(id=1),
                 expected_text=test_view_constants.EXPERIENCE_1_DESCRIPTION[self.language],
             ),
+        )
+
+        self._assert_list_of_strings(
+            self._find_element_by_id(
+                experiences[1], test_view_constants.MODAL_EXPERIENCE_TECHNOLOGIES_ID_TEMPLATE.format(id=1)
+            ),
+            [
+                test_view_constants.TECHNOLOGY_1[self.language],
+                test_view_constants.TECHNOLOGY_2[self.language],
+                test_view_constants.TECHNOLOGY_4[self.language],
+            ],
         )
 
 

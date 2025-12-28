@@ -2,6 +2,7 @@
 
 ## Next release
 
+- Add technology badges to home page and experiences
 - Re-design Home view
 - Split my career into a different view
 - Improvements in the Navigation Bar
