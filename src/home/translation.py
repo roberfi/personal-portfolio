@@ -2,7 +2,12 @@ from __future__ import annotations
 
 from modeltranslation.translator import TranslationOptions, register
 
-from .models import Experience, PersonalInfo
+from .models import Experience, PersonalInfo, Technology
+
+
+@register(Technology)
+class TechnologyTranslationOptions(TranslationOptions):
+    fields = ("name",)
 
 
 @register(PersonalInfo)

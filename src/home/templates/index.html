@@ -18,6 +18,16 @@
                     class="text-lg lg:text-xl text-secondary font-mono">
                     {{ personal_info.title }}
                 </h3>
+                {% if personal_info.technologies %}
+                    <div id="personal-info-technologies" class="mt-2">
+                        {% for tech in personal_info.technologies.all %}
+                            <span id="personal-info-technology-{{ tech.id }}"
+                                  class="badge badge-neutral mb-1">
+                                {{ tech.name }}
+                            </span>
+                        {% endfor %}
+                    </div>
+                {% endif %}
                 <div id="personal-info-introduction" class="prose text-lg mt-4">
                     {{ personal_info.introduction|md }}
                 </div>

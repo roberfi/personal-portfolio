@@ -6,7 +6,7 @@ from unittest.mock import patch
 import home.tests.test_views.utils.constants as test_view_constants
 import utils.test_utils.constants as common_constants
 from base.models import FollowMeLink, LegalAndPrivacy
-from home.models import Experience, PersonalInfo
+from home.models import Experience, PersonalInfo, Technology
 from utils.test_utils.base_view_test_case import BaseViewTestCase, ElementText
 from utils.test_utils.constants import HtmlTag, Language
 from utils.test_utils.mocks import get_date_with_mocked_today
@@ -25,7 +25,32 @@ class BaseViewTest(BaseViewTestCase):
 
     @classmethod
     def init_db(cls) -> None:
-        PersonalInfo.objects.create(
+        test_technology_1 = Technology.objects.create(
+            id=1,
+            name=test_view_constants.TECHNOLOGY_1[Language.ENGLISH],
+            name_es=test_view_constants.TECHNOLOGY_1[Language.SPANISH],
+            priority=1,
+        )
+        test_technology_2 = Technology.objects.create(
+            id=2,
+            name=test_view_constants.TECHNOLOGY_2[Language.ENGLISH],
+            name_es=test_view_constants.TECHNOLOGY_2[Language.SPANISH],
+            priority=2,
+        )
+        test_technology_3 = Technology.objects.create(
+            id=3,
+            name=test_view_constants.TECHNOLOGY_3[Language.ENGLISH],
+            name_es=test_view_constants.TECHNOLOGY_3[Language.SPANISH],
+            priority=4,
+        )
+        test_technology_4 = Technology.objects.create(
+            id=4,
+            name=test_view_constants.TECHNOLOGY_4[Language.ENGLISH],
+            name_es=test_view_constants.TECHNOLOGY_4[Language.SPANISH],
+            priority=3,
+        )
+
+        personal_info = PersonalInfo.objects.create(
             name=test_view_constants.PERSONAL_INFO_NAME,
             title=test_view_constants.PERSONAL_INFO_TITLE[Language.ENGLISH],
             title_es=test_view_constants.PERSONAL_INFO_TITLE[Language.SPANISH],
@@ -35,7 +60,9 @@ class BaseViewTest(BaseViewTestCase):
             biography_es=test_view_constants.PERSONAL_INFO_BIOGRAPHY[Language.SPANISH],
         )
 
-        Experience.objects.create(
+        personal_info.technologies.set((test_technology_1, test_technology_2, test_technology_3, test_technology_4))
+
+        experience_1 = Experience.objects.create(
             title=test_view_constants.EXPERIENCE_1_TITLE[Language.ENGLISH],
             title_es=test_view_constants.EXPERIENCE_1_TITLE[Language.SPANISH],
             location=test_view_constants.EXPERIENCE_1_LOCATION[Language.ENGLISH],
@@ -47,7 +74,9 @@ class BaseViewTest(BaseViewTestCase):
             end_date=test_view_constants.EXPERIENCE_1_END_DATE,
         )
 
-        Experience.objects.create(
+        experience_1.technologies.set((test_technology_4, test_technology_1, test_technology_2))
+
+        experience_2 = Experience.objects.create(
             title=test_view_constants.EXPERIENCE_2_TITLE[Language.ENGLISH],
             title_es=test_view_constants.EXPERIENCE_2_TITLE[Language.SPANISH],
             location=test_view_constants.EXPERIENCE_2_LOCATION[Language.ENGLISH],
@@ -57,6 +86,8 @@ class BaseViewTest(BaseViewTestCase):
             description_es=test_view_constants.EXPERIENCE_2_DESCRIPTION[Language.SPANISH],
             start_date=test_view_constants.EXPERIENCE_2_START_DATE,
         )
+
+        experience_2.technologies.set((test_technology_3,))
 
         LegalAndPrivacy.objects.create(
             title=test_view_constants.LEGAL_SECTION_1[Language.ENGLISH],

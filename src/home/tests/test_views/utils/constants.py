@@ -9,6 +9,7 @@ HOME_ID = "home"
 PERSONAL_INFO_NAME_ID = "personal-info-name"
 PERSONAL_INFO_TITLE_ID = "personal-info-title"
 PERSONAL_INFO_INTRODUCTION_ID = "personal-info-introduction"
+PERSONAL_INFO_TECHNOLOGIES_ID = "personal-info-technologies"
 ABOUT_ME_BUTTON_ID = "about-me-button"
 ABOUT_ME_MODAL_ID = "about_me_modal"
 ABOUT_ME_ID = "about-me"
@@ -25,6 +26,7 @@ EXPERIENCE_DURATION_ID_TEMPLATE = "experience-{id}-duration"
 EXPERIENCE_TITLE_ID_TEMPLATE = "experience-{id}-title"
 EXPERIENCE_COMPANY_ID_TEMPLATE = "experience-{id}-company"
 EXPERIENCE_LOCATION_ID_TEMPLATE = "experience-{id}-location"
+EXPERIENCE_TECHNOLOGIES_ID_TEMPLATE = "experience-{id}-technologies"
 EXPERIENCE_MORE_BUTTON_ID_TEMPLATE = "experience-{id}-more-button"
 EXPERIENCE_MODAL_ID_TEMPLATE = "experience_{id}_modal"
 MODAL_EXPERIENCE_PERIOD_ID_TEMPLATE = "modal-experience-{id}-period"
@@ -32,6 +34,7 @@ MODAL_EXPERIENCE_DURATION_ID_TEMPLATE = "modal-experience-{id}-duration"
 MODAL_EXPERIENCE_TITLE_ID_TEMPLATE = "modal-experience-{id}-title"
 MODAL_EXPERIENCE_COMPANY_ID_TEMPLATE = "modal-experience-{id}-company"
 MODAL_EXPERIENCE_LOCATION_ID_TEMPLATE = "modal-experience-{id}-location"
+MODAL_EXPERIENCE_TECHNOLOGIES_ID_TEMPLATE = "modal-experience-{id}-technologies"
 MODAL_EXPERIENCE_DESCRIPTION_ID_TEMPLATE = "modal-experience-{id}-description"
 
 # Footer ids
@@ -77,6 +80,24 @@ PERSONAL_INFO_INTRODUCTION = {
 PERSONAL_INFO_BIOGRAPHY = {
     Language.ENGLISH: "Test biography",
     Language.SPANISH: "Biografía de prueba",
+}
+
+# Technologies data
+TECHNOLOGY_1 = {
+    Language.ENGLISH: "Test Technology 1",
+    Language.SPANISH: "Tecnología de Prueba 1",
+}
+TECHNOLOGY_2 = {
+    Language.ENGLISH: "Test Technology 2",
+    Language.SPANISH: "Tecnología de Prueba 2",
+}
+TECHNOLOGY_3 = {
+    Language.ENGLISH: "Test Technology 3",
+    Language.SPANISH: "Tecnología de Prueba 3",
+}
+TECHNOLOGY_4 = {
+    Language.ENGLISH: "Test Technology 4",
+    Language.SPANISH: "Tecnología de Prueba 4",
 }
 
 # Experiences data
