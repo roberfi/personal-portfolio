@@ -50,6 +50,16 @@ class BaseTestHomeViewContent(BaseViewTest):
             ),
         )
 
+        self._assert_list_of_strings(
+            self._find_element_by_id(home, test_view_constants.PERSONAL_INFO_TECHNOLOGIES_ID),
+            [
+                test_view_constants.TECHNOLOGY_1[self.language],
+                test_view_constants.TECHNOLOGY_2[self.language],
+                test_view_constants.TECHNOLOGY_4[self.language],
+                test_view_constants.TECHNOLOGY_3[self.language],
+            ],
+        )
+
         self._assert_attribute_of_element(
             self._find_element_by_tag_and_id(home, HtmlTag.BUTTON, test_view_constants.ABOUT_ME_BUTTON_ID),
             common_constants.ATTR_ONCLICK,

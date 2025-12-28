@@ -37,6 +37,16 @@
                      class="font-mono text-secondary">
                     {{ experience.location }}
                 </div>
+                {% if experience.technologies %}
+                    <div id="experience-{{ experience.id }}-technologies" class="mt-2">
+                        {% for tech in experience.technologies.all %}
+                            <span id="experience-{{ experience.id }}-technology-{{ tech.id }}"
+                                  class="badge badge-neutral mb-1">
+                                {{ tech.name }}
+                            </span>
+                        {% endfor %}
+                    </div>
+                {% endif %}
                 <div class="mb-1">
                     <!-- Button to show modal with experience info -->
                     <button id="experience-{{ experience.id }}-more-button"
@@ -77,6 +87,16 @@
                              class="font-mono text-secondary">
                             {{ experience.location }}
                         </div>
+                        {% if experience.technologies %}
+                            <div id="modal-experience-{{ experience.id }}-technologies" class="mt-2">
+                                {% for tech in experience.technologies.all %}
+                                    <span id="modal-experience-{{ experience.id }}-technology-{{ tech.id }}"
+                                          class="badge badge-neutral mb-1">
+                                        {{ tech.name }}
+                                    </span>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
                         <div id="modal-experience-{{ experience.id }}-description"
                              class="prose max-w-none py-4">
                             {{ experience.description|md }}
