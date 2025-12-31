@@ -29,10 +29,12 @@
                      class="text-lg font-black mt-5">
                     {{ experience.title }}
                 </div>
-                <div id="experience-{{ experience.id }}-company"
-                     class="font-mono text-secondary">
-                    {{ experience.company }}
-                </div>
+                {% if experience.company %}
+                    <div id="experience-{{ experience.id }}-company"
+                         class="font-mono text-secondary">
+                        {{ experience.company }}
+                    </div>
+                {% endif %}
                 <div id="experience-{{ experience.id }}-location"
                      class="font-mono text-secondary">
                     {{ experience.location }}
@@ -101,6 +103,67 @@
                              class="prose max-w-none py-4">
                             {{ experience.description|md }}
                         </div>
+                        {% comment %} Sub-projects section - only shown if experience has sub_projects {% endcomment %}
+                        {% if experience.sub_projects.exists %}
+                            <div id="experience-{{ experience.id }}-subprojects"
+                                 class="mt-6 border-t pt-6">
+                                <h4 class="text-md font-semibold mb-4 text-primary">
+                                    {% translate "Projects" %}
+                                </h4>
+                                <div class="space-y-3">
+                                    {% for sub_project in experience.sub_projects.all %}
+                                        <details class="collapse collapse-arrow bg-base-200"
+                                                 name="subprojects-{{ experience.id }}-accordion"
+                                                 {% if forloop.first %}open{% endif %}>
+                                            <summary class="collapse-title">
+                                                <div class="flex justify-between items-start gap-4">
+                                                    <div class="flex-1">
+                                                        <h4 id="experience-{{ experience.id }}-subproject-{{ sub_project.id }}-title"
+                                                            class="font-semibold">
+                                                            {{ sub_project.title }}
+                                                        </h4>
+                                                        {% if sub_project.client %}
+                                                            <div id="experience-{{ experience.id }}-subproject-{{ sub_project.id }}-client"
+                                                                 class="font-mono text-sm text-secondary">
+                                                                {{ sub_project.client }}
+                                                            </div>
+                                                        {% endif %}
+                                                        {% if sub_project.technologies %}
+                                                            <div id="experience-{{ experience.id }}-subproject-{{ sub_project.id }}-technologies"
+                                                                 class="mt-2">
+                                                                {% for tech in sub_project.technologies.all %}
+                                                                    <span id="experience-{{ experience.id }}-subproject-{{ sub_project.id }}-technology-{{ tech.id }}"
+                                                                          class="badge badge-neutral badge-sm mb-1">
+                                                                        {{ tech.name }}
+                                                                    </span>
+                                                                {% endfor %}
+                                                            </div>
+                                                        {% endif %}
+                                                    </div>
+                                                    <div class="flex flex-col text-end">
+                                                        <time id="experience-{{ experience.id }}-subproject-{{ sub_project.id }}-period"
+                                                              class="text-xs font-mono text-primary whitespace-nowrap">
+                                                            {{ sub_project.period }}
+                                                        </time>
+                                                        <div id="experience-{{ experience.id }}-subproject-{{ sub_project.id }}-duration"
+                                                             class="text-xs font-mono text-primary">
+                                                            ({{ sub_project.duration }})
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </summary>
+                                            <div class="collapse-content">
+                                                <div id="experience-{{ experience.id }}-subproject-{{ sub_project.id }}-description"
+                                                     class="prose prose-sm max-w-none pt-2">
+                                                    {{ sub_project.description|md }}
+                                                </div>
+                                            </div>
+                                        </details>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        {% endif %}
                     </div>
                     <div class="modal-action">
                         <form method="dialog">

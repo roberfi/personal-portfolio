@@ -78,7 +78,11 @@ class BaseTestMyCareerViewContent(BaseViewTest):
             self._find_element_by_id(
                 experiences[0], test_view_constants.EXPERIENCE_TECHNOLOGIES_ID_TEMPLATE.format(id=2)
             ),
-            [test_view_constants.TECHNOLOGY_3[self.language]],
+            [
+                test_view_constants.TECHNOLOGY_1[self.language],
+                test_view_constants.TECHNOLOGY_2[self.language],
+                test_view_constants.TECHNOLOGY_4[self.language],
+            ],
         )
 
         self._assert_attribute_of_element(
@@ -133,7 +137,108 @@ class BaseTestMyCareerViewContent(BaseViewTest):
             self._find_element_by_id(
                 experiences[0], test_view_constants.MODAL_EXPERIENCE_TECHNOLOGIES_ID_TEMPLATE.format(id=2)
             ),
-            [test_view_constants.TECHNOLOGY_3[self.language]],
+            [
+                test_view_constants.TECHNOLOGY_1[self.language],
+                test_view_constants.TECHNOLOGY_2[self.language],
+                test_view_constants.TECHNOLOGY_4[self.language],
+            ],
+        )
+
+        sub_projects = self._find_element_by_tag_and_id(
+            experiences[0],
+            HtmlTag.DIV,
+            test_view_constants.SUBPROJECTS_ID_TEMPLATE.format(experience_id=2),
+        ).find_all(HtmlTag.DETAILS)
+
+        self.assertEqual(
+            number_of_sub_projects := len(sub_projects),
+            test_view_constants.EXPECTED_NUMBER_OF_SUBPROJECTS_EXPERIENCE_2,
+            f"There should be {test_view_constants.EXPECTED_NUMBER_OF_SUBPROJECTS_EXPERIENCE_2}"
+            f" sub-projects, but there are {number_of_sub_projects}",
+        )
+
+        self._assert_text_of_elements(
+            sub_projects[0],
+            ElementText(
+                html_tag=HtmlTag.TIME,
+                element_id=test_view_constants.SUBPROJECT_PERIOD_ID_TEMPLATE.format(experience_id=2, subproject_id=2),
+                expected_text=test_view_constants.SUBPROJECT_2_PERIOD[self.language],
+            ),
+            ElementText(
+                html_tag=HtmlTag.DIV,
+                element_id=test_view_constants.SUBPROJECT_DURATION_ID_TEMPLATE.format(experience_id=2, subproject_id=2),
+                expected_text=test_view_constants.SUBPROJECT_2_DURATION[self.language],
+            ),
+            ElementText(
+                html_tag=HtmlTag.H4,
+                element_id=test_view_constants.SUBPROJECT_TITLE_ID_TEMPLATE.format(experience_id=2, subproject_id=2),
+                expected_text=test_view_constants.SUBPROJECT_2_TITLE[self.language],
+            ),
+            ElementText(
+                html_tag=HtmlTag.DIV,
+                element_id=test_view_constants.SUBPROJECT_DESCRIPTION_ID_TEMPLATE.format(
+                    experience_id=2, subproject_id=2
+                ),
+                expected_text=test_view_constants.SUBPROJECT_2_DESCRIPTION[self.language],
+            ),
+        )
+
+        # SubProject 2 has no client, so the client element should not exist
+        self._assert_element_not_exists(
+            sub_projects[0],
+            test_view_constants.SUBPROJECT_CLIENT_ID_TEMPLATE.format(experience_id=2, subproject_id=2),
+        )
+
+        self._assert_list_of_strings(
+            self._find_element_by_id(
+                sub_projects[0],
+                test_view_constants.SUBPROJECT_TECHNOLOGIES_ID_TEMPLATE.format(experience_id=2, subproject_id=2),
+            ),
+            [
+                test_view_constants.TECHNOLOGY_2[self.language],
+            ],
+        )
+
+        self._assert_text_of_elements(
+            sub_projects[1],
+            ElementText(
+                html_tag=HtmlTag.TIME,
+                element_id=test_view_constants.SUBPROJECT_PERIOD_ID_TEMPLATE.format(experience_id=2, subproject_id=1),
+                expected_text=test_view_constants.SUBPROJECT_1_PERIOD[self.language],
+            ),
+            ElementText(
+                html_tag=HtmlTag.DIV,
+                element_id=test_view_constants.SUBPROJECT_DURATION_ID_TEMPLATE.format(experience_id=2, subproject_id=1),
+                expected_text=test_view_constants.SUBPROJECT_1_DURATION[self.language],
+            ),
+            ElementText(
+                html_tag=HtmlTag.H4,
+                element_id=test_view_constants.SUBPROJECT_TITLE_ID_TEMPLATE.format(experience_id=2, subproject_id=1),
+                expected_text=test_view_constants.SUBPROJECT_1_TITLE[self.language],
+            ),
+            ElementText(
+                html_tag=HtmlTag.DIV,
+                element_id=test_view_constants.SUBPROJECT_CLIENT_ID_TEMPLATE.format(experience_id=2, subproject_id=1),
+                expected_text=test_view_constants.SUBPROJECT_1_CLIENT,
+            ),
+            ElementText(
+                html_tag=HtmlTag.DIV,
+                element_id=test_view_constants.SUBPROJECT_DESCRIPTION_ID_TEMPLATE.format(
+                    experience_id=2, subproject_id=1
+                ),
+                expected_text=test_view_constants.SUBPROJECT_1_DESCRIPTION[self.language],
+            ),
+        )
+
+        self._assert_list_of_strings(
+            self._find_element_by_id(
+                sub_projects[1],
+                test_view_constants.SUBPROJECT_TECHNOLOGIES_ID_TEMPLATE.format(experience_id=2, subproject_id=1),
+            ),
+            [
+                test_view_constants.TECHNOLOGY_1[self.language],
+                test_view_constants.TECHNOLOGY_4[self.language],
+            ],
         )
 
         self._assert_text_of_elements(
@@ -169,11 +274,7 @@ class BaseTestMyCareerViewContent(BaseViewTest):
             self._find_element_by_id(
                 experiences[1], test_view_constants.EXPERIENCE_TECHNOLOGIES_ID_TEMPLATE.format(id=1)
             ),
-            [
-                test_view_constants.TECHNOLOGY_1[self.language],
-                test_view_constants.TECHNOLOGY_2[self.language],
-                test_view_constants.TECHNOLOGY_4[self.language],
-            ],
+            [test_view_constants.TECHNOLOGY_3[self.language]],
         )
 
         self._assert_attribute_of_element(
@@ -228,11 +329,12 @@ class BaseTestMyCareerViewContent(BaseViewTest):
             self._find_element_by_id(
                 experiences[1], test_view_constants.MODAL_EXPERIENCE_TECHNOLOGIES_ID_TEMPLATE.format(id=1)
             ),
-            [
-                test_view_constants.TECHNOLOGY_1[self.language],
-                test_view_constants.TECHNOLOGY_2[self.language],
-                test_view_constants.TECHNOLOGY_4[self.language],
-            ],
+            [test_view_constants.TECHNOLOGY_3[self.language]],
+        )
+
+        # Experience 1 has no sub-projects, so the sub-projects element should not exist
+        self._assert_element_not_exists(
+            experiences[1], test_view_constants.SUBPROJECTS_ID_TEMPLATE.format(experience_id=1)
         )
 
 

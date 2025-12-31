@@ -2,10 +2,11 @@
 
 ## Next release
 
-- Add technology badges to home page and experiences
 - Re-design Home view
 - Split my career into a different view
 - Improvements in the Navigation Bar
+- Add technology badges to home page and experiences
+- Add sub-projects to experiences
 - Bump python and javascript dependencies
 
 ## 0.5.0
