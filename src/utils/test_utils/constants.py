@@ -22,6 +22,8 @@ class HtmlTag(StrEnum):
     SVG = "svg"
     PATH = "path"
     BUTTON = "button"
+    DETAILS = "details"
+    SUMMARY = "summary"
 
 
 # Class Names

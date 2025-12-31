@@ -92,6 +92,13 @@ class BaseViewTestCase(TestCase, ABC):
         for element in elements:
             self._assert_text_of_element(soup, element.html_tag, element.element_id, element.expected_text)
 
+    def _assert_element_not_exists(self, soup: Tag, element_id: str) -> None:
+        element = soup.find(id=element_id)
+        self.assertIsNone(
+            element,
+            msg=f"Element with id '{element_id}' was found but it should not exist",
+        )
+
     def _assert_element_contains_class_name(self, element: Tag, expected_class_name: str) -> None:
         self.assertIn(
             expected_class_name,

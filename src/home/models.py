@@ -20,7 +20,7 @@ class Technology(models.Model):  # type: ignore[django-manager-missing] # https:
         ordering = ("priority", "name")
 
     def __str__(self) -> str:
-        return self.name
+        return f"{self.name} (Priority: {self.priority})"
 
 
 class PersonalInfo(SingletonModel):  # type: ignore[django-manager-missing] # https://github.com/typeddjango/django-stubs/issues/1023
@@ -34,17 +34,12 @@ class PersonalInfo(SingletonModel):  # type: ignore[django-manager-missing] # ht
         return self.name
 
 
-class Experience(models.Model):  # type: ignore[django-manager-missing] # https://github.com/typeddjango/django-stubs/issues/1023
-    title = models.CharField(max_length=200)
-    location = models.CharField(max_length=200)
-    company = models.CharField(max_length=200)
-    description = models.TextField()
-    technologies = models.ManyToManyField(Technology, blank=True, related_name="experiences")
+class DatedModel(models.Model):
     start_date = models.DateField()
     end_date = models.DateField(null=True, blank=True)
 
-    def __str__(self) -> str:
-        return gettext("%(job)s at %(company)s") % {"job": self.title, "company": self.company}
+    class Meta:
+        abstract = True
 
     def clean(self) -> None:
         if self.end_date and self.end_date < self.start_date:
@@ -94,3 +89,33 @@ class Experience(models.Model):  # type: ignore[django-manager-missing] # https:
         )
 
         return ", ".join((p for p in parts if p))
+
+
+class Experience(DatedModel):  # type: ignore[django-manager-missing] # https://github.com/typeddjango/django-stubs/issues/1023
+    title = models.CharField(max_length=200)
+    location = models.CharField(max_length=200)
+    company = models.CharField(max_length=200, blank=True)
+    description = models.TextField()
+    technologies = models.ManyToManyField(Technology, blank=True, related_name="experiences")
+
+    def __str__(self) -> str:
+        if self.company:
+            return gettext("%(job)s at %(company)s") % {"job": self.title, "company": self.company}
+
+        return self.title
+
+
+class SubProject(DatedModel):  # type: ignore[django-manager-missing] # https://github.com/typeddjango/django-stubs/issues/1023
+    experience = models.ForeignKey(Experience, on_delete=models.CASCADE, related_name="sub_projects")
+    title = models.CharField(max_length=200)
+    client = models.CharField(max_length=200, blank=True)
+    description = models.TextField()
+    technologies = models.ManyToManyField(Technology, blank=True, related_name="sub_projects")
+
+    class Meta:
+        ordering = ("-start_date",)
+
+    def __str__(self) -> str:
+        if self.client:
+            return f"{self.title} - {self.client}"
+        return self.title
