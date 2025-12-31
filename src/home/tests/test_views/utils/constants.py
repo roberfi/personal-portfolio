@@ -36,6 +36,13 @@ MODAL_EXPERIENCE_COMPANY_ID_TEMPLATE = "modal-experience-{id}-company"
 MODAL_EXPERIENCE_LOCATION_ID_TEMPLATE = "modal-experience-{id}-location"
 MODAL_EXPERIENCE_TECHNOLOGIES_ID_TEMPLATE = "modal-experience-{id}-technologies"
 MODAL_EXPERIENCE_DESCRIPTION_ID_TEMPLATE = "modal-experience-{id}-description"
+SUBPROJECTS_ID_TEMPLATE = "experience-{experience_id}-subprojects"
+SUBPROJECT_TITLE_ID_TEMPLATE = "experience-{experience_id}-subproject-{subproject_id}-title"
+SUBPROJECT_CLIENT_ID_TEMPLATE = "experience-{experience_id}-subproject-{subproject_id}-client"
+SUBPROJECT_PERIOD_ID_TEMPLATE = "experience-{experience_id}-subproject-{subproject_id}-period"
+SUBPROJECT_DURATION_ID_TEMPLATE = "experience-{experience_id}-subproject-{subproject_id}-duration"
+SUBPROJECT_TECHNOLOGIES_ID_TEMPLATE = "experience-{experience_id}-subproject-{subproject_id}-technologies"
+SUBPROJECT_DESCRIPTION_ID_TEMPLATE = "experience-{experience_id}-subproject-{subproject_id}-description"
 
 # Footer ids
 FOOTER_ID = "footer"
@@ -149,6 +156,51 @@ EXPERIENCE_2_DURATION = {
 }
 
 EXPECTED_NUMBER_OF_EXPERIENCES = 2
+
+# SubProjects data
+SUBPROJECT_1_TITLE = {
+    Language.ENGLISH: "SubProject 1",
+    Language.SPANISH: "Subproyecto 1",
+}
+SUBPROJECT_1_CLIENT = "Test Client 1"
+SUBPROJECT_1_DESCRIPTION = {
+    Language.ENGLISH: "Test subproject description 1",
+    Language.SPANISH: "Descripción de prueba del subproyecto 1",
+}
+SUBPROJECT_1_START_DATE = EXPERIENCE_2_START_DATE
+SUBPROJECT_1_END_DATE = date(2023, 7, 30)
+SUBPROJECT_1_PERIOD = {
+    Language.ENGLISH: "Apr, 2022 - Jul, 2023",
+    Language.SPANISH: "Abr, 2022 - Jul, 2023",
+}
+SUBPROJECT_1_DURATION = {
+    Language.ENGLISH: "(1 year, 3 months)",
+    Language.SPANISH: "(1 año, 3 meses)",
+}
+SUBPROJECT_1_TECHNOLOGIES = (
+    TECHNOLOGY_1,
+    TECHNOLOGY_3,
+)
+SUBPROJECT_2_TITLE = {
+    Language.ENGLISH: "SubProject 2",
+    Language.SPANISH: "Subproyecto 2",
+}
+SUBPROJECT_2_DESCRIPTION = {
+    Language.ENGLISH: "Test subproject description 2",
+    Language.SPANISH: "Descripción de prueba del subproyecto 2",
+}
+SUBPROJECT_2_START_DATE = date(2023, 8, 1)
+SUBPROJECT_2_PERIOD = {
+    Language.ENGLISH: "Aug, 2023 - Present",
+    Language.SPANISH: "Ago, 2023 - Actualmente",
+}
+SUBPROJECT_2_DURATION = {
+    Language.ENGLISH: "(11 months)",
+    Language.SPANISH: "(11 meses)",
+}
+SUBPROJECT_2_TECHNOLOGIES = (TECHNOLOGY_2,)
+
+EXPECTED_NUMBER_OF_SUBPROJECTS_EXPERIENCE_2 = 2
 
 # Mocked today date
 MOCKED_TODAY = date(2024, 7, 15)
