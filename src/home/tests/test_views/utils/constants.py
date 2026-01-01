@@ -37,6 +37,7 @@ MODAL_EXPERIENCE_LOCATION_ID_TEMPLATE = "modal-experience-{id}-location"
 MODAL_EXPERIENCE_TECHNOLOGIES_ID_TEMPLATE = "modal-experience-{id}-technologies"
 MODAL_EXPERIENCE_DESCRIPTION_ID_TEMPLATE = "modal-experience-{id}-description"
 SUBPROJECTS_ID_TEMPLATE = "experience-{experience_id}-subprojects"
+SUBPROJECTS_TITLE_ID_TEMPLATE = "experience-{experience_id}-subprojects-title"
 SUBPROJECT_TITLE_ID_TEMPLATE = "experience-{experience_id}-subproject-{subproject_id}-title"
 SUBPROJECT_CLIENT_ID_TEMPLATE = "experience-{experience_id}-subproject-{subproject_id}-client"
 SUBPROJECT_PERIOD_ID_TEMPLATE = "experience-{experience_id}-subproject-{subproject_id}-period"
@@ -158,6 +159,10 @@ EXPERIENCE_2_DURATION = {
 EXPECTED_NUMBER_OF_EXPERIENCES = 2
 
 # SubProjects data
+SUBPROJECTS_TITLE = {
+    Language.ENGLISH: "Projects",
+    Language.SPANISH: "Proyectos",
+}
 SUBPROJECT_1_TITLE = {
     Language.ENGLISH: "SubProject 1",
     Language.SPANISH: "Subproyecto 1",
