@@ -144,11 +144,20 @@ class BaseTestMyCareerViewContent(BaseViewTest):
             ],
         )
 
-        sub_projects = self._find_element_by_tag_and_id(
+        sub_projects_container = self._find_element_by_tag_and_id(
             experiences[0],
             HtmlTag.DIV,
             test_view_constants.SUBPROJECTS_ID_TEMPLATE.format(experience_id=2),
-        ).find_all(HtmlTag.DETAILS)
+        )
+
+        self._assert_text_of_element(
+            sub_projects_container,
+            HtmlTag.H4,
+            test_view_constants.SUBPROJECTS_TITLE_ID_TEMPLATE.format(experience_id=2),
+            test_view_constants.SUBPROJECTS_TITLE[self.language],
+        )
+
+        sub_projects = sub_projects_container.find_all(HtmlTag.DETAILS)
 
         self.assertEqual(
             number_of_sub_projects := len(sub_projects),
