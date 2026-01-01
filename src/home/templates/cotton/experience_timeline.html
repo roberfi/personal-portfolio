@@ -107,7 +107,8 @@
                         {% if experience.sub_projects.exists %}
                             <div id="experience-{{ experience.id }}-subprojects"
                                  class="mt-6 border-t pt-6">
-                                <h4 class="text-md font-semibold mb-4 text-primary">
+                                <h4 id="experience-{{ experience.id }}-subprojects-title"
+                                    class="text-md font-semibold mb-4 text-primary">
                                     {% translate "Projects" %}
                                 </h4>
                                 <div class="space-y-3">

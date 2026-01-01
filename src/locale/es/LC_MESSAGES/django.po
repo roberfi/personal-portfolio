@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-28 15:49+0000\n"
+"POT-Creation-Date: 2026-01-01 18:04+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -47,11 +47,11 @@ msgstr "Condiciones y Privacidad"
 msgid "Follow Me"
 msgstr "Sígueme"
 
-#: base/templatetags/base_tags.py:26
+#: base/templatetags/base_tags.py:29
 msgid "Home"
 msgstr "Inicio"
 
-#: base/templatetags/base_tags.py:30 home/templates/my-career.html:3
+#: base/templatetags/base_tags.py:33 home/templates/my-career.html:3
 msgid "My Career"
 msgstr "Mi Carrera"
 
@@ -63,46 +63,50 @@ msgstr "Inglés"
 msgid "Spanish"
 msgstr "Español"
 
-#: home/models.py:33
-#, python-format
-msgid "%(job)s at %(company)s"
-msgstr "%(job)s en %(company)s"
-
-#: home/models.py:37
+#: home/models.py:46
 msgid "End date must be after start date"
 msgstr "Las fecha final debe ser posterior a la fecha de inicio"
 
-#: home/models.py:47
+#: home/models.py:56
 msgid "Present"
 msgstr "Actualmente"
 
-#: home/models.py:70
+#: home/models.py:79
 msgid "Not yet started"
 msgstr "Aún no empezado"
 
-#: home/models.py:75
+#: home/models.py:84
 msgid "Less than a month"
 msgstr "Menos de un mes"
 
-#: home/models.py:78
+#: home/models.py:87
 #, python-format
 msgid "%d year"
 msgid_plural "%d years"
 msgstr[0] "%d año"
 msgstr[1] "%d años"
 
-#: home/models.py:79
+#: home/models.py:88
 #, python-format
 msgid "%d month"
 msgid_plural "%d months"
 msgstr[0] "%d mes"
 msgstr[1] "%d meses"
 
-#: home/templates/index.html:28
+#: home/models.py:103
+#, python-format
+msgid "%(job)s at %(company)s"
+msgstr "%(job)s en %(company)s"
+
+#: home/templates/cotton/experience_timeline.html:112
+msgid "Projects"
+msgstr "Proyectos"
+
+#: home/templates/index.html:38
 msgid "More about me"
 msgstr "Más sobre mí"
 
-#: home/templates/index.html:37
+#: home/templates/index.html:47
 msgid "About me"
 msgstr "Sobre mí"
 
