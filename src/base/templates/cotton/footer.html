@@ -5,12 +5,12 @@
 {% get_footer_data as data %}
 
 <div class="bg-base-300 text-base-content p-10">
-    <footer id="footer"
-            class="footer lg:footer-horizontal lg:max-w-(--breakpoint-lg) lg:mx-auto">
+    <footer id="upper-footer"
+            class="footer lg:footer-horizontal lg:max-w-(--breakpoint-lg) lg:mx-auto pb-10">
 
         {% with legal_and_privacy=data.legal_and_privacy %}
             {% if legal_and_privacy %}
-                <nav id="legal-and-privacy">
+                <nav id="legal-and-privacy" class="lg:mx-auto">
                     <h6 id="legal-and-privacy-title" class="footer-title">
                         {% translate "Legal & Privacy" %}
                     </h6>
@@ -50,7 +50,7 @@
 
         {% with follow_me_links=data.follow_me_links %}
             {% if follow_me_links %}
-                <nav id="follow-me-links">
+                <nav id="follow-me-links" class="lg:mx-auto">
                     <h6 id="follow-me-links-title" class="footer-title">
                         {% translate "Follow Me" %}
                     </h6>
@@ -77,6 +77,20 @@
                 </nav>
             {% endif %}
         {% endwith %}
+    </footer>
 
+    <footer id="bottom-footer"
+            class="footer lg:footer-horizontal lg:max-w-(--breakpoint-lg) lg:mx-auto footer-center border-base-100 border-t pt-10">
+        <aside id="source-code-note" class="text-sm opacity-70 text-center">
+            <p>
+                {% translate "The source code of this website is available on" %}
+                <a id="github-repo-link"
+                   class="link underline-offset-4"
+                   href="https://github.com/roberfi/personal-portfolio"
+                   target="_blank"
+                   rel="noopener noreferrer">GitHub</a>
+                {% translate "under the MIT License" %}.
+            </p>
+        </aside>
     </footer>
 </div>

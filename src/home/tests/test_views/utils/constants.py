@@ -46,7 +46,7 @@ SUBPROJECT_TECHNOLOGIES_ID_TEMPLATE = "experience-{experience_id}-subproject-{su
 SUBPROJECT_DESCRIPTION_ID_TEMPLATE = "experience-{experience_id}-subproject-{subproject_id}-description"
 
 # Footer ids
-FOOTER_ID = "footer"
+UPPER_FOOTER_ID = "upper-footer"
 LEGAL_AND_PRIVACY_ID = "legal-and-privacy"
 LEGAL_AND_PRIVACY_TITLE_ID = "legal-and-privacy-title"
 LEGAL_AND_PRIVACY_LINK_ID_TEMPLATE = "legal-and-privacy-{id}-link"
@@ -57,6 +57,10 @@ FOLLOW_ME_LINKS_ID = "follow-me-links"
 FOLLOW_ME_LINKS_TITLE_ID = "follow-me-links-title"
 FOLLOW_ME_LINK_CONTAINER_ID_TEMPLATE = "follow-me-link-{id}-container"
 FOLLOW_ME_LINK_ID_TEMPLATE = "follow-me-link-{id}"
+
+BOTTOM_FOOTER_ID = "bottom-footer"
+SOURCE_CODE_NOTE_ID = "source-code-note"
+GITHUB_REPO_LINK_ID = "github-repo-link"
 
 # About me texts
 ABOUT_ME_TITLE = {
@@ -259,3 +263,9 @@ FOLLOW_ME_LINK_PATH = (
     "124,14.319l-9.761-14.016 c-0.078-0.112-0.175-0.2-0.26-0.303H30.488z M10,96.666l5.455,7.834H10V96.666z "
     "M33.334,104.5h-5.856l5.856-9.19V104.5z"
 )
+
+SOURCE_CODE_NOTE_TEXT = {
+    Language.ENGLISH: "The source code of this website is available on GitHub under the MIT License.",
+    Language.SPANISH: "El código fuente de este sitio web está disponible en GitHub bajo licencia MIT.",
+}
+SOURCE_CODE_GITHUB_LINK = "https://github.com/roberfi/personal-portfolio"
