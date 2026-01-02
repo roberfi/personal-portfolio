@@ -83,7 +83,9 @@ class BaseViewTestCase(TestCase, ABC):
 
     def _assert_text_of_element(self, soup: Tag, html_tag: HtmlTag, element_id: str, expected_text: str) -> None:
         self.assertEqual(
-            actual_text := self._find_element_by_tag_and_id(soup, html_tag, element_id).get_text(strip=True),
+            actual_text := self._find_element_by_tag_and_id(soup, html_tag, element_id).get_text(
+                strip=True, separator=" "
+            ),
             expected_text,
             msg=f"Text of element '{element_id}' is '{actual_text}'; expected text '{expected_text}'",
         )
