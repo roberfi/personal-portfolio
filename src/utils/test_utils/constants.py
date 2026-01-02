@@ -4,26 +4,27 @@ from enum import StrEnum
 
 
 class HtmlTag(StrEnum):
+    A = "a"
+    ASIDE = "aside"
+    BUTTON = "button"
+    DETAILS = "details"
+    DIALOG = "dialog"
+    DIV = "div"
+    FOOTER = "footer"
     H1 = "h1"
     H2 = "h2"
     H3 = "h3"
     H4 = "h4"
     H5 = "h5"
     H6 = "h6"
-    DIV = "div"
-    P = "p"
-    A = "a"
-    UL = "ul"
     LI = "li"
     NAV = "nav"
-    FOOTER = "footer"
-    TIME = "time"
-    DIALOG = "dialog"
-    SVG = "svg"
+    P = "p"
     PATH = "path"
-    BUTTON = "button"
-    DETAILS = "details"
     SUMMARY = "summary"
+    SVG = "svg"
+    TIME = "time"
+    UL = "ul"
 
 
 # Class Names
