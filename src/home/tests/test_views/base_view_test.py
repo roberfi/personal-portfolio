@@ -136,7 +136,9 @@ class BaseViewTest(BaseViewTestCase):
 
     def test_legal_and_privacy(self) -> None:
         legal_and_privacy_section = self._find_element_by_tag_and_id(
-            self._find_element_by_tag_and_id(self.response_data.soup, HtmlTag.FOOTER, test_view_constants.FOOTER_ID),
+            self._find_element_by_tag_and_id(
+                self.response_data.soup, HtmlTag.FOOTER, test_view_constants.UPPER_FOOTER_ID
+            ),
             HtmlTag.NAV,
             test_view_constants.LEGAL_AND_PRIVACY_ID,
         )
@@ -220,7 +222,9 @@ class BaseViewTest(BaseViewTestCase):
 
     def test_follow_me_links(self) -> None:
         follow_me_links_section = self._find_element_by_tag_and_id(
-            self._find_element_by_tag_and_id(self.response_data.soup, HtmlTag.FOOTER, test_view_constants.FOOTER_ID),
+            self._find_element_by_tag_and_id(
+                self.response_data.soup, HtmlTag.FOOTER, test_view_constants.UPPER_FOOTER_ID
+            ),
             HtmlTag.NAV,
             test_view_constants.FOLLOW_ME_LINKS_ID,
         )
@@ -268,4 +272,26 @@ class BaseViewTest(BaseViewTestCase):
             follow_me_link_path,
             common_constants.ATTR_D,
             test_view_constants.FOLLOW_ME_LINK_PATH,
+        )
+
+    def test_source_code_note(self) -> None:
+        bottom_footer = self._find_element_by_tag_and_id(
+            self.response_data.soup, HtmlTag.FOOTER, test_view_constants.BOTTOM_FOOTER_ID
+        )
+
+        self._assert_text_of_element(
+            bottom_footer,
+            html_tag=HtmlTag.ASIDE,
+            element_id=test_view_constants.SOURCE_CODE_NOTE_ID,
+            expected_text=test_view_constants.SOURCE_CODE_NOTE_TEXT[self.language],
+        )
+
+        self._assert_attribute_of_element(
+            self._find_element_by_tag_and_id(
+                bottom_footer,
+                HtmlTag.A,
+                test_view_constants.GITHUB_REPO_LINK_ID,
+            ),
+            common_constants.ATTR_HREF,
+            test_view_constants.SOURCE_CODE_GITHUB_LINK,
         )

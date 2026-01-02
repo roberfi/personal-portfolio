@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-01 18:04+0000\n"
+"POT-Creation-Date: 2026-01-01 18:14+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -46,6 +46,14 @@ msgstr "Condiciones y Privacidad"
 #: base/templates/cotton/footer.html:55
 msgid "Follow Me"
 msgstr "Sígueme"
+
+#: base/templates/cotton/footer.html:85
+msgid "The source code of this website is available on"
+msgstr "El código fuente de este sitio web está disponible en"
+
+#: base/templates/cotton/footer.html:91
+msgid "under the MIT License"
+msgstr "bajo licencia MIT"
 
 #: base/templatetags/base_tags.py:29
 msgid "Home"
@@ -98,7 +106,7 @@ msgstr[1] "%d meses"
 msgid "%(job)s at %(company)s"
 msgstr "%(job)s en %(company)s"
 
-#: home/templates/cotton/experience_timeline.html:112
+#: home/templates/cotton/experience_timeline.html:113
 msgid "Projects"
 msgstr "Proyectos"
 
