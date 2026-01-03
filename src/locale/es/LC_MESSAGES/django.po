@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-01 18:14+0000\n"
+"POT-Creation-Date: 2026-01-03 20:28+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -47,11 +47,11 @@ msgstr "Condiciones y Privacidad"
 msgid "Follow Me"
 msgstr "Sígueme"
 
-#: base/templates/cotton/footer.html:85
+#: base/templates/cotton/footer.html:86
 msgid "The source code of this website is available on"
 msgstr "El código fuente de este sitio web está disponible en"
 
-#: base/templates/cotton/footer.html:91
+#: base/templates/cotton/footer.html:92
 msgid "under the MIT License"
 msgstr "bajo licencia MIT"
 
@@ -101,12 +101,12 @@ msgid_plural "%d months"
 msgstr[0] "%d mes"
 msgstr[1] "%d meses"
 
-#: home/models.py:103
+#: home/models.py:103 home/models.py:134
 #, python-format
-msgid "%(job)s at %(company)s"
-msgstr "%(job)s en %(company)s"
+msgid "%(title)s at %(institution)s"
+msgstr "%(title)s en %(institution)s"
 
-#: home/templates/cotton/experience_timeline.html:113
+#: home/templates/cotton/experience_timeline.html:117
 msgid "Projects"
 msgstr "Proyectos"
 
@@ -118,6 +118,10 @@ msgstr "Más sobre mí"
 msgid "About me"
 msgstr "Sobre mí"
 
-#: home/templates/my-career.html:7
+#: home/templates/my-career.html:8
 msgid "My Experience"
 msgstr "Mi Experiencia"
+
+#: home/templates/my-career.html:20
+msgid "Education"
+msgstr "Educación"

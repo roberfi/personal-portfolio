@@ -30,7 +30,7 @@ class BaseTestExperienceModel(TestCase):
         return Experience(
             title=TEST_TITLE,
             location=TEST_LOCATION,
-            company=TEST_COMPANY,
+            institution=TEST_COMPANY,
             description=TEST_DESCRIPTION,
             start_date=start_date,
             end_date=end_date,
@@ -59,7 +59,7 @@ class TestExperienceModel(BaseTestExperienceModel):
     def test_str(self) -> None:
         self.assertEqual(
             returned_str := str(self.experience),
-            expected_str := f"{self.experience.title} at {self.experience.company}",
+            expected_str := f"{self.experience.title} at {self.experience.institution}",
             f"The __str__ method is returning '{returned_str}' instead the expected value '{expected_str}'",
         )
 
