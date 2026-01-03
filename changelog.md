@@ -4,6 +4,7 @@
 
 - Re-design Home view
 - Split my career into a different view
+- Add Education section into my_career view
 - Improvements in the Navigation Bar
 - Add technology badges to home page and experiences
 - Add sub-projects to experiences

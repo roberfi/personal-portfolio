@@ -1,10 +1,10 @@
 {% load i18n %}
 {% load filters %}
 
-<ul id="experiences-list"
+<ul id="{{ list_id|default:'timeline-list' }}"
     class="list-none timeline timeline-snap-icon max-md:timeline-compact timeline-vertical">
-    {% for experience in experiences %}
-        <li id="experience-{{ experience.id }}-item">
+    {% for item in items %}
+        <li id="{{ item_type|default:'item' }}-{{ item.id }}-item">
             {% if not forloop.first %}
                 <hr />
             {% endif %}
@@ -17,32 +17,33 @@
                 </svg>
             </div>
             <div class="mb-10! w-full {% if forloop.counter|divisibleby:2 %}timeline-start md:text-end{% else %}timeline-end{% endif %}">
-                <time id="experience-{{ experience.id }}-period"
+                <time id="{{ item_type|default:'item' }}-{{ item.id }}-period"
                       class="font-mono text-primary">
-                    {{ experience.period }}
+                    {{ item.period }}
                 </time>
-                <div id="experience-{{ experience.id }}-duration"
+                <div id="{{ item_type|default:'item' }}-{{ item.id }}-duration"
                      class="font-mono text-primary">
-                    ({{ experience.duration }})
+                    ({{ item.duration }})
                 </div>
-                <div id="experience-{{ experience.id }}-title"
+                <div id="{{ item_type|default:'item' }}-{{ item.id }}-title"
                      class="text-lg font-black mt-5">
-                    {{ experience.title }}
+                    {{ item.title }}
                 </div>
-                {% if experience.company %}
-                    <div id="experience-{{ experience.id }}-company"
+                {% if item.institution %}
+                    <div id="{{ item_type|default:'item' }}-{{ item.id }}-institution"
                          class="font-mono text-secondary">
-                        {{ experience.company }}
+                        {{ item.institution }}
                     </div>
                 {% endif %}
-                <div id="experience-{{ experience.id }}-location"
+                <div id="{{ item_type|default:'item' }}-{{ item.id }}-location"
                      class="font-mono text-secondary">
-                    {{ experience.location }}
+                    {{ item.location }}
                 </div>
-                {% if experience.technologies %}
-                    <div id="experience-{{ experience.id }}-technologies" class="mt-2">
-                        {% for tech in experience.technologies.all %}
-                            <span id="experience-{{ experience.id }}-technology-{{ tech.id }}"
+                {% if item.technologies %}
+                    <div id="{{ item_type|default:'item' }}-{{ item.id }}-technologies"
+                         class="mt-2">
+                        {% for tech in item.technologies.all %}
+                            <span id="{{ item_type|default:'item' }}-{{ item.id }}-technology-{{ tech.id }}"
                                   class="badge badge-neutral mb-1">
                                 {{ tech.name }}
                             </span>
@@ -50,10 +51,10 @@
                     </div>
                 {% endif %}
                 <div class="mb-1">
-                    <!-- Button to show modal with experience info -->
-                    <button id="experience-{{ experience.id }}-more-button"
+                    <!-- Button to show modal with item info -->
+                    <button id="{{ item_type|default:'item' }}-{{ item.id }}-more-button"
                             class="btn btn-ghost"
-                            onclick="experience_{{ experience.id }}_modal.showModal()">
+                            onclick="{{ item_type|default:'item' }}_{{ item.id }}_modal.showModal()">
                         <svg class="h-5 w-5"
                              viewBox="0 0 20 20"
                              xmlns="http://www.w3.org/2000/svg"
@@ -66,74 +67,77 @@
                     </button>
                 </div>
             </div>
-            <dialog id="experience_{{ experience.id }}_modal" class="modal">
+            <dialog id="{{ item_type|default:'item' }}_{{ item.id }}_modal" class="modal">
                 <div class="modal-box w-11/12 max-w-5xl flex flex-col max-md:p-4">
                     <div class="flex-1 overflow-y-auto">
-                        <h3 id="modal-experience-{{ experience.id }}-title"
+                        <h3 id="modal-{{ item_type|default:'item' }}-{{ item.id }}-title"
                             class="text-lg font-bold">
-                            {{ experience.title }}
+                            {{ item.title }}
                         </h3>
-                        <time id="modal-experience-{{ experience.id }}-period"
+                        <time id="modal-{{ item_type|default:'item' }}-{{ item.id }}-period"
                               class="font-mono text-primary">
-                            {{ experience.period }}
+                            {{ item.period }}
                         </time>
-                        <div id="modal-experience-{{ experience.id }}-duration"
+                        <div id="modal-{{ item_type|default:'item' }}-{{ item.id }}-duration"
                              class="font-mono text-primary">
-                            ({{ experience.duration }})
+                            ({{ item.duration }})
                         </div>
-                        <div id="modal-experience-{{ experience.id }}-company"
+                        {% if item.institution %}
+                            <div id="modal-{{ item_type|default:'item' }}-{{ item.id }}-institution"
+                                 class="font-mono text-secondary">
+                                {{ item.institution }}
+                            </div>
+                        {% endif %}
+                        <div id="modal-{{ item_type|default:'item' }}-{{ item.id }}-location"
                              class="font-mono text-secondary">
-                            {{ experience.company }}
+                            {{ item.location }}
                         </div>
-                        <div id="modal-experience-{{ experience.id }}-location"
-                             class="font-mono text-secondary">
-                            {{ experience.location }}
-                        </div>
-                        {% if experience.technologies %}
-                            <div id="modal-experience-{{ experience.id }}-technologies" class="mt-2">
-                                {% for tech in experience.technologies.all %}
-                                    <span id="modal-experience-{{ experience.id }}-technology-{{ tech.id }}"
+                        {% if item.technologies %}
+                            <div id="modal-{{ item_type|default:'item' }}-{{ item.id }}-technologies"
+                                 class="mt-2">
+                                {% for tech in item.technologies.all %}
+                                    <span id="modal-{{ item_type|default:'item' }}-{{ item.id }}-technology-{{ tech.id }}"
                                           class="badge badge-neutral mb-1">
                                         {{ tech.name }}
                                     </span>
                                 {% endfor %}
                             </div>
                         {% endif %}
-                        <div id="modal-experience-{{ experience.id }}-description"
+                        <div id="modal-{{ item_type|default:'item' }}-{{ item.id }}-description"
                              class="prose max-w-none py-4">
-                            {{ experience.description|md }}
+                            {{ item.description|md }}
                         </div>
-                        {% comment %} Sub-projects section - only shown if experience has sub_projects {% endcomment %}
-                        {% if experience.sub_projects.exists %}
-                            <div id="experience-{{ experience.id }}-subprojects"
+                        {% comment %} Sub-projects section - only shown if item has sub_projects {% endcomment %}
+                        {% if item.sub_projects.exists %}
+                            <div id="{{ item_type|default:'item' }}-{{ item.id }}-subprojects"
                                  class="mt-6 border-t pt-6">
-                                <h4 id="experience-{{ experience.id }}-subprojects-title"
+                                <h4 id="{{ item_type|default:'item' }}-{{ item.id }}-subprojects-title"
                                     class="text-md font-semibold mb-4 text-primary">
                                     {% translate "Projects" %}
                                 </h4>
                                 <div class="space-y-3">
-                                    {% for sub_project in experience.sub_projects.all %}
+                                    {% for sub_project in item.sub_projects.all %}
                                         <details class="collapse collapse-arrow bg-base-200"
-                                                 name="subprojects-{{ experience.id }}-accordion"
+                                                 name="subprojects-{{ item.id }}-accordion"
                                                  {% if forloop.first %}open{% endif %}>
                                             <summary class="collapse-title">
                                                 <div class="flex justify-between items-start gap-4">
                                                     <div class="flex-1">
-                                                        <h4 id="experience-{{ experience.id }}-subproject-{{ sub_project.id }}-title"
+                                                        <h4 id="{{ item_type|default:'item' }}-{{ item.id }}-subproject-{{ sub_project.id }}-title"
                                                             class="font-semibold">
                                                             {{ sub_project.title }}
                                                         </h4>
                                                         {% if sub_project.client %}
-                                                            <div id="experience-{{ experience.id }}-subproject-{{ sub_project.id }}-client"
+                                                            <div id="{{ item_type|default:'item' }}-{{ item.id }}-subproject-{{ sub_project.id }}-client"
                                                                  class="font-mono text-sm text-secondary">
                                                                 {{ sub_project.client }}
                                                             </div>
                                                         {% endif %}
                                                         {% if sub_project.technologies %}
-                                                            <div id="experience-{{ experience.id }}-subproject-{{ sub_project.id }}-technologies"
+                                                            <div id="{{ item_type|default:'item' }}-{{ item.id }}-subproject-{{ sub_project.id }}-technologies"
                                                                  class="mt-2">
                                                                 {% for tech in sub_project.technologies.all %}
-                                                                    <span id="experience-{{ experience.id }}-subproject-{{ sub_project.id }}-technology-{{ tech.id }}"
+                                                                    <span id="{{ item_type|default:'item' }}-{{ item.id }}-subproject-{{ sub_project.id }}-technology-{{ tech.id }}"
                                                                           class="badge badge-neutral badge-sm mb-1">
                                                                         {{ tech.name }}
                                                                     </span>
@@ -142,11 +146,11 @@
                                                         {% endif %}
                                                     </div>
                                                     <div class="flex flex-col text-end">
-                                                        <time id="experience-{{ experience.id }}-subproject-{{ sub_project.id }}-period"
+                                                        <time id="{{ item_type|default:'item' }}-{{ item.id }}-subproject-{{ sub_project.id }}-period"
                                                               class="text-xs font-mono text-primary whitespace-nowrap">
                                                             {{ sub_project.period }}
                                                         </time>
-                                                        <div id="experience-{{ experience.id }}-subproject-{{ sub_project.id }}-duration"
+                                                        <div id="{{ item_type|default:'item' }}-{{ item.id }}-subproject-{{ sub_project.id }}-duration"
                                                              class="text-xs font-mono text-primary">
                                                             ({{ sub_project.duration }})
                                                         </div>
@@ -155,7 +159,7 @@
                                                 </div>
                                             </summary>
                                             <div class="collapse-content">
-                                                <div id="experience-{{ experience.id }}-subproject-{{ sub_project.id }}-description"
+                                                <div id="{{ item_type|default:'item' }}-{{ item.id }}-subproject-{{ sub_project.id }}-description"
                                                      class="prose prose-sm max-w-none pt-2">
                                                     {{ sub_project.description|md }}
                                                 </div>

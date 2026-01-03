@@ -3,7 +3,7 @@ from __future__ import annotations
 from django.contrib.admin import ModelAdmin, StackedInline, register
 from solo.admin import SingletonModelAdmin
 
-from home.models import Experience, PersonalInfo, SubProject, Technology
+from home.models import Education, Experience, PersonalInfo, SubProject, Technology
 
 
 @register(PersonalInfo)
@@ -27,6 +27,11 @@ class ExperienceAdmin(ModelAdmin[Experience]):
 @register(SubProject)
 class SubProjectAdmin(ModelAdmin[SubProject]):
     filter_horizontal = ("technologies",)
+
+
+@register(Education)
+class EducationAdmin(ModelAdmin[Education]):
+    pass
 
 
 @register(Technology)
