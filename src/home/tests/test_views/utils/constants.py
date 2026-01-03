@@ -24,7 +24,7 @@ EXPERIENCE_ITEM_ID_TEMPLATE = "experience-{id}-item"
 EXPERIENCE_PERIOD_ID_TEMPLATE = "experience-{id}-period"
 EXPERIENCE_DURATION_ID_TEMPLATE = "experience-{id}-duration"
 EXPERIENCE_TITLE_ID_TEMPLATE = "experience-{id}-title"
-EXPERIENCE_COMPANY_ID_TEMPLATE = "experience-{id}-company"
+EXPERIENCE_INSTITUTION_ID_TEMPLATE = "experience-{id}-institution"
 EXPERIENCE_LOCATION_ID_TEMPLATE = "experience-{id}-location"
 EXPERIENCE_TECHNOLOGIES_ID_TEMPLATE = "experience-{id}-technologies"
 EXPERIENCE_MORE_BUTTON_ID_TEMPLATE = "experience-{id}-more-button"
@@ -32,7 +32,7 @@ EXPERIENCE_MODAL_ID_TEMPLATE = "experience_{id}_modal"
 MODAL_EXPERIENCE_PERIOD_ID_TEMPLATE = "modal-experience-{id}-period"
 MODAL_EXPERIENCE_DURATION_ID_TEMPLATE = "modal-experience-{id}-duration"
 MODAL_EXPERIENCE_TITLE_ID_TEMPLATE = "modal-experience-{id}-title"
-MODAL_EXPERIENCE_COMPANY_ID_TEMPLATE = "modal-experience-{id}-company"
+MODAL_EXPERIENCE_INSTITUTION_ID_TEMPLATE = "modal-experience-{id}-institution"
 MODAL_EXPERIENCE_LOCATION_ID_TEMPLATE = "modal-experience-{id}-location"
 MODAL_EXPERIENCE_TECHNOLOGIES_ID_TEMPLATE = "modal-experience-{id}-technologies"
 MODAL_EXPERIENCE_DESCRIPTION_ID_TEMPLATE = "modal-experience-{id}-description"
@@ -44,6 +44,24 @@ SUBPROJECT_PERIOD_ID_TEMPLATE = "experience-{experience_id}-subproject-{subproje
 SUBPROJECT_DURATION_ID_TEMPLATE = "experience-{experience_id}-subproject-{subproject_id}-duration"
 SUBPROJECT_TECHNOLOGIES_ID_TEMPLATE = "experience-{experience_id}-subproject-{subproject_id}-technologies"
 SUBPROJECT_DESCRIPTION_ID_TEMPLATE = "experience-{experience_id}-subproject-{subproject_id}-description"
+
+# Education ids
+EDUCATION_TITLE_ID = "education-title"
+EDUCATION_LIST_ID = "education-list"
+EDUCATION_ITEM_ID_TEMPLATE = "education-{id}-item"
+EDUCATION_PERIOD_ID_TEMPLATE = "education-{id}-period"
+EDUCATION_DURATION_ID_TEMPLATE = "education-{id}-duration"
+EDUCATION_TITLE_ID_TEMPLATE = "education-{id}-title"
+EDUCATION_INSTITUTION_ID_TEMPLATE = "education-{id}-institution"
+EDUCATION_LOCATION_ID_TEMPLATE = "education-{id}-location"
+EDUCATION_MORE_BUTTON_ID_TEMPLATE = "education-{id}-more-button"
+EDUCATION_MODAL_ID_TEMPLATE = "education_{id}_modal"
+MODAL_EDUCATION_PERIOD_ID_TEMPLATE = "modal-education-{id}-period"
+MODAL_EDUCATION_DURATION_ID_TEMPLATE = "modal-education-{id}-duration"
+MODAL_EDUCATION_TITLE_ID_TEMPLATE = "modal-education-{id}-title"
+MODAL_EDUCATION_INSTITUTION_ID_TEMPLATE = "modal-education-{id}-institution"
+MODAL_EDUCATION_LOCATION_ID_TEMPLATE = "modal-education-{id}-location"
+MODAL_EDUCATION_DESCRIPTION_ID_TEMPLATE = "modal-education-{id}-description"
 
 # Footer ids
 UPPER_FOOTER_ID = "upper-footer"
@@ -77,6 +95,11 @@ ABOUT_ME_BUTTON_TEXT = {
 MY_CAREER_TITLE = {
     Language.ENGLISH: "My Experience",
     Language.SPANISH: "Mi Experiencia",
+}
+
+EDUCATION_TITLE = {
+    Language.ENGLISH: "Education",
+    Language.SPANISH: "Educación",
 }
 
 # Personal Info data
@@ -210,6 +233,57 @@ SUBPROJECT_2_DURATION = {
 SUBPROJECT_2_TECHNOLOGIES = (TECHNOLOGY_2,)
 
 EXPECTED_NUMBER_OF_SUBPROJECTS_EXPERIENCE_2 = 2
+
+# Education data
+EDUCATION_1_TITLE = {
+    Language.ENGLISH: "Test education title 1",
+    Language.SPANISH: "Título de educación de prueba 1",
+}
+EDUCATION_1_INSTITUTION = "Test University 1"
+EDUCATION_1_LOCATION = {
+    Language.ENGLISH: "Test City 1",
+    Language.SPANISH: "Ciudad de prueba 1",
+}
+EDUCATION_1_DESCRIPTION = {
+    Language.ENGLISH: "Test education description 1",
+    Language.SPANISH: "Descripción de educación de prueba 1",
+}
+EDUCATION_1_START_DATE = date(2015, 9, 1)
+EDUCATION_1_END_DATE = date(2019, 6, 30)
+EDUCATION_1_PERIOD = {
+    Language.ENGLISH: "Sep, 2015 - Jun, 2019",
+    Language.SPANISH: "Sep, 2015 - Jun, 2019",
+}
+EDUCATION_1_DURATION = {
+    Language.ENGLISH: "(3 years, 9 months)",
+    Language.SPANISH: "(3 años, 9 meses)",
+}
+
+EDUCATION_2_TITLE = {
+    Language.ENGLISH: "Test education title 2",
+    Language.SPANISH: "Título de educación de prueba 2",
+}
+EDUCATION_2_INSTITUTION = "Test University 2"
+EDUCATION_2_LOCATION = {
+    Language.ENGLISH: "Test City 2",
+    Language.SPANISH: "Ciudad de prueba 2",
+}
+EDUCATION_2_DESCRIPTION = {
+    Language.ENGLISH: "Test education description 2",
+    Language.SPANISH: "Descripción de educación de prueba 2",
+}
+EDUCATION_2_START_DATE = date(2019, 9, 1)
+EDUCATION_2_END_DATE = date(2020, 6, 30)
+EDUCATION_2_PERIOD = {
+    Language.ENGLISH: "Sep, 2019 - Jun, 2020",
+    Language.SPANISH: "Sep, 2019 - Jun, 2020",
+}
+EDUCATION_2_DURATION = {
+    Language.ENGLISH: "(9 months)",
+    Language.SPANISH: "(9 meses)",
+}
+
+EXPECTED_NUMBER_OF_EDUCATION_ENTRIES = 2
 
 # Mocked today date
 MOCKED_TODAY = date(2024, 7, 15)

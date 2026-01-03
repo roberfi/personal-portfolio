@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING
 from django.shortcuts import render
 from django.views import View
 
-from .models import Experience, PersonalInfo
+from .models import Education, Experience, PersonalInfo
 
 if TYPE_CHECKING:
     from django.http import HttpRequest, HttpResponse
@@ -31,6 +31,11 @@ class MyCareerView(View):
                 "experiences": sorted(
                     Experience.objects.all(),
                     key=lambda experience: experience.actual_end_date,
+                    reverse=True,
+                ),
+                "education_entries": sorted(
+                    Education.objects.all(),
+                    key=lambda education: education.actual_end_date,
                     reverse=True,
                 ),
             },

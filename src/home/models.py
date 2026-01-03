@@ -94,13 +94,13 @@ class DatedModel(models.Model):
 class Experience(DatedModel):  # type: ignore[django-manager-missing] # https://github.com/typeddjango/django-stubs/issues/1023
     title = models.CharField(max_length=200)
     location = models.CharField(max_length=200)
-    company = models.CharField(max_length=200, blank=True)
+    institution = models.CharField(max_length=200, blank=True, verbose_name="Company")
     description = models.TextField()
     technologies = models.ManyToManyField(Technology, blank=True, related_name="experiences")
 
     def __str__(self) -> str:
-        if self.company:
-            return gettext("%(job)s at %(company)s") % {"job": self.title, "company": self.company}
+        if self.institution:
+            return gettext("%(title)s at %(institution)s") % {"title": self.title, "institution": self.institution}
 
         return self.title
 
@@ -119,3 +119,16 @@ class SubProject(DatedModel):  # type: ignore[django-manager-missing] # https://
         if self.client:
             return f"{self.title} - {self.client}"
         return self.title
+
+
+class Education(DatedModel):  # type: ignore[django-manager-missing] # https://github.com/typeddjango/django-stubs/issues/1023
+    title = models.CharField(max_length=200)
+    institution = models.CharField(max_length=200)
+    location = models.CharField(max_length=200)
+    description = models.TextField()
+
+    class Meta:
+        verbose_name_plural = "Education entries"
+
+    def __str__(self) -> str:
+        return gettext("%(title)s at %(institution)s") % {"title": self.title, "institution": self.institution}
