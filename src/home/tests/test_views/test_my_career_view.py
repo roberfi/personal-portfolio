@@ -64,7 +64,7 @@ class BaseTestMyCareerViewContent(BaseViewTest):
             ),
             ElementText(
                 html_tag=HtmlTag.DIV,
-                element_id=test_view_constants.EXPERIENCE_COMPANY_ID_TEMPLATE.format(id=2),
+                element_id=test_view_constants.EXPERIENCE_INSTITUTION_ID_TEMPLATE.format(id=2),
                 expected_text=test_view_constants.EXPERIENCE_2_COMPANY,
             ),
             ElementText(
@@ -118,7 +118,7 @@ class BaseTestMyCareerViewContent(BaseViewTest):
             ),
             ElementText(
                 html_tag=HtmlTag.DIV,
-                element_id=test_view_constants.MODAL_EXPERIENCE_COMPANY_ID_TEMPLATE.format(id=2),
+                element_id=test_view_constants.MODAL_EXPERIENCE_INSTITUTION_ID_TEMPLATE.format(id=2),
                 expected_text=test_view_constants.EXPERIENCE_2_COMPANY,
             ),
             ElementText(
@@ -269,7 +269,7 @@ class BaseTestMyCareerViewContent(BaseViewTest):
             ),
             ElementText(
                 html_tag=HtmlTag.DIV,
-                element_id=test_view_constants.EXPERIENCE_COMPANY_ID_TEMPLATE.format(id=1),
+                element_id=test_view_constants.EXPERIENCE_INSTITUTION_ID_TEMPLATE.format(id=1),
                 expected_text=test_view_constants.EXPERIENCE_1_COMPANY,
             ),
             ElementText(
@@ -319,7 +319,7 @@ class BaseTestMyCareerViewContent(BaseViewTest):
             ),
             ElementText(
                 html_tag=HtmlTag.DIV,
-                element_id=test_view_constants.MODAL_EXPERIENCE_COMPANY_ID_TEMPLATE.format(id=1),
+                element_id=test_view_constants.MODAL_EXPERIENCE_INSTITUTION_ID_TEMPLATE.format(id=1),
                 expected_text=test_view_constants.EXPERIENCE_1_COMPANY,
             ),
             ElementText(
@@ -344,6 +344,181 @@ class BaseTestMyCareerViewContent(BaseViewTest):
         # Experience 1 has no sub-projects, so the sub-projects element should not exist
         self._assert_element_not_exists(
             experiences[1], test_view_constants.SUBPROJECTS_ID_TEMPLATE.format(experience_id=1)
+        )
+
+    def test_education_entries(self) -> None:
+        my_career = self._find_element_by_id(self.response_data.soup, test_view_constants.MY_CAREER_ID)
+
+        self._assert_text_of_element(
+            my_career,
+            HtmlTag.H1,
+            test_view_constants.EDUCATION_TITLE_ID,
+            test_view_constants.EDUCATION_TITLE[self.language],
+        )
+
+        education_entries = self._find_element_by_id(
+            my_career, element_id=test_view_constants.EDUCATION_LIST_ID
+        ).find_all(HtmlTag.LI)
+
+        self.assertEqual(
+            number_of_education_entries := len(education_entries),
+            test_view_constants.EXPECTED_NUMBER_OF_EDUCATION_ENTRIES,
+            f"There should be {test_view_constants.EXPECTED_NUMBER_OF_EDUCATION_ENTRIES}"
+            f" education entries, but there are {number_of_education_entries}",
+        )
+
+        self._assert_text_of_elements(
+            education_entries[0],
+            ElementText(
+                html_tag=HtmlTag.TIME,
+                element_id=test_view_constants.EDUCATION_PERIOD_ID_TEMPLATE.format(id=2),
+                expected_text=test_view_constants.EDUCATION_2_PERIOD[self.language],
+            ),
+            ElementText(
+                html_tag=HtmlTag.DIV,
+                element_id=test_view_constants.EDUCATION_DURATION_ID_TEMPLATE.format(id=2),
+                expected_text=test_view_constants.EDUCATION_2_DURATION[self.language],
+            ),
+            ElementText(
+                html_tag=HtmlTag.DIV,
+                element_id=test_view_constants.EDUCATION_TITLE_ID_TEMPLATE.format(id=2),
+                expected_text=test_view_constants.EDUCATION_2_TITLE[self.language],
+            ),
+            ElementText(
+                html_tag=HtmlTag.DIV,
+                element_id=test_view_constants.EDUCATION_INSTITUTION_ID_TEMPLATE.format(id=2),
+                expected_text=test_view_constants.EDUCATION_2_INSTITUTION,
+            ),
+            ElementText(
+                html_tag=HtmlTag.DIV,
+                element_id=test_view_constants.EDUCATION_LOCATION_ID_TEMPLATE.format(id=2),
+                expected_text=test_view_constants.EDUCATION_2_LOCATION[self.language],
+            ),
+        )
+
+        self._assert_attribute_of_element(
+            self._find_element_by_tag_and_id(
+                education_entries[0],
+                HtmlTag.BUTTON,
+                test_view_constants.EDUCATION_MORE_BUTTON_ID_TEMPLATE.format(id=2),
+            ),
+            common_constants.ATTR_ONCLICK,
+            f"{test_view_constants.EDUCATION_MODAL_ID_TEMPLATE.format(id=2)}.showModal()",
+        )
+
+        self._assert_text_of_elements(
+            self._find_element_by_tag_and_id(
+                education_entries[0],
+                HtmlTag.DIALOG,
+                test_view_constants.EDUCATION_MODAL_ID_TEMPLATE.format(id=2),
+            ),
+            ElementText(
+                html_tag=HtmlTag.TIME,
+                element_id=test_view_constants.MODAL_EDUCATION_PERIOD_ID_TEMPLATE.format(id=2),
+                expected_text=test_view_constants.EDUCATION_2_PERIOD[self.language],
+            ),
+            ElementText(
+                html_tag=HtmlTag.DIV,
+                element_id=test_view_constants.MODAL_EDUCATION_DURATION_ID_TEMPLATE.format(id=2),
+                expected_text=test_view_constants.EDUCATION_2_DURATION[self.language],
+            ),
+            ElementText(
+                html_tag=HtmlTag.H3,
+                element_id=test_view_constants.MODAL_EDUCATION_TITLE_ID_TEMPLATE.format(id=2),
+                expected_text=test_view_constants.EDUCATION_2_TITLE[self.language],
+            ),
+            ElementText(
+                html_tag=HtmlTag.DIV,
+                element_id=test_view_constants.MODAL_EDUCATION_INSTITUTION_ID_TEMPLATE.format(id=2),
+                expected_text=test_view_constants.EDUCATION_2_INSTITUTION,
+            ),
+            ElementText(
+                html_tag=HtmlTag.DIV,
+                element_id=test_view_constants.MODAL_EDUCATION_LOCATION_ID_TEMPLATE.format(id=2),
+                expected_text=test_view_constants.EDUCATION_2_LOCATION[self.language],
+            ),
+            ElementText(
+                html_tag=HtmlTag.DIV,
+                element_id=test_view_constants.MODAL_EDUCATION_DESCRIPTION_ID_TEMPLATE.format(id=2),
+                expected_text=test_view_constants.EDUCATION_2_DESCRIPTION[self.language],
+            ),
+        )
+
+        self._assert_text_of_elements(
+            education_entries[1],
+            ElementText(
+                html_tag=HtmlTag.TIME,
+                element_id=test_view_constants.EDUCATION_PERIOD_ID_TEMPLATE.format(id=1),
+                expected_text=test_view_constants.EDUCATION_1_PERIOD[self.language],
+            ),
+            ElementText(
+                html_tag=HtmlTag.DIV,
+                element_id=test_view_constants.EDUCATION_DURATION_ID_TEMPLATE.format(id=1),
+                expected_text=test_view_constants.EDUCATION_1_DURATION[self.language],
+            ),
+            ElementText(
+                html_tag=HtmlTag.DIV,
+                element_id=test_view_constants.EDUCATION_TITLE_ID_TEMPLATE.format(id=1),
+                expected_text=test_view_constants.EDUCATION_1_TITLE[self.language],
+            ),
+            ElementText(
+                html_tag=HtmlTag.DIV,
+                element_id=test_view_constants.EDUCATION_INSTITUTION_ID_TEMPLATE.format(id=1),
+                expected_text=test_view_constants.EDUCATION_1_INSTITUTION,
+            ),
+            ElementText(
+                html_tag=HtmlTag.DIV,
+                element_id=test_view_constants.EDUCATION_LOCATION_ID_TEMPLATE.format(id=1),
+                expected_text=test_view_constants.EDUCATION_1_LOCATION[self.language],
+            ),
+        )
+
+        self._assert_attribute_of_element(
+            self._find_element_by_tag_and_id(
+                education_entries[1],
+                HtmlTag.BUTTON,
+                test_view_constants.EDUCATION_MORE_BUTTON_ID_TEMPLATE.format(id=1),
+            ),
+            common_constants.ATTR_ONCLICK,
+            f"{test_view_constants.EDUCATION_MODAL_ID_TEMPLATE.format(id=1)}.showModal()",
+        )
+
+        self._assert_text_of_elements(
+            self._find_element_by_tag_and_id(
+                education_entries[1],
+                HtmlTag.DIALOG,
+                test_view_constants.EDUCATION_MODAL_ID_TEMPLATE.format(id=1),
+            ),
+            ElementText(
+                html_tag=HtmlTag.TIME,
+                element_id=test_view_constants.MODAL_EDUCATION_PERIOD_ID_TEMPLATE.format(id=1),
+                expected_text=test_view_constants.EDUCATION_1_PERIOD[self.language],
+            ),
+            ElementText(
+                html_tag=HtmlTag.DIV,
+                element_id=test_view_constants.MODAL_EDUCATION_DURATION_ID_TEMPLATE.format(id=1),
+                expected_text=test_view_constants.EDUCATION_1_DURATION[self.language],
+            ),
+            ElementText(
+                html_tag=HtmlTag.H3,
+                element_id=test_view_constants.MODAL_EDUCATION_TITLE_ID_TEMPLATE.format(id=1),
+                expected_text=test_view_constants.EDUCATION_1_TITLE[self.language],
+            ),
+            ElementText(
+                html_tag=HtmlTag.DIV,
+                element_id=test_view_constants.MODAL_EDUCATION_INSTITUTION_ID_TEMPLATE.format(id=1),
+                expected_text=test_view_constants.EDUCATION_1_INSTITUTION,
+            ),
+            ElementText(
+                html_tag=HtmlTag.DIV,
+                element_id=test_view_constants.MODAL_EDUCATION_LOCATION_ID_TEMPLATE.format(id=1),
+                expected_text=test_view_constants.EDUCATION_1_LOCATION[self.language],
+            ),
+            ElementText(
+                html_tag=HtmlTag.DIV,
+                element_id=test_view_constants.MODAL_EDUCATION_DESCRIPTION_ID_TEMPLATE.format(id=1),
+                expected_text=test_view_constants.EDUCATION_1_DESCRIPTION[self.language],
+            ),
         )
 
 
