@@ -117,7 +117,8 @@ class SubProject(DatedModel):  # type: ignore[django-manager-missing] # https://
 
     def __str__(self) -> str:
         if self.client:
-            return f"{self.title} - {self.client}"
+            return gettext("%(title)s at %(institution)s") % {"title": self.title, "institution": self.client}
+
         return self.title
 
 
