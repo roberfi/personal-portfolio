@@ -27,7 +27,7 @@ class BaseTestEducationModel(TestCase):
     def _get_new_education_instance(
         *, start_date: date = DEFAULT_START_DATE, end_date: date | None = None
     ) -> Education:
-        return Education(
+        return Education.objects.create(
             title=TEST_TITLE,
             institution=TEST_INSTITUTION,
             location=TEST_LOCATION,
