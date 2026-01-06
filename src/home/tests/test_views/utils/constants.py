@@ -90,7 +90,6 @@ ABOUT_ME_BUTTON_TEXT = {
     Language.SPANISH: "Más sobre mí",
 }
 
-
 # My Career texts
 MY_CAREER_TITLE = {
     Language.ENGLISH: "My Experience",
@@ -101,6 +100,42 @@ EDUCATION_TITLE = {
     Language.ENGLISH: "Education",
     Language.SPANISH: "Educación",
 }
+
+# SEO texts
+COMMON_META_KEYWORDS = {
+    Language.ENGLISH: ("portfolio", "CV", "biography", "career"),
+    Language.SPANISH: ("portfolio", "CV", "biografía", "carrera"),
+}
+
+HOME_VIEW_META_TITLE_TEMPLATE = {
+    Language.ENGLISH: "{name} | {title}",
+    Language.SPANISH: "{name} | {title}",
+}
+HOME_VIEW_META_DESCRIPTION_TEMPLATE = {
+    Language.ENGLISH: "Personal web of {name}. {title} specialized in {technologies}",
+    Language.SPANISH: "Página personal de {name}. {title} especializado en {technologies}",
+}
+
+
+MY_CAREER_VIEW_META_TITLE = {
+    Language.ENGLISH: "My Career | Professional Experience & Education",
+    Language.SPANISH: "Mi Carrera | Experiencia Profesional y Educación",
+}
+MY_CAREER_VIEW_META_DESCRIPTION = {
+    Language.ENGLISH: (
+        "Professional experience and educational background."
+        " View my complete career history, work experience, and academic qualifications."
+    ),
+    Language.SPANISH: (
+        "Experiencia profesional y formación académica."
+        " Consulta mi historial profesional completo, experiencia laboral y cualificaciones académicas."
+    ),
+}
+MY_CAREER_VIEW_META_KEYWORDS = {
+    Language.ENGLISH: ("experience", "education", "professional background", "work history"),
+    Language.SPANISH: ("experiencia", "educación", "trayectoria profesional", "historia laboral"),
+}
+
 
 # Personal Info data
 PERSONAL_INFO_NAME = "Test Name"

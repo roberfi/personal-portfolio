@@ -24,10 +24,183 @@ class BaseTestMyCareerViewContent(BaseViewTest):
         self._assert_template_is_used("cotton/experience_timeline.html")
         self._assert_template_is_used("cotton/base.html")
 
+    def test_json_ld_context_and_structure(self) -> None:
+        """Test that JSON-LD has correct context and structure."""
+        data = self._get_json_ld_data()
+
+        # Verify @context
+        self.assertIn("@context", data)
+        self.assertEqual(data["@context"]["@vocab"], "https://schema.org/")
+        self.assertEqual(data["@context"]["@language"], self.language)
+
+        # Verify @graph structure
+        self.assertIn("@graph", data)
+        self.assertIsInstance(data["@graph"], list)
+
+        # Verify counts
+        work_items = [item for item in data["@graph"] if item["@type"] == "WorkExperience"]
+        edu_items = [item for item in data["@graph"] if item["@type"] == "EducationalOccupationalCredential"]
+        self.assertEqual(len(work_items), test_view_constants.EXPECTED_NUMBER_OF_EXPERIENCES)
+        self.assertEqual(len(edu_items), test_view_constants.EXPECTED_NUMBER_OF_EDUCATION_ENTRIES)
+
+    def test_json_ld_work_experience_schemas(self) -> None:
+        """Test that JSON-LD includes complete WorkExperience schemas."""
+        data = self._get_json_ld_data()
+
+        work_items = [item for item in data["@graph"] if item["@type"] == "WorkExperience"]
+
+        # Verify Experience 2 (most recent)
+        exp2 = work_items[0]
+        self.assertEqual(exp2["name"], test_view_constants.EXPERIENCE_2_TITLE[self.language])
+        self.assertEqual(exp2["description"], test_view_constants.EXPERIENCE_2_DESCRIPTION[self.language])
+        self.assertEqual(exp2["startDate"], test_view_constants.EXPERIENCE_2_START_DATE.isoformat())
+        self.assertNotIn("endDate", exp2)
+
+        self.assertEqual(exp2["location"]["@type"], "Place")
+        self.assertEqual(exp2["location"]["name"], test_view_constants.EXPERIENCE_2_LOCATION[self.language])
+
+        self.assertEqual(exp2["employer"]["@type"], "Organization")
+        self.assertEqual(exp2["employer"]["name"], test_view_constants.EXPERIENCE_2_COMPANY)
+
+        expected_skills = [
+            test_view_constants.TECHNOLOGY_1[self.language],
+            test_view_constants.TECHNOLOGY_2[self.language],
+            test_view_constants.TECHNOLOGY_4[self.language],
+        ]
+        self.assertEqual(exp2["skills"], expected_skills)
+
+        # Verify Experience 1 (older)
+        exp1 = work_items[1]
+        self.assertEqual(exp1["name"], test_view_constants.EXPERIENCE_1_TITLE[self.language])
+        self.assertEqual(exp1["description"], test_view_constants.EXPERIENCE_1_DESCRIPTION[self.language])
+        self.assertEqual(exp1["startDate"], test_view_constants.EXPERIENCE_1_START_DATE.isoformat())
+        self.assertEqual(exp1["endDate"], test_view_constants.EXPERIENCE_1_END_DATE.isoformat())
+
+        self.assertEqual(exp1["location"]["@type"], "Place")
+        self.assertEqual(exp1["location"]["name"], test_view_constants.EXPERIENCE_1_LOCATION[self.language])
+
+        self.assertEqual(exp1["employer"]["@type"], "Organization")
+        self.assertEqual(exp1["employer"]["name"], test_view_constants.EXPERIENCE_1_COMPANY)
+
+        self.assertEqual(exp1["skills"], [test_view_constants.TECHNOLOGY_3[self.language]])
+
+    def test_json_ld_education_schemas(self) -> None:
+        """Test that JSON-LD includes complete EducationalOccupationalCredential schemas."""
+        data = self._get_json_ld_data()
+
+        edu_items = [item for item in data["@graph"] if item["@type"] == "EducationalOccupationalCredential"]
+
+        # Verify Education 2 (most recent)
+        edu2 = edu_items[0]
+        self.assertEqual(edu2["name"], test_view_constants.EDUCATION_2_TITLE[self.language])
+        self.assertEqual(edu2["description"], test_view_constants.EDUCATION_2_DESCRIPTION[self.language])
+        self.assertEqual(edu2["educationalLevel"], test_view_constants.EDUCATION_2_TITLE[self.language])
+        self.assertEqual(edu2["dateCreated"], test_view_constants.EDUCATION_2_START_DATE.isoformat())
+        self.assertEqual(edu2["validFrom"], test_view_constants.EDUCATION_2_END_DATE.isoformat())
+
+        self.assertEqual(edu2["recognizedBy"]["@type"], "EducationalOrganization")
+        self.assertEqual(edu2["recognizedBy"]["name"], test_view_constants.EDUCATION_2_INSTITUTION)
+        self.assertEqual(edu2["recognizedBy"]["location"]["@type"], "Place")
+        self.assertEqual(
+            edu2["recognizedBy"]["location"]["name"], test_view_constants.EDUCATION_2_LOCATION[self.language]
+        )
+
+        # Verify Education 1
+        edu1 = edu_items[1]
+        self.assertEqual(edu1["name"], test_view_constants.EDUCATION_1_TITLE[self.language])
+        self.assertEqual(edu1["description"], test_view_constants.EDUCATION_1_DESCRIPTION[self.language])
+        self.assertEqual(edu1["educationalLevel"], test_view_constants.EDUCATION_1_TITLE[self.language])
+        self.assertEqual(edu1["dateCreated"], test_view_constants.EDUCATION_1_START_DATE.isoformat())
+        self.assertEqual(edu1["validFrom"], test_view_constants.EDUCATION_1_END_DATE.isoformat())
+
+        self.assertEqual(edu1["recognizedBy"]["@type"], "EducationalOrganization")
+        self.assertEqual(edu1["recognizedBy"]["name"], test_view_constants.EDUCATION_1_INSTITUTION)
+        self.assertEqual(edu1["recognizedBy"]["location"]["@type"], "Place")
+        self.assertEqual(
+            edu1["recognizedBy"]["location"]["name"], test_view_constants.EDUCATION_1_LOCATION[self.language]
+        )
+
+    def test_meta_tags(self) -> None:
+        """Test that meta tags have correct values for my-career page."""
+        self._assert_text_of_element(
+            self._find_element_by_html_tag(self.response_data.soup, HtmlTag.TITLE),
+            test_view_constants.MY_CAREER_VIEW_META_TITLE[self.language],
+        )
+        self._assert_attribute_of_element(
+            self._find_element_by_tag_and_attribute(self.response_data.soup, HtmlTag.META, "name", "description"),
+            "content",
+            test_view_constants.MY_CAREER_VIEW_META_DESCRIPTION[self.language],
+        )
+        self._assert_attribute_of_element(
+            self._find_element_by_tag_and_attribute(self.response_data.soup, HtmlTag.META, "name", "keywords"),
+            "content",
+            ", ".join(
+                (
+                    *test_view_constants.COMMON_META_KEYWORDS[self.language],
+                    *test_view_constants.MY_CAREER_VIEW_META_KEYWORDS[self.language],
+                )
+            ),
+        )
+
+    def test_seo_open_graph_tags(self) -> None:
+        """Test that Open Graph tags have correct values for my-career page."""
+        self._assert_attribute_of_element(
+            self._find_element_by_tag_and_attribute(self.response_data.soup, HtmlTag.META, "property", "og:title"),
+            "content",
+            test_view_constants.MY_CAREER_VIEW_META_TITLE[self.language],
+        )
+        self._assert_attribute_of_element(
+            self._find_element_by_tag_and_attribute(
+                self.response_data.soup, HtmlTag.META, "property", "og:description"
+            ),
+            "content",
+            test_view_constants.MY_CAREER_VIEW_META_DESCRIPTION[self.language],
+        )
+        self._assert_attribute_of_element(
+            self._find_element_by_tag_and_attribute(self.response_data.soup, HtmlTag.META, "property", "og:image"),
+            "content",
+            "http://testserver/media/background_preview.jpg",
+        )
+        self._assert_attribute_of_element(
+            self._find_element_by_tag_and_attribute(self.response_data.soup, HtmlTag.META, "property", "og:url"),
+            "content",
+            f"http://testserver/{self.language}/my-career/",
+        )
+        self._assert_attribute_of_element(
+            self._find_element_by_tag_and_attribute(self.response_data.soup, HtmlTag.META, "property", "og:type"),
+            "content",
+            "profile",
+        )
+
+    def test_seo_twitter_card(self) -> None:
+        """Test that Twitter card meta tags have correct values."""
+        self._assert_attribute_of_element(
+            self._find_element_by_tag_and_attribute(self.response_data.soup, HtmlTag.META, "name", "twitter:card"),
+            "content",
+            "summary_large_image",
+        )
+        self._assert_attribute_of_element(
+            self._find_element_by_tag_and_attribute(self.response_data.soup, HtmlTag.META, "name", "twitter:title"),
+            "content",
+            test_view_constants.MY_CAREER_VIEW_META_TITLE[self.language],
+        )
+        self._assert_attribute_of_element(
+            self._find_element_by_tag_and_attribute(
+                self.response_data.soup, HtmlTag.META, "name", "twitter:description"
+            ),
+            "content",
+            test_view_constants.MY_CAREER_VIEW_META_DESCRIPTION[self.language],
+        )
+        self._assert_attribute_of_element(
+            self._find_element_by_tag_and_attribute(self.response_data.soup, HtmlTag.META, "name", "twitter:image"),
+            "content",
+            "http://testserver/media/background_preview.jpg",
+        )
+
     def test_experiences(self) -> None:
         my_career = self._find_element_by_id(self.response_data.soup, test_view_constants.MY_CAREER_ID)
 
-        self._assert_text_of_element(
+        self._assert_text_of_element_by_tag_and_id(
             my_career,
             HtmlTag.H1,
             test_view_constants.MY_CAREER_TITLE_ID,
@@ -150,7 +323,7 @@ class BaseTestMyCareerViewContent(BaseViewTest):
             test_view_constants.SUBPROJECTS_ID_TEMPLATE.format(experience_id=2),
         )
 
-        self._assert_text_of_element(
+        self._assert_text_of_element_by_tag_and_id(
             sub_projects_container,
             HtmlTag.H4,
             test_view_constants.SUBPROJECTS_TITLE_ID_TEMPLATE.format(experience_id=2),
@@ -349,7 +522,7 @@ class BaseTestMyCareerViewContent(BaseViewTest):
     def test_education_entries(self) -> None:
         my_career = self._find_element_by_id(self.response_data.soup, test_view_constants.MY_CAREER_ID)
 
-        self._assert_text_of_element(
+        self._assert_text_of_element_by_tag_and_id(
             my_career,
             HtmlTag.H1,
             test_view_constants.EDUCATION_TITLE_ID,

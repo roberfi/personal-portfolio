@@ -169,7 +169,7 @@ class BaseViewTest(BaseViewTestCase):
             test_view_constants.LEGAL_AND_PRIVACY_ID,
         )
 
-        self._assert_text_of_element(
+        self._assert_text_of_element_by_tag_and_id(
             legal_and_privacy_section,
             html_tag=HtmlTag.H6,
             element_id=test_view_constants.LEGAL_AND_PRIVACY_TITLE_ID,
@@ -255,7 +255,7 @@ class BaseViewTest(BaseViewTestCase):
             test_view_constants.FOLLOW_ME_LINKS_ID,
         )
 
-        self._assert_text_of_element(
+        self._assert_text_of_element_by_tag_and_id(
             follow_me_links_section,
             html_tag=HtmlTag.H6,
             element_id=test_view_constants.FOLLOW_ME_LINKS_TITLE_ID,
@@ -305,7 +305,7 @@ class BaseViewTest(BaseViewTestCase):
             self.response_data.soup, HtmlTag.FOOTER, test_view_constants.BOTTOM_FOOTER_ID
         )
 
-        self._assert_text_of_element(
+        self._assert_text_of_element_by_tag_and_id(
             bottom_footer,
             html_tag=HtmlTag.ASIDE,
             element_id=test_view_constants.SOURCE_CODE_NOTE_ID,
@@ -321,3 +321,27 @@ class BaseViewTest(BaseViewTestCase):
             common_constants.ATTR_HREF,
             test_view_constants.SOURCE_CODE_GITHUB_LINK,
         )
+
+    def test_seo_canonical_url(self) -> None:
+        """Test that canonical URL points to the correct page."""
+        self._assert_attribute_of_element(
+            self._find_element_by_tag_and_attribute(self.response_data.soup, HtmlTag.LINK, "rel", "canonical"),
+            "href",
+            f"http://testserver/{self.language}/{self.request_path}",
+        )
+
+    def test_seo_hreflang_tags(self) -> None:
+        """Test that hreflang tags are correct for home page."""
+        hreflang_tags = self.response_data.soup.find_all("link", attrs={"rel": "alternate"})
+
+        hreflang_en = next((tag for tag in hreflang_tags if tag.get("hreflang") == "en"), None)
+        hreflang_es = next((tag for tag in hreflang_tags if tag.get("hreflang") == "es"), None)
+        hreflang_default = next((tag for tag in hreflang_tags if tag.get("hreflang") == "x-default"), None)
+
+        assert hreflang_en is not None, "Hreflang tag for 'en' should exist"
+        assert hreflang_es is not None, "Hreflang tag for 'es' should exist"
+        assert hreflang_default is not None, "Hreflang tag for 'x-default' should exist"
+
+        self._assert_attribute_of_element(hreflang_en, "href", f"http://testserver/en/{self.request_path}")
+        self._assert_attribute_of_element(hreflang_es, "href", f"http://testserver/es/{self.request_path}")
+        self._assert_attribute_of_element(hreflang_default, "href", f"http://testserver/en/{self.request_path}")

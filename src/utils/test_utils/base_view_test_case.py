@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 from abc import ABC, abstractmethod
 from contextlib import nullcontext
 from typing import TYPE_CHECKING, Any, ClassVar, ContextManager, NamedTuple
@@ -8,8 +9,10 @@ from bs4 import BeautifulSoup, Tag
 from django.test import Client, TestCase
 from django.utils import translation
 
+from utils.test_utils.constants import HtmlTag
+
 if TYPE_CHECKING:
-    from utils.test_utils.constants import HtmlTag, Language
+    from utils.test_utils.constants import Language
 
 
 class ResponseData(NamedTuple):
@@ -53,6 +56,17 @@ class BaseViewTestCase(TestCase, ABC):
         with cls._mock_on_request():
             cls.response_data = ResponseData.get_response(cls.client, f"/{cls.language}/{cls.request_path}")
 
+    def _get_json_ld_data(self) -> dict[str, Any]:
+        script = self._find_element_by_tag_and_attribute(
+            self.response_data.soup, HtmlTag.SCRIPT, "type", "application/ld+json"
+        )
+
+        assert isinstance(script.string, str), "JSON-LD script content should be a string"
+        data = json.loads(script.string.strip())
+
+        assert isinstance(data, dict), "JSON-LD data should be a dictionary"
+        return data
+
     def _assert_reponse_status_code(self, *, expected_status_code: int) -> None:
         self.assertEqual(
             actual_status_code := self.response_data.status_code,
@@ -81,18 +95,29 @@ class BaseViewTestCase(TestCase, ABC):
 
         return element
 
-    def _assert_text_of_element(self, soup: Tag, html_tag: HtmlTag, element_id: str, expected_text: str) -> None:
+    def _find_element_by_tag_and_attribute(self, soup: Tag, html_tag: HtmlTag, attribute: str, value: str) -> Tag:
+        if not isinstance(element := soup.find(html_tag, attrs={attribute: value}), Tag):
+            self.fail(f"Element with tag '{html_tag}' and {attribute}='{value}' not found")
+
+        return element
+
+    def _assert_text_of_element(self, element: Tag, expected_text: str) -> None:
         self.assertEqual(
-            actual_text := self._find_element_by_tag_and_id(soup, html_tag, element_id).get_text(
-                strip=True, separator=" "
-            ),
+            actual_text := element.get_text(strip=True, separator=" "),
             expected_text,
-            msg=f"Text of element '{element_id}' is '{actual_text}'; expected text '{expected_text}'",
+            msg=f"Text of element is '{actual_text}'; expected text '{expected_text}'",
         )
+
+    def _assert_text_of_element_by_tag_and_id(
+        self, soup: Tag, html_tag: HtmlTag, element_id: str, expected_text: str
+    ) -> None:
+        self._assert_text_of_element(self._find_element_by_tag_and_id(soup, html_tag, element_id), expected_text)
 
     def _assert_text_of_elements(self, soup: Tag, *elements: ElementText) -> None:
         for element in elements:
-            self._assert_text_of_element(soup, element.html_tag, element.element_id, element.expected_text)
+            self._assert_text_of_element_by_tag_and_id(
+                soup, element.html_tag, element.element_id, element.expected_text
+            )
 
     def _assert_element_not_exists(self, soup: Tag, element_id: str) -> None:
         element = soup.find(id=element_id)
