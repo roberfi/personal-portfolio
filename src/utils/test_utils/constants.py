@@ -18,12 +18,16 @@ class HtmlTag(StrEnum):
     H5 = "h5"
     H6 = "h6"
     LI = "li"
+    LINK = "link"
+    META = "meta"
     NAV = "nav"
     P = "p"
     PATH = "path"
+    SCRIPT = "script"
     SUMMARY = "summary"
     SVG = "svg"
     TIME = "time"
+    TITLE = "title"
     UL = "ul"
 
 

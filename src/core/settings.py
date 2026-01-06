@@ -16,8 +16,13 @@ import os
 from pathlib import Path
 
 import dj_database_url
+import django_stubs_ext
 import environ  # type: ignore[import-untyped]
 from django.utils.translation import gettext_lazy as _
+
+# Monkeypatching Django, so stubs will work for all generics,
+# see: https://github.com/typeddjango/django-stubs
+django_stubs_ext.monkeypatch()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -51,6 +56,7 @@ INSTALLED_APPS = (
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django.contrib.sitemaps",
     "solo",
     "modeltranslation",
     "django_cotton",

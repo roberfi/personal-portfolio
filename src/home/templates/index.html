@@ -7,7 +7,8 @@
             <figure class="lg:rounded-xl lg:h-full">
                 <img class="h-full w-full object-cover"
                      src="/media/background.jpg"
-                     alt="{{ personal_info.name }}" />
+                     alt="{% translate "Professional profile of" %} {{ personal_info.name }} - {{ personal_info.title }}"
+                     loading="eager" />
             </figure>
             <div class="card-body lg:absolute lg:right-1/16 lg:bottom-1/8 lg:bg-base-300/70 lg:rounded-xl">
                 <h1 id="personal-info-name"

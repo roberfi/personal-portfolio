@@ -9,6 +9,7 @@
 - Add technology badges to home page and experiences
 - Add sub-projects to experiences
 - Add a footer note with a link to the GitHub repository
+- Add SEO improvements
 - Add MIT license
 - Bump python and javascript dependencies
 
