@@ -3,36 +3,59 @@
 {% load cooco %}
 
 {% get_cooco_manager request as cooco_manager %}
+{% get_current_language as LANGUAGE_CODE %}
+{% get_available_languages as LANGUAGES %}
 
 <!DOCTYPE html>
-<html lang="{{ CURRENT_LANGUAGE }}" data-theme="portfolio">
+<html lang="{{ LANGUAGE_CODE }}" data-theme="portfolio">
     <head>
         <c-google-analytics />
 
         <meta charset="UTF-8">
-        <meta name="keywords" content="Portfolio, CV, Biography, Career">
+        <meta name="keywords"
+              content="{% translate "portfolio, CV, biography, career" %}{% if page_metadata.page_keywords %}, {{ page_metadata.page_keywords }}{% endif %}">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <title>{{ name }}</title>
+        <title>{{ page_metadata.page_title }}</title>
         <link rel="shortcut icon" href="/media/favicon.ico" type="image/x-icon">
 
+        <!-- Canonical URL -->
+        <link rel="canonical"
+              href="{{ request.scheme }}://{{ request.get_host }}{{ request.path }}" />
+
+        <!-- Hreflang tags for multilanguage support -->
+        {% for lang_code, lang_name in LANGUAGES %}
+            {% language lang_code %}
+                <link rel="alternate"
+                      hreflang="{{ lang_code }}"
+                      href="{{ request.scheme }}://{{ request.get_host }}{% url request.resolver_match.url_name %}" />
+            {% endlanguage %}
+        {% endfor %}
+        {% language 'en' %}
+            <link rel="alternate"
+                  hreflang="x-default"
+                  href="{{ request.scheme }}://{{ request.get_host }}{% url request.resolver_match.url_name %}" />
+        {% endlanguage %}
+
+        <!-- Meta description -->
+        <meta name="description" content="{{ page_metadata.page_description }}">
+
         <!-- Open Graph Cards -->
-        <meta name="description"
-              content="{% translate "Personal web of" %} {{ name }}">
-        <meta property="og:title" content="{{ name }}" />
+        <meta property="og:title" content="{{ page_metadata.page_title }}" />
         <meta property="og:description"
-              content="{% translate "Personal web of" %} {{ name }}" />
+              content="{{ page_metadata.page_description }}" />
         <meta property="og:image"
               itemprop="image"
               content="{{ request.scheme }}://{{ request.get_host }}/media/background_preview.jpg">
         <meta property="og:url"
-              content="{{ request.scheme }}://{{ request.get_host }}" />
+              content="{{ request.scheme }}://{{ request.get_host }}{{ request.path }}" />
+        <meta property="og:type" content="profile" />
 
         <!-- Twitter Cards -->
-        <meta name="twitter:card" content="summary" />
-        <meta name="twitter:title" content="{{ name }}" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="{{ page_metadata.page_title }}" />
         <meta name="twitter:description"
-              content="{% translate "Personal web of" %} {{ name }}" />
+              content="{{ page_metadata.page_description }}" />
         <meta name="twitter:image"
               content="{{ request.scheme }}://{{ request.get_host }}/media/background_preview.jpg" />
 
@@ -48,6 +71,7 @@
                     document.body.classList.remove('js-loading');
               });
         </script>
+        <script type="application/ld+json">{{ page_metadata.json_ld }}</script>
 
         {{ extra_head }}
     </head>
