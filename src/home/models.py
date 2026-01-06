@@ -30,8 +30,36 @@ class PersonalInfo(SingletonModel):  # type: ignore[django-manager-missing] # ht
     biography = models.TextField()
     technologies = models.ManyToManyField(Technology, blank=True, related_name="personal_info")
 
+    @cached_property
+    def technology_names(self) -> tuple[str, ...]:
+        """Return a tuple of technology names associated with this personal info."""
+        return tuple(tech.name for tech in self.technologies.all())
+
     def __str__(self) -> str:
+        """Return the string representation of the PersonalInfo."""
         return self.name
+
+    def get_page_title(self) -> str:
+        """Return the page title for SEO purposes."""
+        return f"{self.name} | {self.title}"
+
+    def get_page_description(self) -> str:
+        """Return the page description for SEO purposes."""
+        description = gettext("Personal web of %(name)s. %(title)s") % {
+            "name": self.name,
+            "title": self.title,
+        }
+
+        if self.technologies.exists():
+            description += " " + gettext("specialized in %(tech)s") % {
+                "tech": ", ".join(self.technology_names[:3]),
+            }
+
+        return description
+
+    def get_page_keywords(self) -> str:
+        """Return the page keywords for SEO purposes."""
+        return ", ".join(tech.lower() for tech in self.technology_names)
 
 
 class DatedModel(models.Model):

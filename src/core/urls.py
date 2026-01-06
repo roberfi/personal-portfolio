@@ -20,9 +20,16 @@ from __future__ import annotations
 from django.conf.urls.i18n import i18n_patterns
 from django.conf.urls.static import static
 from django.contrib import admin
+from django.contrib.sitemaps.views import sitemap
 from django.urls import include, path
 
 from core import settings
+from core.sitemaps import StaticViewSitemap
+from core.views import RobotsTxtView
+
+sitemaps = {
+    "static": StaticViewSitemap,
+}
 
 urlpatterns = (
     *i18n_patterns(
@@ -30,6 +37,8 @@ urlpatterns = (
         path("", include("home.urls")),
         path("i18n/", include("django.conf.urls.i18n")),
     ),
+    path("robots.txt", RobotsTxtView.as_view(), name="robots_txt"),
+    path("sitemap.xml", sitemap, {"sitemaps": sitemaps}, name="django.contrib.sitemaps.views.sitemap"),
     path("cookie-consent/", include("django_cooco.urls")),
 )
 

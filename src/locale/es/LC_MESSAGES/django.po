@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-03 20:28+0100\n"
+"POT-Creation-Date: 2026-01-06 11:59+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,10 +18,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n == 1 ? 0 : 1;\n"
 
-#: base/templates/cotton/base.html:21 base/templates/cotton/base.html:24
-#: base/templates/cotton/base.html:35
-msgid "Personal web of"
-msgstr "Página personal de"
+#: base/templates/cotton/base.html:16
+msgid "portfolio, CV, biography, career"
+msgstr "portfolio, CV, biografía, carrera"
 
 #: base/templates/cotton/buttons/accept_button.html:20
 msgid "Accept"
@@ -63,45 +62,55 @@ msgstr "Inicio"
 msgid "My Career"
 msgstr "Mi Carrera"
 
-#: core/settings.py:133
+#: core/settings.py:134
 msgid "English"
 msgstr "Inglés"
 
-#: core/settings.py:134
+#: core/settings.py:135
 msgid "Spanish"
 msgstr "Español"
 
-#: home/models.py:46
+#: home/models.py:48
+#, python-format
+msgid "Personal web of %(name)s. %(title)s"
+msgstr "Página personal de %(name)s. %(title)s"
+
+#: home/models.py:54
+#, python-format
+msgid "specialized in %(tech)s"
+msgstr "especializado en %(tech)s"
+
+#: home/models.py:74
 msgid "End date must be after start date"
 msgstr "Las fecha final debe ser posterior a la fecha de inicio"
 
-#: home/models.py:56
+#: home/models.py:84
 msgid "Present"
 msgstr "Actualmente"
 
-#: home/models.py:79
+#: home/models.py:107
 msgid "Not yet started"
 msgstr "Aún no empezado"
 
-#: home/models.py:84
+#: home/models.py:112
 msgid "Less than a month"
 msgstr "Menos de un mes"
 
-#: home/models.py:87
+#: home/models.py:115
 #, python-format
 msgid "%d year"
 msgid_plural "%d years"
 msgstr[0] "%d año"
 msgstr[1] "%d años"
 
-#: home/models.py:88
+#: home/models.py:116
 #, python-format
 msgid "%d month"
 msgid_plural "%d months"
 msgstr[0] "%d mes"
 msgstr[1] "%d meses"
 
-#: home/models.py:103 home/models.py:134
+#: home/models.py:131 home/models.py:148 home/models.py:163
 #, python-format
 msgid "%(title)s at %(institution)s"
 msgstr "%(title)s en %(institution)s"
@@ -110,11 +119,15 @@ msgstr "%(title)s en %(institution)s"
 msgid "Projects"
 msgstr "Proyectos"
 
-#: home/templates/index.html:38
+#: home/templates/index.html:10
+msgid "Professional profile of"
+msgstr "Perfil profesional de"
+
+#: home/templates/index.html:39
 msgid "More about me"
 msgstr "Más sobre mí"
 
-#: home/templates/index.html:47
+#: home/templates/index.html:48
 msgid "About me"
 msgstr "Sobre mí"
 
@@ -125,3 +138,27 @@ msgstr "Mi Experiencia"
 #: home/templates/my-career.html:20
 msgid "Education"
 msgstr "Educación"
+
+#: home/views.py:89
+msgid "Personal Portfolio"
+msgstr "Portfolio Personal"
+
+#: home/views.py:90
+msgid "Welcome to my personal portfolio website."
+msgstr "Bienvendido/a a la página web de mi portfolio personal."
+
+#: home/views.py:238
+msgid "My Career | Professional Experience & Education"
+msgstr "Mi Carrera | Experiencia Profesional y Educación"
+
+#: home/views.py:240
+msgid ""
+"Professional experience and educational background. View my complete career "
+"history, work experience, and academic qualifications."
+msgstr ""
+"Experiencia profesional y formación académica. Consulta mi historial "
+"profesional completo, experiencia laboral y cualificaciones académicas."
+
+#: home/views.py:243
+msgid "experience, education, professional background, work history"
+msgstr "experiencia, educación, trayectoria profesional, historia laboral"
