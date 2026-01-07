@@ -1,5 +1,9 @@
 # Changelog
 
+## Next Release
+
+-
+
 ## 0.6.0
 
 - Re-design Home view
