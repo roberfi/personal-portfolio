@@ -4,6 +4,7 @@
 
 - Improve UI
 - Change the structure of cookie consent banner
+- Split experience timeline template into different cotton components
 
 ## 0.6.0
 

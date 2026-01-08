@@ -1,0 +1,101 @@
+{% load i18n %}
+{% load filters %}
+
+<dialog id="{{ item_type|default:'item' }}_{{ item.id }}_modal"
+        class="modal modal-bottom sm:modal-middle">
+    <div class="modal-box w-full max-w-5xl mx-auto bg-linear-to-br from-base-100 to-base-200 shadow-2xl p-0 flex flex-col max-h-[90vh]">
+        <!-- Header section - fixed at top -->
+        <div class="bg-linear-to-r from-primary/10 to-transparent p-4 sm:p-6 border-b-2 border-primary/20 backdrop-blur-sm bg-base-100/95 shrink-0">
+            <h3 id="modal-{{ item_type|default:'item' }}-{{ item.id }}-title"
+                class="text-2xl sm:text-3xl font-bold mb-3 sm:mb-4 bg-linear-to-r from-primary to-primary/60 bg-clip-text text-transparent">
+                {{ item.title }}
+            </h3>
+            <div class="flex flex-wrap items-center gap-3">
+                <time id="modal-{{ item_type|default:'item' }}-{{ item.id }}-period"
+                      class="font-mono text-xs sm:text-sm font-bold text-primary bg-primary/20 px-3 sm:px-4 py-1.5 rounded-full whitespace-nowrap">
+                    {{ item.period }}
+                </time>
+                <div id="modal-{{ item_type|default:'item' }}-{{ item.id }}-duration"
+                     class="font-mono text-xs sm:text-sm text-primary/80 font-semibold">
+                    {{ item.duration }}
+                </div>
+            </div>
+        </div>
+
+        <!-- Scrollable content area -->
+        <div class="overflow-y-auto flex-1">
+            <!-- Content section with padding -->
+            <div class="p-4 sm:p-6">
+                <!-- Institution and location -->
+                <div class="space-y-2 mb-4">
+                    {% if item.institution %}
+                        <div id="modal-{{ item_type|default:'item' }}-{{ item.id }}-institution"
+                             class="flex items-center gap-2 font-semibold text-secondary">
+                            <svg xmlns="http://www.w3.org/2000/svg"
+                                 class="h-5 w-5"
+                                 fill="none"
+                                 viewBox="0 0 24 24"
+                                 stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                            </svg>
+                            {{ item.institution }}
+                        </div>
+                    {% endif %}
+                    <div id="modal-{{ item_type|default:'item' }}-{{ item.id }}-location"
+                         class="flex items-center gap-2 text-sm text-base-content/70">
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                             class="h-5 w-5"
+                             fill="none"
+                             viewBox="0 0 24 24"
+                             stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                        </svg>
+                        {{ item.location }}
+                    </div>
+                </div>
+
+                <!-- Technologies -->
+                {% if item.technologies %}
+                    <div id="modal-{{ item_type|default:'item' }}-{{ item.id }}-technologies"
+                         class="flex flex-wrap gap-2 mb-4">
+                        {% for tech in item.technologies.all %}
+                            <span id="modal-{{ item_type|default:'item' }}-{{ item.id }}-technology-{{ tech.id }}"
+                                  class="badge badge-primary badge-outline hover:badge-primary transition-colors duration-200 font-semibold whitespace-nowrap max-w-full truncate inline-block">
+                                {{ tech.name }}
+                            </span>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+
+                <!-- Description -->
+                <div id="modal-{{ item_type|default:'item' }}-{{ item.id }}-description"
+                     class="prose max-w-none py-4 prose-headings:text-primary prose-a:text-primary">
+                    {{ item.description|md }}
+                </div>
+
+                <!-- Sub-projects section -->
+                {% if item.sub_projects.exists %}
+                    <c-experience-timeline.sub-project-list :item="item" />
+                {% endif %}
+            </div>
+            <!-- End of content section -->
+        </div>
+
+        <!-- Footer - fixed at bottom -->
+        <div class="modal-action border-t border-primary/20 p-4 sm:p-6 bg-base-200/95 backdrop-blur-sm shrink-0 m-0">
+            <form method="dialog">
+                <button class="btn btn-primary gap-2 group">
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                         class="h-5 w-5"
+                         fill="none"
+                         viewBox="0 0 24 24"
+                         stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                    <span>{% translate "Close" %}</span>
+                </button>
+            </form>
+        </div>
+    </div>
+</dialog>

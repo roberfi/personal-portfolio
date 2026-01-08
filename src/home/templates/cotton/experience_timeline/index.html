@@ -1,0 +1,6 @@
+<ul id="{{ list_id|default:'timeline-list' }}"
+    class="list-none timeline timeline-snap-icon max-md:timeline-compact timeline-vertical">
+    {% for item in items %}
+        <c-experience-timeline.experience :item="item" :is-first="forloop.first" :is-last="forloop.last" />
+    {% endfor %}
+</ul>
