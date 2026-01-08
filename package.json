@@ -1,6 +1,6 @@
 {
   "name": "personal-portfolio",
-  "version": "0.7.0.dev1",
+  "version": "0.7.0.dev2",
   "main": "./src/frontend/javascript/index.js",
   "scripts": {
     "dev": "webpack --mode development --watch",
