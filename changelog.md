@@ -3,6 +3,7 @@
 ## Next Release
 
 - Improve UI
+- Change the structure of cookie consent banner
 
 ## 0.6.0
 
