@@ -1,0 +1,23 @@
+{% load i18n %}
+
+<div id="{{ item_type|default:'item' }}-{{ item.id }}-subprojects"
+     class="mt-6 border-t-2 border-primary/20 pt-6">
+    <div class="flex items-center gap-2 mb-6">
+        <svg xmlns="http://www.w3.org/2000/svg"
+             class="h-6 w-6 text-primary"
+             fill="none"
+             viewBox="0 0 24 24"
+             stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+        </svg>
+        <h4 id="{{ item_type|default:'item' }}-{{ item.id }}-subprojects-title"
+            class="text-xl font-bold text-primary">
+            {% translate "Projects" %}
+        </h4>
+    </div>
+    <div class="space-y-3">
+        {% for sub_project in item.sub_projects.all %}
+            <c-experience-timeline.sub-project :item="item" :sub-project="sub_project" />
+        {% endfor %}
+    </div>
+</div>

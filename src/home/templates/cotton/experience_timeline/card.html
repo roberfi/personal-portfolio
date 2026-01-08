@@ -1,0 +1,73 @@
+{% load i18n %}
+
+<div class="mb-10! w-full {% if forloop.counter|divisibleby:2 %}timeline-start md:text-end{% else %}timeline-end{% endif %} animate-fade-in">
+    <div class="card bg-base-100 shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-[1.02] border border-base-300 hover:border-primary/30">
+        <div class="card-body">
+            <div class="flex flex-col sm:flex-row sm:items-center gap-2 {% if forloop.counter|divisibleby:2 %}md:justify-end{% endif %}">
+                <time id="{{ item_type|default:'item' }}-{{ item.id }}-period"
+                      class="font-mono text-sm font-bold text-primary bg-primary/10 px-3 py-1 rounded-full whitespace-nowrap w-fit">
+                    {{ item.period }}
+                </time>
+                <div id="{{ item_type|default:'item' }}-{{ item.id }}-duration"
+                     class="font-mono text-xs text-primary/70 whitespace-nowrap px-3 sm:px-0">
+                    {{ item.duration }}
+                </div>
+            </div>
+            <div id="{{ item_type|default:'item' }}-{{ item.id }}-title"
+                 class="text-2xl font-black mt-3 mb-2">
+                {{ item.title }}
+            </div>
+            {% if item.institution %}
+                <div id="{{ item_type|default:'item' }}-{{ item.id }}-institution"
+                     class="font-semibold text-secondary flex items-center gap-2 {% if forloop.counter|divisibleby:2 %}md:justify-end{% endif %}">
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                         class="h-4 w-4"
+                         fill="none"
+                         viewBox="0 0 24 24"
+                         stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                    </svg>
+                    {{ item.institution }}
+                </div>
+            {% endif %}
+            <div id="{{ item_type|default:'item' }}-{{ item.id }}-location"
+                 class="font-mono text-sm text-base-content/60 flex items-center gap-2 {% if forloop.counter|divisibleby:2 %}md:justify-end{% endif %}">
+                <svg xmlns="http://www.w3.org/2000/svg"
+                     class="h-4 w-4"
+                     fill="none"
+                     viewBox="0 0 24 24"
+                     stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+                {{ item.location }}
+            </div>
+            {% if item.technologies %}
+                <div id="{{ item_type|default:'item' }}-{{ item.id }}-technologies"
+                     class="mt-4 flex flex-wrap gap-2 {% if forloop.counter|divisibleby:2 %}md:justify-end{% endif %}">
+                    {% for tech in item.technologies.all %}
+                        <span id="{{ item_type|default:'item' }}-{{ item.id }}-technology-{{ tech.id }}"
+                              class="badge badge-primary badge-outline hover:badge-primary transition-colors duration-200 font-semibold">
+                            {{ tech.name }}
+                        </span>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            <div class="card-actions {% if forloop.counter|divisibleby:2 %}md:justify-end{% else %}justify-start{% endif %} mt-4">
+                <!-- Button to show modal with item info -->
+                <button id="{{ item_type|default:'item' }}-{{ item.id }}-more-button"
+                        class="btn btn-primary btn-sm gap-2 group"
+                        onclick="{{ item_type|default:'item' }}_{{ item.id }}_modal.showModal()">
+                    <span>{% translate "View more" %}</span>
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                         class="h-5 w-5 group-hover:translate-x-1 transition-transform"
+                         fill="none"
+                         viewBox="0 0 24 24"
+                         stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
