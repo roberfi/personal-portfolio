@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-08 12:29+0000\n"
+"POT-Creation-Date: 2026-01-08 19:39+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,19 +22,19 @@ msgstr ""
 msgid "portfolio, CV, biography, career"
 msgstr "portfolio, CV, biografía, carrera"
 
-#: base/templates/cotton/buttons/accept_button.html:21
+#: base/templates/cotton/cookie_consent_banner/buttons/accept_button.html:21
 msgid "Accept"
 msgstr "Aceptar"
 
-#: base/templates/cotton/buttons/settings_button.html:18
+#: base/templates/cotton/cookie_consent_banner/buttons/settings_button.html:18
 msgid "Settings"
 msgstr "Opciones"
 
-#: base/templates/cotton/buttons/settings_button.html:40
+#: base/templates/cotton/cookie_consent_banner/modal.html:15
 msgid "Cookie Settings"
 msgstr "Configuración de Cookies"
 
-#: base/templates/cotton/buttons/settings_button.html:84
+#: base/templates/cotton/cookie_consent_banner/modal.html:60
 msgid "Save"
 msgstr "Guardar"
 
@@ -43,7 +43,7 @@ msgid "Legal & Privacy"
 msgstr "Condiciones y Privacidad"
 
 #: base/templates/cotton/footer.html:57
-#: home/templates/cotton/experience_timeline.html:262
+#: home/templates/cotton/experience_timeline/modal.html:96
 #: home/templates/index.html:90
 msgid "Close"
 msgstr "Cerrar"
@@ -121,11 +121,11 @@ msgstr[1] "%d meses"
 msgid "%(title)s at %(institution)s"
 msgstr "%(title)s en %(institution)s"
 
-#: home/templates/cotton/experience_timeline.html:79
+#: home/templates/cotton/experience_timeline/card.html:61
 msgid "View more"
 msgstr "Ver más"
 
-#: home/templates/cotton/experience_timeline.html:179
+#: home/templates/cotton/experience_timeline/sub_project_list.html:15
 msgid "Projects"
 msgstr "Proyectos"
 

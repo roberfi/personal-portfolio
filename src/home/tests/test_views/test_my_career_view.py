@@ -21,7 +21,7 @@ class BaseTestMyCareerViewContent(BaseViewTest):
     def test_response(self) -> None:
         self._assert_reponse_status_code(expected_status_code=200)
         self._assert_template_is_used("my-career.html")
-        self._assert_template_is_used("cotton/experience_timeline.html")
+        self._assert_template_is_used("cotton/experience_timeline/index.html")
         self._assert_template_is_used("cotton/base.html")
 
     def test_json_ld_context_and_structure(self) -> None:
