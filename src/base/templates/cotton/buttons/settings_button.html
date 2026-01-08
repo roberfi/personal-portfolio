@@ -1,8 +1,8 @@
 {% load i18n %}
 
-<button class="btn btn-sm btn-info"
+<button class="btn btn-sm btn-info gap-2 hover:scale-105 transition-transform"
         onclick="cookies_settings_modal.showModal()">
-    <svg class="w-4 h-4 mr-2"
+    <svg class="w-4 h-4"
          xmlns="http://www.w3.org/2000/svg"
          width="16"
          height="16"
@@ -17,29 +17,37 @@
     </svg>
     {% translate "Settings" %}
 </button>
-<dialog id="cookies_settings_modal" class="modal">
-    <div class="modal-box w-11/12 max-w-5xl flex flex-col max-md:p-4">
-        <form method="dialog">
+<dialog id="cookies_settings_modal"
+        class="modal modal-bottom sm:modal-middle">
+    <div class="modal-box w-11/12 max-w-5xl mx-auto bg-linear-to-br from-base-100 to-base-200 shadow-2xl p-0 flex flex-col max-h-[90vh] overflow-hidden">
+        <!-- Close button -->
+        <form method="dialog" class="absolute right-4 top-4 z-10">
             <c-buttons.close-button position-classes="right-2 top-2" />
         </form>
-        <form class="inline-block"
-              action="{% url 'set_cookie_preferences' %}"
-              method="post">
-            {% csrf_token %}
-            <input name="next" type="hidden" value="{{ request.path }}" />
 
-            <div class="flex-1 overflow-y-auto">
-                <h3 class="text-lg font-bold mb-10">
-                    {% translate "Cookie Settings" %}
-                </h3>
+        <!-- Header section - fixed at top -->
+        <div class="bg-linear-to-r from-primary/10 to-transparent p-4 sm:p-6 border-b-2 border-primary/20 backdrop-blur-sm bg-base-100/95 shrink-0">
+            <h3 class="text-2xl sm:text-3xl font-bold bg-linear-to-r from-primary to-primary/60 bg-clip-text text-transparent pr-8">
+                {% translate "Cookie Settings" %}
+            </h3>
+        </div>
+
+        <!-- Scrollable content area -->
+        <div class="overflow-y-auto flex-1">
+            <form class="p-4 sm:p-6"
+                  action="{% url 'set_cookie_preferences' %}"
+                  method="post">
+                {% csrf_token %}
+                <input name="next" type="hidden" value="{{ request.path }}" />
+
                 <div class="grid grid-cols-1 gap-4">
                     {% for cookie_group in cookie_groups %}
-                        <div class="card border border-base-300">
+                        <div class="card border-2 border-base-300 hover:border-primary/30 transition-colors bg-linear-to-r from-base-200 to-base-100 shadow-md">
                             <div class="card-body">
-                                <h2 class="card-title">
+                                <h2 class="card-title text-primary font-bold">
                                     {{ cookie_group.name }}
                                 </h2>
-                                <div class="text-left">
+                                <div class="text-left text-base-content/80">
                                     {{ cookie_group.description }}
                                 </div>
                                 <div class="flex justify-end">
@@ -53,12 +61,21 @@
                         </div>
                     {% endfor %}
                 </div>
-            </div>
-            <div class="modal-action">
-                <button class="btn" type="submit">
-                    {% translate "Save" %}
-                </button>
-            </div>
-        </form>
+
+                <!-- Footer - fixed at bottom -->
+                <div class="modal-action mt-6">
+                    <button class="btn btn-primary gap-2 group" type="submit">
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                             class="h-5 w-5"
+                             fill="none"
+                             viewBox="0 0 24 24"
+                             stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                        </svg>
+                        <span>{% translate "Save" %}</span>
+                    </button>
+                </div>
+            </form>
+        </div>
     </div>
 </dialog>

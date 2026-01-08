@@ -2,20 +2,21 @@
 
 {% get_cooco_banner_config as banner %}
 {% if banner.show_banner %}
-    <div id="cooco_banner" class="absolute w-full bottom-0 left-0 md:p-10 p-5">
+    <div id="cooco_banner"
+         class="fixed w-full bottom-0 left-0 md:p-10 p-5 z-50">
         <div role="alert"
-             class="alert alert-vertical sm:alert-horizontal md:px-10 border-2 border-neutral">
+             class="alert alert-vertical sm:alert-horizontal md:px-10 border-2 border-primary/30 bg-linear-to-br from-base-300 to-base-200 shadow-2xl backdrop-blur-md relative">
 
             <div class="sm:col-span-2">
-                <h2 class="mb-2 text-xl font-heading">
+                <h2 class="mb-2 text-xl font-bold text-primary">
                     {{ banner.title }}
                 </h2>
-                <p>
+                <p class="text-base-content/80">
                     {{ banner.text }}
                 </p>
             </div>
 
-            <div>
+            <div class="flex flex-row gap-2 flex-wrap">
                 {% get_cookie_groups as cookie_groups %}
                 {% if cookie_groups|any_optional_cookie_group %}
                     <c-buttons.settings-button />
@@ -24,7 +25,7 @@
                 <c-buttons.accept-button />
             </div>
 
-            <c-buttons.close-button position-classes="md:right-12 md:top-12 right-7 top-7" onclick="document.getElementById('cooco_banner').classList.add('hidden')" />
+            <c-buttons.close-button position-classes="absolute right-2 top-2" onclick="document.getElementById('cooco_banner').classList.add('hidden')" />
 
         </div>
     </div>

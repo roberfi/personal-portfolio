@@ -4,8 +4,9 @@
       method="post">
     {% csrf_token %}
     <input name="next" type="hidden" value="{{ request.path }}">
-    <button class="btn btn-sm btn-success" type="submit">
-        <svg class="w-4 h-4 mr-2"
+    <button class="btn btn-sm btn-success gap-2 hover:scale-105 transition-transform"
+            type="submit">
+        <svg class="w-4 h-4"
              xmlns="http://www.w3.org/2000/svg"
              width="16"
              height="16"
