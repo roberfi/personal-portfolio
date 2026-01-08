@@ -1,28 +1,12 @@
 {% load i18n %}
+{% load cooco %}
 
-<button class="btn btn-sm btn-info gap-2 hover:scale-105 transition-transform"
-        onclick="cookies_settings_modal.showModal()">
-    <svg class="w-4 h-4"
-         xmlns="http://www.w3.org/2000/svg"
-         width="16"
-         height="16"
-         viewBox="0 0 24 24"
-         fill="none"
-         stroke="currentColor"
-         stroke-width="2"
-         stroke-linecap="round"
-         stroke-linejoin="round">
-        <circle cx="12" cy="12" r="3" />
-        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z" />
-    </svg>
-    {% translate "Settings" %}
-</button>
 <dialog id="cookies_settings_modal"
         class="modal modal-bottom sm:modal-middle">
     <div class="modal-box w-11/12 max-w-5xl mx-auto bg-linear-to-br from-base-100 to-base-200 shadow-2xl p-0 flex flex-col max-h-[90vh] overflow-hidden">
         <!-- Close button -->
         <form method="dialog" class="absolute right-4 top-4 z-10">
-            <c-buttons.close-button position-classes="right-2 top-2" />
+            <c-cookie-consent-banner.buttons.close-button />
         </form>
 
         <!-- Header section - fixed at top -->
@@ -41,6 +25,7 @@
                 <input name="next" type="hidden" value="{{ request.path }}" />
 
                 <div class="grid grid-cols-1 gap-4">
+                    {% get_cookie_groups as cookie_groups %}
                     {% for cookie_group in cookie_groups %}
                         <div class="card border-2 border-base-300 hover:border-primary/30 transition-colors bg-linear-to-r from-base-200 to-base-100 shadow-md">
                             <div class="card-body">

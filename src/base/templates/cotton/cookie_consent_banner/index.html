@@ -19,14 +19,15 @@
             <div class="flex flex-row gap-2 flex-wrap">
                 {% get_cookie_groups as cookie_groups %}
                 {% if cookie_groups|any_optional_cookie_group %}
-                    <c-buttons.settings-button />
+                    <c-cookie-consent-banner.buttons.settings-button />
                 {% endif %}
 
-                <c-buttons.accept-button />
+                <c-cookie-consent-banner.buttons.accept-button />
             </div>
 
-            <c-buttons.close-button position-classes="absolute right-2 top-2" onclick="document.getElementById('cooco_banner').classList.add('hidden')" />
+            <c-cookie-consent-banner.buttons.close-button position-classes="absolute right-2 top-2" onclick="document.getElementById('cooco_banner').classList.add('hidden')" />
 
         </div>
     </div>
+    <c-cookie-consent-banner.modal />
 {% endif %}
