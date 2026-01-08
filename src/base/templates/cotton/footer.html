@@ -4,39 +4,57 @@
 
 {% get_footer_data as data %}
 
-<div class="bg-base-300 text-base-content p-10">
+<div class="bg-linear-to-br from-base-300 to-base-200 text-base-content p-10 border-t-2 border-primary/20">
     <footer id="upper-footer"
             class="footer lg:footer-horizontal lg:max-w-(--breakpoint-lg) lg:mx-auto pb-10">
 
         {% with legal_and_privacy=data.legal_and_privacy %}
             {% if legal_and_privacy %}
                 <nav id="legal-and-privacy" class="lg:mx-auto">
-                    <h6 id="legal-and-privacy-title" class="footer-title">
+                    <h6 id="legal-and-privacy-title"
+                        class="footer-title text-primary font-bold">
                         {% translate "Legal & Privacy" %}
                     </h6>
 
                     {% for section in legal_and_privacy %}
                         <button id="legal-and-privacy-{{ section.id }}-link"
-                                class="link link-hover"
+                                class="link link-hover hover:text-primary transition-colors"
                                 onclick="{{ section.modal_name }}.showModal()">
                             {{ section.title }}
                         </button>
-                        <dialog id="{{ section.modal_name }}" class="modal">
-                            <div class="modal-box w-11/12 max-w-5xl flex flex-col max-md:p-4">
-                                <div class="flex-1 overflow-y-auto">
-                                    <div class="prose max-w-none py-4">
-                                        <h1 id="legal-and-privacy-{{ section.id }}-title">
-                                            {{ section.title }}
-                                        </h1>
-                                        <div id="legal-and-privacy-{{ section.id }}-text">
+                        <dialog id="{{ section.modal_name }}"
+                                class="modal modal-bottom sm:modal-middle">
+                            <div class="modal-box w-11/12 max-w-5xl mx-auto bg-linear-to-br from-base-100 to-base-200 shadow-2xl p-0 flex flex-col max-h-[90vh]">
+                                <!-- Header section - fixed at top -->
+                                <div class="bg-linear-to-r from-primary/10 to-transparent p-4 sm:p-6 border-b-2 border-primary/20 backdrop-blur-sm bg-base-100/95 shrink-0">
+                                    <h1 id="legal-and-privacy-{{ section.id }}-title"
+                                        class="text-3xl sm:text-4xl font-bold bg-linear-to-r from-primary to-primary/60 bg-clip-text text-transparent">
+                                        {{ section.title }}
+                                    </h1>
+                                </div>
+
+                                <!-- Scrollable content area -->
+                                <div class="overflow-y-auto flex-1">
+                                    <div class="p-4 sm:p-6">
+                                        <div id="legal-and-privacy-{{ section.id }}-text"
+                                             class="prose max-w-none prose-headings:text-primary prose-a:text-primary">
                                             {{ section.text|md }}
                                         </div>
                                     </div>
                                 </div>
-                                <div class="modal-action">
+
+                                <!-- Footer - fixed at bottom -->
+                                <div class="modal-action border-t border-primary/20 p-4 sm:p-6 bg-base-200/95 backdrop-blur-sm shrink-0 m-0">
                                     <form method="dialog">
-                                        <button class="btn">
-                                            Close
+                                        <button class="btn btn-primary gap-2 group">
+                                            <svg xmlns="http://www.w3.org/2000/svg"
+                                                 class="h-5 w-5"
+                                                 fill="none"
+                                                 viewBox="0 0 24 24"
+                                                 stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                            </svg>
+                                            <span>{% translate "Close" %}</span>
                                         </button>
                                     </form>
                                 </div>
@@ -51,7 +69,8 @@
         {% with follow_me_links=data.follow_me_links %}
             {% if follow_me_links %}
                 <nav id="follow-me-links" class="lg:mx-auto">
-                    <h6 id="follow-me-links-title" class="footer-title">
+                    <h6 id="follow-me-links-title"
+                        class="footer-title text-primary font-bold">
                         {% translate "Follow Me" %}
                     </h6>
                     <div class="grid grid-flow-col gap-4">
@@ -60,7 +79,7 @@
                                  class="tooltip"
                                  data-tip="{{ link.name }}">
                                 <a id="follow-me-link-{{ link.id }}"
-                                   class="inline-block"
+                                   class="inline-block hover:text-primary transition-all hover:scale-110"
                                    role="button"
                                    href="{{ link.link }}"
                                    target="_blank">
@@ -85,7 +104,7 @@
             <p>
                 {% translate "The source code of this website is available on" %}
                 <a id="github-repo-link"
-                   class="link underline-offset-4"
+                   class="link underline-offset-4 hover:text-primary transition-colors font-semibold"
                    href="https://github.com/roberfi/personal-portfolio"
                    target="_blank"
                    rel="noopener noreferrer">GitHub</a>

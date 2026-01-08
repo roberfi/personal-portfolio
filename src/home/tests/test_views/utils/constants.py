@@ -191,8 +191,8 @@ EXPERIENCE_1_PERIOD = {
     Language.SPANISH: "Ene, 2021 - Mar, 2022",
 }
 EXPERIENCE_1_DURATION = {
-    Language.ENGLISH: "(1 year, 2 months)",
-    Language.SPANISH: "(1 año, 2 meses)",
+    Language.ENGLISH: "1 year, 2 months",
+    Language.SPANISH: "1 año, 2 meses",
 }
 
 EXPERIENCE_2_TITLE = {
@@ -214,8 +214,8 @@ EXPERIENCE_2_PERIOD = {
     Language.SPANISH: "Abr, 2022 - Actualmente",
 }
 EXPERIENCE_2_DURATION = {
-    Language.ENGLISH: "(2 years, 3 months)",
-    Language.SPANISH: "(2 años, 3 meses)",
+    Language.ENGLISH: "2 years, 3 months",
+    Language.SPANISH: "2 años, 3 meses",
 }
 
 EXPECTED_NUMBER_OF_EXPERIENCES = 2
@@ -241,8 +241,8 @@ SUBPROJECT_1_PERIOD = {
     Language.SPANISH: "Abr, 2022 - Jul, 2023",
 }
 SUBPROJECT_1_DURATION = {
-    Language.ENGLISH: "(1 year, 3 months)",
-    Language.SPANISH: "(1 año, 3 meses)",
+    Language.ENGLISH: "1 year, 3 months",
+    Language.SPANISH: "1 año, 3 meses",
 }
 SUBPROJECT_1_TECHNOLOGIES = (
     TECHNOLOGY_1,
@@ -262,8 +262,8 @@ SUBPROJECT_2_PERIOD = {
     Language.SPANISH: "Ago, 2023 - Actualmente",
 }
 SUBPROJECT_2_DURATION = {
-    Language.ENGLISH: "(11 months)",
-    Language.SPANISH: "(11 meses)",
+    Language.ENGLISH: "11 months",
+    Language.SPANISH: "11 meses",
 }
 SUBPROJECT_2_TECHNOLOGIES = (TECHNOLOGY_2,)
 
@@ -290,8 +290,8 @@ EDUCATION_1_PERIOD = {
     Language.SPANISH: "Sep, 2015 - Jun, 2019",
 }
 EDUCATION_1_DURATION = {
-    Language.ENGLISH: "(3 years, 9 months)",
-    Language.SPANISH: "(3 años, 9 meses)",
+    Language.ENGLISH: "3 years, 9 months",
+    Language.SPANISH: "3 años, 9 meses",
 }
 
 EDUCATION_2_TITLE = {
@@ -314,8 +314,8 @@ EDUCATION_2_PERIOD = {
     Language.SPANISH: "Sep, 2019 - Jun, 2020",
 }
 EDUCATION_2_DURATION = {
-    Language.ENGLISH: "(9 months)",
-    Language.SPANISH: "(9 meses)",
+    Language.ENGLISH: "9 months",
+    Language.SPANISH: "9 meses",
 }
 
 EXPECTED_NUMBER_OF_EDUCATION_ENTRIES = 2

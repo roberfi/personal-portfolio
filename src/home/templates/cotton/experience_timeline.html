@@ -8,172 +8,257 @@
             {% if not forloop.first %}
                 <hr />
             {% endif %}
-            <div class="timeline-middle text-primary">
-                <svg xmlns="http://www.w3.org/2000/svg"
-                     viewBox="0 0 20 20"
-                     fill="currentColor"
-                     class="h-5 w-5">
-                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" />
-                </svg>
-            </div>
-            <div class="mb-10! w-full {% if forloop.counter|divisibleby:2 %}timeline-start md:text-end{% else %}timeline-end{% endif %}">
-                <time id="{{ item_type|default:'item' }}-{{ item.id }}-period"
-                      class="font-mono text-primary">
-                    {{ item.period }}
-                </time>
-                <div id="{{ item_type|default:'item' }}-{{ item.id }}-duration"
-                     class="font-mono text-primary">
-                    ({{ item.duration }})
-                </div>
-                <div id="{{ item_type|default:'item' }}-{{ item.id }}-title"
-                     class="text-lg font-black mt-5">
-                    {{ item.title }}
-                </div>
-                {% if item.institution %}
-                    <div id="{{ item_type|default:'item' }}-{{ item.id }}-institution"
-                         class="font-mono text-secondary">
-                        {{ item.institution }}
-                    </div>
-                {% endif %}
-                <div id="{{ item_type|default:'item' }}-{{ item.id }}-location"
-                     class="font-mono text-secondary">
-                    {{ item.location }}
-                </div>
-                {% if item.technologies %}
-                    <div id="{{ item_type|default:'item' }}-{{ item.id }}-technologies"
-                         class="mt-2">
-                        {% for tech in item.technologies.all %}
-                            <span id="{{ item_type|default:'item' }}-{{ item.id }}-technology-{{ tech.id }}"
-                                  class="badge badge-neutral mb-1">
-                                {{ tech.name }}
-                            </span>
-                        {% endfor %}
-                    </div>
-                {% endif %}
-                <div class="mb-1">
-                    <!-- Button to show modal with item info -->
-                    <button id="{{ item_type|default:'item' }}-{{ item.id }}-more-button"
-                            class="btn btn-ghost"
-                            onclick="{{ item_type|default:'item' }}_{{ item.id }}_modal.showModal()">
-                        <svg class="h-5 w-5"
-                             viewBox="0 0 20 20"
-                             xmlns="http://www.w3.org/2000/svg"
-                             xmlns:xlink="http://www.w3.org/1999/xlink"
-                             xmlns:sketch="http://www.bohemiancoding.com/sketch/ns"
-                             fill="currentColor">
-                            <path fill-rule="evenodd" d="M10 3a7 7 0 100 14 7 7 0 000-14zm-9 7a9 9 0 1118 0 9 9 0 01-18 0zm14 .069a1 1 0 01-1 1h-2.931V14a1 1 0 11-2 0v-2.931H6a1 1 0 110-2h3.069V6a1 1 0 112 0v3.069H14a1 1 0 011 1z">
-                            </path>
-                        </svg>
-                    </button>
+            <div class="timeline-middle">
+                <div class="w-12 h-12 rounded-full bg-linear-to-br from-primary to-primary/60 flex items-center justify-center shadow-lg ring-4 ring-base-100 animate-pulse">
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                         viewBox="0 0 20 20"
+                         fill="currentColor"
+                         class="h-6 w-6 text-primary-content">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" />
+                    </svg>
                 </div>
             </div>
-            <dialog id="{{ item_type|default:'item' }}_{{ item.id }}_modal" class="modal">
-                <div class="modal-box w-11/12 max-w-5xl flex flex-col max-md:p-4">
-                    <div class="flex-1 overflow-y-auto">
-                        <h3 id="modal-{{ item_type|default:'item' }}-{{ item.id }}-title"
-                            class="text-lg font-bold">
+            <div class="mb-10! w-full {% if forloop.counter|divisibleby:2 %}timeline-start md:text-end{% else %}timeline-end{% endif %} animate-fade-in">
+                <div class="card bg-base-100 shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-[1.02] border border-base-300 hover:border-primary/30">
+                    <div class="card-body">
+                        <div class="flex flex-col sm:flex-row sm:items-center gap-2 {% if forloop.counter|divisibleby:2 %}md:justify-end{% endif %}">
+                            <time id="{{ item_type|default:'item' }}-{{ item.id }}-period"
+                                  class="font-mono text-sm font-bold text-primary bg-primary/10 px-3 py-1 rounded-full whitespace-nowrap w-fit">
+                                {{ item.period }}
+                            </time>
+                            <div id="{{ item_type|default:'item' }}-{{ item.id }}-duration"
+                                 class="font-mono text-xs text-primary/70 whitespace-nowrap px-3 sm:px-0">
+                                {{ item.duration }}
+                            </div>
+                        </div>
+                        <div id="{{ item_type|default:'item' }}-{{ item.id }}-title"
+                             class="text-2xl font-black mt-3 mb-2">
                             {{ item.title }}
-                        </h3>
-                        <time id="modal-{{ item_type|default:'item' }}-{{ item.id }}-period"
-                              class="font-mono text-primary">
-                            {{ item.period }}
-                        </time>
-                        <div id="modal-{{ item_type|default:'item' }}-{{ item.id }}-duration"
-                             class="font-mono text-primary">
-                            ({{ item.duration }})
                         </div>
                         {% if item.institution %}
-                            <div id="modal-{{ item_type|default:'item' }}-{{ item.id }}-institution"
-                                 class="font-mono text-secondary">
+                            <div id="{{ item_type|default:'item' }}-{{ item.id }}-institution"
+                                 class="font-semibold text-secondary flex items-center gap-2 {% if forloop.counter|divisibleby:2 %}md:justify-end{% endif %}">
+                                <svg xmlns="http://www.w3.org/2000/svg"
+                                     class="h-4 w-4"
+                                     fill="none"
+                                     viewBox="0 0 24 24"
+                                     stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                                </svg>
                                 {{ item.institution }}
                             </div>
                         {% endif %}
-                        <div id="modal-{{ item_type|default:'item' }}-{{ item.id }}-location"
-                             class="font-mono text-secondary">
+                        <div id="{{ item_type|default:'item' }}-{{ item.id }}-location"
+                             class="font-mono text-sm text-base-content/60 flex items-center gap-2 {% if forloop.counter|divisibleby:2 %}md:justify-end{% endif %}">
+                            <svg xmlns="http://www.w3.org/2000/svg"
+                                 class="h-4 w-4"
+                                 fill="none"
+                                 viewBox="0 0 24 24"
+                                 stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                            </svg>
                             {{ item.location }}
                         </div>
                         {% if item.technologies %}
-                            <div id="modal-{{ item_type|default:'item' }}-{{ item.id }}-technologies"
-                                 class="mt-2">
+                            <div id="{{ item_type|default:'item' }}-{{ item.id }}-technologies"
+                                 class="mt-4 flex flex-wrap gap-2 {% if forloop.counter|divisibleby:2 %}md:justify-end{% endif %}">
                                 {% for tech in item.technologies.all %}
-                                    <span id="modal-{{ item_type|default:'item' }}-{{ item.id }}-technology-{{ tech.id }}"
-                                          class="badge badge-neutral mb-1">
+                                    <span id="{{ item_type|default:'item' }}-{{ item.id }}-technology-{{ tech.id }}"
+                                          class="badge badge-primary badge-outline hover:badge-primary transition-colors duration-200 font-semibold">
                                         {{ tech.name }}
                                     </span>
                                 {% endfor %}
                             </div>
                         {% endif %}
-                        <div id="modal-{{ item_type|default:'item' }}-{{ item.id }}-description"
-                             class="prose max-w-none py-4">
-                            {{ item.description|md }}
+                        <div class="card-actions {% if forloop.counter|divisibleby:2 %}md:justify-end{% else %}justify-start{% endif %} mt-4">
+                            <!-- Button to show modal with item info -->
+                            <button id="{{ item_type|default:'item' }}-{{ item.id }}-more-button"
+                                    class="btn btn-primary btn-sm gap-2 group"
+                                    onclick="{{ item_type|default:'item' }}_{{ item.id }}_modal.showModal()">
+                                <span>{% translate "View more" %}</span>
+                                <svg xmlns="http://www.w3.org/2000/svg"
+                                     class="h-5 w-5 group-hover:translate-x-1 transition-transform"
+                                     fill="none"
+                                     viewBox="0 0 24 24"
+                                     stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                                </svg>
+                            </button>
                         </div>
-                        {% comment %} Sub-projects section - only shown if item has sub_projects {% endcomment %}
-                        {% if item.sub_projects.exists %}
-                            <div id="{{ item_type|default:'item' }}-{{ item.id }}-subprojects"
-                                 class="mt-6 border-t pt-6">
-                                <h4 id="{{ item_type|default:'item' }}-{{ item.id }}-subprojects-title"
-                                    class="text-md font-semibold mb-4 text-primary">
-                                    {% translate "Projects" %}
-                                </h4>
-                                <div class="space-y-3">
-                                    {% for sub_project in item.sub_projects.all %}
-                                        <details class="collapse collapse-arrow bg-base-200"
-                                                 name="subprojects-{{ item.id }}-accordion"
-                                                 {% if forloop.first %}open{% endif %}>
-                                            <summary class="collapse-title">
-                                                <div class="flex justify-between items-start gap-4">
-                                                    <div class="flex-1">
+                    </div>
+                </div>
+            </div>
+            <dialog id="{{ item_type|default:'item' }}_{{ item.id }}_modal"
+                    class="modal modal-bottom sm:modal-middle">
+                <div class="modal-box w-full max-w-5xl mx-auto bg-linear-to-br from-base-100 to-base-200 shadow-2xl p-0 flex flex-col max-h-[90vh]">
+                    <!-- Header section - fixed at top -->
+                    <div class="bg-linear-to-r from-primary/10 to-transparent p-4 sm:p-6 border-b-2 border-primary/20 backdrop-blur-sm bg-base-100/95 shrink-0">
+                        <h3 id="modal-{{ item_type|default:'item' }}-{{ item.id }}-title"
+                            class="text-2xl sm:text-3xl font-bold mb-3 sm:mb-4 bg-linear-to-r from-primary to-primary/60 bg-clip-text text-transparent">
+                            {{ item.title }}
+                        </h3>
+                        <div class="flex flex-wrap items-center gap-3">
+                            <time id="modal-{{ item_type|default:'item' }}-{{ item.id }}-period"
+                                  class="font-mono text-xs sm:text-sm font-bold text-primary bg-primary/20 px-3 sm:px-4 py-1.5 rounded-full whitespace-nowrap">
+                                {{ item.period }}
+                            </time>
+                            <div id="modal-{{ item_type|default:'item' }}-{{ item.id }}-duration"
+                                 class="font-mono text-xs sm:text-sm text-primary/80 font-semibold">
+                                {{ item.duration }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Scrollable content area -->
+                    <div class="overflow-y-auto flex-1">
+                        <!-- Content section with padding -->
+                        <div class="p-4 sm:p-6">
+                            <!-- Institution and location -->
+                            <div class="space-y-2 mb-4">
+                                {% if item.institution %}
+                                    <div id="modal-{{ item_type|default:'item' }}-{{ item.id }}-institution"
+                                         class="flex items-center gap-2 font-semibold text-secondary">
+                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                             class="h-5 w-5"
+                                             fill="none"
+                                             viewBox="0 0 24 24"
+                                             stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                                        </svg>
+                                        {{ item.institution }}
+                                    </div>
+                                {% endif %}
+                                <div id="modal-{{ item_type|default:'item' }}-{{ item.id }}-location"
+                                     class="flex items-center gap-2 text-sm text-base-content/70">
+                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                         class="h-5 w-5"
+                                         fill="none"
+                                         viewBox="0 0 24 24"
+                                         stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                                    </svg>
+                                    {{ item.location }}
+                                </div>
+                            </div>
+
+                            <!-- Technologies -->
+                            {% if item.technologies %}
+                                <div id="modal-{{ item_type|default:'item' }}-{{ item.id }}-technologies"
+                                     class="flex flex-wrap gap-2 mb-4">
+                                    {% for tech in item.technologies.all %}
+                                        <span id="modal-{{ item_type|default:'item' }}-{{ item.id }}-technology-{{ tech.id }}"
+                                              class="badge badge-primary badge-outline hover:badge-primary transition-colors duration-200 font-semibold whitespace-nowrap max-w-full truncate inline-block">
+                                            {{ tech.name }}
+                                        </span>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+
+                            <!-- Description -->
+                            <div id="modal-{{ item_type|default:'item' }}-{{ item.id }}-description"
+                                 class="prose max-w-none py-4 prose-headings:text-primary prose-a:text-primary">
+                                {{ item.description|md }}
+                            </div>
+                            {% comment %} Sub-projects section - only shown if item has sub_projects {% endcomment %}
+                            {% if item.sub_projects.exists %}
+                                <div id="{{ item_type|default:'item' }}-{{ item.id }}-subprojects"
+                                     class="mt-6 border-t-2 border-primary/20 pt-6">
+                                    <div class="flex items-center gap-2 mb-6">
+                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                             class="h-6 w-6 text-primary"
+                                             fill="none"
+                                             viewBox="0 0 24 24"
+                                             stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                                        </svg>
+                                        <h4 id="{{ item_type|default:'item' }}-{{ item.id }}-subprojects-title"
+                                            class="text-xl font-bold text-primary">
+                                            {% translate "Projects" %}
+                                        </h4>
+                                    </div>
+                                    <div class="space-y-3">
+                                        {% for sub_project in item.sub_projects.all %}
+                                            <details class="collapse collapse-arrow bg-linear-to-r from-base-200 to-base-300 hover:from-base-300 hover:to-base-200 transition-all duration-300 rounded-lg shadow-md border border-base-300 hover:border-primary/30"
+                                                     name="subprojects-{{ item.id }}-accordion"
+                                                     {% if forloop.first %}open{% endif %}>
+                                                <summary class="collapse-title hover:text-primary transition-colors">
+                                                    <div class="flex flex-col gap-3">
+                                                        <!-- Title -->
                                                         <h4 id="{{ item_type|default:'item' }}-{{ item.id }}-subproject-{{ sub_project.id }}-title"
-                                                            class="font-semibold">
+                                                            class="font-bold text-lg">
                                                             {{ sub_project.title }}
                                                         </h4>
+
+                                                        <!-- Period and duration -->
+                                                        <div class="flex items-center gap-2 flex-wrap">
+                                                            <time id="{{ item_type|default:'item' }}-{{ item.id }}-subproject-{{ sub_project.id }}-period"
+                                                                  class="font-mono text-xs font-bold text-primary bg-primary/10 px-3 py-1 rounded-full whitespace-nowrap">
+                                                                {{ sub_project.period }}
+                                                            </time>
+                                                            <div id="{{ item_type|default:'item' }}-{{ item.id }}-subproject-{{ sub_project.id }}-duration"
+                                                                 class="font-mono text-xs text-primary/70">
+                                                                {{ sub_project.duration }}
+                                                            </div>
+                                                        </div>
+
+                                                        <!-- Client -->
                                                         {% if sub_project.client %}
                                                             <div id="{{ item_type|default:'item' }}-{{ item.id }}-subproject-{{ sub_project.id }}-client"
-                                                                 class="font-mono text-sm text-secondary">
+                                                                 class="flex items-center gap-2 text-sm text-secondary font-semibold">
+                                                                <svg xmlns="http://www.w3.org/2000/svg"
+                                                                     class="h-4 w-4"
+                                                                     fill="none"
+                                                                     viewBox="0 0 24 24"
+                                                                     stroke="currentColor">
+                                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                                                                </svg>
                                                                 {{ sub_project.client }}
                                                             </div>
                                                         {% endif %}
+
+                                                        <!-- Technologies -->
                                                         {% if sub_project.technologies %}
                                                             <div id="{{ item_type|default:'item' }}-{{ item.id }}-subproject-{{ sub_project.id }}-technologies"
-                                                                 class="mt-2">
+                                                                 class="flex flex-wrap gap-1.5">
                                                                 {% for tech in sub_project.technologies.all %}
                                                                     <span id="{{ item_type|default:'item' }}-{{ item.id }}-subproject-{{ sub_project.id }}-technology-{{ tech.id }}"
-                                                                          class="badge badge-neutral badge-sm mb-1">
+                                                                          class="badge badge-primary badge-outline badge-sm hover:badge-primary transition-colors whitespace-nowrap max-w-full truncate inline-block">
                                                                         {{ tech.name }}
                                                                     </span>
                                                                 {% endfor %}
                                                             </div>
                                                         {% endif %}
                                                     </div>
-                                                    <div class="flex flex-col text-end">
-                                                        <time id="{{ item_type|default:'item' }}-{{ item.id }}-subproject-{{ sub_project.id }}-period"
-                                                              class="text-xs font-mono text-primary whitespace-nowrap">
-                                                            {{ sub_project.period }}
-                                                        </time>
-                                                        <div id="{{ item_type|default:'item' }}-{{ item.id }}-subproject-{{ sub_project.id }}-duration"
-                                                             class="text-xs font-mono text-primary">
-                                                            ({{ sub_project.duration }})
-                                                        </div>
+                                                </summary>
+                                                <div class="collapse-content bg-base-100/50 rounded-b-lg">
+                                                    <div id="{{ item_type|default:'item' }}-{{ item.id }}-subproject-{{ sub_project.id }}-description"
+                                                         class="prose prose-sm max-w-none pt-4 prose-headings:text-primary prose-a:text-primary">
+                                                        {{ sub_project.description|md }}
                                                     </div>
-
                                                 </div>
-                                            </summary>
-                                            <div class="collapse-content">
-                                                <div id="{{ item_type|default:'item' }}-{{ item.id }}-subproject-{{ sub_project.id }}-description"
-                                                     class="prose prose-sm max-w-none pt-2">
-                                                    {{ sub_project.description|md }}
-                                                </div>
-                                            </div>
-                                        </details>
-                                    {% endfor %}
+                                            </details>
+                                        {% endfor %}
+                                    </div>
                                 </div>
-                            </div>
-                        {% endif %}
+                            {% endif %}
+                        </div>
+                        <!-- End of content section -->
                     </div>
-                    <div class="modal-action">
+
+                    <!-- Footer - fixed at bottom -->
+                    <div class="modal-action border-t border-primary/20 p-4 sm:p-6 bg-base-200/95 backdrop-blur-sm shrink-0 m-0">
                         <form method="dialog">
-                            <button class="btn">
-                                Close
+                            <button class="btn btn-primary gap-2 group">
+                                <svg xmlns="http://www.w3.org/2000/svg"
+                                     class="h-5 w-5"
+                                     fill="none"
+                                     viewBox="0 0 24 24"
+                                     stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                                <span>{% translate "Close" %}</span>
                             </button>
                         </form>
                     </div>

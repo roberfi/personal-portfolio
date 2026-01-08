@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-06 11:59+0000\n"
+"POT-Creation-Date: 2026-01-08 12:29+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,7 +22,7 @@ msgstr ""
 msgid "portfolio, CV, biography, career"
 msgstr "portfolio, CV, biografía, carrera"
 
-#: base/templates/cotton/buttons/accept_button.html:20
+#: base/templates/cotton/buttons/accept_button.html:21
 msgid "Accept"
 msgstr "Aceptar"
 
@@ -30,27 +30,33 @@ msgstr "Aceptar"
 msgid "Settings"
 msgstr "Opciones"
 
-#: base/templates/cotton/buttons/settings_button.html:33
+#: base/templates/cotton/buttons/settings_button.html:40
 msgid "Cookie Settings"
 msgstr "Configuración de Cookies"
 
-#: base/templates/cotton/buttons/settings_button.html:59
+#: base/templates/cotton/buttons/settings_button.html:84
 msgid "Save"
 msgstr "Guardar"
 
-#: base/templates/cotton/footer.html:15
+#: base/templates/cotton/footer.html:16
 msgid "Legal & Privacy"
 msgstr "Condiciones y Privacidad"
 
-#: base/templates/cotton/footer.html:55
+#: base/templates/cotton/footer.html:57
+#: home/templates/cotton/experience_timeline.html:262
+#: home/templates/index.html:90
+msgid "Close"
+msgstr "Cerrar"
+
+#: base/templates/cotton/footer.html:74
 msgid "Follow Me"
 msgstr "Sígueme"
 
-#: base/templates/cotton/footer.html:86
+#: base/templates/cotton/footer.html:105
 msgid "The source code of this website is available on"
 msgstr "El código fuente de este sitio web está disponible en"
 
-#: base/templates/cotton/footer.html:92
+#: base/templates/cotton/footer.html:111
 msgid "under the MIT License"
 msgstr "bajo licencia MIT"
 
@@ -62,11 +68,11 @@ msgstr "Inicio"
 msgid "My Career"
 msgstr "Mi Carrera"
 
-#: core/settings.py:134
+#: core/settings.py:139
 msgid "English"
 msgstr "Inglés"
 
-#: core/settings.py:135
+#: core/settings.py:140
 msgid "Spanish"
 msgstr "Español"
 
@@ -115,7 +121,11 @@ msgstr[1] "%d meses"
 msgid "%(title)s at %(institution)s"
 msgstr "%(title)s en %(institution)s"
 
-#: home/templates/cotton/experience_timeline.html:117
+#: home/templates/cotton/experience_timeline.html:79
+msgid "View more"
+msgstr "Ver más"
+
+#: home/templates/cotton/experience_timeline.html:179
 msgid "Projects"
 msgstr "Proyectos"
 
@@ -123,19 +133,19 @@ msgstr "Proyectos"
 msgid "Professional profile of"
 msgstr "Perfil profesional de"
 
-#: home/templates/index.html:39
+#: home/templates/index.html:47
 msgid "More about me"
 msgstr "Más sobre mí"
 
-#: home/templates/index.html:48
+#: home/templates/index.html:65
 msgid "About me"
 msgstr "Sobre mí"
 
-#: home/templates/my-career.html:8
+#: home/templates/my-career.html:18
 msgid "My Experience"
 msgstr "Mi Experiencia"
 
-#: home/templates/my-career.html:20
+#: home/templates/my-career.html:43
 msgid "Education"
 msgstr "Educación"
 

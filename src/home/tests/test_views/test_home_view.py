@@ -220,11 +220,7 @@ class BaseTestHomeViewContent(BaseViewTest):
         )
 
         self._assert_text_of_elements(
-            self._find_element_by_tag_and_id(
-                self._find_element_by_tag_and_id(home, HtmlTag.DIALOG, test_view_constants.ABOUT_ME_MODAL_ID),
-                HtmlTag.DIV,
-                test_view_constants.ABOUT_ME_ID,
-            ),
+            self._find_element_by_tag_and_id(home, HtmlTag.DIALOG, test_view_constants.ABOUT_ME_MODAL_ID),
             ElementText(
                 html_tag=HtmlTag.H1,
                 element_id=test_view_constants.ABOUT_ME_TITLE_ID,
