@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-08 19:39+0000\n"
+"POT-Creation-Date: 2026-01-09 22:33+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -44,7 +44,7 @@ msgstr "Condiciones y Privacidad"
 
 #: base/templates/cotton/footer.html:57
 #: home/templates/cotton/experience_timeline/modal.html:96
-#: home/templates/index.html:90
+#: home/templates/index.html:100
 msgid "Close"
 msgstr "Cerrar"
 
@@ -68,11 +68,93 @@ msgstr "Inicio"
 msgid "My Career"
 msgstr "Mi Carrera"
 
-#: core/settings.py:139
+#: base/templatetags/base_tags.py:37 contact/views.py:42
+msgid "Contact"
+msgstr "Contacto"
+
+#: contact/forms.py:37
+msgid "Your name"
+msgstr "Tu nombre"
+
+#: contact/forms.py:46
+msgid "your.email@example.com"
+msgstr "tu.email@ejemplo.com"
+
+#: contact/forms.py:55
+msgid "Message subject"
+msgstr "Asunto del mensaje"
+
+#: contact/forms.py:64
+msgid "Write your message here..."
+msgstr "Escribe aquí tu mensaje..."
+
+#: contact/forms.py:72
+msgid "Name"
+msgstr "Nombre"
+
+#: contact/forms.py:73
+msgid "Email"
+msgstr "Correo electrónico"
+
+#: contact/forms.py:74
+msgid "Subject"
+msgstr "Asunto"
+
+#: contact/forms.py:75
+msgid "Message"
+msgstr "Mensaje"
+
+#: contact/forms.py:84
+msgid "Invalid message."
+msgstr "Mensaje inválido."
+
+#: contact/forms.py:88
+#, python-format
+msgid "Message must be at least %(min_length)d characters long."
+msgstr "El mensaje debe tener al menos %(min_length)d caracteres."
+
+#: contact/templates/contact.html:7
+msgid "Get in Touch"
+msgstr "Contactar conmigo"
+
+#: contact/templates/contact.html:12
+msgid ""
+"Do you have a question or want to work together? Feel free to send me a "
+"message and I will respond as soon as possible."
+msgstr ""
+"¿Tienes alguna pregunta o quieres trabajar conmigo? Envíame un mensaje y te "
+"responderé lo antes posible."
+
+#: contact/templates/contact.html:135
+msgid "Send Message"
+msgstr "Enviar Mensaje"
+
+#: contact/templates/contact.html:151
+msgid ""
+"Your information is safe and will only be used to respond to your inquiry."
+msgstr ""
+"Tu información está segura y sólo se utilizará para responder a tu consulta."
+
+#: contact/views.py:43
+msgid ""
+"Get in touch with me. Send me a message and I'll respond as soon as possible."
+msgstr ""
+"Ponte en contacto conmigo. Envíame un mensaje y te responderé lo antes "
+"posible."
+
+#: contact/views.py:44
+msgid "contact, get in touch, message, email"
+msgstr "contacto, contactar, mensaje, correo electrónico, email"
+
+#: contact/views.py:150
+msgid "Thank you for your message! I'll get back to you as soon as possible."
+msgstr "¡Gracias por tu mensaje! Te responderé lo antes posible."
+
+#: core/settings.py:140
 msgid "English"
 msgstr "Inglés"
 
-#: core/settings.py:140
+#: core/settings.py:141
 msgid "Spanish"
 msgstr "Español"
 
@@ -141,27 +223,31 @@ msgstr "Más sobre mí"
 msgid "About me"
 msgstr "Sobre mí"
 
-#: home/templates/my-career.html:18
+#: home/templates/index.html:89
+msgid "Contact me"
+msgstr "Contáctame"
+
+#: home/templates/my-career.html:8
 msgid "My Experience"
 msgstr "Mi Experiencia"
 
-#: home/templates/my-career.html:43
+#: home/templates/my-career.html:20
 msgid "Education"
 msgstr "Educación"
 
-#: home/views.py:89
+#: home/views.py:81
 msgid "Personal Portfolio"
 msgstr "Portfolio Personal"
 
-#: home/views.py:90
+#: home/views.py:82
 msgid "Welcome to my personal portfolio website."
 msgstr "Bienvendido/a a la página web de mi portfolio personal."
 
-#: home/views.py:238
+#: home/views.py:230
 msgid "My Career | Professional Experience & Education"
 msgstr "Mi Carrera | Experiencia Profesional y Educación"
 
-#: home/views.py:240
+#: home/views.py:232
 msgid ""
 "Professional experience and educational background. View my complete career "
 "history, work experience, and academic qualifications."
@@ -169,6 +255,6 @@ msgstr ""
 "Experiencia profesional y formación académica. Consulta mi historial "
 "profesional completo, experiencia laboral y cualificaciones académicas."
 
-#: home/views.py:243
+#: home/views.py:235
 msgid "experience, education, professional background, work history"
 msgstr "experiencia, educación, trayectoria profesional, historia laboral"

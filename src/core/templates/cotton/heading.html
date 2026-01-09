@@ -1,0 +1,15 @@
+<div class="sticky top-0 z-10 bg-linear-to-r from-{{ color|default:"primary" }}/10 via-{{ color|default:"primary" }}/5 to-transparent backdrop-blur-sm py-6 mb-10 -mx-5 px-5 rounded-lg">
+    <div class="flex items-center gap-3">
+        <svg xmlns="http://www.w3.org/2000/svg"
+             class="h-10 w-10 text-{{ color|default:"primary" }}"
+             fill="none"
+             viewBox="0 0 24 24"
+             stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="{{ icon_path }}" />
+        </svg>
+        <h1 id="{{ id_prefix }}-title"
+            class="text-5xl font-bold text-{{ color|default:"primary" }}">
+            {{ title }}
+        </h1>
+    </div>
+</div>

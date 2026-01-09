@@ -3,6 +3,7 @@
 ## Next Release
 
 - Improve UI
+- Add contact form page
 - Change the structure of cookie consent banner
 - Split experience timeline template into different cotton components
 

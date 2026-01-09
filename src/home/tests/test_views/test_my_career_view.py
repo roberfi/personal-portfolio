@@ -203,7 +203,7 @@ class BaseTestMyCareerViewContent(BaseViewTest):
         self._assert_text_of_element_by_tag_and_id(
             my_career,
             HtmlTag.H1,
-            test_view_constants.MY_CAREER_TITLE_ID,
+            test_view_constants.MY_EXPERIENCE_TITLE_ID,
             test_view_constants.MY_CAREER_TITLE[self.language],
         )
 
