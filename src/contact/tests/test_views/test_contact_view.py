@@ -33,6 +33,97 @@ class BaseTestContactViewContent(BaseContactViewTest):
         self._assert_template_is_used("contact.html")
         self._assert_template_is_used("cotton/base.html")
 
+    def test_json_ld_contact_page_schema(self) -> None:
+        """Test that contact view includes valid JSON-LD ContactPage schema."""
+        data = self._get_json_ld_data()
+
+        # Verify @context structure
+        self.assertIn("@context", data)
+        self.assertIsInstance(data["@context"], dict)
+        self.assertEqual(data["@context"]["@vocab"], "https://schema.org/")
+
+        # Verify language
+        self.assertEqual(data["@context"]["@language"], self.language)
+
+        # Verify @type
+        self.assertEqual(data["@type"], "ContactPage")
+
+        # Verify fields
+        self.assertEqual(data["name"], test_view_constants.META_TITLE[self.language])
+        self.assertEqual(data["description"], test_view_constants.META_DESCRIPTION[self.language])
+
+    def test_meta_tags(self) -> None:
+        """Test that meta tags have correct values for contact page."""
+        self._assert_text_of_element(
+            self._find_element_by_html_tag(self.response_data.soup, HtmlTag.TITLE),
+            test_view_constants.META_TITLE[self.language],
+        )
+        self._assert_attribute_of_element(
+            self._find_element_by_tag_and_attribute(self.response_data.soup, HtmlTag.META, "name", "description"),
+            "content",
+            test_view_constants.META_DESCRIPTION[self.language],
+        )
+        self._assert_attribute_of_element(
+            self._find_element_by_tag_and_attribute(self.response_data.soup, HtmlTag.META, "name", "keywords"),
+            "content",
+            test_view_constants.META_KEYWORDS[self.language],
+        )
+
+    def test_seo_open_graph_tags(self) -> None:
+        """Test that Open Graph tags have correct values."""
+        self._assert_attribute_of_element(
+            self._find_element_by_tag_and_attribute(self.response_data.soup, HtmlTag.META, "property", "og:title"),
+            "content",
+            test_view_constants.META_TITLE[self.language],
+        )
+        self._assert_attribute_of_element(
+            self._find_element_by_tag_and_attribute(
+                self.response_data.soup, HtmlTag.META, "property", "og:description"
+            ),
+            "content",
+            test_view_constants.META_DESCRIPTION[self.language],
+        )
+        self._assert_attribute_of_element(
+            self._find_element_by_tag_and_attribute(self.response_data.soup, HtmlTag.META, "property", "og:image"),
+            "content",
+            "http://testserver/media/background_preview.jpg",
+        )
+        self._assert_attribute_of_element(
+            self._find_element_by_tag_and_attribute(self.response_data.soup, HtmlTag.META, "property", "og:url"),
+            "content",
+            f"http://testserver/{self.language}/contact/",
+        )
+        self._assert_attribute_of_element(
+            self._find_element_by_tag_and_attribute(self.response_data.soup, HtmlTag.META, "property", "og:type"),
+            "content",
+            "profile",
+        )
+
+    def test_seo_twitter_card(self) -> None:
+        """Test that Twitter card meta tags have correct values."""
+        self._assert_attribute_of_element(
+            self._find_element_by_tag_and_attribute(self.response_data.soup, HtmlTag.META, "name", "twitter:card"),
+            "content",
+            "summary_large_image",
+        )
+        self._assert_attribute_of_element(
+            self._find_element_by_tag_and_attribute(self.response_data.soup, HtmlTag.META, "name", "twitter:title"),
+            "content",
+            test_view_constants.META_TITLE[self.language],
+        )
+        self._assert_attribute_of_element(
+            self._find_element_by_tag_and_attribute(
+                self.response_data.soup, HtmlTag.META, "name", "twitter:description"
+            ),
+            "content",
+            test_view_constants.META_DESCRIPTION[self.language],
+        )
+        self._assert_attribute_of_element(
+            self._find_element_by_tag_and_attribute(self.response_data.soup, HtmlTag.META, "name", "twitter:image"),
+            "content",
+            "http://testserver/media/background_preview.jpg",
+        )
+
     def __check_the_elements_in_contact_container(self, contact_container: Tag) -> None:
         self._assert_text_of_elements(
             contact_container,

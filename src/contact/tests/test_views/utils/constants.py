@@ -123,3 +123,20 @@ ADDITIONAL_INFO_TEXT = {
     Language.ENGLISH: "Your information is safe and will only be used to respond to your inquiry.",
     Language.SPANISH: "Tu información está segura y sólo se utilizará para responder a tu consulta.",
 }
+
+# Metadata constants
+META_TITLE = {
+    Language.ENGLISH: "Contact | Portfolio",
+    Language.SPANISH: "Contacto | Portfolio",
+}
+
+META_DESCRIPTION = {
+    Language.ENGLISH: "Get in touch with me. Send me a message and I'll respond as soon as possible.",
+    Language.SPANISH: "Ponte en contacto conmigo. Envíame un mensaje y te responderé lo antes posible.",
+}
+
+# Base keywords from template (portfolio, CV, biography, career) + page-specific keywords
+META_KEYWORDS = {
+    Language.ENGLISH: "portfolio, CV, biography, career, contact, get in touch, message, email",
+    Language.SPANISH: "portfolio, CV, biografía, carrera, contacto, contactar, mensaje, correo electrónico, email",
+}
