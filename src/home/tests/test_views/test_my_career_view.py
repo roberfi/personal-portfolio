@@ -4,7 +4,7 @@ from django.test import TestCase
 
 import home.tests.test_views.utils.constants as test_view_constants
 import utils.test_utils.constants as common_constants
-from home.tests.test_views.base_view_test import BaseViewTest
+from home.tests.test_views.base_view_test import BaseHomeViewTest
 from utils.test_utils.base_view_test_case import ElementText
 from utils.test_utils.constants import HtmlTag, Language
 
@@ -15,7 +15,7 @@ class TestHomeViewBasics(TestCase):
         self.assertRedirects(response, "/en/my-career/", status_code=302, target_status_code=200)
 
 
-class BaseTestMyCareerViewContent(BaseViewTest):
+class BaseTestMyCareerViewContent(BaseHomeViewTest):
     request_path = "my-career/"
 
     def test_response(self) -> None:
@@ -203,7 +203,7 @@ class BaseTestMyCareerViewContent(BaseViewTest):
         self._assert_text_of_element_by_tag_and_id(
             my_career,
             HtmlTag.H1,
-            test_view_constants.MY_CAREER_TITLE_ID,
+            test_view_constants.MY_EXPERIENCE_TITLE_ID,
             test_view_constants.MY_CAREER_TITLE[self.language],
         )
 

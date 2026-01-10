@@ -24,6 +24,7 @@ class StaticViewSitemap(Sitemap[str]):
         return (
             "home",
             "my-career",
+            "contact",
         )
 
     def location(self, item: str) -> str:
