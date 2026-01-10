@@ -8,6 +8,15 @@ from django.test import TestCase
 
 from home.models import PersonalInfo
 
+EXPECTED_SITEMAP_URLS = (
+    "/en/",
+    "/es/",
+    "/en/my-career/",
+    "/es/my-career/",
+    "/en/contact/",
+    "/es/contact/",
+)
+
 
 class TestRobotsTxt(TestCase):
     def test_robots_txt_accessible(self) -> None:
@@ -66,11 +75,12 @@ class TestSitemapXml(TestCase):
         locations = [loc.text for loc in root.findall(".//ns:loc", namespace)]
 
         # Check that we have entries for both languages
-        self.assertEqual(len(locations), 4, "Sitemap should contain 4 URLs")
-        self.assertIn("https://testserver/en/", locations)
-        self.assertIn("https://testserver/es/", locations)
-        self.assertIn("https://testserver/en/my-career/", locations)
-        self.assertIn("https://testserver/es/my-career/", locations)
+        self.assertEqual(
+            len(locations), len(EXPECTED_SITEMAP_URLS), f"Sitemap should contain {len(EXPECTED_SITEMAP_URLS)} URLs"
+        )
+        for expected_url in EXPECTED_SITEMAP_URLS:
+            full_url = f"https://testserver{expected_url}"
+            self.assertIn(full_url, locations)
 
     def test_sitemap_structure(self) -> None:
         """Test that sitemap has correct structure."""

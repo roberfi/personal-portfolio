@@ -36,6 +36,7 @@ jobs:
       - name: Run mypy
         run: uv run mypy .
         env:
+          DEBUG: "true"
           SECRET_KEY: ""
           DATABASE_URL: ""
 
@@ -70,5 +71,6 @@ jobs:
       - name: Run Django tests
         run: uv run --no-sync python manage.py test
         env:
+          DEBUG: "true"
           SECRET_KEY: "dummySecretKey"
           DATABASE_URL: "sqlite:///:memory:"

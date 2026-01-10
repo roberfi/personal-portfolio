@@ -77,7 +77,17 @@
                 </div>
 
                 <!-- Footer - fixed at bottom -->
-                <div class="modal-action border-t border-primary/20 p-4 sm:p-6 bg-base-200/95 backdrop-blur-sm shrink-0 m-0">
+                <div class="modal-action border-t border-primary/20 p-4 sm:p-6 bg-base-200/95 backdrop-blur-sm shrink-0 m-0 flex justify-between items-center">
+                    <a href="{% url 'contact' %}" class="btn btn-secondary gap-2 group">
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                             class="h-5 w-5"
+                             fill="none"
+                             viewBox="0 0 24 24"
+                             stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                        </svg>
+                        <span>{% translate "Contact me" %}</span>
+                    </a>
                     <form method="dialog">
                         <button class="btn btn-primary gap-2 group">
                             <svg xmlns="http://www.w3.org/2000/svg"

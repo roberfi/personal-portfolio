@@ -15,6 +15,7 @@ This is a project to create a single personal portfolio page with a clear and si
 - 🎨 **Modern UI** with Tailwind CSS and DaisyUI
 - 🔐 **Cookie consent management** with django-cooco
 - 📝 **Admin-editable content** - No code changes needed to update your portfolio
+- 📧 **Contact form** with email notifications and database storage
 - 📱 **Fully responsive** design
 - 🐳 **Docker-ready** for easy deployment
 
@@ -91,6 +92,9 @@ This is a project to create a single personal portfolio page with a clear and si
    DEBUG=true
    SECRET_KEY=<your dev secret key>
    DATABASE_URL=sqlite:///<path to db.sqlite3 file>
+
+   # Email Configuration (optional for development - emails print to console)
+   CONTACT_EMAIL=contact@localhost
    ```
 
 8. Run migrations
@@ -148,6 +152,16 @@ This is a project to create a single personal portfolio page with a clear and si
    POSTGRES_DB=<name of the postgres database>
    POSTGRES_USER=<name of the postgres user>
    POSTGRES_PASSWORD=<name of the postgres password for the given user>
+
+   # Email Configuration (required for contact form)
+   EMAIL_HOST=smtp.your-provider.com
+   EMAIL_PORT=587
+   EMAIL_USE_TLS=True
+   EMAIL_USE_SSL=False
+   EMAIL_HOST_USER=your-username
+   EMAIL_HOST_PASSWORD=your-password
+   DEFAULT_FROM_EMAIL=noreply@your-domain.com
+   CONTACT_EMAIL=contact@your-domain.com
    ```
 
 4. Create a folder called `ssl` and store there your `cert.pem` and `key.pem` files

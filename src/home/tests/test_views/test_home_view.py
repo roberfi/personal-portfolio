@@ -4,7 +4,7 @@ from django.test import TestCase
 
 import home.tests.test_views.utils.constants as test_view_constants
 import utils.test_utils.constants as common_constants
-from home.tests.test_views.base_view_test import BaseViewTest
+from home.tests.test_views.base_view_test import BaseHomeViewTest
 from utils.test_utils.base_view_test_case import ElementText
 from utils.test_utils.constants import HtmlTag, Language
 
@@ -15,7 +15,7 @@ class TestHomeViewBasics(TestCase):
         self.assertRedirects(response, "/en/", status_code=302, target_status_code=200)
 
 
-class BaseTestHomeViewContent(BaseViewTest):
+class BaseTestHomeViewContent(BaseHomeViewTest):
     request_path = ""
 
     def test_response(self) -> None:

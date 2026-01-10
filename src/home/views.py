@@ -9,20 +9,12 @@ from django.utils.translation import get_language, gettext
 from django.views import View
 
 from utils.helpers import markdown_to_plaintext
+from utils.types import PageMetadata
 
 from .models import Education, Experience, PersonalInfo
 
 if TYPE_CHECKING:
     from django.http import HttpRequest, HttpResponse
-
-
-class PageMetadata(TypedDict):
-    """Metadata for a page used for SEO purposes."""
-
-    page_title: str
-    page_description: str
-    page_keywords: str
-    json_ld: SafeString
 
 
 class HomeViewContext(TypedDict):

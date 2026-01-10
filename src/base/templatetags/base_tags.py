@@ -33,6 +33,10 @@ NAVBAR_DATA: NavbarDataDict = NavbarDataDict(
             name=gettext_lazy("My Career"),
             url="my-career",
         ),
+        LinksDict(
+            name=gettext_lazy("Contact"),
+            url="contact",
+        ),
     )
 )
 

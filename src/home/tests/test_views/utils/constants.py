@@ -18,7 +18,7 @@ PERSONAL_INFO_BIOGRAPHY_ID = "personal-info-biography"
 
 # My Career ids
 MY_CAREER_ID = "my-career"
-MY_CAREER_TITLE_ID = "my-career-title"
+MY_EXPERIENCE_TITLE_ID = "my-experience-title"
 EXPERIENCES_LIST_ID = "experiences-list"
 EXPERIENCE_ITEM_ID_TEMPLATE = "experience-{id}-item"
 EXPERIENCE_PERIOD_ID_TEMPLATE = "experience-{id}-period"
