@@ -9,13 +9,14 @@
                        icon-path="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
 
             <div class="text-center mb-8">
-                <p class="text-lg text-base-content/70 max-w-2xl mx-auto">
+                <p id="contact-description"
+                   class="text-lg text-base-content/70 max-w-2xl mx-auto">
                     {% translate "Do you have a question or want to work together? Feel free to send me a message and I will respond as soon as possible." %}
                 </p>
             </div>
             <!-- Messages -->
             {% if messages %}
-                <div class="mb-6 space-y-4">
+                <div id="response-alerts" class="mb-6 space-y-4">
                     {% for message in messages %}
                         <div class="alert {% if message.tags == 'success' %}alert-success{% elif message.tags == 'error' %}alert-error{% else %}alert-info{% endif %} shadow-lg">
                             <svg xmlns="http://www.w3.org/2000/svg"
@@ -38,12 +39,14 @@
             <div class="card shadow-xl hover:shadow-2xl transition-all duration-300 bg-linear-to-br from-base-300 to-base-200 border border-base-300 hover:border-primary/30">
                 <div class="card-body">
                     <!-- Form -->
-                    <form method="post" class="space-y-6">
+                    <form id="contact-form" method="post" class="space-y-6">
                         {% csrf_token %}
 
                         <!-- Name Field -->
                         <div class="form-control">
-                            <label class="label" for="{{ form.name.id_for_label }}">
+                            <label id="contact-form-name-label"
+                                   class="label"
+                                   for="{{ form.name.id_for_label }}">
                                 <span class="label-text font-semibold flex items-center gap-2">
                                     <svg xmlns="http://www.w3.org/2000/svg"
                                          class="h-4 w-4"
@@ -58,14 +61,16 @@
                             {{ form.name }}
                             {% if form.name.errors %}
                                 <label class="label">
-                                    <span class="label-text-alt text-error">{{ form.name.errors.0 }}</span>
+                                    <span id="contact-form-name-error" class="label-text-alt text-error">{{ form.name.errors.0 }}</span>
                                 </label>
                             {% endif %}
                         </div>
 
                         <!-- Email Field -->
                         <div class="form-control">
-                            <label class="label" for="{{ form.email.id_for_label }}">
+                            <label id="contact-form-email-label"
+                                   class="label"
+                                   for="{{ form.email.id_for_label }}">
                                 <span class="label-text font-semibold flex items-center gap-2">
                                     <svg xmlns="http://www.w3.org/2000/svg"
                                          class="h-4 w-4"
@@ -80,14 +85,16 @@
                             {{ form.email }}
                             {% if form.email.errors %}
                                 <label class="label">
-                                    <span class="label-text-alt text-error">{{ form.email.errors.0 }}</span>
+                                    <span id="contact-form-email-error" class="label-text-alt text-error">{{ form.email.errors.0 }}</span>
                                 </label>
                             {% endif %}
                         </div>
 
                         <!-- Subject Field -->
                         <div class="form-control">
-                            <label class="label" for="{{ form.subject.id_for_label }}">
+                            <label id="contact-form-subject-label"
+                                   class="label"
+                                   for="{{ form.subject.id_for_label }}">
                                 <span class="label-text font-semibold flex items-center gap-2">
                                     <svg xmlns="http://www.w3.org/2000/svg"
                                          class="h-4 w-4"
@@ -102,14 +109,16 @@
                             {{ form.subject }}
                             {% if form.subject.errors %}
                                 <label class="label">
-                                    <span class="label-text-alt text-error">{{ form.subject.errors.0 }}</span>
+                                    <span id="contact-form-subject-error" class="label-text-alt text-error">{{ form.subject.errors.0 }}</span>
                                 </label>
                             {% endif %}
                         </div>
 
                         <!-- Message Field -->
                         <div class="form-control">
-                            <label class="label" for="{{ form.message.id_for_label }}">
+                            <label id="contact-form-message-label"
+                                   class="label"
+                                   for="{{ form.message.id_for_label }}">
                                 <span class="label-text font-semibold flex items-center gap-2">
                                     <svg xmlns="http://www.w3.org/2000/svg"
                                          class="h-4 w-4"
@@ -124,14 +133,15 @@
                             {{ form.message }}
                             {% if form.message.errors %}
                                 <label class="label">
-                                    <span class="label-text-alt text-error">{{ form.message.errors.0 }}</span>
+                                    <span id="contact-form-message-error" class="label-text-alt text-error">{{ form.message.errors.0 }}</span>
                                 </label>
                             {% endif %}
                         </div>
 
                         <!-- Submit Button -->
                         <div class="form-control mt-8">
-                            <button type="submit"
+                            <button id="contact-form-submit-button"
+                                    type="submit"
                                     class="btn btn-primary btn-lg w-full gap-2 group hover:scale-105 transition-transform">
                                 <span class="text-lg">{% translate "Send Message" %}</span>
                                 <svg xmlns="http://www.w3.org/2000/svg"
@@ -148,7 +158,7 @@
 
             <!-- Additional Info -->
             <div class="mt-8 text-center">
-                <p class="text-sm text-base-content/60">
+                <p id="contact-additional-info" class="text-sm text-base-content/60">
                     {% translate "Your information is safe and will only be used to respond to your inquiry." %}
                 </p>
             </div>
