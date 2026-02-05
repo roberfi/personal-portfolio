@@ -13,6 +13,7 @@ class ContactMessage(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     is_read = models.BooleanField(default=False)
     error = models.TextField(blank=True)
+    recaptcha_score = models.FloatField(null=True, blank=True)
 
     class Meta:
         ordering = ("-created_at",)

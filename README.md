@@ -95,6 +95,11 @@ This is a project to create a single personal portfolio page with a clear and si
 
    # Email Configuration (optional for development - emails print to console)
    CONTACT_EMAIL=contact@localhost
+
+   # Google reCAPTCHA v3 (optional - if not set, form works without reCAPTCHA)
+   RECAPTCHA_SITE_KEY=<your site key from Google reCAPTCHA>
+   RECAPTCHA_SECRET_KEY=<your secret key from Google reCAPTCHA>
+   RECAPTCHA_SCORE_THRESHOLD=0.5  # Score threshold (0.0-1.0), default 0.5
    ```
 
 8. Run migrations
@@ -162,6 +167,11 @@ This is a project to create a single personal portfolio page with a clear and si
    EMAIL_HOST_PASSWORD=your-password
    DEFAULT_FROM_EMAIL=noreply@your-domain.com
    CONTACT_EMAIL=contact@your-domain.com
+
+   # Google reCAPTCHA v3 (recommended for spam protection)
+   RECAPTCHA_SITE_KEY=<your site key from Google reCAPTCHA>
+   RECAPTCHA_SECRET_KEY=<your secret key from Google reCAPTCHA>
+   RECAPTCHA_SCORE_THRESHOLD=0.5  # Score threshold (0.0-1.0), default 0.5
    ```
 
 4. Create a folder called `ssl` and store there your `cert.pem` and `key.pem` files

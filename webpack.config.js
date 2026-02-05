@@ -5,6 +5,12 @@ module.exports = {
   output: {
     filename: "bundle.js",
     path: path.resolve(__dirname, "./src/static"),
+    library: {
+      type: "module",
+    },
+  },
+  experiments: {
+    outputModule: true,
   },
   module: {
     rules: [

@@ -13,10 +13,13 @@ CONTACT_FORM_FIELD_NAME = "name"
 CONTACT_FORM_FIELD_EMAIL = "email"
 CONTACT_FORM_FIELD_SUBJECT = "subject"
 CONTACT_FORM_FIELD_MESSAGE = "message"
+CONTACT_FORM_FIELD_RECAPTCHA = "recaptcha_token"
 
 
 class ContactForm(forms.ModelForm[ContactMessage]):
     """Contact form for visitors to send messages."""
+
+    recaptcha_token = forms.CharField(widget=forms.HiddenInput(), required=False)
 
     class Meta:
         model = ContactMessage

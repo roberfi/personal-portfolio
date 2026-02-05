@@ -2,8 +2,9 @@ from __future__ import annotations
 
 import json
 import traceback
-from typing import TYPE_CHECKING, Any, TypedDict
+from typing import TYPE_CHECKING, Any, NamedTuple, TypedDict
 
+import requests
 from django.contrib import messages
 from django.core.mail import EmailMessage
 from django.shortcuts import redirect, render
@@ -27,6 +28,14 @@ class ContactViewContext(TypedDict):
 
     page_metadata: PageMetadata
     form: ContactForm
+    recaptcha_site_key: str | None
+
+
+class RecaptchaResult(NamedTuple):
+    """Result of reCAPTCHA verification."""
+
+    is_valid: bool
+    score: float | None
 
 
 class ContactView(View):
@@ -74,6 +83,7 @@ class ContactView(View):
         return ContactViewContext(
             form=form,
             page_metadata=self.__get_page_metadata(),
+            recaptcha_site_key=settings.RECAPTCHA_SITE_KEY if settings.IS_RECAPTCHA_CONFIGURED else None,
         )
 
     def __send_email_notification(self, contact_message: ContactMessage) -> None:
@@ -113,6 +123,63 @@ class ContactView(View):
             # TODO: Replace with proper logging
             print(f"Error sending email: {e}")
 
+    def __verify_recaptcha(self, token: str) -> RecaptchaResult:
+        """Verify reCAPTCHA v3 token with Google's API.
+
+        Args:
+            token: The reCAPTCHA token from the frontend.
+
+        Returns:
+            A RecaptchaResult named tuple with is_valid and score.
+        """
+        # If reCAPTCHA is not configured, allow the submission (development mode)
+        if not settings.IS_RECAPTCHA_CONFIGURED:
+            return RecaptchaResult(is_valid=True, score=None)
+
+        # If reCAPTCHA is configured but no token provided, reject (spam attempt)
+        if not token:
+            # TODO: Replace with proper logging
+            print("reCAPTCHA token missing")
+            return RecaptchaResult(is_valid=False, score=None)
+        try:
+            response = requests.post(
+                "https://www.google.com/recaptcha/api/siteverify",
+                data={
+                    "secret": settings.RECAPTCHA_SECRET_KEY,
+                    "response": token,
+                },
+                timeout=5,
+            )
+
+            response.raise_for_status()
+
+            result = response.json()
+
+            success = result.get("success", False)
+            score = result.get("score", 0.0)
+            action = result.get("action", "")
+
+            # Verify score meets threshold
+            if success and action == "contact_form" and score >= settings.RECAPTCHA_SCORE_THRESHOLD:
+                print(f"reCAPTCHA verification passed; score: {score}")
+                return RecaptchaResult(is_valid=True, score=score)
+
+            # TODO: Replace with proper logging
+            print(f"reCAPTCHA verification failed: {success=}, {score=}, {action=}")
+            return RecaptchaResult(is_valid=False, score=score)
+
+        except requests.RequestException as e:
+            # Network or API error - allow submission to avoid blocking legitimate users
+            # TODO: Replace with proper logging
+            print(f"reCAPTCHA API error: {e}")
+            return RecaptchaResult(is_valid=True, score=None)
+
+        except Exception as e:
+            # Unexpected error - log and reject for security
+            # TODO: Replace with proper logging
+            print(f"Unexpected reCAPTCHA error: {e}")
+            return RecaptchaResult(is_valid=False, score=None)
+
     def get(self, request: HttpRequest) -> HttpResponse:
         """Deal with GET requests to the contact page.
 
@@ -141,7 +208,22 @@ class ContactView(View):
         form = ContactForm(request.POST)
 
         if form.is_valid():
-            contact_message = form.save()
+            # Verify reCAPTCHA
+            recaptcha_token = form.cleaned_data.get("recaptcha_token", "")
+            recaptcha_result = self.__verify_recaptcha(recaptcha_token)
+
+            if not recaptcha_result.is_valid:
+                messages.error(
+                    request,
+                    gettext(
+                        "reCAPTCHA verification failed. Please try again. If the problem persists, contact me directly."
+                    ),
+                )
+                return render(request, "contact.html", self.__get_view_context(form))
+
+            contact_message = form.save(commit=False)
+            contact_message.recaptcha_score = recaptcha_result.score
+            contact_message.save()
 
             self.__send_email_notification(contact_message)
 
