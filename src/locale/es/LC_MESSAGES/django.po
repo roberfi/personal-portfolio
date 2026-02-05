@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-09 22:33+0000\n"
+"POT-Creation-Date: 2026-06-11 05:52+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -68,56 +68,56 @@ msgstr "Inicio"
 msgid "My Career"
 msgstr "Mi Carrera"
 
-#: base/templatetags/base_tags.py:37 contact/views.py:42
+#: base/templatetags/base_tags.py:37 contact/views.py:51
 msgid "Contact"
 msgstr "Contacto"
 
-#: contact/forms.py:37
+#: contact/forms.py:40
 msgid "Your name"
 msgstr "Tu nombre"
 
-#: contact/forms.py:46
+#: contact/forms.py:49
 msgid "your.email@example.com"
 msgstr "tu.email@ejemplo.com"
 
-#: contact/forms.py:55
+#: contact/forms.py:58
 msgid "Message subject"
 msgstr "Asunto del mensaje"
 
-#: contact/forms.py:64
+#: contact/forms.py:67
 msgid "Write your message here..."
 msgstr "Escribe aquí tu mensaje..."
 
-#: contact/forms.py:72
+#: contact/forms.py:75
 msgid "Name"
 msgstr "Nombre"
 
-#: contact/forms.py:73
+#: contact/forms.py:76
 msgid "Email"
 msgstr "Correo electrónico"
 
-#: contact/forms.py:74
+#: contact/forms.py:77
 msgid "Subject"
 msgstr "Asunto"
 
-#: contact/forms.py:75
+#: contact/forms.py:78
 msgid "Message"
 msgstr "Mensaje"
 
-#: contact/forms.py:84
+#: contact/forms.py:87
 msgid "Invalid message."
 msgstr "Mensaje inválido."
 
-#: contact/forms.py:88
+#: contact/forms.py:91
 #, python-format
 msgid "Message must be at least %(min_length)d characters long."
 msgstr "El mensaje debe tener al menos %(min_length)d caracteres."
 
-#: contact/templates/contact.html:7
+#: contact/templates/contact.html:8
 msgid "Get in Touch"
 msgstr "Contactar conmigo"
 
-#: contact/templates/contact.html:12
+#: contact/templates/contact.html:15
 msgid ""
 "Do you have a question or want to work together? Feel free to send me a "
 "message and I will respond as soon as possible."
@@ -125,28 +125,44 @@ msgstr ""
 "¿Tienes alguna pregunta o quieres trabajar conmigo? Envíame un mensaje y te "
 "responderé lo antes posible."
 
-#: contact/templates/contact.html:135
+#: contact/templates/contact.html:149
 msgid "Send Message"
 msgstr "Enviar Mensaje"
 
-#: contact/templates/contact.html:151
+#: contact/templates/contact.html:163
+msgid "Sending..."
+msgstr "Enviando..."
+
+#: contact/templates/contact.html:179
+msgid "There was an error with the security verification. Please try again."
+msgstr "Hubo un error con la verificación de seguridad. Por favor, inténtalo de nuevo."
+
+#: contact/templates/contact.html:195
 msgid ""
 "Your information is safe and will only be used to respond to your inquiry."
 msgstr ""
 "Tu información está segura y sólo se utilizará para responder a tu consulta."
 
-#: contact/views.py:43
+#: contact/views.py:52
 msgid ""
 "Get in touch with me. Send me a message and I'll respond as soon as possible."
 msgstr ""
 "Ponte en contacto conmigo. Envíame un mensaje y te responderé lo antes "
 "posible."
 
-#: contact/views.py:44
+#: contact/views.py:53
 msgid "contact, get in touch, message, email"
 msgstr "contacto, contactar, mensaje, correo electrónico, email"
 
-#: contact/views.py:150
+#: contact/views.py:219
+msgid ""
+"reCAPTCHA verification failed. Please try again. If the problem persists, "
+"contact me directly."
+msgstr ""
+"La verificación de reCAPTCHA ha fallado. Por favor, inténtalo de nuevo. Si "
+"el problema persiste, contacta directamente."
+
+#: contact/views.py:232
 msgid "Thank you for your message! I'll get back to you as soon as possible."
 msgstr "¡Gracias por tu mensaje! Te responderé lo antes posible."
 
@@ -231,7 +247,7 @@ msgstr "Contáctame"
 msgid "My Experience"
 msgstr "Mi Experiencia"
 
-#: home/templates/my-career.html:20
+#: home/templates/my-career.html:21
 msgid "Education"
 msgstr "Educación"
 

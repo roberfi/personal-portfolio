@@ -16,6 +16,7 @@ dependencies = [
     "markdown>=3.7,<4.0",
     "beautifulsoup4>=4.13.3,<5.0",
     "django-stubs-ext>=5.2.7",
+    "requests>=2.32.5",
 ]
 
 [dependency-groups]
@@ -27,6 +28,7 @@ dev = [
     "djlint>=1.36.4,<2.0",
     "types-markdown>=3.7.0.20241204,<4.0",
     "types-beautifulsoup4>=4.12.0.20250204,<5.0",
+    "types-requests>=2.32.4.20260107",
 ]
 prod = ["gunicorn>=23.0.0,<24.0", "psycopg2-binary>=2.9.10,<3.0"]
 

@@ -16,6 +16,7 @@ class ContactMessageAdmin(ModelAdmin[ContactMessage]):
         "created_at",
         "message",
         "error",
+        "recaptcha_score",
     )
 
     search_fields = (
