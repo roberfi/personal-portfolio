@@ -1,3 +1,5 @@
+name: personal-portfolio
+
 services:
   db:
     image: postgres:17.2-bookworm
@@ -14,7 +16,7 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
 
   web:
-    build: ../
+    image: personal-portfolio-web:latest
     command: gunicorn core.wsgi:application --bind 0.0.0.0:8000 --workers 3
     volumes:
       - staticfiles:/app/src/staticfiles
