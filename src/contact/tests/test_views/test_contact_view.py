@@ -6,10 +6,12 @@ from typing import TYPE_CHECKING
 from unittest import mock
 
 from django.core import mail
+from django.test import override_settings
 
 import contact.tests.test_views.utils.constants as test_view_constants
 from contact.models import ContactMessage
 from contact.tests.test_views.base_view_test import BaseContactViewTest
+from utils.test_utils import base_view_test_case
 from utils.test_utils.base_view_test_case import ElementText, get_beautiful_soup_from_response
 from utils.test_utils.constants import ATTR_PLACEHOLDER, HtmlTag, Language
 
@@ -17,7 +19,12 @@ if TYPE_CHECKING:
     from bs4 import Tag
 
 
-class BaseTestContactViewContent(BaseContactViewTest):
+@override_settings(
+    IS_RECAPTCHA_CONFIGURED=False,
+    RECAPTCHA_SITE_KEY=None,
+    RECAPTCHA_SECRET_KEY=None,
+)
+class BaseTestContactViewContent(base_view_test_case.CommonPageTestsMixin, BaseContactViewTest):
     """Base class for testing contact view content."""
 
     request_path = "contact/"

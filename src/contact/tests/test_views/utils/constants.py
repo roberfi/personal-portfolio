@@ -140,3 +140,14 @@ META_KEYWORDS = {
     Language.ENGLISH: "portfolio, CV, biography, career, contact, get in touch, message, email",
     Language.SPANISH: "portfolio, CV, biografía, carrera, contacto, contactar, mensaje, correo electrónico, email",
 }
+
+# reCAPTCHA error messages
+RECAPTCHA_VERIFICATION_FAILED = {
+    Language.ENGLISH: (
+        "reCAPTCHA verification failed. Please try again. If the problem persists, contact me directly."
+    ),
+    Language.SPANISH: (
+        "La verificación de reCAPTCHA ha fallado. Por favor, inténtalo de nuevo. "
+        "Si el problema persiste, contacta directamente."
+    ),
+}

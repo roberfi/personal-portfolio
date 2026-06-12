@@ -5,7 +5,7 @@ from unittest.mock import patch
 
 import home.tests.test_views.utils.constants as test_view_constants
 from home.models import Education, Experience, PersonalInfo, SubProject, Technology
-from utils.test_utils.base_view_test_case import BaseViewTestCase
+from utils.test_utils.base_view_test_case import CommonPageTestsMixin
 from utils.test_utils.constants import Language
 from utils.test_utils.mocks import get_date_with_mocked_today
 
@@ -13,7 +13,7 @@ if TYPE_CHECKING:
     from datetime import date
 
 
-class BaseHomeViewTest(BaseViewTestCase):
+class BaseHomeViewTest(CommonPageTestsMixin):
     @classmethod
     def _mock_on_request(cls) -> ContextManager[type[date]]:
         return patch(

@@ -5,6 +5,7 @@ import traceback
 from typing import TYPE_CHECKING, Any, NamedTuple, TypedDict
 
 import requests
+from django.conf import settings
 from django.contrib import messages
 from django.core.mail import EmailMessage
 from django.shortcuts import redirect, render
@@ -12,7 +13,6 @@ from django.utils.safestring import mark_safe
 from django.utils.translation import get_language, gettext
 from django.views import View
 
-from core import settings
 from utils.types import PageMetadata
 
 from .forms import ContactForm
