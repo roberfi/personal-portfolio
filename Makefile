@@ -18,7 +18,7 @@ SHELL       := bash
 .SHELLFLAGS := -e -o pipefail -c
 
 .DEFAULT_GOAL := help
-.PHONY: help test build deploy sync-config restart logs ps ssh prune prune-local require-host
+.PHONY: help test build deploy sync-config restart logs ps ssh prune prune-local pull-prod-data require-host
 
 help: ## Show this help
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) \
@@ -57,6 +57,14 @@ logs: require-host ## Tail the remote application logs
 
 ps: require-host ## Show the status of the remote stack
 	ssh $(SSH_HOST) 'cd $(REMOTE_DIR) && docker compose ps'
+
+pull-prod-data: require-host ## Replace the local dev database with a copy of production data (wipes local data)
+	tmp=$$(mktemp --suffix=.json) && \
+	ssh $(SSH_HOST) 'cd $(REMOTE_DIR) && docker compose exec -T web python manage.py dumpdata \
+		--natural-foreign --natural-primary --indent 2 \
+		--exclude auth --exclude contenttypes --exclude admin.logentry --exclude sessions --exclude contact' > "$$tmp" && \
+	(cd src && uv run python manage.py flush --no-input && uv run python manage.py loaddata "$$tmp"); \
+	rm -f "$$tmp"
 
 prune: require-host ## Free disk on the server: drop old app image tags (keeps :latest) and dangling layers
 	ssh $(SSH_HOST) 'docker images $(IMAGE) --format "{{.Tag}}" | grep -vxE "latest|<none>" | xargs -r -I{} docker rmi $(IMAGE):{}; docker image prune -f'
