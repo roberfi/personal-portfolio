@@ -28,8 +28,7 @@ class ResponseData(NamedTuple):
     soup: Tag
 
     @classmethod
-    def get_response(cls, client: Client, url: str) -> ResponseData:
-        response = client.get(url, follow=True)
+    def get_response(cls, response: _MonkeyPatchedWSGIResponse) -> ResponseData:
         return cls(
             status_code=response.status_code,
             templates=[template.name for template in response.templates if template.name],
@@ -46,7 +45,8 @@ class ElementText(NamedTuple):
 class BaseViewTestCase(TestCase, ABC):
     request_path: ClassVar[str]
     language: ClassVar[Language]
-    response_data: ClassVar[ResponseData]
+    response_data: ResponseData
+    mocked_request: Any
 
     @classmethod
     @abstractmethod
@@ -58,6 +58,9 @@ class BaseViewTestCase(TestCase, ABC):
         """Override this method to mock anything at the request made by the client."""
         return nullcontext()
 
+    def _send_request(self) -> _MonkeyPatchedWSGIResponse:
+        return self.client.get(f"/{self.language}/{self.request_path}", follow=True)
+
     @classmethod
     def setUpTestData(cls) -> None:
         # Ensure we're in the default language when creating database objects
@@ -65,9 +68,13 @@ class BaseViewTestCase(TestCase, ABC):
         translation.activate("en")
         cls._init_common_db()
         cls.init_db()
-        cls.client = Client()
-        with cls._mock_on_request():
-            cls.response_data = ResponseData.get_response(cls.client, f"/{cls.language}/{cls.request_path}")
+
+    def setUp(self) -> None:
+        """Set up each test with a fresh request and response_data."""
+        self.client = Client()
+        with self._mock_on_request() as mocked_request:
+            self.mocked_request = mocked_request
+            self.response_data = ResponseData.get_response(self._send_request())
 
     def _get_json_ld_data(self) -> dict[str, Any]:
         script = self._find_element_by_tag_and_attribute(
@@ -191,6 +198,10 @@ class BaseViewTestCase(TestCase, ABC):
             svg_view_box=test_view_constants.FOLLOW_ME_LINK_VIEW_BOX,
             svg_path=test_view_constants.FOLLOW_ME_LINK_PATH,
         )
+
+
+class CommonPageTestsMixin(BaseViewTestCase, ABC):
+    """Mixin with tests for elements common to every full-page view (footer, SEO tags)."""
 
     def test_legal_and_privacy(self) -> None:
         legal_and_privacy_section = self._find_element_by_tag_and_id(
