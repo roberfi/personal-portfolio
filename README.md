@@ -137,28 +137,33 @@ This is a project to create a single personal portfolio page with a clear and si
 
 ### Production Deployment
 
-1. Clone the repository:
+Deployments are driven from your machine through the `Makefile`: the Docker image
+is **built locally and shipped to the server**, which never builds anything.
+The server only holds a _deploy bundle_: configuration, secrets and media.
+The `docker-compose.yml` and `nginx/nginx.conf` are pushed automatically
+on every deploy, so they never drift.
 
-   ```bash
-   git clone https://github.com/roberfi/personal-portfolio.git
-   ```
+Every command that talks to the server requires `SSH_HOST=user@host`.
 
-2. Go into deploy directory:
+#### First-time server setup
 
-   ```bash
-   cd src/deploy
-   ```
+On the server, create the bundle directory (defaults to `~/personal-portfolio`)
+with the pieces that live only there:
 
-3. Create an environment file (`.env`) with the following enviornment variables:
+```bash
+mkdir -p ~/personal-portfolio/{ssl,mediafiles,nginx}
+```
+
+1. **Environment file** — create `~/personal-portfolio/.env` with:
 
    ```bash
    SERVER_NAMES=<name of the hosts separated by spaces>
    SECRET_KEY=<strong secret key>
    POSTGRES_DB=<name of the postgres database>
    POSTGRES_USER=<name of the postgres user>
-   POSTGRES_PASSWORD=<name of the postgres password for the given user>
+   POSTGRES_PASSWORD=<password for the given postgres user>
 
-   # Email Configuration (required for contact form)
+   # Email Configuration (required for the contact form)
    EMAIL_HOST=smtp.your-provider.com
    EMAIL_PORT=587
    EMAIL_USE_TLS=True
@@ -171,34 +176,54 @@ This is a project to create a single personal portfolio page with a clear and si
    # Google reCAPTCHA v3 (recommended for spam protection)
    RECAPTCHA_SITE_KEY=<your site key from Google reCAPTCHA>
    RECAPTCHA_SECRET_KEY=<your secret key from Google reCAPTCHA>
-   RECAPTCHA_SCORE_THRESHOLD=0.5  # Score threshold (0.0-1.0), default 0.5
+   RECAPTCHA_SCORE_THRESHOLD=0.5 # Score threshold (0.0-1.0), default 0.5
    ```
 
-4. Create a folder called `ssl` and store there your `cert.pem` and `key.pem` files
-   Note: to test it locally, dummy untrusted certificates can be generated with the following command:
+2. **SSL certificates** — place your `cert.pem` and `key.pem` in
+   `~/personal-portfolio/ssl/`.
+   Note: to test locally, dummy untrusted certificates can be generated with:
 
    ```bash
    openssl req -x509 -nodes -newkey rsa:2048 -keyout key.pem -out cert.pem -sha256 -days 365
    ```
 
-5. Create a mediafiles folder and add `background.jpg`, `background_preview.jpg` and `favicon.ico` inside.
-6. Build the docker image with docker compose:
+3. **Media files** — place `background.jpg`, `background_preview.jpg`,
+   `favicon.ico` and `icon.png` in `~/personal-portfolio/mediafiles/`.
 
-   ```bash
-   docker compose build
-   ```
+The PostgreSQL data lives in a named Docker volume, so it persists across deploys.
 
-7. Run the docker compose containers:
+#### Deploying
 
-   ```bash
-   docker compose up -d
-   ```
+From your machine (Docker installed and SSH access to the server):
 
-8. To stop them, execute:
+```bash
+make deploy SSH_HOST=user@your-server
+```
 
-   ```bash
-   docker compose down
-   ```
+This runs the tests, builds the image, ships it to the server, syncs the config
+and restarts the stack. By default the image is tagged with the current git short
+SHA; pass `TAG=` to override it (e.g. `make deploy SSH_HOST=user@your-server TAG=v1.0.0`).
+
+If the bundle lives somewhere other than `~/personal-portfolio`, override the path
+with `REMOTE_DIR=` (e.g. `REMOTE_DIR=/srv/portfolio`).
+
+#### Makefile commands
+
+Run `make` (or `make help`) to list them. Commands marked _remote_ require `SSH_HOST=user@host`.
+
+| Command            | Scope  | Description                                                                             |
+| ------------------ | ------ | --------------------------------------------------------------------------------------- |
+| `make help`        | local  | List all available commands (default target).                                           |
+| `make test`        | local  | Run the Django test suite.                                                              |
+| `make build`       | local  | Build the production Docker image locally.                                              |
+| `make deploy`      | remote | Test, build, ship the image, sync the config and restart the stack.                     |
+| `make sync-config` | remote | Push `docker-compose.yml` and `nginx/nginx.conf` to the server (never touches secrets). |
+| `make restart`     | remote | Restart the remote stack without rebuilding or shipping.                                |
+| `make logs`        | remote | Tail the application logs on the server.                                                |
+| `make ps`          | remote | Show the status of the remote stack.                                                    |
+| `make prune`       | remote | Free disk on the server: drop old image tags (keeps `latest`) and dangling layers.      |
+| `make prune-local` | local  | Same image cleanup on your local machine.                                               |
+| `make ssh`         | remote | Open an interactive SSH session on the server.                                          |
 
 ## 🧪 Testing
 
