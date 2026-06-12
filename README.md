@@ -173,7 +173,8 @@ mkdir -p ~/personal-portfolio/{ssl,mediafiles,nginx}
    DEFAULT_FROM_EMAIL=noreply@your-domain.com
    CONTACT_EMAIL=contact@your-domain.com
 
-   # Google reCAPTCHA v3 (recommended for spam protection)
+   # Google reCAPTCHA v3 (spam protection for the contact form)
+   # Both keys are required to enable reCAPTCHA; omit them to run the form without it.
    RECAPTCHA_SITE_KEY=<your site key from Google reCAPTCHA>
    RECAPTCHA_SECRET_KEY=<your secret key from Google reCAPTCHA>
    RECAPTCHA_SCORE_THRESHOLD=0.5 # Score threshold (0.0-1.0), default 0.5
