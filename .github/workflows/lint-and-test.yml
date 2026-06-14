@@ -37,6 +37,10 @@ jobs:
           DEBUG: "true"
           SECRET_KEY: ""
           DATABASE_URL: ""
+      - name: Run djlint check
+        run: uv run djlint src
+      - name: Run djlint format check
+        run: uv run djlint src --check
 
   frontend-lint:
     runs-on: ubuntu-latest
