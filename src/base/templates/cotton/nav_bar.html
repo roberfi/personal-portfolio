@@ -4,6 +4,7 @@
 {% get_current_language as CURRENT_LANGUAGE %}
 {% get_available_languages as AVAILABLE_LANGUAGES %}
 {% get_language_info_list for AVAILABLE_LANGUAGES as languages %}
+{% get_site_media as site_media %}
 
 {% with request.resolver_match.url_name as url_name %}
     <nav id="nav-bar"
@@ -27,7 +28,7 @@
             <a class="btn btn-ghost btn-circle lg:mx-5 hover:bg-primary/10 transition-colors"
                href="{% url "home" %}">
                 <image class="w-8 h-8 hover:scale-110 transition-transform"
-                       src="/media/icon.png" />
+                       src="{{ site_media.logo_display.url }}" />
             </a>
             <div role="tablist" class="tabs tabs-border max-lg:hidden">
                 <c-section-links mode="tabs" />

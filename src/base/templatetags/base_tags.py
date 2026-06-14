@@ -6,7 +6,7 @@ from django import template
 from django.template.defaultfilters import stringfilter
 from django.utils.translation import gettext_lazy
 
-from base.models import FollowMeLink, GoogleAnalytics, LegalAndPrivacy
+from base.models import FollowMeLink, GoogleAnalytics, LegalAndPrivacy, SiteMedia
 
 if TYPE_CHECKING:
     from django_stubs_ext import StrOrPromise, StrPromise
@@ -67,3 +67,8 @@ def get_footer_data() -> dict[str, Any]:
 @register.simple_tag
 def get_google_analytics() -> GoogleAnalytics:
     return GoogleAnalytics.get_solo()
+
+
+@register.simple_tag
+def get_site_media() -> SiteMedia:
+    return SiteMedia.get_solo()

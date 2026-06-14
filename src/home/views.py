@@ -8,6 +8,7 @@ from django.utils.safestring import SafeString, mark_safe
 from django.utils.translation import get_language, gettext
 from django.views import View
 
+from base.models import SiteMedia
 from utils.helpers import markdown_to_plaintext
 from utils.types import PageMetadata
 
@@ -46,6 +47,7 @@ class HomeView(View):
         """
         base_url = f"{request.scheme}://{request.get_host()}"
         current_lang = get_language()
+        site_media = SiteMedia.get_solo()
 
         schema = {
             "@context": {
@@ -57,7 +59,7 @@ class HomeView(View):
             "jobTitle": personal_info.title,
             "description": markdown_to_plaintext(personal_info.introduction),
             "url": base_url,
-            "image": f"{base_url}/media/background.jpg",
+            "image": f"{base_url}{site_media.background_image_display.url}",
         }
 
         if personal_info.technologies.exists():

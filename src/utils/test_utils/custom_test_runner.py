@@ -1,10 +1,14 @@
 from __future__ import annotations
 
 import logging
+import shutil
+import tempfile
+from pathlib import Path
 from typing import Any
 from unittest import TestLoader
 from unittest.suite import TestSuite
 
+from django.conf import settings
 from django.test.runner import DiscoverRunner
 
 # Loggers used in the contact flow: silenced during tests to avoid noise from the
@@ -24,9 +28,21 @@ class CustomTestLoader(TestLoader):
 
 class CustomTestRunner(DiscoverRunner):
     test_loader = CustomTestLoader()
+    _original_media_root: Path
+    _media_root: Path
 
     def setup_test_environment(self, **kwargs: Any) -> None:
         super().setup_test_environment(**kwargs)
 
         for logger_name in SILENCED_LOGGERS:
             logging.getLogger(logger_name).setLevel(logging.CRITICAL)
+
+        self._original_media_root = settings.MEDIA_ROOT
+        self._media_root = Path(tempfile.mkdtemp(prefix="test-media-"))
+        settings.MEDIA_ROOT = self._media_root
+
+    def teardown_test_environment(self, **kwargs: Any) -> None:
+        settings.MEDIA_ROOT = self._original_media_root
+        shutil.rmtree(self._media_root, ignore_errors=True)
+
+        super().teardown_test_environment(**kwargs)
