@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import logging
 import traceback
 from typing import TYPE_CHECKING, Any, NamedTuple, TypedDict
 
@@ -21,6 +22,10 @@ if TYPE_CHECKING:
     from django.http import HttpRequest, HttpResponse
 
     from contact.models import ContactMessage
+
+contact_logger = logging.getLogger("contact")
+recaptcha_logger = logging.getLogger("recaptcha")
+security_logger = logging.getLogger("security")
 
 
 class ContactViewContext(TypedDict):
@@ -114,14 +119,15 @@ class ContactView(View):
             )
             email.send(fail_silently=False)
 
-        except Exception as e:
+        except Exception:
             # Save the error to the contact message for later review
             contact_message.error = traceback.format_exc()
             contact_message.save(update_fields=("error",))
 
-            # Log the error
-            # TODO: Replace with proper logging
-            print(f"Error sending email: {e}")
+            contact_logger.exception(
+                "Failed to send email notification for contact message",
+                extra={"contact_message_id": contact_message.pk},
+            )
 
     def __verify_recaptcha(self, token: str) -> RecaptchaResult:
         """Verify reCAPTCHA v3 token with Google's API.
@@ -138,8 +144,7 @@ class ContactView(View):
 
         # If reCAPTCHA is configured but no token provided, reject (spam attempt)
         if not token:
-            # TODO: Replace with proper logging
-            print("reCAPTCHA token missing")
+            security_logger.warning("reCAPTCHA token missing from contact form submission")
             return RecaptchaResult(is_valid=False, score=None)
         try:
             response = requests.post(
@@ -161,23 +166,23 @@ class ContactView(View):
 
             # Verify score meets threshold
             if success and action == "contact_form" and score >= settings.RECAPTCHA_SCORE_THRESHOLD:
-                print(f"reCAPTCHA verification passed; score: {score}")
+                recaptcha_logger.info("reCAPTCHA verification passed", extra={"score": score})
                 return RecaptchaResult(is_valid=True, score=score)
 
-            # TODO: Replace with proper logging
-            print(f"reCAPTCHA verification failed: {success=}, {score=}, {action=}")
+            security_logger.warning(
+                "reCAPTCHA verification failed",
+                extra={"success": success, "score": score, "action": action},
+            )
             return RecaptchaResult(is_valid=False, score=score)
 
-        except requests.RequestException as e:
+        except requests.RequestException:
             # Network or API error - allow submission to avoid blocking legitimate users
-            # TODO: Replace with proper logging
-            print(f"reCAPTCHA API error: {e}")
+            recaptcha_logger.warning("reCAPTCHA API error, allowing submission", exc_info=True)
             return RecaptchaResult(is_valid=True, score=None)
 
-        except Exception as e:
+        except Exception:
             # Unexpected error - log and reject for security
-            # TODO: Replace with proper logging
-            print(f"Unexpected reCAPTCHA error: {e}")
+            recaptcha_logger.exception("Unexpected error during reCAPTCHA verification")
             return RecaptchaResult(is_valid=False, score=None)
 
     def get(self, request: HttpRequest) -> HttpResponse:
@@ -224,6 +229,11 @@ class ContactView(View):
             contact_message = form.save(commit=False)
             contact_message.recaptcha_score = recaptcha_result.score
             contact_message.save()
+
+            contact_logger.info(
+                "Contact form submission received",
+                extra={"contact_message_id": contact_message.pk, "recaptcha_score": recaptcha_result.score},
+            )
 
             self.__send_email_notification(contact_message)
 

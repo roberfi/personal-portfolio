@@ -198,3 +198,49 @@ RECAPTCHA_SECRET_KEY = env("RECAPTCHA_SECRET_KEY", default=None)
 RECAPTCHA_SCORE_THRESHOLD = env.float("RECAPTCHA_SCORE_THRESHOLD", default=0.5)
 
 IS_RECAPTCHA_CONFIGURED = bool(RECAPTCHA_SITE_KEY) and bool(RECAPTCHA_SECRET_KEY)
+
+# Logging
+# https://docs.djangoproject.com/en/5.1/topics/logging/
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {
+        "console": {
+            "format": "{asctime} {levelname} {name}: {message}",
+            "style": "{",
+        },
+        "json": {
+            "()": "core.logging.JsonFormatter",
+        },
+    },
+    "handlers": {
+        "stdout": {
+            "class": "logging.StreamHandler",
+            "stream": "ext://sys.stdout",
+            "formatter": "console" if DEBUG else "json",
+        },
+    },
+    "loggers": {
+        "django": {
+            "handlers": ["stdout"],
+            "level": "INFO",
+            "propagate": False,
+        },
+        "contact": {
+            "handlers": ["stdout"],
+            "level": "INFO",
+            "propagate": False,
+        },
+        "recaptcha": {
+            "handlers": ["stdout"],
+            "level": "INFO",
+            "propagate": False,
+        },
+        "security": {
+            "handlers": ["stdout"],
+            "level": "INFO",
+            "propagate": False,
+        },
+    },
+}

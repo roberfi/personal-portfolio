@@ -16,6 +16,7 @@ This is a project to create a single personal portfolio page with a clear and si
 - 🔐 **Cookie consent management** with django-cooco
 - 📝 **Admin-editable content** - No code changes needed to update your portfolio
 - 📧 **Contact form** with email notifications and database storage
+- 📊 **Structured logging** - JSON logs in production, human-readable logs in development
 - 📱 **Fully responsive** design
 - 🐳 **Docker-ready** for easy deployment
 
@@ -241,6 +242,21 @@ Run the test suite:
 cd src
 python manage.py test
 ```
+
+## 📊 Logging
+
+Logging is configured in [src/core/settings.py](src/core/settings.py) via Django's `LOGGING` setting and
+always writes to stdout:
+
+- **Development** (`DEBUG=true`): plain, human-readable lines.
+- **Production** (`DEBUG=false`): single-line JSON records (see [src/core/logging.py](src/core/logging.py)),
+  ready to be collected by a log aggregator.
+
+Besides Django's own `django` logger, the app defines dedicated loggers for the contact flow:
+
+- `contact` - contact form submissions and email notification outcomes.
+- `recaptcha` - reCAPTCHA verification results and API errors.
+- `security` - suspicious activity, such as missing or failing reCAPTCHA tokens.
 
 ## 🔍 Code Quality
 

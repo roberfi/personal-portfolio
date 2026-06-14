@@ -6,6 +6,7 @@
 - Add contact form page
 - Change the structure of cookie consent banner
 - Split experience timeline template into different cotton components
+- Implement structured logging
 - Bump python and javascript dependencies to fix security vulnerabilities
 
 ## 0.6.0
