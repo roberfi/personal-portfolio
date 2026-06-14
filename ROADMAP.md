@@ -27,8 +27,8 @@ Action checklist to get from the current state to the goal above, then to a stab
 ## v0.7.0 — Operations & quality
 
 - [ ] **Configurable media via admin** — add a `SiteMedia` django-solo singleton in [src/home/models.py](src/home/models.py) with `ImageField`s for `background_image`, `og_preview_image`, `favicon`, `logo`; register in [src/home/admin.py](src/home/admin.py); wire templates ([src/base/templates/cotton/base.html](src/base/templates/cotton/base.html)) to read from it instead of hardcoded files. _`feat: manage site images from the admin`_
-- [ ] **Structured logging** — add `logging.config.dictConfig` to [src/core/settings.py](src/core/settings.py): JSON formatter in prod, console in dev, named loggers (`contact`, `recaptcha`, `security`), stdout only. _`feat: add structured logging configuration`_
-- [ ] **Use logging in contact flow** — replace silent paths in [src/contact/views.py](src/contact/views.py) with the new loggers (submission, reCAPTCHA score, send failures). _`feat: log contact form and reCAPTCHA events`_
+- [x] **Structured logging** — add `logging.config.dictConfig` to [src/core/settings.py](src/core/settings.py): JSON formatter in prod, console in dev, named loggers (`contact`, `recaptcha`, `security`), stdout only. _`feat: add structured logging configuration`_
+- [x] **Use logging in contact flow** — replace silent paths in [src/contact/views.py](src/contact/views.py) with the new loggers (submission, reCAPTCHA score, send failures). _`feat: log contact form and reCAPTCHA events`_
 - [ ] **Add djlint to CI** — extend the `python-lint` job in [.github/workflows/lint-and-test.yml](.github/workflows/lint-and-test.yml) to run `djlint` (already in pre-commit). _`ci: run djlint on templates`_
 
 ## v0.8.0 — Structural redesign (homepage, projects & navigation)
