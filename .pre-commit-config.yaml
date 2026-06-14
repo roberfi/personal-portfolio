@@ -24,6 +24,7 @@ repos:
       - id: mypy
         args: []
         additional_dependencies:
+          - django-imagekit==6.1.0
           - django-stubs[compatible-mypy]==5.2.7
           - django-modeltranslation==0.19.17
           - types-markdown==3.10.0.20251106

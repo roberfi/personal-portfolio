@@ -9,6 +9,7 @@ from django.core import mail
 from django.test import override_settings
 
 import contact.tests.test_views.utils.constants as test_view_constants
+from base.models import SiteMedia
 from contact.models import ContactMessage
 from contact.tests.test_views.base_view_test import BaseContactViewTest
 from utils.test_utils import base_view_test_case
@@ -93,7 +94,7 @@ class BaseTestContactViewContent(base_view_test_case.CommonPageTestsMixin, BaseC
         self._assert_attribute_of_element(
             self._find_element_by_tag_and_attribute(self.response_data.soup, HtmlTag.META, "property", "og:image"),
             "content",
-            "http://testserver/media/background_preview.jpg",
+            f"http://testserver{SiteMedia.get_solo().og_preview_image_display.url}",
         )
         self._assert_attribute_of_element(
             self._find_element_by_tag_and_attribute(self.response_data.soup, HtmlTag.META, "property", "og:url"),
@@ -128,7 +129,7 @@ class BaseTestContactViewContent(base_view_test_case.CommonPageTestsMixin, BaseC
         self._assert_attribute_of_element(
             self._find_element_by_tag_and_attribute(self.response_data.soup, HtmlTag.META, "name", "twitter:image"),
             "content",
-            "http://testserver/media/background_preview.jpg",
+            f"http://testserver{SiteMedia.get_solo().twitter_preview_image_display.url}",
         )
 
     def __check_the_elements_in_contact_container(self, contact_container: Tag) -> None:

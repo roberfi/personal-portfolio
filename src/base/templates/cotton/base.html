@@ -1,10 +1,12 @@
 {% load i18n %}
 {% load static %}
 {% load cooco %}
+{% load base_tags %}
 
 {% get_cooco_manager request as cooco_manager %}
 {% get_current_language as LANGUAGE_CODE %}
 {% get_available_languages as LANGUAGES %}
+{% get_site_media as site_media %}
 
 <!DOCTYPE html>
 <html lang="{{ LANGUAGE_CODE }}" data-theme="portfolio">
@@ -17,7 +19,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
         <title>{{ page_metadata.page_title }}</title>
-        <link rel="shortcut icon" href="/media/favicon.ico" type="image/x-icon">
+        <link rel="shortcut icon"
+              href="{{ site_media.favicon.url }}"
+              type="{{ site_media.favicon_content_type }}">
 
         <!-- Canonical URL -->
         <link rel="canonical"
@@ -46,7 +50,7 @@
               content="{{ page_metadata.page_description }}" />
         <meta property="og:image"
               itemprop="image"
-              content="{{ request.scheme }}://{{ request.get_host }}/media/background_preview.jpg">
+              content="{{ request.scheme }}://{{ request.get_host }}{{ site_media.og_preview_image_display.url }}">
         <meta property="og:url"
               content="{{ request.scheme }}://{{ request.get_host }}{{ request.path }}" />
         <meta property="og:type" content="profile" />
@@ -57,7 +61,7 @@
         <meta name="twitter:description"
               content="{{ page_metadata.page_description }}" />
         <meta name="twitter:image"
-              content="{{ request.scheme }}://{{ request.get_host }}/media/background_preview.jpg" />
+              content="{{ request.scheme }}://{{ request.get_host }}{{ site_media.twitter_preview_image_display.url }}" />
 
         <script type="module" src="{% static 'bundle.js' %}"></script>
 

@@ -3,7 +3,7 @@ from __future__ import annotations
 from django.contrib.admin import ModelAdmin, register
 from solo.admin import SingletonModelAdmin
 
-from base.models import FollowMeLink, GoogleAnalytics, LegalAndPrivacy
+from base.models import FollowMeLink, GoogleAnalytics, LegalAndPrivacy, SiteMedia
 
 
 @register(LegalAndPrivacy)
@@ -18,4 +18,9 @@ class FollowMeLinkAdmin(ModelAdmin[FollowMeLink]):
 
 @register(GoogleAnalytics)
 class GoogleAnalyticsAdmin(SingletonModelAdmin):
+    pass
+
+
+@register(SiteMedia)
+class SiteMediaAdmin(SingletonModelAdmin):
     pass

@@ -58,6 +58,7 @@ INSTALLED_APPS = (
     "django.contrib.staticfiles",
     "django.contrib.sitemaps",
     "solo",
+    "imagekit",
     "modeltranslation",
     "django_cotton",
     "django_cooco",
