@@ -1,6 +1,7 @@
 # Folders
 .venv
 .vscode
+.claude
 __pycache__
 static
 mediafiles
