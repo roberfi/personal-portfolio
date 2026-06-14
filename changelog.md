@@ -8,6 +8,7 @@
 - Split experience timeline template into different cotton components
 - Implement structured logging
 - Bump python and javascript dependencies to fix security vulnerabilities
+- Run djlint on templates in CI
 
 ## 0.6.0
 

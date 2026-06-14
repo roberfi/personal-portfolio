@@ -273,6 +273,9 @@ ruff format .
 mypy .
 
 # Run Django template linter
+djlint src
+
+# Run Django template formatter check
 djlint src --check
 ```
 
