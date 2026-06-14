@@ -86,8 +86,7 @@ This is a project to create a single personal portfolio page with a clear and si
    cd src
    ```
 
-6. Create a mediafiles folder and add `background.jpg`, `background_preview.jpg` and `favicon.ico` inside.
-7. Create an environment file (`.env`) with the following enviornment variables:
+6. Create an environment file (`.env`) with the following enviornment variables:
 
    ```bash
    DEBUG=true
@@ -103,38 +102,42 @@ This is a project to create a single personal portfolio page with a clear and si
    RECAPTCHA_SCORE_THRESHOLD=0.5  # Score threshold (0.0-1.0), default 0.5
    ```
 
-8. Run migrations
+7. Run migrations
 
    ```bash
    python manage.py migrate
 
    ```
 
-9. Create a superuser
+   This also generates placeholder site images (hero background, favicon and navbar logo,
+   plus their per-usage thumbnails under `mediafiles/CACHE/`); replace them from the admin
+   (Site Media) whenever you like.
+
+8. Create a superuser
 
    ```bash
    python manage.py createsuperuser
    ```
 
-10. Run django
+9. Run django
 
-    ```bash
-    python manage.py runserver
-    ```
+   ```bash
+   python manage.py runserver
+   ```
 
-11. To enter in frontend environment mode, open a new terminal and install node environment
+10. To enter in frontend environment mode, open a new terminal and install node environment
 
     ```bash
     npm install
     ```
 
-12. Run webpack in watch mode
+11. Run webpack in watch mode
 
     ```bash
     npm run dev
     ```
 
-13. Navigate to localhost:8000 and enjoy
+12. Navigate to localhost:8000 and enjoy
 
 ### Production Deployment
 
@@ -189,10 +192,9 @@ mkdir -p ~/personal-portfolio/{ssl,mediafiles,nginx}
    openssl req -x509 -nodes -newkey rsa:2048 -keyout key.pem -out cert.pem -sha256 -days 365
    ```
 
-3. **Media files** — place `background.jpg`, `background_preview.jpg`,
-   `favicon.ico` and `icon.png` in `~/personal-portfolio/mediafiles/`.
-
-The PostgreSQL data lives in a named Docker volume, so it persists across deploys.
+The PostgreSQL data lives in a named Docker volume, so it persists across deploys. On first
+deploy, placeholder site images (hero background, favicon and navbar logo) are generated
+automatically into `~/personal-portfolio/mediafiles/`; replace them from the admin (Site Media).
 
 #### Deploying
 

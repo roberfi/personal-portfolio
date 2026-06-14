@@ -1,12 +1,15 @@
 {% load i18n %}
 {% load filters %}
+{% load base_tags %}
+
+{% get_site_media as site_media %}
 
 <c-base name="{{ personal_info.name }}">
     <div id="home" class="relative p-5 lg:size-full">
         <div class="card shadow-xl hover:shadow-2xl transition-all duration-300 bg-linear-to-br from-base-300 to-base-200 border border-base-300 hover:border-primary/30 lg:size-full">
             <figure class="lg:rounded-xl lg:h-full">
                 <img class="h-full w-full object-cover"
-                     src="/media/background.jpg"
+                     src="{{ site_media.background_image_display.url }}"
                      alt="{% translate "Professional profile of" %} {{ personal_info.name }} - {{ personal_info.title }}"
                      loading="eager" />
             </figure>

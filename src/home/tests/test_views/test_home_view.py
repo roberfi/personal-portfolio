@@ -4,6 +4,7 @@ from django.test import TestCase
 
 import home.tests.test_views.utils.constants as test_view_constants
 import utils.test_utils.constants as common_constants
+from base.models import SiteMedia
 from home.tests.test_views.base_view_test import BaseHomeViewTest
 from utils.test_utils.base_view_test_case import ElementText
 from utils.test_utils.constants import HtmlTag, Language
@@ -43,7 +44,7 @@ class BaseTestHomeViewContent(BaseHomeViewTest):
         self.assertEqual(data["jobTitle"], test_view_constants.PERSONAL_INFO_TITLE[self.language])
         self.assertEqual(data["description"], test_view_constants.PERSONAL_INFO_INTRODUCTION[self.language])
         self.assertEqual(data["url"], "http://testserver")
-        self.assertEqual(data["image"], "http://testserver/media/background.jpg")
+        self.assertEqual(data["image"], f"http://testserver{SiteMedia.get_solo().background_image_display.url}")
 
         # Verify knowsAbout contains technologies in correct order
         expected_technologies = [
@@ -124,7 +125,7 @@ class BaseTestHomeViewContent(BaseHomeViewTest):
         self._assert_attribute_of_element(
             self._find_element_by_tag_and_attribute(self.response_data.soup, HtmlTag.META, "property", "og:image"),
             "content",
-            "http://testserver/media/background_preview.jpg",
+            f"http://testserver{SiteMedia.get_solo().og_preview_image_display.url}",
         )
         self._assert_attribute_of_element(
             self._find_element_by_tag_and_attribute(self.response_data.soup, HtmlTag.META, "property", "og:url"),
@@ -173,7 +174,7 @@ class BaseTestHomeViewContent(BaseHomeViewTest):
         self._assert_attribute_of_element(
             self._find_element_by_tag_and_attribute(self.response_data.soup, HtmlTag.META, "name", "twitter:image"),
             "content",
-            "http://testserver/media/background_preview.jpg",
+            f"http://testserver{SiteMedia.get_solo().twitter_preview_image_display.url}",
         )
 
     def test_personal_info(self) -> None:

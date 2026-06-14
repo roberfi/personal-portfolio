@@ -9,6 +9,7 @@
 - Implement structured logging
 - Bump python and javascript dependencies to fix security vulnerabilities
 - Run djlint on templates in CI
+- Manage site images (background, favicon, logo) from the admin
 
 ## 0.6.0
 
