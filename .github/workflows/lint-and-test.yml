@@ -37,6 +37,7 @@ jobs:
           DEBUG: "true"
           SECRET_KEY: ""
           DATABASE_URL: ""
+          FIELD_ENCRYPTION_KEY: "RQB4OyWyWCB403eRmRCnobvByxGKUewNRIS1m8vVUPU="
       - name: Run djlint check
         run: uv run djlint src
       - name: Run djlint format check
@@ -76,3 +77,4 @@ jobs:
           DEBUG: "true"
           SECRET_KEY: "dummySecretKey"
           DATABASE_URL: "sqlite:///:memory:"
+          FIELD_ENCRYPTION_KEY: "RQB4OyWyWCB403eRmRCnobvByxGKUewNRIS1m8vVUPU="
