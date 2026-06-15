@@ -1,11 +1,12 @@
 from __future__ import annotations
 
 from types import MappingProxyType
+from typing import Any
 
 from django import forms
 from django.utils.translation import gettext_lazy
 
-from contact.models import ContactMessage
+from contact.models import ContactMessage, ContactPrivacyNotice
 
 MINIMUM_MESSAGE_LENGTH = 10
 
@@ -14,12 +15,18 @@ CONTACT_FORM_FIELD_EMAIL = "email"
 CONTACT_FORM_FIELD_SUBJECT = "subject"
 CONTACT_FORM_FIELD_MESSAGE = "message"
 CONTACT_FORM_FIELD_RECAPTCHA = "recaptcha_token"
+CONTACT_FORM_FIELD_PRIVACY_POLICY_ACCEPTED = "privacy_policy_accepted"
 
 
 class ContactForm(forms.ModelForm[ContactMessage]):
     """Contact form for visitors to send messages."""
 
     recaptcha_token = forms.CharField(widget=forms.HiddenInput(), required=False)
+    privacy_policy_accepted = forms.BooleanField(
+        required=True,
+        widget=forms.CheckboxInput(attrs={"class": "checkbox checkbox-primary"}),
+        error_messages={"required": gettext_lazy("You must accept the privacy policy to send this message.")},
+    )
 
     class Meta:
         model = ContactMessage
@@ -78,6 +85,12 @@ class ContactForm(forms.ModelForm[ContactMessage]):
                 CONTACT_FORM_FIELD_MESSAGE: gettext_lazy("Message"),
             }
         )
+
+    def __init__(self, *args: Any, **kwargs: Any) -> None:
+        super().__init__(*args, **kwargs)
+
+        if not ContactPrivacyNotice.get_solo().legal_and_privacy:
+            del self.fields[CONTACT_FORM_FIELD_PRIVACY_POLICY_ACCEPTED]
 
     def clean_message(self) -> str:
         """Validate message length."""

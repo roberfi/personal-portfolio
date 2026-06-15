@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-11 05:52+0000\n"
+"POT-Creation-Date: 2026-06-15 10:14+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n == 1 ? 0 : 1;\n"
 
-#: base/templates/cotton/base.html:16
+#: base/templates/cotton/base.html:18
 msgid "portfolio, CV, biography, career"
 msgstr "portfolio, CV, biografía, carrera"
 
@@ -44,7 +44,7 @@ msgstr "Condiciones y Privacidad"
 
 #: base/templates/cotton/footer.html:57
 #: home/templates/cotton/experience_timeline/modal.html:96
-#: home/templates/index.html:100
+#: home/templates/index.html:103
 msgid "Close"
 msgstr "Cerrar"
 
@@ -68,47 +68,51 @@ msgstr "Inicio"
 msgid "My Career"
 msgstr "Mi Carrera"
 
-#: base/templatetags/base_tags.py:37 contact/views.py:51
+#: base/templatetags/base_tags.py:37 contact/views.py:58
 msgid "Contact"
 msgstr "Contacto"
 
-#: contact/forms.py:40
+#: contact/forms.py:28
+msgid "You must accept the privacy policy to send this message."
+msgstr "Debes aceptar la política de privacidad para enviar este mensaje."
+
+#: contact/forms.py:47
 msgid "Your name"
 msgstr "Tu nombre"
 
-#: contact/forms.py:49
+#: contact/forms.py:56
 msgid "your.email@example.com"
 msgstr "tu.email@ejemplo.com"
 
-#: contact/forms.py:58
+#: contact/forms.py:65
 msgid "Message subject"
 msgstr "Asunto del mensaje"
 
-#: contact/forms.py:67
+#: contact/forms.py:74
 msgid "Write your message here..."
 msgstr "Escribe aquí tu mensaje..."
 
-#: contact/forms.py:75
+#: contact/forms.py:82
 msgid "Name"
 msgstr "Nombre"
 
-#: contact/forms.py:76
+#: contact/forms.py:83
 msgid "Email"
 msgstr "Correo electrónico"
 
-#: contact/forms.py:77
+#: contact/forms.py:84
 msgid "Subject"
 msgstr "Asunto"
 
-#: contact/forms.py:78
+#: contact/forms.py:85
 msgid "Message"
 msgstr "Mensaje"
 
-#: contact/forms.py:87
+#: contact/forms.py:102
 msgid "Invalid message."
 msgstr "Mensaje inválido."
 
-#: contact/forms.py:91
+#: contact/forms.py:106
 #, python-format
 msgid "Message must be at least %(min_length)d characters long."
 msgstr "El mensaje debe tener al menos %(min_length)d caracteres."
@@ -125,36 +129,42 @@ msgstr ""
 "¿Tienes alguna pregunta o quieres trabajar conmigo? Envíame un mensaje y te "
 "responderé lo antes posible."
 
-#: contact/templates/contact.html:149
+#: contact/templates/contact.html:151
+msgid "I accept the"
+msgstr "Acepto la"
+
+#: contact/templates/contact.html:174
 msgid "Send Message"
 msgstr "Enviar Mensaje"
 
-#: contact/templates/contact.html:163
+#: contact/templates/contact.html:188
 msgid "Sending..."
 msgstr "Enviando..."
 
-#: contact/templates/contact.html:179
+#: contact/templates/contact.html:204
 msgid "There was an error with the security verification. Please try again."
-msgstr "Hubo un error con la verificación de seguridad. Por favor, inténtalo de nuevo."
+msgstr ""
+"Hubo un error con la verificación de seguridad. Por favor, inténtalo de "
+"nuevo."
 
-#: contact/templates/contact.html:195
+#: contact/templates/contact.html:220
 msgid ""
 "Your information is safe and will only be used to respond to your inquiry."
 msgstr ""
 "Tu información está segura y sólo se utilizará para responder a tu consulta."
 
-#: contact/views.py:52
+#: contact/views.py:59
 msgid ""
 "Get in touch with me. Send me a message and I'll respond as soon as possible."
 msgstr ""
 "Ponte en contacto conmigo. Envíame un mensaje y te responderé lo antes "
 "posible."
 
-#: contact/views.py:53
+#: contact/views.py:60
 msgid "contact, get in touch, message, email"
 msgstr "contacto, contactar, mensaje, correo electrónico, email"
 
-#: contact/views.py:219
+#: contact/views.py:227
 msgid ""
 "reCAPTCHA verification failed. Please try again. If the problem persists, "
 "contact me directly."
@@ -162,15 +172,15 @@ msgstr ""
 "La verificación de reCAPTCHA ha fallado. Por favor, inténtalo de nuevo. Si "
 "el problema persiste, contacta directamente."
 
-#: contact/views.py:232
+#: contact/views.py:245
 msgid "Thank you for your message! I'll get back to you as soon as possible."
 msgstr "¡Gracias por tu mensaje! Te responderé lo antes posible."
 
-#: core/settings.py:140
+#: core/settings.py:141
 msgid "English"
 msgstr "Inglés"
 
-#: core/settings.py:141
+#: core/settings.py:142
 msgid "Spanish"
 msgstr "Español"
 
@@ -227,19 +237,19 @@ msgstr "Ver más"
 msgid "Projects"
 msgstr "Proyectos"
 
-#: home/templates/index.html:10
+#: home/templates/index.html:13
 msgid "Professional profile of"
 msgstr "Perfil profesional de"
 
-#: home/templates/index.html:47
+#: home/templates/index.html:50
 msgid "More about me"
 msgstr "Más sobre mí"
 
-#: home/templates/index.html:65
+#: home/templates/index.html:68
 msgid "About me"
 msgstr "Sobre mí"
 
-#: home/templates/index.html:89
+#: home/templates/index.html:92
 msgid "Contact me"
 msgstr "Contáctame"
 
@@ -251,19 +261,19 @@ msgstr "Mi Experiencia"
 msgid "Education"
 msgstr "Educación"
 
-#: home/views.py:81
+#: home/views.py:83
 msgid "Personal Portfolio"
 msgstr "Portfolio Personal"
 
-#: home/views.py:82
+#: home/views.py:84
 msgid "Welcome to my personal portfolio website."
 msgstr "Bienvendido/a a la página web de mi portfolio personal."
 
-#: home/views.py:230
+#: home/views.py:232
 msgid "My Career | Professional Experience & Education"
 msgstr "Mi Carrera | Experiencia Profesional y Educación"
 
-#: home/views.py:232
+#: home/views.py:234
 msgid ""
 "Professional experience and educational background. View my complete career "
 "history, work experience, and academic qualifications."
@@ -271,6 +281,6 @@ msgstr ""
 "Experiencia profesional y formación académica. Consulta mi historial "
 "profesional completo, experiencia laboral y cualificaciones académicas."
 
-#: home/views.py:235
+#: home/views.py:237
 msgid "experience, education, professional background, work history"
 msgstr "experiencia, educación, trayectoria profesional, historia laboral"

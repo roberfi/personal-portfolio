@@ -1,8 +1,9 @@
 from __future__ import annotations
 
 from django.contrib.admin import ModelAdmin, register
+from solo.admin import SingletonModelAdmin
 
-from .models import ContactMessage
+from .models import ContactMessage, ContactPrivacyNotice
 
 
 @register(ContactMessage)
@@ -27,3 +28,8 @@ class ContactMessageAdmin(ModelAdmin[ContactMessage]):
     )
 
     date_hierarchy = "created_at"
+
+
+@register(ContactPrivacyNotice)
+class ContactPrivacyNoticeAdmin(SingletonModelAdmin):
+    """Admin interface for ContactPrivacyNotice singleton model."""

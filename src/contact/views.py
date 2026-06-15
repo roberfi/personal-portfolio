@@ -17,6 +17,7 @@ from django.views import View
 from utils.types import PageMetadata
 
 from .forms import ContactForm
+from .models import ContactPrivacyNotice
 
 if TYPE_CHECKING:
     from django.http import HttpRequest, HttpResponse
@@ -34,6 +35,7 @@ class ContactViewContext(TypedDict):
     page_metadata: PageMetadata
     form: ContactForm
     recaptcha_site_key: str | None
+    privacy_notice: ContactPrivacyNotice
 
 
 class RecaptchaResult(NamedTuple):
@@ -89,6 +91,7 @@ class ContactView(View):
             form=form,
             page_metadata=self.__get_page_metadata(),
             recaptcha_site_key=settings.RECAPTCHA_SITE_KEY if settings.IS_RECAPTCHA_CONFIGURED else None,
+            privacy_notice=ContactPrivacyNotice.get_solo(),
         )
 
     def __send_email_notification(self, contact_message: ContactMessage) -> None:
