@@ -1,9 +1,11 @@
 from __future__ import annotations
 
 from django.contrib.admin import ModelAdmin, register
+from django.utils.translation import gettext_lazy
 from solo.admin import SingletonModelAdmin
 
-from .models import ContactMessage, ContactPrivacyNotice
+from .forms import ContactFormConfigurationForm
+from .models import ContactFormConfiguration, ContactMessage
 
 
 @register(ContactMessage)
@@ -30,6 +32,38 @@ class ContactMessageAdmin(ModelAdmin[ContactMessage]):
     date_hierarchy = "created_at"
 
 
-@register(ContactPrivacyNotice)
-class ContactPrivacyNoticeAdmin(SingletonModelAdmin):
-    """Admin interface for ContactPrivacyNotice singleton model."""
+@register(ContactFormConfiguration)
+class ContactFormConfigurationAdmin(SingletonModelAdmin):
+    """Admin interface for ContactFormConfiguration singleton model."""
+
+    form = ContactFormConfigurationForm
+
+    fieldsets = (
+        (None, {"fields": ("email_provider", "default_from_email", "contact_email")}),
+        (
+            gettext_lazy("SMTP settings"),
+            {
+                "classes": ("email-config-smtp",),
+                "fields": (
+                    "smtp_host",
+                    "smtp_port",
+                    "smtp_use_tls",
+                    "smtp_use_ssl",
+                    "smtp_username",
+                    "smtp_password",
+                    "smtp_timeout",
+                ),
+            },
+        ),
+        (
+            gettext_lazy("Brevo API settings"),
+            {
+                "classes": ("email-config-brevo_api",),
+                "fields": ("brevo_api_key",),
+            },
+        ),
+        (gettext_lazy("Privacy notice"), {"fields": ("legal_and_privacy",)}),
+    )
+
+    class Media:
+        js = ("contact/admin/email_configuration.js",)

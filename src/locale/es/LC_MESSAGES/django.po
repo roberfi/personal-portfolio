@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-15 10:14+0000\n"
+"POT-Creation-Date: 2026-06-15 15:17+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -72,6 +72,18 @@ msgstr "Mi Carrera"
 msgid "Contact"
 msgstr "Contacto"
 
+#: contact/admin.py:44
+msgid "SMTP settings"
+msgstr "Configuración SMTP"
+
+#: contact/admin.py:59
+msgid "Brevo API settings"
+msgstr "Configuración de la API de Brevo"
+
+#: contact/admin.py:65
+msgid "Privacy notice"
+msgstr "Aviso de privacidad"
+
 #: contact/forms.py:28
 msgid "You must accept the privacy policy to send this message."
 msgstr "Debes aceptar la política de privacidad para enviar este mensaje."
@@ -108,14 +120,54 @@ msgstr "Asunto"
 msgid "Message"
 msgstr "Mensaje"
 
-#: contact/forms.py:102
+#: contact/forms.py:100
 msgid "Invalid message."
 msgstr "Mensaje inválido."
 
-#: contact/forms.py:106
+#: contact/forms.py:104
 #, python-format
 msgid "Message must be at least %(min_length)d characters long."
 msgstr "El mensaje debe tener al menos %(min_length)d caracteres."
+
+#: contact/forms.py:114
+msgid "Host"
+msgstr "Servidor"
+
+#: contact/forms.py:115
+msgid "Port"
+msgstr "Puerto"
+
+#: contact/forms.py:116
+msgid "Use TLS"
+msgstr "Usar TLS"
+
+#: contact/forms.py:117
+msgid "Use SSL"
+msgstr "Usar SSL"
+
+#: contact/forms.py:118
+msgid "Username"
+msgstr "Nombre de usuario"
+
+#: contact/forms.py:120
+msgid "Password"
+msgstr "Contraseña"
+
+#: contact/forms.py:122
+msgid "Timeout (seconds)"
+msgstr "Tiempo de espera (segundos)"
+
+#: contact/forms.py:124
+msgid "API key"
+msgstr "Clave de API"
+
+#: contact/forms.py:148
+msgid "This field is required when using SMTP."
+msgstr "Este campo es obligatorio si se usa SMTP."
+
+#: contact/forms.py:151
+msgid "This field is required when using the Brevo API."
+msgstr "Este campo es obligatorio si se usa la API de Brevo."
 
 #: contact/templates/contact.html:8
 msgid "Get in Touch"
@@ -164,7 +216,7 @@ msgstr ""
 msgid "contact, get in touch, message, email"
 msgstr "contacto, contactar, mensaje, correo electrónico, email"
 
-#: contact/views.py:227
+#: contact/views.py:229
 msgid ""
 "reCAPTCHA verification failed. Please try again. If the problem persists, "
 "contact me directly."
@@ -172,15 +224,15 @@ msgstr ""
 "La verificación de reCAPTCHA ha fallado. Por favor, inténtalo de nuevo. Si "
 "el problema persiste, contacta directamente."
 
-#: contact/views.py:245
+#: contact/views.py:247
 msgid "Thank you for your message! I'll get back to you as soon as possible."
 msgstr "¡Gracias por tu mensaje! Te responderé lo antes posible."
 
-#: core/settings.py:141
+#: core/settings.py:142
 msgid "English"
 msgstr "Inglés"
 
-#: core/settings.py:142
+#: core/settings.py:143
 msgid "Spanish"
 msgstr "Español"
 
