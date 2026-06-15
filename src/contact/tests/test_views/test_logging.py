@@ -60,11 +60,23 @@ class TestContactLogging(BaseContactViewTest):
 
         message = ContactMessage.objects.get()
 
-        self.assertEqual(len(captured.records), 1)
+        self.assertEqual(
+            records_len := len(captured.records), 1, f"Expected exactly one log record, got '{records_len}'"
+        )
         record = cast("_LogRecordWithExtra", captured.records[0])
-        self.assertEqual(record.getMessage(), "Contact form submission received")
-        self.assertEqual(record.contact_message_id, message.pk)
-        self.assertIsNone(record.recaptcha_score)
+        self.assertEqual(
+            log_message := record.getMessage(),
+            expected_message := "Contact form submission received",
+            f"Expected log message '{expected_message}', got '{log_message}'",
+        )
+        self.assertEqual(
+            record.contact_message_id,
+            message.pk,
+            f"Expected contact_message_id '{message.pk}', got '{record.contact_message_id}'",
+        )
+        self.assertIsNone(
+            record.recaptcha_score, f"Expected recaptcha_score to be None, got '{record.recaptcha_score}'"
+        )
 
     def test_email_sending_failure_is_logged(self) -> None:
         """A failure sending the notification email logs an exception to the 'contact' logger."""
@@ -78,11 +90,21 @@ class TestContactLogging(BaseContactViewTest):
 
         message = ContactMessage.objects.get()
 
-        self.assertEqual(len(captured.records), 1)
+        self.assertEqual(
+            records_len := len(captured.records), 1, f"Expected exactly one log record, got '{records_len}'"
+        )
         record = cast("_LogRecordWithExtra", captured.records[0])
-        self.assertEqual(record.getMessage(), "Failed to send email notification for contact message")
-        self.assertEqual(record.contact_message_id, message.pk)
-        self.assertEqual(record.levelname, "ERROR")
+        self.assertEqual(
+            log_message := record.getMessage(),
+            expected_message := "Failed to send email notification for contact message",
+            f"Expected log message '{expected_message}', got '{log_message}'",
+        )
+        self.assertEqual(
+            record.contact_message_id,
+            message.pk,
+            f"Expected contact_message_id '{message.pk}', got '{record.contact_message_id}'",
+        )
+        self.assertEqual(record.levelname, "ERROR", f"Expected log level 'ERROR', got '{record.levelname}'")
 
 
 @override_settings(
@@ -109,8 +131,14 @@ class TestRecaptchaLogging(BaseContactViewTest):
         with self.assertLogs("security", level="WARNING") as captured:
             self.client.post(f"/{self.language}/{self.request_path}", data=_get_form_data())
 
-        self.assertEqual(len(captured.records), 1)
-        self.assertEqual(captured.records[0].getMessage(), "reCAPTCHA token missing from contact form submission")
+        self.assertEqual(
+            records_len := len(captured.records), 1, f"Expected exactly one log record, got '{records_len}'"
+        )
+        self.assertEqual(
+            log_message := captured.records[0].getMessage(),
+            expected_message := "reCAPTCHA token missing from contact form submission",
+            f"Expected log message '{expected_message}', got '{log_message}'",
+        )
 
     def test_successful_verification_is_logged(self) -> None:
         """A successful reCAPTCHA verification logs an info message to the 'recaptcha' logger with the score."""
@@ -120,10 +148,16 @@ class TestRecaptchaLogging(BaseContactViewTest):
         ):
             self.client.post(f"/{self.language}/{self.request_path}", data=_get_form_data(with_recaptcha_token=True))
 
-        self.assertEqual(len(captured.records), 1)
+        self.assertEqual(
+            records_len := len(captured.records), 1, f"Expected exactly one log record, got '{records_len}'"
+        )
         record = cast("_LogRecordWithExtra", captured.records[0])
-        self.assertEqual(record.getMessage(), "reCAPTCHA verification passed")
-        self.assertEqual(record.score, 0.9)
+        self.assertEqual(
+            log_message := record.getMessage(),
+            expected_message := "reCAPTCHA verification passed",
+            f"Expected log message '{expected_message}', got '{log_message}'",
+        )
+        self.assertEqual(score := record.score, 0.9, f"Expected score 0.9, got '{score}'")
 
     def test_low_score_is_logged_as_security_warning(self) -> None:
         """A reCAPTCHA verification with a score below the threshold logs a warning to the 'security' logger."""
@@ -133,12 +167,18 @@ class TestRecaptchaLogging(BaseContactViewTest):
         ):
             self.client.post(f"/{self.language}/{self.request_path}", data=_get_form_data(with_recaptcha_token=True))
 
-        self.assertEqual(len(captured.records), 1)
+        self.assertEqual(
+            records_len := len(captured.records), 1, f"Expected exactly one log record, got '{records_len}'"
+        )
         record = cast("_LogRecordWithExtra", captured.records[0])
-        self.assertEqual(record.getMessage(), "reCAPTCHA verification failed")
-        self.assertTrue(record.success)
-        self.assertEqual(record.score, 0.3)
-        self.assertEqual(record.action, "contact_form")
+        self.assertEqual(
+            log_message := record.getMessage(),
+            expected_message := "reCAPTCHA verification failed",
+            f"Expected log message '{expected_message}', got '{log_message}'",
+        )
+        self.assertTrue(record.success, f"Expected success to be True, got '{record.success}'")
+        self.assertEqual(score := record.score, 0.3, f"Expected score 0.3, got '{score}'")
+        self.assertEqual(action := record.action, "contact_form", f"Expected action 'contact_form', got '{action}'")
 
     def test_network_error_is_logged_as_recaptcha_warning(self) -> None:
         """A network error contacting the reCAPTCHA API logs a warning to the 'recaptcha' logger."""
@@ -148,8 +188,14 @@ class TestRecaptchaLogging(BaseContactViewTest):
         ):
             self.client.post(f"/{self.language}/{self.request_path}", data=_get_form_data(with_recaptcha_token=True))
 
-        self.assertEqual(len(captured.records), 1)
-        self.assertEqual(captured.records[0].getMessage(), "reCAPTCHA API error, allowing submission")
+        self.assertEqual(
+            records_len := len(captured.records), 1, f"Expected exactly one log record, got '{records_len}'"
+        )
+        self.assertEqual(
+            log_message := captured.records[0].getMessage(),
+            expected_message := "reCAPTCHA API error, allowing submission",
+            f"Expected log message '{expected_message}', got '{log_message}'",
+        )
 
     def test_unexpected_error_is_logged_as_recaptcha_error(self) -> None:
         """An unexpected error during reCAPTCHA verification logs an exception to the 'recaptcha' logger."""
@@ -159,7 +205,13 @@ class TestRecaptchaLogging(BaseContactViewTest):
         ):
             self.client.post(f"/{self.language}/{self.request_path}", data=_get_form_data(with_recaptcha_token=True))
 
-        self.assertEqual(len(captured.records), 1)
+        self.assertEqual(
+            records_len := len(captured.records), 1, f"Expected exactly one log record, got '{records_len}'"
+        )
         record = captured.records[0]
-        self.assertEqual(record.getMessage(), "Unexpected error during reCAPTCHA verification")
-        self.assertEqual(record.levelname, "ERROR")
+        self.assertEqual(
+            log_message := record.getMessage(),
+            expected_message := "Unexpected error during reCAPTCHA verification",
+            f"Expected log message '{expected_message}', got '{log_message}'",
+        )
+        self.assertEqual(record.levelname, "ERROR", f"Expected log level 'ERROR', got '{record.levelname}'")

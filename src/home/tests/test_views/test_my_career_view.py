@@ -30,19 +30,37 @@ class BaseTestMyCareerViewContent(BaseHomeViewTest):
         data = self._get_json_ld_data()
 
         # Verify @context
-        self.assertIn("@context", data)
-        self.assertEqual(data["@context"]["@vocab"], "https://schema.org/")
-        self.assertEqual(data["@context"]["@language"], self.language)
+        self.assertIn("@context", data, f"Expected '@context' key in the JSON-LD data, got keys: {list(data)}")
+        self.assertEqual(
+            vocab := data["@context"]["@vocab"],
+            "https://schema.org/",
+            f"Expected '@context.@vocab' to be 'https://schema.org/', got '{vocab}'",
+        )
+        self.assertEqual(
+            language := data["@context"]["@language"],
+            self.language,
+            f"Expected '@context.@language' to be '{self.language}', got '{language}'",
+        )
 
         # Verify @graph structure
-        self.assertIn("@graph", data)
-        self.assertIsInstance(data["@graph"], list)
+        self.assertIn("@graph", data, f"Expected '@graph' key in the JSON-LD data, got keys: {list(data)}")
+        self.assertIsInstance(data["@graph"], list, f"Expected '@graph' to be a list, got '{type(data['@graph'])}'")
 
         # Verify counts
         work_items = [item for item in data["@graph"] if item["@type"] == "WorkExperience"]
         edu_items = [item for item in data["@graph"] if item["@type"] == "EducationalOccupationalCredential"]
-        self.assertEqual(len(work_items), test_view_constants.EXPECTED_NUMBER_OF_EXPERIENCES)
-        self.assertEqual(len(edu_items), test_view_constants.EXPECTED_NUMBER_OF_EDUCATION_ENTRIES)
+        self.assertEqual(
+            work_items_count := len(work_items),
+            test_view_constants.EXPECTED_NUMBER_OF_EXPERIENCES,
+            f"Expected {test_view_constants.EXPECTED_NUMBER_OF_EXPERIENCES} WorkExperience items, "
+            f"got {work_items_count}",
+        )
+        self.assertEqual(
+            edu_items_count := len(edu_items),
+            test_view_constants.EXPECTED_NUMBER_OF_EDUCATION_ENTRIES,
+            f"Expected {test_view_constants.EXPECTED_NUMBER_OF_EDUCATION_ENTRIES} "
+            f"EducationalOccupationalCredential items, got {edu_items_count}",
+        )
 
     def test_json_ld_work_experience_schemas(self) -> None:
         """Test that JSON-LD includes complete WorkExperience schemas."""
@@ -52,38 +70,104 @@ class BaseTestMyCareerViewContent(BaseHomeViewTest):
 
         # Verify Experience 2 (most recent)
         exp2 = work_items[0]
-        self.assertEqual(exp2["name"], test_view_constants.EXPERIENCE_2_TITLE[self.language])
-        self.assertEqual(exp2["description"], test_view_constants.EXPERIENCE_2_DESCRIPTION[self.language])
-        self.assertEqual(exp2["startDate"], test_view_constants.EXPERIENCE_2_START_DATE.isoformat())
-        self.assertNotIn("endDate", exp2)
+        self.assertEqual(
+            name := exp2["name"],
+            expected_name := test_view_constants.EXPERIENCE_2_TITLE[self.language],
+            f"Expected exp2.name to be '{expected_name}', got '{name}'",
+        )
+        self.assertEqual(
+            description := exp2["description"],
+            expected_description := test_view_constants.EXPERIENCE_2_DESCRIPTION[self.language],
+            f"Expected exp2.description to be '{expected_description}', got '{description}'",
+        )
+        self.assertEqual(
+            start_date := exp2["startDate"],
+            expected_start_date := test_view_constants.EXPERIENCE_2_START_DATE.isoformat(),
+            f"Expected exp2.startDate to be '{expected_start_date}', got '{start_date}'",
+        )
+        self.assertNotIn("endDate", exp2, f"Expected exp2 to not have an 'endDate' key, got keys: {list(exp2)}")
 
-        self.assertEqual(exp2["location"]["@type"], "Place")
-        self.assertEqual(exp2["location"]["name"], test_view_constants.EXPERIENCE_2_LOCATION[self.language])
+        self.assertEqual(
+            location_type := exp2["location"]["@type"],
+            "Place",
+            f"Expected exp2.location.@type to be 'Place', got '{location_type}'",
+        )
+        self.assertEqual(
+            location_name := exp2["location"]["name"],
+            expected_location_name := test_view_constants.EXPERIENCE_2_LOCATION[self.language],
+            f"Expected exp2.location.name to be '{expected_location_name}', got '{location_name}'",
+        )
 
-        self.assertEqual(exp2["employer"]["@type"], "Organization")
-        self.assertEqual(exp2["employer"]["name"], test_view_constants.EXPERIENCE_2_COMPANY)
+        self.assertEqual(
+            employer_type := exp2["employer"]["@type"],
+            "Organization",
+            f"Expected exp2.employer.@type to be 'Organization', got '{employer_type}'",
+        )
+        self.assertEqual(
+            employer_name := exp2["employer"]["name"],
+            test_view_constants.EXPERIENCE_2_COMPANY,
+            f"Expected exp2.employer.name to be '{test_view_constants.EXPERIENCE_2_COMPANY}', got '{employer_name}'",
+        )
 
         expected_skills = [
             test_view_constants.TECHNOLOGY_1[self.language],
             test_view_constants.TECHNOLOGY_2[self.language],
             test_view_constants.TECHNOLOGY_4[self.language],
         ]
-        self.assertEqual(exp2["skills"], expected_skills)
+        self.assertEqual(
+            skills := exp2["skills"], expected_skills, f"Expected exp2.skills to be '{expected_skills}', got '{skills}'"
+        )
 
         # Verify Experience 1 (older)
         exp1 = work_items[1]
-        self.assertEqual(exp1["name"], test_view_constants.EXPERIENCE_1_TITLE[self.language])
-        self.assertEqual(exp1["description"], test_view_constants.EXPERIENCE_1_DESCRIPTION[self.language])
-        self.assertEqual(exp1["startDate"], test_view_constants.EXPERIENCE_1_START_DATE.isoformat())
-        self.assertEqual(exp1["endDate"], test_view_constants.EXPERIENCE_1_END_DATE.isoformat())
+        self.assertEqual(
+            name := exp1["name"],
+            expected_name := test_view_constants.EXPERIENCE_1_TITLE[self.language],
+            f"Expected exp1.name to be '{expected_name}', got '{name}'",
+        )
+        self.assertEqual(
+            description := exp1["description"],
+            expected_description := test_view_constants.EXPERIENCE_1_DESCRIPTION[self.language],
+            f"Expected exp1.description to be '{expected_description}', got '{description}'",
+        )
+        self.assertEqual(
+            start_date := exp1["startDate"],
+            expected_start_date := test_view_constants.EXPERIENCE_1_START_DATE.isoformat(),
+            f"Expected exp1.startDate to be '{expected_start_date}', got '{start_date}'",
+        )
+        self.assertEqual(
+            end_date := exp1["endDate"],
+            expected_end_date := test_view_constants.EXPERIENCE_1_END_DATE.isoformat(),
+            f"Expected exp1.endDate to be '{expected_end_date}', got '{end_date}'",
+        )
 
-        self.assertEqual(exp1["location"]["@type"], "Place")
-        self.assertEqual(exp1["location"]["name"], test_view_constants.EXPERIENCE_1_LOCATION[self.language])
+        self.assertEqual(
+            location_type := exp1["location"]["@type"],
+            "Place",
+            f"Expected exp1.location.@type to be 'Place', got '{location_type}'",
+        )
+        self.assertEqual(
+            location_name := exp1["location"]["name"],
+            expected_location_name := test_view_constants.EXPERIENCE_1_LOCATION[self.language],
+            f"Expected exp1.location.name to be '{expected_location_name}', got '{location_name}'",
+        )
 
-        self.assertEqual(exp1["employer"]["@type"], "Organization")
-        self.assertEqual(exp1["employer"]["name"], test_view_constants.EXPERIENCE_1_COMPANY)
+        self.assertEqual(
+            employer_type := exp1["employer"]["@type"],
+            "Organization",
+            f"Expected exp1.employer.@type to be 'Organization', got '{employer_type}'",
+        )
+        self.assertEqual(
+            employer_name := exp1["employer"]["name"],
+            test_view_constants.EXPERIENCE_1_COMPANY,
+            f"Expected exp1.employer.name to be '{test_view_constants.EXPERIENCE_1_COMPANY}', got '{employer_name}'",
+        )
 
-        self.assertEqual(exp1["skills"], [test_view_constants.TECHNOLOGY_3[self.language]])
+        self.assertEqual(
+            skills := exp1["skills"],
+            expected_skills_exp1 := [test_view_constants.TECHNOLOGY_3[self.language]],
+            f"Expected exp1.skills to be '{expected_skills_exp1}', got '{skills}'",
+        )
 
     def test_json_ld_education_schemas(self) -> None:
         """Test that JSON-LD includes complete EducationalOccupationalCredential schemas."""
@@ -93,32 +177,104 @@ class BaseTestMyCareerViewContent(BaseHomeViewTest):
 
         # Verify Education 2 (most recent)
         edu2 = edu_items[0]
-        self.assertEqual(edu2["name"], test_view_constants.EDUCATION_2_TITLE[self.language])
-        self.assertEqual(edu2["description"], test_view_constants.EDUCATION_2_DESCRIPTION[self.language])
-        self.assertEqual(edu2["educationalLevel"], test_view_constants.EDUCATION_2_TITLE[self.language])
-        self.assertEqual(edu2["dateCreated"], test_view_constants.EDUCATION_2_START_DATE.isoformat())
-        self.assertEqual(edu2["validFrom"], test_view_constants.EDUCATION_2_END_DATE.isoformat())
-
-        self.assertEqual(edu2["recognizedBy"]["@type"], "EducationalOrganization")
-        self.assertEqual(edu2["recognizedBy"]["name"], test_view_constants.EDUCATION_2_INSTITUTION)
-        self.assertEqual(edu2["recognizedBy"]["location"]["@type"], "Place")
         self.assertEqual(
-            edu2["recognizedBy"]["location"]["name"], test_view_constants.EDUCATION_2_LOCATION[self.language]
+            name := edu2["name"],
+            expected_name := test_view_constants.EDUCATION_2_TITLE[self.language],
+            f"Expected edu2.name to be '{expected_name}', got '{name}'",
+        )
+        self.assertEqual(
+            description := edu2["description"],
+            expected_description := test_view_constants.EDUCATION_2_DESCRIPTION[self.language],
+            f"Expected edu2.description to be '{expected_description}', got '{description}'",
+        )
+        self.assertEqual(
+            educational_level := edu2["educationalLevel"],
+            expected_educational_level := test_view_constants.EDUCATION_2_TITLE[self.language],
+            f"Expected edu2.educationalLevel to be '{expected_educational_level}', got '{educational_level}'",
+        )
+        self.assertEqual(
+            date_created := edu2["dateCreated"],
+            expected_date_created := test_view_constants.EDUCATION_2_START_DATE.isoformat(),
+            f"Expected edu2.dateCreated to be '{expected_date_created}', got '{date_created}'",
+        )
+        self.assertEqual(
+            valid_from := edu2["validFrom"],
+            expected_valid_from := test_view_constants.EDUCATION_2_END_DATE.isoformat(),
+            f"Expected edu2.validFrom to be '{expected_valid_from}', got '{valid_from}'",
+        )
+
+        self.assertEqual(
+            recognized_by_type := edu2["recognizedBy"]["@type"],
+            "EducationalOrganization",
+            f"Expected edu2.recognizedBy.@type to be 'EducationalOrganization', got '{recognized_by_type}'",
+        )
+        self.assertEqual(
+            recognized_by_name := edu2["recognizedBy"]["name"],
+            test_view_constants.EDUCATION_2_INSTITUTION,
+            f"Expected edu2.recognizedBy.name to be '{test_view_constants.EDUCATION_2_INSTITUTION}', "
+            f"got '{recognized_by_name}'",
+        )
+        self.assertEqual(
+            recognized_by_location_type := edu2["recognizedBy"]["location"]["@type"],
+            "Place",
+            f"Expected edu2.recognizedBy.location.@type to be 'Place', got '{recognized_by_location_type}'",
+        )
+        self.assertEqual(
+            recognized_by_location_name := edu2["recognizedBy"]["location"]["name"],
+            expected_recognized_by_location_name := test_view_constants.EDUCATION_2_LOCATION[self.language],
+            f"Expected edu2.recognizedBy.location.name to be '{expected_recognized_by_location_name}', "
+            f"got '{recognized_by_location_name}'",
         )
 
         # Verify Education 1
         edu1 = edu_items[1]
-        self.assertEqual(edu1["name"], test_view_constants.EDUCATION_1_TITLE[self.language])
-        self.assertEqual(edu1["description"], test_view_constants.EDUCATION_1_DESCRIPTION[self.language])
-        self.assertEqual(edu1["educationalLevel"], test_view_constants.EDUCATION_1_TITLE[self.language])
-        self.assertEqual(edu1["dateCreated"], test_view_constants.EDUCATION_1_START_DATE.isoformat())
-        self.assertEqual(edu1["validFrom"], test_view_constants.EDUCATION_1_END_DATE.isoformat())
-
-        self.assertEqual(edu1["recognizedBy"]["@type"], "EducationalOrganization")
-        self.assertEqual(edu1["recognizedBy"]["name"], test_view_constants.EDUCATION_1_INSTITUTION)
-        self.assertEqual(edu1["recognizedBy"]["location"]["@type"], "Place")
         self.assertEqual(
-            edu1["recognizedBy"]["location"]["name"], test_view_constants.EDUCATION_1_LOCATION[self.language]
+            name := edu1["name"],
+            expected_name := test_view_constants.EDUCATION_1_TITLE[self.language],
+            f"Expected edu1.name to be '{expected_name}', got '{name}'",
+        )
+        self.assertEqual(
+            description := edu1["description"],
+            expected_description := test_view_constants.EDUCATION_1_DESCRIPTION[self.language],
+            f"Expected edu1.description to be '{expected_description}', got '{description}'",
+        )
+        self.assertEqual(
+            educational_level := edu1["educationalLevel"],
+            expected_educational_level := test_view_constants.EDUCATION_1_TITLE[self.language],
+            f"Expected edu1.educationalLevel to be '{expected_educational_level}', got '{educational_level}'",
+        )
+        self.assertEqual(
+            date_created := edu1["dateCreated"],
+            expected_date_created := test_view_constants.EDUCATION_1_START_DATE.isoformat(),
+            f"Expected edu1.dateCreated to be '{expected_date_created}', got '{date_created}'",
+        )
+        self.assertEqual(
+            valid_from := edu1["validFrom"],
+            expected_valid_from := test_view_constants.EDUCATION_1_END_DATE.isoformat(),
+            f"Expected edu1.validFrom to be '{expected_valid_from}', got '{valid_from}'",
+        )
+
+        self.assertEqual(
+            recognized_by_type := edu1["recognizedBy"]["@type"],
+            "EducationalOrganization",
+            f"Expected edu1.recognizedBy.@type to be 'EducationalOrganization', got '{recognized_by_type}'",
+        )
+        self.assertEqual(
+            recognized_by_name := edu1["recognizedBy"]["name"],
+            test_view_constants.EDUCATION_1_INSTITUTION,
+            f"Expected edu1.recognizedBy.name to be '{test_view_constants.EDUCATION_1_INSTITUTION}', "
+            f"got '{recognized_by_name}'",
+        )
+        self.assertEqual(
+            recognized_by_location_type := edu1["recognizedBy"]["location"]["@type"],
+            "Place",
+            f"Expected edu1.recognizedBy.location.@type to be 'Place', got '{recognized_by_location_type}'",
+        )
+        self.assertEqual(
+            recognized_by_location_name := edu1["recognizedBy"]["location"]["name"],
+            expected_recognized_by_location_name := test_view_constants.EDUCATION_1_LOCATION[self.language],
+            f"Expected edu1.recognizedBy.location.name to be '{expected_recognized_by_location_name}', "
+            f"got '{recognized_by_location_name}'",
         )
 
     def test_meta_tags(self) -> None:

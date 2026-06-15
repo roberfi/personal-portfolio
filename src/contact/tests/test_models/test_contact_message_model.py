@@ -51,11 +51,11 @@ class TestContactMessageModel(TestCase):
 
     def test_default_is_read(self) -> None:
         """Test that is_read defaults to False."""
-        self.assertFalse(self.message1.is_read)
+        self.assertFalse(self.message1.is_read, f"Expected is_read to default to False, got '{self.message1.is_read}'")
 
     def test_created_at_auto_set(self) -> None:
         """Test that created_at is automatically set."""
-        self.assertIsNotNone(self.message1.created_at)
+        self.assertIsNotNone(self.message1.created_at, "Expected created_at to be automatically set, got None")
 
     def test_error_field(self) -> None:
         """Test the error field functionality."""

@@ -48,19 +48,37 @@ class BaseTestContactViewContent(base_view_test_case.CommonPageTestsMixin, BaseC
         data = self._get_json_ld_data()
 
         # Verify @context structure
-        self.assertIn("@context", data)
-        self.assertIsInstance(data["@context"], dict)
-        self.assertEqual(data["@context"]["@vocab"], "https://schema.org/")
+        self.assertIn("@context", data, f"Expected '@context' key in the JSON-LD data, got keys: {list(data)}")
+        self.assertIsInstance(
+            data["@context"], dict, f"Expected '@context' to be a dict, got '{type(data['@context'])}'"
+        )
+        self.assertEqual(
+            vocab := data["@context"]["@vocab"],
+            "https://schema.org/",
+            f"Expected '@context.@vocab' to be 'https://schema.org/', got '{vocab}'",
+        )
 
         # Verify language
-        self.assertEqual(data["@context"]["@language"], self.language)
+        self.assertEqual(
+            language := data["@context"]["@language"],
+            self.language,
+            f"Expected '@context.@language' to be '{self.language}', got '{language}'",
+        )
 
         # Verify @type
-        self.assertEqual(data["@type"], "ContactPage")
+        self.assertEqual(type_ := data["@type"], "ContactPage", f"Expected '@type' to be 'ContactPage', got '{type_}'")
 
         # Verify fields
-        self.assertEqual(data["name"], test_view_constants.META_TITLE[self.language])
-        self.assertEqual(data["description"], test_view_constants.META_DESCRIPTION[self.language])
+        self.assertEqual(
+            name := data["name"],
+            expected_name := test_view_constants.META_TITLE[self.language],
+            f"Expected 'name' to be '{expected_name}', got '{name}'",
+        )
+        self.assertEqual(
+            description := data["description"],
+            expected_description := test_view_constants.META_DESCRIPTION[self.language],
+            f"Expected 'description' to be '{expected_description}', got '{description}'",
+        )
 
     def test_meta_tags(self) -> None:
         """Test that meta tags have correct values for contact page."""
@@ -290,7 +308,9 @@ class BaseTestContactViewContent(base_view_test_case.CommonPageTestsMixin, BaseC
         )
 
         # Check email was sent
-        self.assertEqual(len(mail.outbox), 1)
+        self.assertEqual(
+            outbox_len := len(mail.outbox), 1, f"Expected exactly one email to be sent, got '{outbox_len}'"
+        )
         self.assertEqual(
             mail.outbox[0].to,
             [test_view_constants.TO_EMAIL_ADDRESS],
@@ -373,13 +393,25 @@ class BaseTestContactViewContent(base_view_test_case.CommonPageTestsMixin, BaseC
         response = self.client.post(f"/{self.language}/{self.request_path}", data=form_data)
 
         # Should not redirect, should show form with errors
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(
+            status_code := response.status_code,
+            200,
+            f"Expected status code 200 when the form is invalid, got '{status_code}'",
+        )
 
         # Check no message was saved
-        self.assertEqual(ContactMessage.objects.count(), 0)
+        self.assertEqual(
+            message_count := ContactMessage.objects.count(),
+            0,
+            f"Expected no ContactMessage to be created for an invalid submission, got '{message_count}'",
+        )
 
         # Check no email was sent
-        self.assertEqual(len(mail.outbox), 0)
+        self.assertEqual(
+            outbox_len := len(mail.outbox),
+            0,
+            f"Expected no email to be sent for an invalid submission, got '{outbox_len}'",
+        )
 
         contact_container = self._find_element_by_tag_and_id(
             get_beautiful_soup_from_response(response), HtmlTag.DIV, test_view_constants.CONTACT_CONTAINER_ID
@@ -406,13 +438,25 @@ class BaseTestContactViewContent(base_view_test_case.CommonPageTestsMixin, BaseC
         response = self.client.post(f"/{self.language}/{self.request_path}", data=form_data)
 
         # Should not redirect, should show form with errors
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(
+            status_code := response.status_code,
+            200,
+            f"Expected status code 200 when the form is invalid, got '{status_code}'",
+        )
 
         # Check no message was saved
-        self.assertEqual(ContactMessage.objects.count(), 0)
+        self.assertEqual(
+            message_count := ContactMessage.objects.count(),
+            0,
+            f"Expected no ContactMessage to be created for an invalid submission, got '{message_count}'",
+        )
 
         # Check no email was sent
-        self.assertEqual(len(mail.outbox), 0)
+        self.assertEqual(
+            outbox_len := len(mail.outbox),
+            0,
+            f"Expected no email to be sent for an invalid submission, got '{outbox_len}'",
+        )
 
         contact_container = self._find_element_by_tag_and_id(
             get_beautiful_soup_from_response(response), HtmlTag.DIV, test_view_constants.CONTACT_CONTAINER_ID
@@ -452,11 +496,27 @@ class BaseTestContactViewContent(base_view_test_case.CommonPageTestsMixin, BaseC
         assert message is not None, "ContactMessage retrieved from database is None"
 
         # Check the basic fields are correct
-        self.assertEqual(message.name, test_view_constants.TEST_NAME)
-        self.assertEqual(message.email, test_view_constants.TEST_EMAIL)
-        self.assertEqual(message.subject, test_view_constants.TEST_SUBJECT)
-        self.assertEqual(message.message, test_view_constants.TEST_MESSAGE)
-        self.assertFalse(message.is_read)
+        self.assertEqual(
+            message.name,
+            test_view_constants.TEST_NAME,
+            f"Name field mismatch: expected '{test_view_constants.TEST_NAME}', got '{message.name}'",
+        )
+        self.assertEqual(
+            message.email,
+            test_view_constants.TEST_EMAIL,
+            f"Email field mismatch: expected '{test_view_constants.TEST_EMAIL}', got '{message.email}'",
+        )
+        self.assertEqual(
+            message.subject,
+            test_view_constants.TEST_SUBJECT,
+            f"Subject field mismatch: expected '{test_view_constants.TEST_SUBJECT}', got '{message.subject}'",
+        )
+        self.assertEqual(
+            message.message,
+            test_view_constants.TEST_MESSAGE,
+            f"Message field mismatch: expected '{test_view_constants.TEST_MESSAGE}', got '{message.message}'",
+        )
+        self.assertFalse(message.is_read, f"is_read field should be False for new messages, got '{message.is_read}'")
 
         # Check that the error was saved
         self.assertNotEqual(
@@ -554,9 +614,19 @@ class BaseTestContactViewPrivacyPolicy(BaseContactViewTest):
 
         response = self.client.post(f"/{self.language}/{self.request_path}", data=form_data)
 
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(ContactMessage.objects.count(), 0)
-        self.assertEqual(len(mail.outbox), 0)
+        self.assertEqual(
+            status_code := response.status_code,
+            200,
+            f"Expected status code 200 when consent is not given, got '{status_code}'",
+        )
+        self.assertEqual(
+            message_count := ContactMessage.objects.count(),
+            0,
+            f"Expected no ContactMessage to be created without consent, got '{message_count}'",
+        )
+        self.assertEqual(
+            outbox_len := len(mail.outbox), 0, f"Expected no email to be sent without consent, got '{outbox_len}'"
+        )
 
         contact_container = self._find_element_by_tag_and_id(
             get_beautiful_soup_from_response(response), HtmlTag.DIV, test_view_constants.CONTACT_CONTAINER_ID
@@ -582,7 +652,11 @@ class BaseTestContactViewPrivacyPolicy(BaseContactViewTest):
         response = self.client.post(f"/{self.language}/{self.request_path}", data=form_data)
 
         self.assertRedirects(response, f"/{self.language}/{self.request_path}", status_code=302, target_status_code=200)
-        self.assertEqual(ContactMessage.objects.count(), 1)
+        self.assertEqual(
+            message_count := ContactMessage.objects.count(),
+            1,
+            f"Expected one ContactMessage to be created when consent is given, got '{message_count}'",
+        )
 
 
 class TestContactViewPrivacyPolicyEnglish(BaseTestContactViewPrivacyPolicy):
