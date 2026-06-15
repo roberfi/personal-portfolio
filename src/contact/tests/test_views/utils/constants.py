@@ -32,6 +32,11 @@ CONTACT_FORM_MESSAGE_ERROR_ID = "contact-form-message-error"
 
 CONTACT_ADDITIONAL_INFO_ID = "contact-additional-info"
 
+CONTACT_FORM_PRIVACY_POLICY_ID = "contact-form-privacy-policy"
+CONTACT_FORM_PRIVACY_POLICY_CHECKBOX_ID = "id_privacy_policy_accepted"
+CONTACT_FORM_PRIVACY_POLICY_LINK_ID = "contact-form-privacy-policy-link"
+CONTACT_FORM_PRIVACY_POLICY_ERROR_ID = "contact-form-privacy-policy-error"
+
 # Test data
 TEST_NAME = "Test Name"
 TEST_EMAIL = "test@example.com"
@@ -122,6 +127,16 @@ SUBMIT_BUTTON_TEXT = {
 ADDITIONAL_INFO_TEXT = {
     Language.ENGLISH: "Your information is safe and will only be used to respond to your inquiry.",
     Language.SPANISH: "Tu información está segura y sólo se utilizará para responder a tu consulta.",
+}
+
+PRIVACY_POLICY_LABEL_TEXT = {
+    Language.ENGLISH: "I accept the",
+    Language.SPANISH: "Acepto la",
+}
+
+VALIDATION_ERROR_PRIVACY_POLICY_NOT_ACCEPTED = {
+    Language.ENGLISH: "You must accept the privacy policy to send this message.",
+    Language.SPANISH: "Debes aceptar la política de privacidad para enviar este mensaje.",
 }
 
 # Metadata constants

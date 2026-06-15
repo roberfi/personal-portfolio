@@ -141,6 +141,31 @@
                             {{ form.recaptcha_token }}
                         {% endif %}
 
+                        {% if privacy_notice.legal_and_privacy %}
+                            <!-- Privacy Policy Consent -->
+                            <div id="contact-form-privacy-policy" class="form-control">
+                                <label class="label cursor-pointer justify-start gap-2"
+                                       for="{{ form.privacy_policy_accepted.id_for_label }}">
+                                    {{ form.privacy_policy_accepted }}
+                                    <span class="label-text">
+                                        {% translate "I accept the" %}
+                                        <button type="button"
+                                                id="contact-form-privacy-policy-link"
+                                                class="link link-primary"
+                                                onclick="{{ privacy_notice.legal_and_privacy.modal_name }}.showModal()">
+                                            {{ privacy_notice.legal_and_privacy.title }}
+                                        </button>
+                                    </span>
+                                </label>
+                                {% if form.privacy_policy_accepted.errors %}
+                                    <label class="label">
+                                        <span id="contact-form-privacy-policy-error"
+                                              class="label-text-alt text-error">{{ form.privacy_policy_accepted.errors.0 }}</span>
+                                    </label>
+                                {% endif %}
+                            </div>
+                        {% endif %}
+
                         <!-- Submit Button -->
                         <div class="form-control mt-8">
                             <button id="contact-form-submit-button"

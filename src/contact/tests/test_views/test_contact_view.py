@@ -9,8 +9,10 @@ from django.core import mail
 from django.test import override_settings
 
 import contact.tests.test_views.utils.constants as test_view_constants
-from base.models import SiteMedia
-from contact.models import ContactMessage
+import home.tests.test_views.utils.constants as home_test_view_constants
+import utils.test_utils.constants as common_constants
+from base.models import LegalAndPrivacy, SiteMedia
+from contact.models import ContactMessage, ContactPrivacyNotice
 from contact.tests.test_views.base_view_test import BaseContactViewTest
 from utils.test_utils import base_view_test_case
 from utils.test_utils.base_view_test_case import ElementText, get_beautiful_soup_from_response
@@ -218,6 +220,14 @@ class BaseTestContactViewContent(base_view_test_case.CommonPageTestsMixin, BaseC
                 self.response_data.soup, HtmlTag.DIV, test_view_constants.CONTACT_CONTAINER_ID
             )
         )
+
+    def test_no_privacy_policy_checkbox_by_default(self) -> None:
+        """Test that no privacy policy consent checkbox is shown when ContactPrivacyNotice is not configured."""
+        contact_container = self._find_element_by_tag_and_id(
+            self.response_data.soup, HtmlTag.DIV, test_view_constants.CONTACT_CONTAINER_ID
+        )
+
+        self._assert_element_not_exists(contact_container, test_view_constants.CONTACT_FORM_PRIVACY_POLICY_ID)
 
     def test_valid_form_submission(self) -> None:
         """Test successful form submission."""
@@ -477,5 +487,111 @@ class TestContactViewContentEnglish(BaseTestContactViewContent):
 
 class TestContactViewContentSpanish(BaseTestContactViewContent):
     """Test contact view content in Spanish."""
+
+    language = Language.SPANISH
+
+
+@override_settings(
+    IS_RECAPTCHA_CONFIGURED=False,
+    RECAPTCHA_SITE_KEY=None,
+    RECAPTCHA_SECRET_KEY=None,
+)
+class BaseTestContactViewPrivacyPolicy(BaseContactViewTest):
+    """Base class for testing the contact view privacy policy consent checkbox."""
+
+    request_path = "contact/"
+
+    @classmethod
+    def init_db(cls) -> None:
+        """Configure the ContactPrivacyNotice to use the first Legal and Privacy section as the privacy policy."""
+        legal_and_privacy = LegalAndPrivacy.objects.get(
+            title=home_test_view_constants.LEGAL_SECTION_1[Language.ENGLISH]
+        )
+
+        privacy_notice = ContactPrivacyNotice.get_solo()
+        ContactPrivacyNotice.objects.filter(pk=privacy_notice.pk).update(legal_and_privacy=legal_and_privacy)
+
+    def __get_privacy_policy_form_control(self) -> Tag:
+        contact_container = self._find_element_by_tag_and_id(
+            self.response_data.soup, HtmlTag.DIV, test_view_constants.CONTACT_CONTAINER_ID
+        )
+
+        return self._find_element_by_tag_and_id(
+            contact_container, HtmlTag.DIV, test_view_constants.CONTACT_FORM_PRIVACY_POLICY_ID
+        )
+
+    def test_privacy_policy_checkbox_is_shown(self) -> None:
+        """Test that the privacy policy checkbox is shown and links to the configured Legal and Privacy section."""
+        privacy_policy_control = self.__get_privacy_policy_form_control()
+
+        checkbox = self._find_element_by_tag_and_id(
+            privacy_policy_control, HtmlTag.INPUT, test_view_constants.CONTACT_FORM_PRIVACY_POLICY_CHECKBOX_ID
+        )
+        self._assert_attribute_of_element(checkbox, "type", "checkbox")
+
+        self._assert_text_of_element(
+            privacy_policy_control,
+            f"{test_view_constants.PRIVACY_POLICY_LABEL_TEXT[self.language]}"
+            f" {home_test_view_constants.LEGAL_SECTION_1[self.language]}",
+        )
+
+        self._assert_attribute_of_element(
+            self._find_element_by_tag_and_id(
+                privacy_policy_control, HtmlTag.BUTTON, test_view_constants.CONTACT_FORM_PRIVACY_POLICY_LINK_ID
+            ),
+            common_constants.ATTR_ONCLICK,
+            f"{home_test_view_constants.LEGAL_AND_PRIVACY_MODAL_ID_TEMPLATE.format(id=1)}.showModal()",
+        )
+
+    def test_submission_rejected_without_consent(self) -> None:
+        """Test that the form submission is rejected if the privacy policy checkbox is not checked."""
+        form_data = {
+            "name": test_view_constants.TEST_NAME,
+            "email": test_view_constants.TEST_EMAIL,
+            "subject": test_view_constants.TEST_SUBJECT,
+            "message": test_view_constants.TEST_MESSAGE,
+        }
+
+        response = self.client.post(f"/{self.language}/{self.request_path}", data=form_data)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(ContactMessage.objects.count(), 0)
+        self.assertEqual(len(mail.outbox), 0)
+
+        contact_container = self._find_element_by_tag_and_id(
+            get_beautiful_soup_from_response(response), HtmlTag.DIV, test_view_constants.CONTACT_CONTAINER_ID
+        )
+
+        self._assert_text_of_element_by_tag_and_id(
+            contact_container,
+            HtmlTag.SPAN,
+            test_view_constants.CONTACT_FORM_PRIVACY_POLICY_ERROR_ID,
+            expected_text=test_view_constants.VALIDATION_ERROR_PRIVACY_POLICY_NOT_ACCEPTED[self.language],
+        )
+
+    def test_submission_accepted_with_consent(self) -> None:
+        """Test that the form submission succeeds when the privacy policy checkbox is checked."""
+        form_data = {
+            "name": test_view_constants.TEST_NAME,
+            "email": test_view_constants.TEST_EMAIL,
+            "subject": test_view_constants.TEST_SUBJECT,
+            "message": test_view_constants.TEST_MESSAGE,
+            "privacy_policy_accepted": "on",
+        }
+
+        response = self.client.post(f"/{self.language}/{self.request_path}", data=form_data)
+
+        self.assertRedirects(response, f"/{self.language}/{self.request_path}", status_code=302, target_status_code=200)
+        self.assertEqual(ContactMessage.objects.count(), 1)
+
+
+class TestContactViewPrivacyPolicyEnglish(BaseTestContactViewPrivacyPolicy):
+    """Test contact view privacy policy consent checkbox in English."""
+
+    language = Language.ENGLISH
+
+
+class TestContactViewPrivacyPolicySpanish(BaseTestContactViewPrivacyPolicy):
+    """Test contact view privacy policy consent checkbox in Spanish."""
 
     language = Language.SPANISH
