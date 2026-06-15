@@ -24,7 +24,7 @@ Action checklist to get from the current state to the goal above, then to a stab
 - **Tests:** every new feature ships with tests covering it (follow the existing per-model / per-view layout under each app's `tests/`).
 - **README:** check [README.md](README.md) after each item and update it if the change affects setup, configuration, features, or usage.
 
-## v0.7.0 — Operations & quality
+## v0.7.0 — Operations & quality ✅ Released
 
 - [x] **Configurable media via admin** — add a `SiteMedia` django-solo singleton in [src/home/models.py](src/home/models.py) with `ImageField`s for `background_image`, `og_preview_image`, `favicon`, `logo`; register in [src/home/admin.py](src/home/admin.py); wire templates ([src/base/templates/cotton/base.html](src/base/templates/cotton/base.html)) to read from it instead of hardcoded files. _`feat: manage site images from the admin`_
 - [x] **Structured logging** — add `logging.config.dictConfig` to [src/core/settings.py](src/core/settings.py): JSON formatter in prod, console in dev, named loggers (`contact`, `recaptcha`, `security`), stdout only. _`feat: add structured logging configuration`_
