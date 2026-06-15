@@ -29,22 +29,50 @@ class BaseTestHomeViewContent(BaseHomeViewTest):
         data = self._get_json_ld_data()
 
         # Verify @context structure
-        self.assertIn("@context", data)
-        self.assertIsInstance(data["@context"], dict)
-        self.assertEqual(data["@context"]["@vocab"], "https://schema.org/")
+        self.assertIn("@context", data, f"Expected '@context' key in the JSON-LD data, got keys: {list(data)}")
+        self.assertIsInstance(
+            data["@context"], dict, f"Expected '@context' to be a dict, got '{type(data['@context'])}'"
+        )
+        self.assertEqual(
+            vocab := data["@context"]["@vocab"],
+            "https://schema.org/",
+            f"Expected '@context.@vocab' to be 'https://schema.org/', got '{vocab}'",
+        )
 
         # Verify language
-        self.assertEqual(data["@context"]["@language"], self.language)
+        self.assertEqual(
+            language := data["@context"]["@language"],
+            self.language,
+            f"Expected '@context.@language' to be '{self.language}', got '{language}'",
+        )
 
         # Verify @type
-        self.assertEqual(data["@type"], "Person")
+        self.assertEqual(type_ := data["@type"], "Person", f"Expected '@type' to be 'Person', got '{type_}'")
 
         # Verify specific fields from test data
-        self.assertEqual(data["name"], test_view_constants.PERSONAL_INFO_NAME)
-        self.assertEqual(data["jobTitle"], test_view_constants.PERSONAL_INFO_TITLE[self.language])
-        self.assertEqual(data["description"], test_view_constants.PERSONAL_INFO_INTRODUCTION[self.language])
-        self.assertEqual(data["url"], "http://testserver")
-        self.assertEqual(data["image"], f"http://testserver{SiteMedia.get_solo().background_image_display.url}")
+        self.assertEqual(
+            name := data["name"],
+            test_view_constants.PERSONAL_INFO_NAME,
+            f"Expected 'name' to be '{test_view_constants.PERSONAL_INFO_NAME}', got '{name}'",
+        )
+        self.assertEqual(
+            job_title := data["jobTitle"],
+            expected_job_title := test_view_constants.PERSONAL_INFO_TITLE[self.language],
+            f"Expected 'jobTitle' to be '{expected_job_title}', got '{job_title}'",
+        )
+        self.assertEqual(
+            description := data["description"],
+            expected_description := test_view_constants.PERSONAL_INFO_INTRODUCTION[self.language],
+            f"Expected 'description' to be '{expected_description}', got '{description}'",
+        )
+        self.assertEqual(
+            url := data["url"], "http://testserver", f"Expected 'url' to be 'http://testserver', got '{url}'"
+        )
+        self.assertEqual(
+            image := data["image"],
+            expected_image := f"http://testserver{SiteMedia.get_solo().background_image_display.url}",
+            f"Expected 'image' to be '{expected_image}', got '{image}'",
+        )
 
         # Verify knowsAbout contains technologies in correct order
         expected_technologies = [
@@ -53,7 +81,11 @@ class BaseTestHomeViewContent(BaseHomeViewTest):
             test_view_constants.TECHNOLOGY_4[self.language],
             test_view_constants.TECHNOLOGY_3[self.language],
         ]
-        self.assertEqual(data["knowsAbout"], expected_technologies)
+        self.assertEqual(
+            knows_about := data["knowsAbout"],
+            expected_technologies,
+            f"Expected 'knowsAbout' to be '{expected_technologies}', got '{knows_about}'",
+        )
 
     def test_meta_tags(self) -> None:
         """Test that meta tags have correct values for home page."""

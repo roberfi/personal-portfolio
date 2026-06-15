@@ -4,6 +4,7 @@ from datetime import date
 from typing import ClassVar
 from unittest.mock import patch
 
+from django.core.exceptions import NON_FIELD_ERRORS
 from django.forms import ValidationError
 from django.test import TestCase
 
@@ -141,5 +142,13 @@ class TestInvalidDatesEducationModel(BaseTestEducationModel):
     def test_validation_error(self) -> None:
         with self.assertRaises(ValidationError) as cm:
             self.education.full_clean()
-            self.assertEqual(cm.exception.code, "invalid_dates")
-            self.assertEqual(cm.exception.message, "End date must be after start date")
+
+        error = cm.exception.error_dict[NON_FIELD_ERRORS][0]
+        self.assertEqual(
+            code := error.code, "invalid_dates", f"Expected validation error code 'invalid_dates', got '{code}'"
+        )
+        self.assertEqual(
+            message := error.message,
+            "End date must be after start date",
+            f"Expected validation error message 'End date must be after start date', got '{message}'",
+        )

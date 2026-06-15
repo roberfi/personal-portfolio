@@ -31,10 +31,10 @@ class TestJsonFormatter(SimpleTestCase):
 
         data = json.loads(self.formatter.format(record))
 
-        self.assertEqual(data["level"], "WARNING")
-        self.assertEqual(data["logger"], "contact")
-        self.assertEqual(data["message"], "Hello world")
-        self.assertIn("timestamp", data)
+        self.assertEqual(level := data["level"], "WARNING", f"Expected level 'WARNING', got '{level}'")
+        self.assertEqual(logger := data["logger"], "contact", f"Expected logger 'contact', got '{logger}'")
+        self.assertEqual(message := data["message"], "Hello world", f"Expected message 'Hello world', got '{message}'")
+        self.assertIn("timestamp", data, f"Expected a 'timestamp' key in the formatted output, got keys: {list(data)}")
 
     def test_extra_fields_are_included(self) -> None:
         """Fields passed via `extra=` are included in the JSON output."""
@@ -52,8 +52,14 @@ class TestJsonFormatter(SimpleTestCase):
 
         data = json.loads(self.formatter.format(record))
 
-        self.assertEqual(data["contact_message_id"], 42)
-        self.assertEqual(data["recaptcha_score"], 0.9)
+        self.assertEqual(
+            contact_message_id := data["contact_message_id"],
+            42,
+            f"Expected contact_message_id 42, got '{contact_message_id}'",
+        )
+        self.assertEqual(
+            recaptcha_score := data["recaptcha_score"], 0.9, f"Expected recaptcha_score 0.9, got '{recaptcha_score}'"
+        )
 
     def test_exception_info_is_included(self) -> None:
         """Exception information is included as a string under 'exception'."""
@@ -73,5 +79,9 @@ class TestJsonFormatter(SimpleTestCase):
 
         data = json.loads(self.formatter.format(record))
 
-        self.assertIn("exception", data)
-        self.assertIn("ValueError: boom", data["exception"])
+        self.assertIn("exception", data, f"Expected an 'exception' key in the formatted output, got keys: {list(data)}")
+        self.assertIn(
+            "ValueError: boom",
+            data["exception"],
+            f"Expected the traceback to contain 'ValueError: boom', got '{data['exception']}'",
+        )

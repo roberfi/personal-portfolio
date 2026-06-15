@@ -16,7 +16,9 @@ class TestCreateDefaultSiteMedia(TestCase):
 
             for filename, (size, _) in DEFAULT_SITE_MEDIA_IMAGES.items():
                 with Image.open(Path(media_root) / "site" / filename) as image:
-                    self.assertEqual(image.size, size)
+                    self.assertEqual(
+                        image.size, size, f"Expected placeholder '{filename}' to have size '{size}', got '{image.size}'"
+                    )
 
     def test_does_not_overwrite_existing_files(self) -> None:
         with tempfile.TemporaryDirectory() as media_root, override_settings(MEDIA_ROOT=media_root):
@@ -27,7 +29,11 @@ class TestCreateDefaultSiteMedia(TestCase):
             create_default_site_media()
 
             with Image.open(existing_file) as image:
-                self.assertEqual(image.size, (1, 1))
+                self.assertEqual(
+                    image.size,
+                    expected_size := (1, 1),
+                    f"Expected existing background.jpg to remain '{expected_size}', got '{image.size}'",
+                )
 
     def test_moves_legacy_images_into_site_directory(self) -> None:
         with tempfile.TemporaryDirectory() as media_root, override_settings(MEDIA_ROOT=media_root):
@@ -36,6 +42,10 @@ class TestCreateDefaultSiteMedia(TestCase):
 
             create_default_site_media()
 
-            self.assertFalse(legacy_file.exists())
+            self.assertFalse(legacy_file.exists(), f"Expected legacy file '{legacy_file}' to have been moved")
             with Image.open(Path(media_root) / "site" / "background.jpg") as image:
-                self.assertEqual(image.size, (1, 1))
+                self.assertEqual(
+                    image.size,
+                    expected_size := (1, 1),
+                    f"Expected moved background.jpg to remain '{expected_size}', got '{image.size}'",
+                )

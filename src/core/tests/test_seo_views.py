@@ -22,8 +22,12 @@ class TestRobotsTxt(TestCase):
     def test_robots_txt_accessible(self) -> None:
         """Test that robots.txt is accessible and returns correct content type."""
         response = self.client.get("/robots.txt")
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(response["Content-Type"], "text/plain")
+        self.assertEqual(status_code := response.status_code, 200, f"Expected status code 200, got '{status_code}'")
+        self.assertEqual(
+            content_type := response["Content-Type"],
+            "text/plain",
+            f"Expected Content-Type 'text/plain', got '{content_type}'",
+        )
 
     def test_robots_txt_content(self) -> None:
         """Test that robots.txt contains expected directives."""
@@ -31,11 +35,15 @@ class TestRobotsTxt(TestCase):
         content = response.content.decode("utf-8")
 
         # Check for standard directives
-        self.assertIn("User-agent: *", content)
-        self.assertIn("Allow: /", content)
+        self.assertIn("User-agent: *", content, f"Expected 'User-agent: *' in robots.txt content: {content}")
+        self.assertIn("Allow: /", content, f"Expected 'Allow: /' in robots.txt content: {content}")
 
         # Check for sitemap reference
-        self.assertIn("Sitemap: http://testserver/sitemap.xml", content)
+        self.assertIn(
+            "Sitemap: http://testserver/sitemap.xml",
+            content,
+            f"Expected a sitemap reference in robots.txt content: {content}",
+        )
 
 
 class TestSitemapXml(TestCase):
@@ -52,8 +60,12 @@ class TestSitemapXml(TestCase):
     def test_sitemap_accessible(self) -> None:
         """Test that sitemap.xml is accessible."""
         response = self.client.get("/sitemap.xml")
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(response["Content-Type"], "application/xml")
+        self.assertEqual(status_code := response.status_code, 200, f"Expected status code 200, got '{status_code}'")
+        self.assertEqual(
+            content_type := response["Content-Type"],
+            "application/xml",
+            f"Expected Content-Type 'application/xml', got '{content_type}'",
+        )
 
     def test_sitemap_is_valid_xml(self) -> None:
         """Test that sitemap.xml is valid XML."""
@@ -80,7 +92,7 @@ class TestSitemapXml(TestCase):
         )
         for expected_url in EXPECTED_SITEMAP_URLS:
             full_url = f"https://testserver{expected_url}"
-            self.assertIn(full_url, locations)
+            self.assertIn(full_url, locations, f"Expected '{full_url}' in sitemap locations: {locations}")
 
     def test_sitemap_structure(self) -> None:
         """Test that sitemap has correct structure."""
@@ -90,7 +102,11 @@ class TestSitemapXml(TestCase):
         namespace = {"ns": "http://www.sitemaps.org/schemas/sitemap/0.9"}
 
         # Check for urlset root element
-        self.assertEqual(root.tag, f"{{{namespace['ns']}}}urlset")
+        self.assertEqual(
+            root.tag,
+            expected_tag := f"{{{namespace['ns']}}}urlset",
+            f"Expected root tag '{expected_tag}', got '{root.tag}'",
+        )
 
         # Check that each url has required elements
         for url in root.findall("ns:url", namespace):
