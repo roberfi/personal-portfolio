@@ -4,6 +4,14 @@ from django.db import models
 from solo.models import SingletonModel
 
 from base.models import LegalAndPrivacy
+from utils.fields import EncryptedJSONField
+
+
+class EmailProvider(models.TextChoices):
+    """Available email providers for sending the contact form notification."""
+
+    SMTP = "smtp", "SMTP"
+    BREVO_API = "brevo_api", "Brevo API"
 
 
 class ContactMessage(models.Model):
@@ -25,8 +33,18 @@ class ContactMessage(models.Model):
         return f"{self.name} - {self.subject}"
 
 
-class ContactPrivacyNotice(SingletonModel):
-    """Configures which Legal and Privacy section is used as the contact form's privacy policy."""
+class ContactFormConfiguration(SingletonModel):
+    """Singleton configuration for the contact form: privacy notice and email sending."""
+
+    email_provider = models.CharField(max_length=20, choices=EmailProvider.choices, default=EmailProvider.SMTP)
+    default_from_email = models.EmailField(default="noreply@localhost")
+    contact_email = models.EmailField(default="contact@localhost")
+    provider_config = EncryptedJSONField(
+        default=dict,
+        blank=True,
+        help_text="Provider-specific settings, encrypted at rest. For SMTP: host, port, use_tls, "
+        "use_ssl, username, password, timeout. For Brevo API: api_key.",
+    )
 
     legal_and_privacy = models.ForeignKey(
         LegalAndPrivacy,
@@ -39,4 +57,4 @@ class ContactPrivacyNotice(SingletonModel):
     )
 
     def __str__(self) -> str:
-        return "Contact Privacy Notice"
+        return "Contact Form Configuration"

@@ -17,7 +17,7 @@ from django.views import View
 from utils.types import PageMetadata
 
 from .forms import ContactForm
-from .models import ContactPrivacyNotice
+from .models import ContactFormConfiguration
 
 if TYPE_CHECKING:
     from django.http import HttpRequest, HttpResponse
@@ -35,7 +35,7 @@ class ContactViewContext(TypedDict):
     page_metadata: PageMetadata
     form: ContactForm
     recaptcha_site_key: str | None
-    privacy_notice: ContactPrivacyNotice
+    privacy_notice: ContactFormConfiguration
 
 
 class RecaptchaResult(NamedTuple):
@@ -91,7 +91,7 @@ class ContactView(View):
             form=form,
             page_metadata=self.__get_page_metadata(),
             recaptcha_site_key=settings.RECAPTCHA_SITE_KEY if settings.IS_RECAPTCHA_CONFIGURED else None,
-            privacy_notice=ContactPrivacyNotice.get_solo(),
+            privacy_notice=ContactFormConfiguration.get_solo(),
         )
 
     def __send_email_notification(self, contact_message: ContactMessage) -> None:
@@ -104,6 +104,8 @@ class ContactView(View):
             contact_message: The ContactMessage instance containing the message details.
         """
         try:
+            config = ContactFormConfiguration.get_solo()
+
             # Prepare email to site owner
             subject = f"[Portfolio Contact] {contact_message.subject}"
             message_body = (
@@ -116,8 +118,8 @@ class ContactView(View):
             email = EmailMessage(
                 subject=subject,
                 body=message_body,
-                from_email=settings.DEFAULT_FROM_EMAIL,
-                to=(settings.CONTACT_EMAIL,),
+                from_email=config.default_from_email,
+                to=(config.contact_email,),
                 reply_to=(contact_message.email,),
             )
             email.send(fail_silently=False)

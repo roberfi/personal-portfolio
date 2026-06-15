@@ -25,15 +25,17 @@ repos:
         args: []
         additional_dependencies:
           - django-imagekit==6.1.0
+          - django-anymail==13.1
           - django-stubs[compatible-mypy]==5.2.7
           - django-modeltranslation==0.19.17
-          - types-markdown==3.10.0.20251106
+          - cryptography==49.0.0
           - dj-database-url==2.3.0
           - django-environ==0.12.0
           - django-cotton==2.4.0
           - django-solo==2.4.0
           - django-cooco==0.0.1
           - types-beautifulsoup4==4.12.0.20250516
+          - types-markdown==3.10.0.20251106
           - types-requests==2.32.4.20260107
 
   - repo: https://github.com/djlint/djLint

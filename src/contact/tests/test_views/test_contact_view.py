@@ -12,7 +12,7 @@ import contact.tests.test_views.utils.constants as test_view_constants
 import home.tests.test_views.utils.constants as home_test_view_constants
 import utils.test_utils.constants as common_constants
 from base.models import LegalAndPrivacy, SiteMedia
-from contact.models import ContactMessage, ContactPrivacyNotice
+from contact.models import ContactFormConfiguration, ContactMessage
 from contact.tests.test_views.base_view_test import BaseContactViewTest
 from utils.test_utils import base_view_test_case
 from utils.test_utils.base_view_test_case import ElementText, get_beautiful_soup_from_response
@@ -222,7 +222,7 @@ class BaseTestContactViewContent(base_view_test_case.CommonPageTestsMixin, BaseC
         )
 
     def test_no_privacy_policy_checkbox_by_default(self) -> None:
-        """Test that no privacy policy consent checkbox is shown when ContactPrivacyNotice is not configured."""
+        """Test that no privacy policy consent checkbox is shown when no privacy notice is configured."""
         contact_container = self._find_element_by_tag_and_id(
             self.response_data.soup, HtmlTag.DIV, test_view_constants.CONTACT_CONTAINER_ID
         )
@@ -503,13 +503,13 @@ class BaseTestContactViewPrivacyPolicy(BaseContactViewTest):
 
     @classmethod
     def init_db(cls) -> None:
-        """Configure the ContactPrivacyNotice to use the first Legal and Privacy section as the privacy policy."""
+        """Configure the ContactFormConfiguration to use the first Legal and Privacy section as the privacy policy."""
         legal_and_privacy = LegalAndPrivacy.objects.get(
             title=home_test_view_constants.LEGAL_SECTION_1[Language.ENGLISH]
         )
 
-        privacy_notice = ContactPrivacyNotice.get_solo()
-        ContactPrivacyNotice.objects.filter(pk=privacy_notice.pk).update(legal_and_privacy=legal_and_privacy)
+        privacy_notice = ContactFormConfiguration.get_solo()
+        ContactFormConfiguration.objects.filter(pk=privacy_notice.pk).update(legal_and_privacy=legal_and_privacy)
 
     def __get_privacy_policy_form_control(self) -> Tag:
         contact_container = self._find_element_by_tag_and_id(

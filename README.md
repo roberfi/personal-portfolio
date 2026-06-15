@@ -93,8 +93,10 @@ This is a project to create a single personal portfolio page with a clear and si
    SECRET_KEY=<your dev secret key>
    DATABASE_URL=sqlite:///<path to db.sqlite3 file>
 
-   # Email Configuration (optional for development - emails print to console)
-   CONTACT_EMAIL=contact@localhost
+   # Key used to encrypt the contact form's email provider credentials in the database.
+   # Generate one with:
+   # python -c "from cryptography.fernet import Fernet; print(Fernet.generate_key().decode())"
+   FIELD_ENCRYPTION_KEY=<your generated Fernet key>
 
    # Google reCAPTCHA v3 (optional - if not set, form works without reCAPTCHA)
    RECAPTCHA_SITE_KEY=<your site key from Google reCAPTCHA>
@@ -167,15 +169,10 @@ mkdir -p ~/personal-portfolio/{ssl,mediafiles,nginx}
    POSTGRES_USER=<name of the postgres user>
    POSTGRES_PASSWORD=<password for the given postgres user>
 
-   # Email Configuration (required for the contact form)
-   EMAIL_HOST=smtp.your-provider.com
-   EMAIL_PORT=587
-   EMAIL_USE_TLS=True
-   EMAIL_USE_SSL=False
-   EMAIL_HOST_USER=your-username
-   EMAIL_HOST_PASSWORD=your-password
-   DEFAULT_FROM_EMAIL=noreply@your-domain.com
-   CONTACT_EMAIL=contact@your-domain.com
+   # Key used to encrypt the contact form's email provider credentials in the database.
+   # Generate one with:
+   # python -c "from cryptography.fernet import Fernet; print(Fernet.generate_key().decode())"
+   FIELD_ENCRYPTION_KEY=<your generated Fernet key>
 
    # Google reCAPTCHA v3 (spam protection for the contact form)
    # Both keys are required to enable reCAPTCHA; omit them to run the form without it.
@@ -195,6 +192,10 @@ mkdir -p ~/personal-portfolio/{ssl,mediafiles,nginx}
 The PostgreSQL data lives in a named Docker volume, so it persists across deploys. On first
 deploy, placeholder site images (hero background, favicon and navbar logo) are generated
 automatically into `~/personal-portfolio/mediafiles/`; replace them from the admin (Site Media).
+
+The contact form's email provider (SMTP or Brevo API) and credentials are configured from
+the admin (Contact > Contact Form Configuration), not via environment variables, so they
+can be changed without redeploying.
 
 #### Deploying
 

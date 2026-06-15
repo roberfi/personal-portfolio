@@ -62,6 +62,7 @@ INSTALLED_APPS = (
     "modeltranslation",
     "django_cotton",
     "django_cooco",
+    "anymail",
     "base",
     "cookie_consent",
     "home",
@@ -172,23 +173,17 @@ TEST_RUNNER = "utils.test_utils.custom_test_runner.CustomTestRunner"
 COTTON_BASE_DIR = BASE_DIR / "core"
 
 # Email Configuration for the contact form
+# The actual provider (SMTP or Brevo API) and its credentials are configured
+# via the ContactFormConfiguration singleton in the admin.
 
 if DEBUG:
     # In development, print emails to console
     EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
-    DEFAULT_FROM_EMAIL = "noreply@localhost"
-    CONTACT_EMAIL = env("CONTACT_EMAIL", default="contact@localhost")
 else:
-    # In production, use SMTP backend
-    EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-    EMAIL_HOST = env("EMAIL_HOST")
-    EMAIL_PORT = env.int("EMAIL_PORT", default=587)
-    EMAIL_USE_TLS = env.bool("EMAIL_USE_TLS", default=True)
-    EMAIL_USE_SSL = env.bool("EMAIL_USE_SSL", default=False)
-    EMAIL_HOST_USER = env("EMAIL_HOST_USER")
-    EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
-    DEFAULT_FROM_EMAIL = env("DEFAULT_FROM_EMAIL")
-    CONTACT_EMAIL = env("CONTACT_EMAIL")
+    EMAIL_BACKEND = "contact.email_backend.DatabaseEmailBackend"
+
+# Symmetric key used to encrypt provider credentials stored in the database.
+FIELD_ENCRYPTION_KEY = env("FIELD_ENCRYPTION_KEY")
 
 if DEBUG:
     CACHE_MIDDLEWARE_SECONDS = 0
