@@ -2,14 +2,17 @@
 
 ## Next Release
 
+## 0.7.0
+
 - Improve UI
-- Add contact form page
+- Add contact form page with reCAPTCHA v3 protection
 - Change the structure of cookie consent banner
 - Split experience timeline template into different cotton components
 - Implement structured logging
 - Bump python and javascript dependencies to fix security vulnerabilities
 - Run djlint on templates in CI
 - Manage site images (background, favicon, logo) from the admin
+- Switch to tag-based releases and automate deployment via a Makefile
 
 ## 0.6.0
 
