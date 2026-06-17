@@ -20,7 +20,7 @@ class Technology(models.Model):  # type: ignore[django-manager-missing] # https:
         ordering = ("priority", "name")
 
     def __str__(self) -> str:
-        return f"{self.name} (Priority: {self.priority})"
+        return self.name
 
 
 class PersonalInfo(SingletonModel):  # type: ignore[django-manager-missing] # https://github.com/typeddjango/django-stubs/issues/1023

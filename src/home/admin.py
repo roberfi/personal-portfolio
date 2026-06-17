@@ -33,5 +33,5 @@ class EducationAdmin(ModelAdmin[Education]):
 
 
 @register(Technology)
-class TechnologyAdmin(ModelAdmin[Technology]):
-    pass
+class TechnologyAdmin(SortableAdminMixin, ModelAdmin[Technology]):  # type: ignore[misc]
+    list_display = ("name", "priority")

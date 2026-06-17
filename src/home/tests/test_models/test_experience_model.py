@@ -177,18 +177,18 @@ class TestExperienceTechnologiesRelation(BaseTestExperienceModel):
     def test_str(self) -> None:
         self.assertEqual(
             returned_str := str(self.tech1),
-            expected_str := f"{self.tech1.name} (Priority: {self.tech1.priority})",
-            f"The __str__ method is returning '{returned_str}' instead the expected value '{expected_str}'",
+            self.tech1.name,
+            f"The __str__ method is returning '{returned_str}' instead the expected value '{self.tech1.name}'",
         )
         self.assertEqual(
             returned_str := str(self.tech2),
-            expected_str := f"{self.tech2.name} (Priority: {self.tech2.priority})",
-            f"The __str__ method is returning '{returned_str}' instead the expected value '{expected_str}'",
+            self.tech2.name,
+            f"The __str__ method is returning '{returned_str}' instead the expected value '{self.tech2.name}'",
         )
         self.assertEqual(
             returned_str := str(self.tech3),
-            expected_str := f"{self.tech3.name} (Priority: {self.tech3.priority})",
-            f"The __str__ method is returning '{returned_str}' instead the expected value '{expected_str}'",
+            self.tech3.name,
+            f"The __str__ method is returning '{returned_str}' instead the expected value '{self.tech3.name}'",
         )
 
     def test_add_technologies_to_experience(self) -> None:

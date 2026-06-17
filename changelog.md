@@ -4,6 +4,7 @@
 
 - Add projects with Problem → Approach → Outcome structure, replacing sub-projects
 - Add drag-and-drop project ordering in the admin
+- Add drag-and-drop technology ordering in the admin
 
 ## 0.7.0
 
