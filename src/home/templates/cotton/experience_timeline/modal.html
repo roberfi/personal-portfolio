@@ -74,10 +74,6 @@
                     {{ item.description|md }}
                 </div>
 
-                <!-- Sub-projects section -->
-                {% if item.sub_projects.exists %}
-                    <c-experience-timeline.sub-project-list :item="item" />
-                {% endif %}
             </div>
             <!-- End of content section -->
         </div>

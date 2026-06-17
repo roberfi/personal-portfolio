@@ -133,20 +133,21 @@ class Experience(DatedModel):  # type: ignore[django-manager-missing] # https://
         return self.title
 
 
-class SubProject(DatedModel):  # type: ignore[django-manager-missing] # https://github.com/typeddjango/django-stubs/issues/1023
-    experience = models.ForeignKey(Experience, on_delete=models.CASCADE, related_name="sub_projects")
+class Project(models.Model):  # type: ignore[django-manager-missing] # https://github.com/typeddjango/django-stubs/issues/1023
     title = models.CharField(max_length=200)
-    client = models.CharField(max_length=200, blank=True)
-    description = models.TextField()
-    technologies = models.ManyToManyField(Technology, blank=True, related_name="sub_projects")
+    slug = models.SlugField(max_length=200, unique=True)
+    problem = models.TextField()
+    approach = models.TextField()
+    outcome = models.TextField()
+    technologies = models.ManyToManyField(Technology, blank=True, related_name="projects")
+    hero_image = models.ImageField(upload_to="projects/", blank=True, null=True)
+    featured = models.BooleanField(default=False)
+    order = models.PositiveIntegerField(default=0)
 
     class Meta:
-        ordering = ("-start_date",)
+        ordering = ("order", "title")
 
     def __str__(self) -> str:
-        if self.client:
-            return gettext("%(title)s at %(institution)s") % {"title": self.title, "institution": self.client}
-
         return self.title
 
 

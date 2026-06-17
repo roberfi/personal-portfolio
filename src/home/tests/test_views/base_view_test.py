@@ -4,7 +4,7 @@ from typing import TYPE_CHECKING, ContextManager
 from unittest.mock import patch
 
 import home.tests.test_views.utils.constants as test_view_constants
-from home.models import Education, Experience, PersonalInfo, SubProject, Technology
+from home.models import Education, Experience, PersonalInfo, Technology
 from utils.test_utils.base_view_test_case import CommonPageTestsMixin
 from utils.test_utils.constants import Language
 from utils.test_utils.mocks import get_date_with_mocked_today
@@ -86,30 +86,6 @@ class BaseHomeViewTest(CommonPageTestsMixin):
         )
 
         experience_2.technologies.set((test_technology_4, test_technology_1, test_technology_2))
-
-        sub_project_1 = SubProject.objects.create(
-            experience=experience_2,
-            title=test_view_constants.SUBPROJECT_1_TITLE[Language.ENGLISH],
-            title_es=test_view_constants.SUBPROJECT_1_TITLE[Language.SPANISH],
-            client=test_view_constants.SUBPROJECT_1_CLIENT,
-            description=test_view_constants.SUBPROJECT_1_DESCRIPTION[Language.ENGLISH],
-            description_es=test_view_constants.SUBPROJECT_1_DESCRIPTION[Language.SPANISH],
-            start_date=test_view_constants.SUBPROJECT_1_START_DATE,
-            end_date=test_view_constants.SUBPROJECT_1_END_DATE,
-        )
-
-        sub_project_1.technologies.set((test_technology_4, test_technology_1))
-
-        sub_project_2 = SubProject.objects.create(
-            experience=experience_2,
-            title=test_view_constants.SUBPROJECT_2_TITLE[Language.ENGLISH],
-            title_es=test_view_constants.SUBPROJECT_2_TITLE[Language.SPANISH],
-            description=test_view_constants.SUBPROJECT_2_DESCRIPTION[Language.ENGLISH],
-            description_es=test_view_constants.SUBPROJECT_2_DESCRIPTION[Language.SPANISH],
-            start_date=test_view_constants.SUBPROJECT_2_START_DATE,
-        )
-
-        sub_project_2.technologies.set((test_technology_2,))
 
         Education.objects.create(
             id=1,
