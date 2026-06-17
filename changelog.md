@@ -2,6 +2,9 @@
 
 ## Next Release
 
+- Add projects with Problem → Approach → Outcome structure, replacing sub-projects
+- Add drag-and-drop project ordering in the admin
+
 ## 0.7.0
 
 - Improve UI
