@@ -6,7 +6,7 @@ from adminsortable2.admin import SortableAdminMixin
 from django.contrib.admin import ModelAdmin, register
 from solo.admin import SingletonModelAdmin
 
-from home.models import Education, Experience, PersonalInfo, Project, Technology
+from home.models import Education, Experience, PersonalInfo, Project, Service, Technology
 
 
 @register(PersonalInfo)
@@ -25,6 +25,13 @@ class ProjectAdmin(SortableAdminMixin, ModelAdmin[Project]):  # type: ignore[mis
     filter_horizontal = ("technologies",)
     list_display = ("title", "featured", "order")
     list_editable = ("featured",)
+
+
+@register(Service)
+class ServiceAdmin(SortableAdminMixin, ModelAdmin[Service]):  # type: ignore[misc]
+    prepopulated_fields: ClassVar[dict[str, Sequence[str]]] = {"slug": ("title",)}
+    list_display = ("title", "is_active", "order")
+    list_editable = ("is_active",)
 
 
 @register(Education)
