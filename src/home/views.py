@@ -59,7 +59,7 @@ class HomeView(View):
             "jobTitle": personal_info.title,
             "description": markdown_to_plaintext(personal_info.introduction),
             "url": base_url,
-            "image": f"{base_url}{site_media.background_image_display.url}",
+            "image": f"{base_url}{site_media.portrait_display.url}",
         }
 
         if personal_info.technologies.exists():

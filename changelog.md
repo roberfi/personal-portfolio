@@ -7,6 +7,7 @@
 - Add drag-and-drop technology ordering in the admin
 - Add Service model with drag-and-drop ordering in the admin
 - Add ProcessStep model with drag-and-drop ordering in the admin
+- Redesign hero section: outcome-driven headline, two-column layout with portrait frame and decorative accents
 
 ## 0.7.0
 

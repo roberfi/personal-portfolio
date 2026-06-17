@@ -43,29 +43,36 @@ class GoogleAnalytics(SingletonModel):
 
 
 class SiteMedia(SingletonModel):
-    background_image = models.ImageField(
+    portrait_image = models.ImageField(
         upload_to="site/",
-        default="site/background.jpg",
-        help_text="Recommended aspect ratio as close as possible to 16:9, with a minimum size of "
-        "1920x1080px. Also used, cropped to 1200x630 for the Open Graph preview and 1200x675 for "
-        "the Twitter preview.",
+        default="site/portrait.png",
+        help_text="16:9 image with the subject centered (used for hero portrait and social media "
+        "previews: 1200x630 OG, 1200x675 Twitter). Minimum recommended size: 1920x1080px.",
     )
-    background_image_display = ImageSpecField(
-        source="background_image",
+
+    portrait_display = ImageSpecField(
+        source="portrait_image",
         processors=[ResizeToFit(1920, 1080, upscale=False)],
         format="JPEG",
         options={"quality": 85},
     )
 
+    portrait_mobile_display = ImageSpecField(
+        source="portrait_image",
+        processors=[ResizeToFit(900, 506, upscale=False)],
+        format="JPEG",
+        options={"quality": 80},
+    )
+
     og_preview_image_display = ImageSpecField(
-        source="background_image",
+        source="portrait_image",
         processors=[SmartResize(1200, 630)],
         format="JPEG",
         options={"quality": 85},
     )
 
     twitter_preview_image_display = ImageSpecField(
-        source="background_image",
+        source="portrait_image",
         processors=[SmartResize(1200, 675)],
         format="JPEG",
         options={"quality": 85},

@@ -70,7 +70,7 @@ class BaseTestHomeViewContent(BaseHomeViewTest):
         )
         self.assertEqual(
             image := data["image"],
-            expected_image := f"http://testserver{SiteMedia.get_solo().background_image_display.url}",
+            expected_image := f"http://testserver{SiteMedia.get_solo().portrait_display.url}",
             f"Expected 'image' to be '{expected_image}', got '{image}'",
         )
 
@@ -215,19 +215,19 @@ class BaseTestHomeViewContent(BaseHomeViewTest):
         self._assert_text_of_elements(
             home,
             ElementText(
-                html_tag=HtmlTag.H1,
+                html_tag=HtmlTag.DIV,
+                element_id=test_view_constants.PERSONAL_INFO_INTRODUCTION_ID,
+                expected_text=test_view_constants.PERSONAL_INFO_INTRODUCTION[self.language],
+            ),
+            ElementText(
+                html_tag=HtmlTag.SPAN,
                 element_id=test_view_constants.PERSONAL_INFO_NAME_ID,
                 expected_text=test_view_constants.PERSONAL_INFO_NAME,
             ),
             ElementText(
-                html_tag=HtmlTag.H3,
+                html_tag=HtmlTag.SPAN,
                 element_id=test_view_constants.PERSONAL_INFO_TITLE_ID,
                 expected_text=test_view_constants.PERSONAL_INFO_TITLE[self.language],
-            ),
-            ElementText(
-                html_tag=HtmlTag.DIV,
-                element_id=test_view_constants.PERSONAL_INFO_INTRODUCTION_ID,
-                expected_text=test_view_constants.PERSONAL_INFO_INTRODUCTION[self.language],
             ),
             ElementText(
                 html_tag=HtmlTag.BUTTON,
