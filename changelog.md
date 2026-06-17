@@ -6,6 +6,7 @@
 - Add drag-and-drop project ordering in the admin
 - Add drag-and-drop technology ordering in the admin
 - Add Service model with drag-and-drop ordering in the admin
+- Add ProcessStep model with drag-and-drop ordering in the admin
 
 ## 0.7.0
 
