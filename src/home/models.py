@@ -167,6 +167,19 @@ class Service(models.Model):  # type: ignore[django-manager-missing] # https://g
         return self.title
 
 
+class ProcessStep(models.Model):  # type: ignore[django-manager-missing] # https://github.com/typeddjango/django-stubs/issues/1023
+    title = models.CharField(max_length=200)
+    description = models.TextField()
+    icon_name = models.CharField(max_length=100, blank=True)
+    order = models.PositiveIntegerField(default=0)
+
+    class Meta:
+        ordering = ("order",)
+
+    def __str__(self) -> str:
+        return self.title
+
+
 class Education(DatedModel):  # type: ignore[django-manager-missing] # https://github.com/typeddjango/django-stubs/issues/1023
     title = models.CharField(max_length=200)
     institution = models.CharField(max_length=200)
