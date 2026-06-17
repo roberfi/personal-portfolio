@@ -1,0 +1,212 @@
+{% load i18n %}
+{% load filters %}
+{% load base_tags %}
+
+{% get_site_media as site_media %}
+
+<div id="home" class="relative min-h-screen flex flex-col overflow-hidden">
+
+    {# ── Background ───────────────────────────────────────────────────────────── #}
+    <div class="absolute inset-0 z-0 bg-linear-to-br from-base-300 via-base-300 to-base-200">
+    </div>
+
+    {# ── Main content ─────────────────────────────────────────────────────────── #}
+    <div class="relative z-10 flex-1 flex flex-col">
+
+        {# Mobile portrait banner — hidden on desktop #}
+        <div class="lg:hidden relative overflow-hidden shrink-0">
+            {% if site_media.portrait_image %}
+                <img class="w-full h-56 sm:h-64 object-cover object-top"
+                     src="{{ site_media.portrait_mobile_display.url }}"
+                     alt="{{ personal_info.name }}"
+                     loading="eager" />
+            {% else %}
+                <div class="w-full h-56 sm:h-64 flex items-center justify-center bg-linear-to-br from-base-200 to-base-300">
+                    <span class="text-8xl font-black text-primary/15 select-none">{{ personal_info.name|first }}</span>
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="flex-1 flex items-center">
+            <div class="w-full max-w-7xl mx-auto px-6 lg:px-16 pt-5 pb-10 lg:py-0 grid lg:grid-cols-5 gap-8 lg:gap-20 items-center">
+
+                {# ── Text column (3 / 5) ──────────────────────────────────────────── #}
+                <div class="lg:col-span-3 space-y-8 lg:flex lg:flex-col lg:justify-center">
+
+                    {# Mobile identity — logo lockup, no IDs needed (desktop lockup holds the IDs) #}
+                    <div class="lg:hidden flex items-start gap-3">
+                        {% if site_media.logo %}
+                            <div class="shrink-0 flex items-center justify-center w-11 h-11 rounded-xl border border-primary/20 bg-primary/5">
+                                <img class="w-7 h-7 object-contain"
+                                     src="{{ site_media.logo_display.url }}"
+                                     alt=""
+                                     role="presentation" />
+                            </div>
+                        {% endif %}
+                        <div class="flex flex-col gap-0.5">
+                            <span class="text-primary font-mono text-xl font-bold leading-tight">{{ personal_info.name }}</span>
+                            <span class="text-base-content/50 font-mono text-sm uppercase tracking-[0.18em]">{{ personal_info.title }}</span>
+                        </div>
+                    </div>
+
+                    {# Desktop identity — logo lockup, keeps IDs for semantic / test purposes #}
+                    <div class="hidden lg:flex items-center gap-4">
+                        {% if site_media.logo %}
+                            <div class="shrink-0 flex items-center justify-center w-16 h-16 rounded-2xl border border-primary/20 bg-primary/5 backdrop-blur-sm shadow-lg shadow-black/20">
+                                <img class="w-10 h-10 object-contain"
+                                     src="{{ site_media.logo_display.url }}"
+                                     alt=""
+                                     role="presentation" />
+                            </div>
+                        {% endif %}
+                        <div class="flex flex-col gap-2">
+                            <span id="personal-info-name"
+                                  class="text-primary font-mono text-4xl font-bold tracking-tight leading-none">{{ personal_info.name }}</span>
+                            <span id="personal-info-title"
+                                  class="text-secondary font-mono text-base uppercase tracking-[0.2em] leading-none">{{ personal_info.title }}</span>
+                        </div>
+                    </div>
+
+                    {# H1 — outcome-driven headline from introduction (markdown stripped) #}
+                    <div id="personal-info-introduction"
+                         class="prose prose-base sm:prose-lg max-w-none text-base-content/65 prose-p:leading-relaxed prose-strong:text-base-content prose-em:text-primary/80">
+                        {{ personal_info.introduction|md }}
+                    </div>
+
+                    {# Accent rule #}
+                    <div class="flex items-center gap-3">
+                        <div class="h-0.5 w-10 rounded-full bg-primary shrink-0">
+                        </div>
+                        <div class="h-px flex-1 max-w-40 rounded-full bg-base-content/10">
+                        </div>
+                    </div>
+
+                    {# CTAs #}
+                    <div class="flex flex-wrap gap-4">
+                        <a href="{% url 'contact' %}"
+                           class="btn btn-primary btn-lg gap-2 group shadow-lg shadow-primary/20 hover:shadow-primary/35 transition-shadow">
+                            {% translate "Let's talk" %}
+                            <svg xmlns="http://www.w3.org/2000/svg"
+                                 class="h-5 w-5 group-hover:translate-x-1 transition-transform"
+                                 fill="none"
+                                 viewBox="0 0 24 24"
+                                 stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                            </svg>
+                        </a>
+                        <button id="about-me-button"
+                                class="btn btn-lg gap-2 border border-base-content/20 bg-transparent hover:border-primary hover:bg-primary/10 hover:text-primary transition-all"
+                                onclick="about_me_modal.showModal()">
+                            {% translate "More about me" %}
+                        </button>
+                    </div>
+
+                    {# Technology strip #}
+                    {% if personal_info.technologies.exists %}
+                        <div class="flex flex-wrap items-center gap-3 pt-3 border-t border-base-content/10">
+                            <span class="text-xs font-mono uppercase tracking-[0.18em] text-base-content/30 shrink-0">Stack</span>
+                            <div id="personal-info-technologies"
+                                 class="flex flex-wrap gap-x-5 gap-y-1">
+                                {% for tech in personal_info.technologies.all %}
+                                    <span id="personal-info-technology-{{ tech.id }}"
+                                          class="text-sm text-base-content/55 hover:text-primary transition-colors duration-200 cursor-default font-mono">
+                                        {{ tech.name }}
+                                    </span>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    {% endif %}
+
+                </div>
+
+                {# ── Visual column (2 / 5) — desktop only ─────────────────────────── #}
+                <div class="hidden lg:flex lg:col-span-2 justify-center items-center">
+                    <div class="relative w-full max-w-sm">
+
+                        {# Corner accent — top-right (primary) #}
+                        <div class="absolute -top-7 -right-7 w-24 h-24 border-t-2 border-r-2 border-primary/45 rounded-tr-3xl z-10 pointer-events-none">
+                        </div>
+
+                        {# Corner accent — bottom-left (secondary) #}
+                        <div class="absolute -bottom-7 -left-7 w-24 h-24 border-b-2 border-l-2 border-secondary/35 rounded-bl-3xl z-10 pointer-events-none">
+                        </div>
+
+                        {# Portrait frame — tall, fills the column height #}
+                        <div class="relative rounded-2xl overflow-hidden border border-primary/15 shadow-2xl shadow-black">
+                            {% if site_media.portrait_image %}
+                                <img class="w-full h-[72vh] max-h-[40rem] object-cover object-top"
+                                     src="{{ site_media.portrait_display.url }}"
+                                     alt="{{ personal_info.name }}"
+                                     loading="eager" />
+                            {% else %}
+                                <div class="w-full h-[72vh] max-h-[40rem] flex items-center justify-center bg-linear-to-br from-base-200 to-base-300">
+                                    <span class="text-9xl font-black text-primary/15 select-none">{{ personal_info.name|first }}</span>
+                                </div>
+                            {% endif %}
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    {# ── Scroll cue ───────────────────────────────────────────────────────────── #}
+    <div class="relative z-10 flex justify-center pb-8 text-base-content/20 animate-bounce">
+        <svg xmlns="http://www.w3.org/2000/svg"
+             class="h-6 w-6"
+             fill="none"
+             viewBox="0 0 24 24"
+             stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 9l-7 7-7-7" />
+        </svg>
+    </div>
+
+    {# ── About me modal ───────────────────────────────────────────────────────── #}
+    <dialog id="about_me_modal" class="modal modal-bottom sm:modal-middle">
+        <div class="modal-box w-11/12 max-w-3xl mx-auto bg-linear-to-br from-base-300 to-base-200 shadow-2xl shadow-black/60 border border-primary/15 p-0 flex flex-col max-h-[90vh]">
+
+            {# Modal header #}
+            <div class="px-6 pt-6 pb-5 border-b border-primary/15 shrink-0">
+                <div class="flex items-center gap-3 mb-3">
+                    <div class="h-0.5 w-6 rounded-full bg-primary shrink-0">
+                    </div>
+                    <span class="text-xs font-mono uppercase tracking-[0.18em] text-primary/60">Profile</span>
+                </div>
+                <h1 id="about-me-title"
+                    class="text-2xl sm:text-3xl font-bold text-base-content">
+                    {% translate "About me" %}
+                </h1>
+            </div>
+
+            {# Modal content #}
+            <div class="overflow-y-auto flex-1">
+                <div id="about-me" class="px-6 py-5">
+                    <div id="personal-info-biography"
+                         class="prose max-w-none prose-headings:text-primary prose-a:text-primary">
+                        {{ personal_info.biography|md }}
+                    </div>
+                </div>
+            </div>
+
+            {# Modal footer — close only #}
+            <div class="border-t border-primary/15 px-6 py-4 shrink-0 flex justify-end">
+                <form method="dialog">
+                    <button class="btn btn-ghost gap-2 border border-base-content/20 hover:border-primary hover:text-primary transition-all">
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                             class="h-5 w-5"
+                             fill="none"
+                             viewBox="0 0 24 24"
+                             stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                        <span>{% translate "Close" %}</span>
+                    </button>
+                </form>
+            </div>
+
+        </div>
+    </dialog>
+
+</div>

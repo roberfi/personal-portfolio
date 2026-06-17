@@ -33,9 +33,9 @@ class TestSiteMediaModelDefaults(TestCase):
 
     def test_default_field_values(self) -> None:
         self.assertEqual(
-            background_url := self.site_media.background_image.url,
-            "/media/site/background.jpg",
-            f"Expected background_image.url to default to '/media/site/background.jpg', got '{background_url}'",
+            background_url := self.site_media.portrait_image.url,
+            "/media/site/portrait.png",
+            f"Expected portrait_image.url to default to '/media/site/portrait.png', got '{background_url}'",
         )
         self.assertEqual(
             favicon_url := self.site_media.favicon.url,
@@ -66,21 +66,26 @@ class TestSiteMediaModelDefaults(TestCase):
 
 
 class TestSiteMediaModelDisplayFields(TestCase):
-    def test_background_image_display_is_resized_to_fit(self) -> None:
+    def test_portrait_mobile_display_is_resized_to_fit(self) -> None:
         site_media = SiteMedia.get_solo()
-        site_media.background_image = _build_uploaded_image("background.jpg", (3840, 2160), "JPEG")
+        site_media.portrait_image = _build_uploaded_image("portrait.jpg", (1920, 1080), "JPEG")
         site_media.save()
 
-        with Image.open(site_media.background_image_display.path) as image:
-            self.assertEqual(
-                image.size,
-                expected_size := (1920, 1080),
-                f"Expected background_image_display to be resized to '{expected_size}', got '{image.size}'",
+        with Image.open(site_media.portrait_mobile_display.path) as image:
+            self.assertLessEqual(
+                image.size[0],
+                900,
+                f"Expected portrait_mobile_display width to be at most 900px, got '{image.size[0]}'",
+            )
+            self.assertLessEqual(
+                image.size[1],
+                506,
+                f"Expected portrait_mobile_display height to be at most 506px, got '{image.size[1]}'",
             )
 
     def test_og_preview_image_display_is_resized_to_fill(self) -> None:
         site_media = SiteMedia.get_solo()
-        site_media.background_image = _build_uploaded_image("background.jpg", (3000, 1000), "JPEG")
+        site_media.portrait_image = _build_uploaded_image("background.jpg", (3000, 1000), "JPEG")
         site_media.save()
 
         with Image.open(site_media.og_preview_image_display.path) as image:
@@ -92,7 +97,7 @@ class TestSiteMediaModelDisplayFields(TestCase):
 
     def test_twitter_preview_image_display_is_resized_to_fill(self) -> None:
         site_media = SiteMedia.get_solo()
-        site_media.background_image = _build_uploaded_image("background.jpg", (3000, 1000), "JPEG")
+        site_media.portrait_image = _build_uploaded_image("background.jpg", (3000, 1000), "JPEG")
         site_media.save()
 
         with Image.open(site_media.twitter_preview_image_display.path) as image:

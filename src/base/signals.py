@@ -9,7 +9,7 @@ from PIL import Image
 # Placeholder images for the SiteMedia defaults, generated after migrations so a fresh
 # install works without manually providing media files. Replace them via the admin (Site Media).
 DEFAULT_SITE_MEDIA_IMAGES: dict[str, tuple[tuple[int, int], str]] = {
-    "background.jpg": ((1920, 1080), "JPEG"),
+    "portrait.png": ((1920, 1080), "PNG"),
     "favicon.ico": ((32, 32), "ICO"),
     "icon.png": ((64, 64), "PNG"),
 }

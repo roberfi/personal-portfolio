@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-15 15:17+0000\n"
+"POT-Creation-Date: 2026-06-17 16:28+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -43,8 +43,8 @@ msgid "Legal & Privacy"
 msgstr "Condiciones y Privacidad"
 
 #: base/templates/cotton/footer.html:57
-#: home/templates/cotton/experience_timeline/modal.html:96
-#: home/templates/index.html:103
+#: home/templates/cotton/experience_timeline/modal.html:92
+#: home/templates/cotton/hero.html:204
 msgid "Close"
 msgstr "Cerrar"
 
@@ -228,11 +228,11 @@ msgstr ""
 msgid "Thank you for your message! I'll get back to you as soon as possible."
 msgstr "¡Gracias por tu mensaje! Te responderé lo antes posible."
 
-#: core/settings.py:142
+#: core/settings.py:143
 msgid "English"
 msgstr "Inglés"
 
-#: core/settings.py:143
+#: core/settings.py:144
 msgid "Spanish"
 msgstr "Español"
 
@@ -276,7 +276,7 @@ msgid_plural "%d months"
 msgstr[0] "%d mes"
 msgstr[1] "%d meses"
 
-#: home/models.py:131 home/models.py:148 home/models.py:163
+#: home/models.py:131 home/models.py:193
 #, python-format
 msgid "%(title)s at %(institution)s"
 msgstr "%(title)s en %(institution)s"
@@ -285,25 +285,17 @@ msgstr "%(title)s en %(institution)s"
 msgid "View more"
 msgstr "Ver más"
 
-#: home/templates/cotton/experience_timeline/sub_project_list.html:15
-msgid "Projects"
-msgstr "Proyectos"
+#: home/templates/cotton/hero.html:88
+msgid "Let's talk"
+msgstr "Hablemos"
 
-#: home/templates/index.html:13
-msgid "Professional profile of"
-msgstr "Perfil profesional de"
-
-#: home/templates/index.html:50
+#: home/templates/cotton/hero.html:100
 msgid "More about me"
 msgstr "Más sobre mí"
 
-#: home/templates/index.html:68
+#: home/templates/cotton/hero.html:179
 msgid "About me"
 msgstr "Sobre mí"
-
-#: home/templates/index.html:92
-msgid "Contact me"
-msgstr "Contáctame"
 
 #: home/templates/my-career.html:8
 msgid "My Experience"
@@ -336,3 +328,12 @@ msgstr ""
 #: home/views.py:237
 msgid "experience, education, professional background, work history"
 msgstr "experiencia, educación, trayectoria profesional, historia laboral"
+
+#~ msgid "Projects"
+#~ msgstr "Proyectos"
+
+#~ msgid "Professional profile of"
+#~ msgstr "Perfil profesional de"
+
+#~ msgid "Contact me"
+#~ msgstr "Contáctame"
