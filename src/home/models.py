@@ -151,6 +151,22 @@ class Project(models.Model):  # type: ignore[django-manager-missing] # https://g
         return self.title
 
 
+class Service(models.Model):  # type: ignore[django-manager-missing] # https://github.com/typeddjango/django-stubs/issues/1023
+    title = models.CharField(max_length=200)
+    slug = models.SlugField(max_length=200, unique=True)
+    short_description = models.CharField(max_length=300)
+    long_description = models.TextField()
+    icon_name = models.CharField(max_length=100, blank=True)
+    order = models.PositiveIntegerField(default=0)
+    is_active = models.BooleanField(default=True)
+
+    class Meta:
+        ordering = ("order", "title")
+
+    def __str__(self) -> str:
+        return self.title
+
+
 class Education(DatedModel):  # type: ignore[django-manager-missing] # https://github.com/typeddjango/django-stubs/issues/1023
     title = models.CharField(max_length=200)
     institution = models.CharField(max_length=200)

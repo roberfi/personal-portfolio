@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from modeltranslation.translator import TranslationOptions, register
 
-from .models import Education, Experience, PersonalInfo, Project, Technology
+from .models import Education, Experience, PersonalInfo, Project, Service, Technology
 
 
 @register(Technology)
@@ -35,6 +35,15 @@ class ProjectTranslationOptions(TranslationOptions):
         "problem",
         "approach",
         "outcome",
+    )
+
+
+@register(Service)
+class ServiceTranslationOptions(TranslationOptions):
+    fields = (
+        "title",
+        "short_description",
+        "long_description",
     )
 
 
