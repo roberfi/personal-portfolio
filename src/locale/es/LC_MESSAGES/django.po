@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-18 10:35+0000\n"
+"POT-Creation-Date: 2026-06-18 16:56+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -38,13 +38,25 @@ msgstr "Configuración de Cookies"
 msgid "Save"
 msgstr "Guardar"
 
+#: base/templates/cotton/cta_block.html:16
+msgid "Ready to start?"
+msgstr "¿Listo para empezar?"
+
+#: base/templates/cotton/cta_block.html:21
+msgid "Do you have a project in mind?"
+msgstr "¿Tienes un proyecto en mente?"
+
+#: base/templates/cotton/cta_block.html:28
+msgid "Let's talk"
+msgstr "Hablemos"
+
 #: base/templates/cotton/footer.html:16 base/templates/cotton/footer.html:33
 msgid "Legal & Privacy"
 msgstr "Condiciones y Privacidad"
 
 #: base/templates/cotton/footer.html:62
 #: home/templates/cotton/experience_timeline/modal.html:97
-#: home/templates/cotton/hero.html:204
+#: home/templates/cotton/hero.html:200
 msgid "Close"
 msgstr "Cerrar"
 
@@ -182,25 +194,25 @@ msgstr ""
 "¿Tienes alguna pregunta o quieres trabajar conmigo? Envíame un mensaje y te "
 "responderé lo antes posible."
 
-#: contact/templates/contact.html:153
+#: contact/templates/contact.html:166
 msgid "I accept the"
 msgstr "Acepto la"
 
-#: contact/templates/contact.html:176
+#: contact/templates/contact.html:193
 msgid "Send Message"
 msgstr "Enviar Mensaje"
 
-#: contact/templates/contact.html:190
+#: contact/templates/contact.html:208
 msgid "Sending..."
 msgstr "Enviando..."
 
-#: contact/templates/contact.html:206
+#: contact/templates/contact.html:224
 msgid "There was an error with the security verification. Please try again."
 msgstr ""
 "Hubo un error con la verificación de seguridad. Por favor, inténtalo de "
 "nuevo."
 
-#: contact/templates/contact.html:222
+#: contact/templates/contact.html:247
 msgid ""
 "Your information is safe and will only be used to respond to your inquiry."
 msgstr ""
@@ -282,7 +294,7 @@ msgstr[1] "%d meses"
 msgid "%(title)s at %(institution)s"
 msgstr "%(title)s en %(institution)s"
 
-#: home/templates/cotton/experience_timeline/card.html:61
+#: home/templates/cotton/experience_timeline/card.html:75
 msgid "View more"
 msgstr "Ver más"
 
@@ -290,19 +302,15 @@ msgstr "Ver más"
 msgid "Detail"
 msgstr "Detalle"
 
-#: home/templates/cotton/hero.html:88
-msgid "Let's talk"
-msgstr "Hablemos"
-
-#: home/templates/cotton/hero.html:100
+#: home/templates/cotton/hero.html:89
 msgid "More about me"
 msgstr "Más sobre mí"
 
-#: home/templates/cotton/hero.html:175
+#: home/templates/cotton/hero.html:171
 msgid "Profile"
 msgstr "Perfil"
 
-#: home/templates/cotton/hero.html:179
+#: home/templates/cotton/hero.html:175
 msgid "About me"
 msgstr "Sobre mí"
 

@@ -266,6 +266,33 @@ class BaseTestHomeViewContent(BaseHomeViewTest):
             ),
         )
 
+    def test_cta_block(self) -> None:
+        cta_section = self._find_element_by_tag_and_id(
+            self.response_data.soup, HtmlTag.SECTION, test_view_constants.HOME_CTA_ID
+        )
+
+        self._assert_text_of_elements(
+            cta_section,
+            ElementText(
+                html_tag=HtmlTag.SPAN,
+                element_id=test_view_constants.HOME_CTA_EYEBROW_ID,
+                expected_text=test_view_constants.HOME_CTA_EYEBROW[self.language],
+            ),
+            ElementText(
+                html_tag=HtmlTag.H2,
+                element_id=test_view_constants.HOME_CTA_TITLE_ID,
+                expected_text=test_view_constants.HOME_CTA_TITLE[self.language],
+            ),
+        )
+
+        primary_link = self._find_element_by_tag_and_id(cta_section, HtmlTag.A, test_view_constants.HOME_CTA_PRIMARY_ID)
+        self._assert_text_of_element(primary_link, test_view_constants.HOME_CTA_PRIMARY_TEXT[self.language])
+        self._assert_attribute_of_element(
+            primary_link,
+            common_constants.ATTR_HREF,
+            f"/{self.language}/contact/",
+        )
+
 
 class TestHomeViewEnglish(BaseTestHomeViewContent):
     language = Language.ENGLISH

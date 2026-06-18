@@ -27,6 +27,7 @@ class HtmlTag(StrEnum):
     P = "p"
     PATH = "path"
     SCRIPT = "script"
+    SECTION = "section"
     SPAN = "span"
     SUMMARY = "summary"
     SVG = "svg"

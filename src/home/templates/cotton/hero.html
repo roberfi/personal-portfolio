@@ -81,11 +81,12 @@
                         </div>
                     </div>
 
-                    {# CTAs #}
+                    {# More about me #}
                     <div class="flex flex-wrap gap-4">
-                        <a href="{% url 'contact' %}"
-                           class="btn btn-primary btn-lg gap-2 group shadow-lg shadow-primary/20 hover:shadow-primary/35 transition-shadow">
-                            {% translate "Let's talk" %}
+                        <button id="about-me-button"
+                                class="btn btn-primary btn-lg gap-2 group shadow-lg shadow-primary/20 hover:shadow-primary/35 transition-shadow"
+                                onclick="about_me_modal.showModal()">
+                            {% translate "More about me" %}
                             <svg xmlns="http://www.w3.org/2000/svg"
                                  class="h-5 w-5 group-hover:translate-x-1 transition-transform"
                                  fill="none"
@@ -93,11 +94,6 @@
                                  stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
                             </svg>
-                        </a>
-                        <button id="about-me-button"
-                                class="btn btn-lg gap-2 border border-base-content/20 bg-transparent hover:border-primary hover:bg-primary/10 hover:text-primary transition-all"
-                                onclick="about_me_modal.showModal()">
-                            {% translate "More about me" %}
                         </button>
                     </div>
 

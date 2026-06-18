@@ -16,6 +16,12 @@ ABOUT_ME_ID = "about-me"
 ABOUT_ME_TITLE_ID = "about-me-title"
 PERSONAL_INFO_BIOGRAPHY_ID = "personal-info-biography"
 
+# Home CTA ids
+HOME_CTA_ID = "home-cta"
+HOME_CTA_EYEBROW_ID = "home-cta-eyebrow"
+HOME_CTA_TITLE_ID = "home-cta-title"
+HOME_CTA_PRIMARY_ID = "home-cta-primary"
+
 # My Career ids
 MY_CAREER_ID = "my-career"
 MY_EXPERIENCE_TITLE_ID = "my-experience-title"
@@ -320,3 +326,17 @@ SOURCE_CODE_NOTE_TEXT = {
     Language.SPANISH: "El código fuente de este sitio web está disponible en GitHub bajo licencia MIT.",
 }
 SOURCE_CODE_GITHUB_LINK = "https://github.com/roberfi/personal-portfolio"
+
+# Home CTA texts (default copy of the c-cta-block component)
+HOME_CTA_EYEBROW = {
+    Language.ENGLISH: "Ready to start?",
+    Language.SPANISH: "¿Listo para empezar?",
+}
+HOME_CTA_TITLE = {
+    Language.ENGLISH: "Do you have a project in mind?",
+    Language.SPANISH: "¿Tienes un proyecto en mente?",
+}
+HOME_CTA_PRIMARY_TEXT = {
+    Language.ENGLISH: "Let's talk",
+    Language.SPANISH: "Hablemos",
+}

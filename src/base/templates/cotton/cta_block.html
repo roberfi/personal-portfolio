@@ -1,0 +1,47 @@
+{% load i18n %}
+
+<section id="home-cta"
+         class="bg-linear-to-br from-base-300 to-base-200 border-t border-primary/15">
+    <div class="max-w-2xl mx-auto px-6 py-16 lg:py-20">
+        <div class="relative">
+
+            {# Decorative accents — echo the hero / contact card corner motifs #}
+            <div class="hidden sm:block absolute -top-5 -right-5 w-20 h-20 border-t-2 border-r-2 border-primary/40 rounded-tr-3xl pointer-events-none">
+            </div>
+            <div class="hidden sm:block absolute -bottom-5 -left-5 w-20 h-20 border-b-2 border-l-2 border-secondary/30 rounded-bl-3xl pointer-events-none">
+            </div>
+
+            <div class="card rounded-2xl shadow-2xl shadow-black/40 transition-colors duration-300 bg-base-200/60 border border-primary/15 hover:border-primary/30">
+                <div class="card-body p-8 sm:p-10 flex flex-col items-center text-center gap-6">
+
+                    <span id="home-cta-eyebrow"
+                          class="text-xs font-mono uppercase tracking-[0.18em] text-primary/60">
+                        {% translate "Ready to start?" %}
+                    </span>
+
+                    <h2 id="home-cta-title"
+                        class="text-3xl sm:text-4xl font-bold tracking-tight text-base-content">
+                        {% translate "Do you have a project in mind?" %}
+                    </h2>
+
+                    <div class="flex flex-wrap justify-center gap-4 pt-2">
+                        <a id="home-cta-primary"
+                           href="{% url 'contact' %}"
+                           class="btn btn-primary btn-lg gap-2 group shadow-lg shadow-primary/20 hover:shadow-primary/35 transition-shadow">
+                            {% translate "Let's talk" %}
+                            <svg xmlns="http://www.w3.org/2000/svg"
+                                 class="h-5 w-5 group-hover:translate-x-1 transition-transform"
+                                 fill="none"
+                                 viewBox="0 0 24 24"
+                                 stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                            </svg>
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
