@@ -9,6 +9,7 @@
 - Add ProcessStep model with drag-and-drop ordering in the admin
 - Redesign hero section: outcome-driven headline, two-column layout with portrait frame and decorative accents
 - Align the navbar, footer, contact and my-career views with the new hero design
+- Serve CSS as a static minimized stylesheet extracted from the JS bundle
 
 ## 0.7.0
 
