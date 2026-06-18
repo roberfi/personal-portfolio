@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-17 16:28+0000\n"
+"POT-Creation-Date: 2026-06-18 10:35+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -38,25 +38,25 @@ msgstr "Configuración de Cookies"
 msgid "Save"
 msgstr "Guardar"
 
-#: base/templates/cotton/footer.html:16
+#: base/templates/cotton/footer.html:16 base/templates/cotton/footer.html:33
 msgid "Legal & Privacy"
 msgstr "Condiciones y Privacidad"
 
-#: base/templates/cotton/footer.html:57
-#: home/templates/cotton/experience_timeline/modal.html:92
+#: base/templates/cotton/footer.html:62
+#: home/templates/cotton/experience_timeline/modal.html:97
 #: home/templates/cotton/hero.html:204
 msgid "Close"
 msgstr "Cerrar"
 
-#: base/templates/cotton/footer.html:74
+#: base/templates/cotton/footer.html:79
 msgid "Follow Me"
 msgstr "Sígueme"
 
-#: base/templates/cotton/footer.html:105
+#: base/templates/cotton/footer.html:110
 msgid "The source code of this website is available on"
 msgstr "El código fuente de este sitio web está disponible en"
 
-#: base/templates/cotton/footer.html:111
+#: base/templates/cotton/footer.html:116
 msgid "under the MIT License"
 msgstr "bajo licencia MIT"
 
@@ -68,7 +68,8 @@ msgstr "Inicio"
 msgid "My Career"
 msgstr "Mi Carrera"
 
-#: base/templatetags/base_tags.py:37 contact/views.py:58
+#: base/templatetags/base_tags.py:37 contact/templates/contact.html:10
+#: contact/views.py:58
 msgid "Contact"
 msgstr "Contacto"
 
@@ -169,11 +170,11 @@ msgstr "Este campo es obligatorio si se usa SMTP."
 msgid "This field is required when using the Brevo API."
 msgstr "Este campo es obligatorio si se usa la API de Brevo."
 
-#: contact/templates/contact.html:8
+#: contact/templates/contact.html:9
 msgid "Get in Touch"
 msgstr "Contactar conmigo"
 
-#: contact/templates/contact.html:15
+#: contact/templates/contact.html:17
 msgid ""
 "Do you have a question or want to work together? Feel free to send me a "
 "message and I will respond as soon as possible."
@@ -181,25 +182,25 @@ msgstr ""
 "¿Tienes alguna pregunta o quieres trabajar conmigo? Envíame un mensaje y te "
 "responderé lo antes posible."
 
-#: contact/templates/contact.html:151
+#: contact/templates/contact.html:153
 msgid "I accept the"
 msgstr "Acepto la"
 
-#: contact/templates/contact.html:174
+#: contact/templates/contact.html:176
 msgid "Send Message"
 msgstr "Enviar Mensaje"
 
-#: contact/templates/contact.html:188
+#: contact/templates/contact.html:190
 msgid "Sending..."
 msgstr "Enviando..."
 
-#: contact/templates/contact.html:204
+#: contact/templates/contact.html:206
 msgid "There was an error with the security verification. Please try again."
 msgstr ""
 "Hubo un error con la verificación de seguridad. Por favor, inténtalo de "
 "nuevo."
 
-#: contact/templates/contact.html:220
+#: contact/templates/contact.html:222
 msgid ""
 "Your information is safe and will only be used to respond to your inquiry."
 msgstr ""
@@ -285,6 +286,10 @@ msgstr "%(title)s en %(institution)s"
 msgid "View more"
 msgstr "Ver más"
 
+#: home/templates/cotton/experience_timeline/modal.html:12
+msgid "Detail"
+msgstr "Detalle"
+
 #: home/templates/cotton/hero.html:88
 msgid "Let's talk"
 msgstr "Hablemos"
@@ -292,6 +297,10 @@ msgstr "Hablemos"
 #: home/templates/cotton/hero.html:100
 msgid "More about me"
 msgstr "Más sobre mí"
+
+#: home/templates/cotton/hero.html:175
+msgid "Profile"
+msgstr "Perfil"
 
 #: home/templates/cotton/hero.html:179
 msgid "About me"
@@ -301,9 +310,17 @@ msgstr "Sobre mí"
 msgid "My Experience"
 msgstr "Mi Experiencia"
 
-#: home/templates/my-career.html:21
+#: home/templates/my-career.html:9
+msgid "Career"
+msgstr "Trayectoria"
+
+#: home/templates/my-career.html:22
 msgid "Education"
 msgstr "Educación"
+
+#: home/templates/my-career.html:23
+msgid "Background"
+msgstr "Formación"
 
 #: home/views.py:83
 msgid "Personal Portfolio"

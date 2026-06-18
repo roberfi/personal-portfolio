@@ -41,7 +41,7 @@ class ContactForm(forms.ModelForm[ContactMessage]):
                 CONTACT_FORM_FIELD_NAME: forms.TextInput(
                     attrs={
                         "class": (
-                            "input input-bordered w-full focus:outline-none focus:border-primary/50"
+                            "input input-bordered w-full bg-base-300/40 focus:outline-none focus:border-primary/50"
                             " focus:ring-2 focus:ring-primary/20 transition-all duration-200"
                         ),
                         "placeholder": gettext_lazy("Your name"),
@@ -50,7 +50,7 @@ class ContactForm(forms.ModelForm[ContactMessage]):
                 CONTACT_FORM_FIELD_EMAIL: forms.EmailInput(
                     attrs={
                         "class": (
-                            "input input-bordered w-full focus:outline-none focus:border-primary/50"
+                            "input input-bordered w-full bg-base-300/40 focus:outline-none focus:border-primary/50"
                             " focus:ring-2 focus:ring-primary/20 transition-all duration-200"
                         ),
                         "placeholder": gettext_lazy("your.email@example.com"),
@@ -59,7 +59,7 @@ class ContactForm(forms.ModelForm[ContactMessage]):
                 CONTACT_FORM_FIELD_SUBJECT: forms.TextInput(
                     attrs={
                         "class": (
-                            "input input-bordered w-full focus:outline-none focus:border-primary/50"
+                            "input input-bordered w-full bg-base-300/40 focus:outline-none focus:border-primary/50"
                             " focus:ring-2 focus:ring-primary/20 transition-all duration-200"
                         ),
                         "placeholder": gettext_lazy("Message subject"),
@@ -68,8 +68,8 @@ class ContactForm(forms.ModelForm[ContactMessage]):
                 CONTACT_FORM_FIELD_MESSAGE: forms.Textarea(
                     attrs={
                         "class": (
-                            "textarea textarea-bordered w-full h-32 focus:outline-none focus:border-primary/50"
-                            " focus:ring-2 focus:ring-primary/20 transition-all duration-200"
+                            "textarea textarea-bordered w-full h-32 bg-base-300/40 focus:outline-none"
+                            " focus:border-primary/50 focus:ring-2 focus:ring-primary/20 transition-all duration-200"
                         ),
                         "placeholder": gettext_lazy("Write your message here..."),
                         "rows": 6,
