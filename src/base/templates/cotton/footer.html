@@ -4,7 +4,7 @@
 
 {% get_footer_data as data %}
 
-<div class="bg-linear-to-br from-base-300 to-base-200 text-base-content p-10 border-t-2 border-primary/20">
+<div class="bg-linear-to-br from-base-300 to-base-200 text-base-content p-10 border-t border-primary/15">
     <footer id="upper-footer"
             class="footer lg:footer-horizontal lg:max-w-(--breakpoint-lg) lg:mx-auto pb-10">
 
@@ -12,23 +12,28 @@
             {% if legal_and_privacy %}
                 <nav id="legal-and-privacy" class="lg:mx-auto">
                     <h6 id="legal-and-privacy-title"
-                        class="footer-title text-primary font-bold">
+                        class="footer-title font-mono text-xs uppercase tracking-[0.18em] text-primary/60">
                         {% translate "Legal & Privacy" %}
                     </h6>
 
                     {% for section in legal_and_privacy %}
                         <button id="legal-and-privacy-{{ section.id }}-link"
-                                class="link link-hover hover:text-primary transition-colors"
+                                class="link link-hover text-base-content/70 hover:text-primary transition-colors"
                                 onclick="{{ section.modal_name }}.showModal()">
                             {{ section.title }}
                         </button>
                         <dialog id="{{ section.modal_name }}"
                                 class="modal modal-bottom sm:modal-middle">
-                            <div class="modal-box w-11/12 max-w-5xl mx-auto bg-linear-to-br from-base-100 to-base-200 shadow-2xl p-0 flex flex-col max-h-[90vh]">
+                            <div class="modal-box w-11/12 max-w-5xl mx-auto bg-linear-to-br from-base-300 to-base-200 shadow-2xl shadow-black/60 border border-primary/15 p-0 flex flex-col max-h-[90vh]">
                                 <!-- Header section - fixed at top -->
-                                <div class="bg-linear-to-r from-primary/10 to-transparent p-4 sm:p-6 border-b-2 border-primary/20 backdrop-blur-sm bg-base-100/95 shrink-0">
+                                <div class="px-4 sm:px-6 pt-5 sm:pt-6 pb-5 border-b border-primary/15 shrink-0">
+                                    <div class="flex items-center gap-3 mb-3">
+                                        <div class="h-0.5 w-6 rounded-full bg-primary shrink-0">
+                                        </div>
+                                        <span class="text-xs font-mono uppercase tracking-[0.18em] text-primary/60">{% translate "Legal & Privacy" %}</span>
+                                    </div>
                                     <h1 id="legal-and-privacy-{{ section.id }}-title"
-                                        class="text-3xl sm:text-4xl font-bold bg-linear-to-r from-primary to-primary/60 bg-clip-text text-transparent">
+                                        class="text-3xl sm:text-4xl font-bold tracking-tight text-base-content">
                                         {{ section.title }}
                                     </h1>
                                 </div>
@@ -44,9 +49,9 @@
                                 </div>
 
                                 <!-- Footer - fixed at bottom -->
-                                <div class="modal-action border-t border-primary/20 p-4 sm:p-6 bg-base-200/95 backdrop-blur-sm shrink-0 m-0">
+                                <div class="modal-action border-t border-primary/15 px-4 sm:px-6 py-4 shrink-0 m-0 flex justify-end">
                                     <form method="dialog">
-                                        <button class="btn btn-primary gap-2 group">
+                                        <button class="btn btn-ghost gap-2 border border-base-content/20 hover:border-primary hover:bg-primary/10 hover:text-primary transition-all">
                                             <svg xmlns="http://www.w3.org/2000/svg"
                                                  class="h-5 w-5"
                                                  fill="none"
@@ -70,7 +75,7 @@
             {% if follow_me_links %}
                 <nav id="follow-me-links" class="lg:mx-auto">
                     <h6 id="follow-me-links-title"
-                        class="footer-title text-primary font-bold">
+                        class="footer-title font-mono text-xs uppercase tracking-[0.18em] text-primary/60">
                         {% translate "Follow Me" %}
                     </h6>
                     <div class="grid grid-flow-col gap-4">

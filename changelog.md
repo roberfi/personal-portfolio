@@ -8,6 +8,7 @@
 - Add Service model with drag-and-drop ordering in the admin
 - Add ProcessStep model with drag-and-drop ordering in the admin
 - Redesign hero section: outcome-driven headline, two-column layout with portrait frame and decorative accents
+- Align the navbar, footer, contact and my-career views with the new hero design
 
 ## 0.7.0
 

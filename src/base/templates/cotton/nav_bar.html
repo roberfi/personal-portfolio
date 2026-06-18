@@ -8,7 +8,7 @@
 
 {% with request.resolver_match.url_name as url_name %}
     <nav id="nav-bar"
-         class="navbar bg-linear-to-r from-base-200 to-base-100 shadow-lg border-b border-primary/20 backdrop-blur-sm z-50">
+         class="navbar bg-base-300/85 shadow-lg shadow-black/20 border-b border-primary/15 backdrop-blur-md z-50">
         <div class="navbar-start">
             <div class="dropdown">
                 <div tabindex="0" role="button" class="btn btn-ghost btn-circle lg:hidden">
@@ -21,13 +21,13 @@
                     </svg>
                 </div>
                 <ul tabindex="0"
-                    class="menu dropdown-content bg-linear-to-br from-base-100 to-base-200 rounded-box z-100 mt-5 w-52 p-2 shadow-xl border border-primary/20">
+                    class="menu dropdown-content bg-linear-to-br from-base-300 to-base-200 rounded-box z-100 mt-5 w-52 p-2 shadow-xl shadow-black/40 border border-primary/15">
                     <c-section-links mode="dropdown" />
                 </ul>
             </div>
-            <a class="btn btn-ghost btn-circle lg:mx-5 hover:bg-primary/10 transition-colors"
+            <a class="lg:mx-4 shrink-0 flex items-center justify-center w-11 h-11 rounded-xl border border-primary/20 bg-primary/5 hover:border-primary/40 hover:bg-primary/10 transition-all"
                href="{% url "home" %}">
-                <image class="w-8 h-8 hover:scale-110 transition-transform"
+                <image class="w-7 h-7 object-contain"
                        src="{{ site_media.logo_display.url }}" />
             </a>
             <div role="tablist" class="tabs tabs-border max-lg:hidden">
@@ -36,13 +36,13 @@
         </div>
         <div class="navbar-center">
             <span id="active-section-title"
-                  class="lg:hidden whitespace-nowrap font-semibold text-primary">{{ url_name|url_title }}</span>
+                  class="lg:hidden whitespace-nowrap font-mono text-sm uppercase tracking-[0.15em] text-primary">{{ url_name|url_title }}</span>
         </div>
         <div class="navbar-end">
             <div class="dropdown dropdown-end">
                 <div tabindex="0"
                      role="button"
-                     class="btn btn-ghost hover:bg-primary/10 transition-colors gap-2">
+                     class="btn btn-ghost border border-base-content/15 hover:border-primary hover:bg-primary/10 hover:text-primary transition-all gap-2">
                     <svg xmlns="http://www.w3.org/2000/svg"
                          class="w-5 h-5"
                          aria-hidden="true"
@@ -51,10 +51,10 @@
                         <path stroke="currentColor" stroke-width="2" d="M12,23 C18.0751322,23 23,18.0751322 23,12 C23,5.92486775 18.0751322,1 12,1 C5.92486775,1 1,5.92486775 1,12 C1,18.0751322 5.92486775,23 12,23 Z M12,23 C15,23 16,18 16,12 C16,6 15,1 12,1 C9,1 8,6 8,12 C8,18 9,23 12,23 Z M2,16 L22,16 M2,8 L22,8">
                         </path>
                     </svg>
-                    <span>{{ CURRENT_LANGUAGE }}</span>
+                    <span class="font-mono text-sm uppercase tracking-[0.12em]">{{ CURRENT_LANGUAGE }}</span>
                 </div>
                 <ul tabindex="0"
-                    class="menu dropdown-content bg-linear-to-br from-base-100 to-base-200 rounded-box z-100 mt-5 w-52 p-2 shadow-xl border border-primary/20">
+                    class="menu dropdown-content bg-linear-to-br from-base-300 to-base-200 rounded-box z-100 mt-5 w-52 p-2 shadow-xl shadow-black/40 border border-primary/15">
                     {% for language in languages %}
                         <li>
                             <form class="block p-0" action="{% url 'set_language' %}" method="post">
@@ -62,7 +62,7 @@
                                 <input name="next" type="hidden" value="{% url url_name %}">
                                 <input name="language" type="hidden" value="{{ language.code }}">
                                 <button type="submit"
-                                        class="btn btn-lg w-full justify-start font-normal transition-all{% if language.code == CURRENT_LANGUAGE %} bg-neutral/40 text-neutral-content font-semibold{% else %} btn-ghost hover:bg-white/5{% endif %}">
+                                        class="btn btn-lg w-full justify-start transition-all{% if language.code == CURRENT_LANGUAGE %} bg-primary/15 text-primary border border-primary/20 font-semibold{% else %} btn-ghost text-base-content/70 hover:bg-primary/10 hover:text-primary{% endif %}">
                                     <span class="flex-1 text-left">{{ language.name_local | title }}</span>
                                 </button>
                             </form>

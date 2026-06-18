@@ -3,16 +3,21 @@
 
 <dialog id="{{ item_type|default:'item' }}_{{ item.id }}_modal"
         class="modal modal-bottom sm:modal-middle">
-    <div class="modal-box w-full max-w-5xl mx-auto bg-linear-to-br from-base-100 to-base-200 shadow-2xl p-0 flex flex-col max-h-[90vh]">
+    <div class="modal-box w-full max-w-5xl mx-auto bg-linear-to-br from-base-300 to-base-200 shadow-2xl shadow-black/60 border border-primary/15 p-0 flex flex-col max-h-[90vh]">
         <!-- Header section - fixed at top -->
-        <div class="bg-linear-to-r from-primary/10 to-transparent p-4 sm:p-6 border-b-2 border-primary/20 backdrop-blur-sm bg-base-100/95 shrink-0">
+        <div class="px-4 sm:px-6 pt-5 sm:pt-6 pb-5 border-b border-primary/15 shrink-0">
+            <div class="flex items-center gap-3 mb-3">
+                <div class="h-0.5 w-6 rounded-full bg-primary shrink-0">
+                </div>
+                <span class="text-xs font-mono uppercase tracking-[0.18em] text-primary/60">{% translate "Detail" %}</span>
+            </div>
             <h3 id="modal-{{ item_type|default:'item' }}-{{ item.id }}-title"
-                class="text-2xl sm:text-3xl font-bold mb-3 sm:mb-4 bg-linear-to-r from-primary to-primary/60 bg-clip-text text-transparent">
+                class="text-2xl sm:text-3xl font-bold tracking-tight text-base-content mb-3 sm:mb-4">
                 {{ item.title }}
             </h3>
             <div class="flex flex-wrap items-center gap-3">
                 <time id="modal-{{ item_type|default:'item' }}-{{ item.id }}-period"
-                      class="font-mono text-xs sm:text-sm font-bold text-primary bg-primary/20 px-3 sm:px-4 py-1.5 rounded-full whitespace-nowrap">
+                      class="font-mono text-xs sm:text-sm font-bold text-primary bg-primary/10 px-3 sm:px-4 py-1.5 rounded-full whitespace-nowrap">
                     {{ item.period }}
                 </time>
                 <div id="modal-{{ item_type|default:'item' }}-{{ item.id }}-duration"
@@ -79,9 +84,9 @@
         </div>
 
         <!-- Footer - fixed at bottom -->
-        <div class="modal-action border-t border-primary/20 p-4 sm:p-6 bg-base-200/95 backdrop-blur-sm shrink-0 m-0">
+        <div class="modal-action border-t border-primary/15 px-4 sm:px-6 py-4 shrink-0 m-0 flex justify-end">
             <form method="dialog">
-                <button class="btn btn-primary gap-2 group">
+                <button class="btn btn-ghost gap-2 border border-base-content/20 hover:border-primary hover:bg-primary/10 hover:text-primary transition-all">
                     <svg xmlns="http://www.w3.org/2000/svg"
                          class="h-5 w-5"
                          fill="none"

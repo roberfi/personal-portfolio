@@ -2,10 +2,12 @@
 {% load static %}
 
 <c-base>
-    <div id="contact" class="relative p-5 min-h-screen">
-        <div class="max-w-4xl w-full mx-auto py-8">
+    <div id="contact"
+         class="relative px-5 pb-5 pt-3 sm:p-5 min-h-screen bg-linear-to-br from-base-300 via-base-300 to-base-200">
+        <div class="max-w-4xl w-full mx-auto pt-2 pb-8 sm:py-8">
             <!-- Header Section -->
             <c-heading title="{% translate "Get in Touch" %}"
+                       eyebrow="{% translate "Contact" %}"
                        id-prefix="get-in-touch"
                        icon-path="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
 
@@ -16,9 +18,9 @@
                 </p>
             </div>
             <!-- Messages -->
-            <div id="response-alerts" class="mb-6 space-y-4">
+            <div id="response-alerts" class="mb-10 space-y-4 max-w-2xl mx-auto">
                 {% for message in messages %}
-                    <div class="alert {% if message.tags == 'success' %}alert-success{% elif message.tags == 'error' %}alert-error{% else %}alert-info{% endif %} shadow-lg">
+                    <div class="alert alert-soft rounded-2xl shadow-lg shadow-black/20 {% if message.tags == 'success' %}alert-success{% elif message.tags == 'error' %}alert-error{% else %}alert-info{% endif %}">
                         <svg xmlns="http://www.w3.org/2000/svg"
                              class="stroke-current shrink-0 h-6 w-6"
                              fill="none"
@@ -35,152 +37,170 @@
             </div>
 
             <!-- Contact Form Card -->
-            <div class="card shadow-xl hover:shadow-2xl transition-all duration-300 bg-linear-to-br from-base-300 to-base-200 border border-base-300 hover:border-primary/30">
-                <div class="card-body">
-                    <!-- Form -->
-                    <form id="contact-form" method="post" class="space-y-6">
-                        {% csrf_token %}
+            <div class="relative max-w-2xl mx-auto">
 
-                        <!-- Name Field -->
-                        <div class="form-control">
-                            <label id="contact-form-name-label"
-                                   class="label"
-                                   for="{{ form.name.id_for_label }}">
-                                <span class="label-text font-semibold flex items-center gap-2">
-                                    <svg xmlns="http://www.w3.org/2000/svg"
-                                         class="h-4 w-4"
-                                         fill="none"
-                                         viewBox="0 0 24 24"
-                                         stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                                    </svg>
-                                    {{ form.name.label }}
-                                </span>
-                            </label>
-                            {{ form.name }}
-                            {% if form.name.errors %}
-                                <label class="label">
-                                    <span id="contact-form-name-error" class="label-text-alt text-error">{{ form.name.errors.0 }}</span>
-                                </label>
-                            {% endif %}
-                        </div>
+                <!-- Corner accent - top-right (primary) -->
+                <div class="hidden sm:block absolute -top-5 -right-5 w-20 h-20 border-t-2 border-r-2 border-primary/40 rounded-tr-3xl pointer-events-none">
+                </div>
 
-                        <!-- Email Field -->
-                        <div class="form-control">
-                            <label id="contact-form-email-label"
-                                   class="label"
-                                   for="{{ form.email.id_for_label }}">
-                                <span class="label-text font-semibold flex items-center gap-2">
-                                    <svg xmlns="http://www.w3.org/2000/svg"
-                                         class="h-4 w-4"
-                                         fill="none"
-                                         viewBox="0 0 24 24"
-                                         stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                                    </svg>
-                                    {{ form.email.label }}
-                                </span>
-                            </label>
-                            {{ form.email }}
-                            {% if form.email.errors %}
-                                <label class="label">
-                                    <span id="contact-form-email-error" class="label-text-alt text-error">{{ form.email.errors.0 }}</span>
-                                </label>
-                            {% endif %}
-                        </div>
+                <!-- Corner accent - bottom-left (secondary) -->
+                <div class="hidden sm:block absolute -bottom-5 -left-5 w-20 h-20 border-b-2 border-l-2 border-secondary/30 rounded-bl-3xl pointer-events-none">
+                </div>
 
-                        <!-- Subject Field -->
-                        <div class="form-control">
-                            <label id="contact-form-subject-label"
-                                   class="label"
-                                   for="{{ form.subject.id_for_label }}">
-                                <span class="label-text font-semibold flex items-center gap-2">
-                                    <svg xmlns="http://www.w3.org/2000/svg"
-                                         class="h-4 w-4"
-                                         fill="none"
-                                         viewBox="0 0 24 24"
-                                         stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z" />
-                                    </svg>
-                                    {{ form.subject.label }}
-                                </span>
-                            </label>
-                            {{ form.subject }}
-                            {% if form.subject.errors %}
-                                <label class="label">
-                                    <span id="contact-form-subject-error" class="label-text-alt text-error">{{ form.subject.errors.0 }}</span>
-                                </label>
-                            {% endif %}
-                        </div>
+                <div class="card rounded-2xl shadow-2xl shadow-black/40 transition-colors duration-300 bg-base-200/60 border border-primary/15 hover:border-primary/30">
+                    <div class="card-body p-6 sm:p-8">
+                        <!-- Form -->
+                        <form id="contact-form" method="post" class="space-y-6">
+                            {% csrf_token %}
 
-                        <!-- Message Field -->
-                        <div class="form-control">
-                            <label id="contact-form-message-label"
-                                   class="label"
-                                   for="{{ form.message.id_for_label }}">
-                                <span class="label-text font-semibold flex items-center gap-2">
-                                    <svg xmlns="http://www.w3.org/2000/svg"
-                                         class="h-4 w-4"
-                                         fill="none"
-                                         viewBox="0 0 24 24"
-                                         stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
-                                    </svg>
-                                    {{ form.message.label }}
-                                </span>
-                            </label>
-                            {{ form.message }}
-                            {% if form.message.errors %}
-                                <label class="label">
-                                    <span id="contact-form-message-error" class="label-text-alt text-error">{{ form.message.errors.0 }}</span>
-                                </label>
-                            {% endif %}
-                        </div>
+                            <!-- Name & Email row -->
+                            <div class="grid sm:grid-cols-2 gap-6">
+                                <!-- Name Field -->
+                                <div class="form-control">
+                                    <label id="contact-form-name-label"
+                                           class="label"
+                                           for="{{ form.name.id_for_label }}">
+                                        <span class="label-text font-mono text-xs uppercase tracking-[0.12em] text-base-content/60 flex items-center gap-2">
+                                            <svg xmlns="http://www.w3.org/2000/svg"
+                                                 class="h-4 w-4"
+                                                 fill="none"
+                                                 viewBox="0 0 24 24"
+                                                 stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                                            </svg>
+                                            {{ form.name.label }}
+                                        </span>
+                                    </label>
+                                    {{ form.name }}
+                                    {% if form.name.errors %}
+                                        <label class="label">
+                                            <span id="contact-form-name-error" class="label-text-alt text-error">{{ form.name.errors.0 }}</span>
+                                        </label>
+                                    {% endif %}
+                                </div>
 
-                        {% if recaptcha_site_key %}
-                            {{ form.recaptcha_token }}
-                        {% endif %}
+                                <!-- Email Field -->
+                                <div class="form-control">
+                                    <label id="contact-form-email-label"
+                                           class="label"
+                                           for="{{ form.email.id_for_label }}">
+                                        <span class="label-text font-mono text-xs uppercase tracking-[0.12em] text-base-content/60 flex items-center gap-2">
+                                            <svg xmlns="http://www.w3.org/2000/svg"
+                                                 class="h-4 w-4"
+                                                 fill="none"
+                                                 viewBox="0 0 24 24"
+                                                 stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                                            </svg>
+                                            {{ form.email.label }}
+                                        </span>
+                                    </label>
+                                    {{ form.email }}
+                                    {% if form.email.errors %}
+                                        <label class="label">
+                                            <span id="contact-form-email-error" class="label-text-alt text-error">{{ form.email.errors.0 }}</span>
+                                        </label>
+                                    {% endif %}
+                                </div>
+                            </div>
 
-                        {% if privacy_notice.legal_and_privacy %}
-                            <!-- Privacy Policy Consent -->
-                            <div id="contact-form-privacy-policy" class="form-control">
-                                <label class="label cursor-pointer justify-start gap-2"
-                                       for="{{ form.privacy_policy_accepted.id_for_label }}">
-                                    {{ form.privacy_policy_accepted }}
-                                    <span class="label-text">
-                                        {% translate "I accept the" %}
-                                        <button type="button"
-                                                id="contact-form-privacy-policy-link"
-                                                class="link link-primary"
-                                                onclick="{{ privacy_notice.legal_and_privacy.modal_name }}.showModal()">
-                                            {{ privacy_notice.legal_and_privacy.title }}
-                                        </button>
+                            <!-- Subject Field -->
+                            <div class="form-control">
+                                <label id="contact-form-subject-label"
+                                       class="label"
+                                       for="{{ form.subject.id_for_label }}">
+                                    <span class="label-text font-mono text-xs uppercase tracking-[0.12em] text-base-content/60 flex items-center gap-2">
+                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                             class="h-4 w-4"
+                                             fill="none"
+                                             viewBox="0 0 24 24"
+                                             stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z" />
+                                        </svg>
+                                        {{ form.subject.label }}
                                     </span>
                                 </label>
-                                {% if form.privacy_policy_accepted.errors %}
+                                {{ form.subject }}
+                                {% if form.subject.errors %}
                                     <label class="label">
-                                        <span id="contact-form-privacy-policy-error"
-                                              class="label-text-alt text-error">{{ form.privacy_policy_accepted.errors.0 }}</span>
+                                        <span id="contact-form-subject-error" class="label-text-alt text-error">{{ form.subject.errors.0 }}</span>
                                     </label>
                                 {% endif %}
                             </div>
-                        {% endif %}
 
-                        <!-- Submit Button -->
-                        <div class="form-control mt-8">
-                            <button id="contact-form-submit-button"
-                                    type="submit"
-                                    class="btn btn-primary btn-lg w-full gap-2 group hover:scale-105 transition-transform">
-                                <span class="text-lg">{% translate "Send Message" %}</span>
-                                <svg xmlns="http://www.w3.org/2000/svg"
-                                     class="h-6 w-6 group-hover:translate-x-2 transition-all duration-300"
-                                     viewBox="0 0 24 24"
-                                     fill="currentColor">
-                                    <path d="M3.478 2.404a.75.75 0 0 0-.926.941l2.432 7.905H13.5a.75.75 0 0 1 0 1.5H4.984l-2.432 7.905a.75.75 0 0 0 .926.94 60.519 60.519 0 0 0 18.445-8.986.75.75 0 0 0 0-1.218A60.517 60.517 0 0 0 3.478 2.404Z" />
-                                </svg>
-                            </button>
-                        </div>
-                    </form>
+                            <!-- Message Field -->
+                            <div class="form-control">
+                                <label id="contact-form-message-label"
+                                       class="label"
+                                       for="{{ form.message.id_for_label }}">
+                                    <span class="label-text font-mono text-xs uppercase tracking-[0.12em] text-base-content/60 flex items-center gap-2">
+                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                             class="h-4 w-4"
+                                             fill="none"
+                                             viewBox="0 0 24 24"
+                                             stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+                                        </svg>
+                                        {{ form.message.label }}
+                                    </span>
+                                </label>
+                                {{ form.message }}
+                                {% if form.message.errors %}
+                                    <label class="label">
+                                        <span id="contact-form-message-error" class="label-text-alt text-error">{{ form.message.errors.0 }}</span>
+                                    </label>
+                                {% endif %}
+                            </div>
+
+                            {% if recaptcha_site_key %}
+                                {{ form.recaptcha_token }}
+                            {% endif %}
+
+                            {% if privacy_notice.legal_and_privacy %}
+                                <!-- Privacy Policy Consent -->
+                                <div id="contact-form-privacy-policy" class="form-control">
+                                    <label class="label cursor-pointer justify-start gap-2"
+                                           for="{{ form.privacy_policy_accepted.id_for_label }}">
+                                        {{ form.privacy_policy_accepted }}
+                                        <span class="label-text text-sm text-base-content/60">
+                                            {% translate "I accept the" %}
+                                            <button type="button"
+                                                    id="contact-form-privacy-policy-link"
+                                                    class="link link-primary"
+                                                    onclick="{{ privacy_notice.legal_and_privacy.modal_name }}.showModal()">
+                                                {{ privacy_notice.legal_and_privacy.title }}
+                                            </button>
+                                        </span>
+                                    </label>
+                                    {% if form.privacy_policy_accepted.errors %}
+                                        <label class="label">
+                                            <span id="contact-form-privacy-policy-error"
+                                                  class="label-text-alt text-error">{{ form.privacy_policy_accepted.errors.0 }}</span>
+                                        </label>
+                                    {% endif %}
+                                </div>
+                            {% endif %}
+
+                            <!-- Accent divider -->
+                            <div class="h-px w-full bg-base-content/10">
+                            </div>
+
+                            <!-- Submit Button -->
+                            <div class="form-control">
+                                <button id="contact-form-submit-button"
+                                        type="submit"
+                                        class="btn btn-primary btn-lg w-full gap-2 group shadow-lg shadow-primary/20 hover:shadow-primary/35 transition-shadow">
+                                    <span class="text-lg">{% translate "Send Message" %}</span>
+                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                         class="h-6 w-6 group-hover:translate-x-2 transition-all duration-300"
+                                         viewBox="0 0 24 24"
+                                         fill="currentColor">
+                                        <path d="M3.478 2.404a.75.75 0 0 0-.926.941l2.432 7.905H13.5a.75.75 0 0 1 0 1.5H4.984l-2.432 7.905a.75.75 0 0 0 .926.94 60.519 60.519 0 0 0 18.445-8.986.75.75 0 0 0 0-1.218A60.517 60.517 0 0 0 3.478 2.404Z" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
 
@@ -194,7 +214,7 @@
 
                 <!-- Error Alert Template -->
                 <template id="recaptcha-error-template">
-                    <div class="alert alert-error shadow-lg mb-6">
+                    <div class="alert alert-soft alert-error rounded-2xl shadow-lg shadow-black/20 mb-6 max-w-2xl mx-auto">
                         <svg xmlns="http://www.w3.org/2000/svg"
                              class="stroke-current shrink-0 h-6 w-6"
                              fill="none"
@@ -215,7 +235,14 @@
             {% endif %}
 
             <!-- Additional Info -->
-            <div class="mt-8 text-center">
+            <div class="mt-8 max-w-2xl mx-auto flex items-center justify-center gap-2 text-center">
+                <svg xmlns="http://www.w3.org/2000/svg"
+                     class="h-4 w-4 text-base-content/40 shrink-0"
+                     fill="none"
+                     viewBox="0 0 24 24"
+                     stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                </svg>
                 <p id="contact-additional-info" class="text-sm text-base-content/60">
                     {% translate "Your information is safe and will only be used to respond to your inquiry." %}
                 </p>
