@@ -1,0 +1,50 @@
+<article id="project-{{ project.id }}-card"
+         class="group card h-full bg-base-200/60 rounded-2xl shadow-xl shadow-black/20 border border-primary/15 hover:border-primary/30 transition-colors duration-300 overflow-hidden">
+
+    {# ── Visual — hero image or CSS fallback ── #}
+    <figure class="relative aspect-video overflow-hidden">
+        {% if project.hero_image %}
+            <img src="{{ project.hero_image.url }}"
+                 alt="{{ project.title }}"
+                 loading="lazy"
+                 class="w-full h-full object-cover brightness-95 transition duration-500 group-hover:scale-105 group-hover:brightness-100" />
+
+            {# Mute bright screenshots so they sit in the dark theme; lift the tint on hover #}
+            <div class="absolute inset-0 bg-base-300/25 group-hover:bg-transparent transition-colors duration-500 pointer-events-none">
+            </div>
+
+            {# Fade the bottom edge into the card body so the image doesn't cut hard against it #}
+            <div class="absolute inset-x-0 bottom-0 h-16 bg-linear-to-t from-base-200 to-transparent pointer-events-none">
+            </div>
+        {% else %}
+            <div class="w-full h-full bg-linear-to-br from-base-300 via-base-200 to-base-300 flex items-center justify-center border-b border-primary/10">
+                <span class="text-7xl font-black text-primary/15 select-none">{{ project.title|first }}</span>
+            </div>
+        {% endif %}
+    </figure>
+
+    {# ── Body ── #}
+    <div class="card-body gap-3">
+        <h3 id="project-{{ project.id }}-title"
+            class="text-xl font-bold tracking-tight text-base-content">
+            {{ project.title }}
+        </h3>
+
+        <p id="project-{{ project.id }}-summary"
+           class="text-sm text-base-content/65 leading-relaxed line-clamp-3">
+            {{ project.summary }}
+        </p>
+
+        {% if project.technologies.exists %}
+            <div id="project-{{ project.id }}-technologies"
+                 class="mt-auto flex flex-wrap gap-2 pt-2">
+                {% for tech in project.technologies.all %}
+                    <span id="project-{{ project.id }}-technology-{{ tech.id }}"
+                          class="badge badge-sm badge-primary badge-outline font-semibold">
+                        {{ tech.name }}
+                    </span>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+</article>

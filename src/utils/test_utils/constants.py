@@ -5,6 +5,7 @@ from enum import StrEnum
 
 class HtmlTag(StrEnum):
     A = "a"
+    ARTICLE = "article"
     ASIDE = "aside"
     BUTTON = "button"
     DETAILS = "details"

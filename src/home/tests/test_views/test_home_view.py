@@ -293,6 +293,70 @@ class BaseTestHomeViewContent(BaseHomeViewTest):
             f"/{self.language}/contact/",
         )
 
+    def test_featured_projects(self) -> None:
+        section = self._find_element_by_tag_and_id(
+            self.response_data.soup, HtmlTag.SECTION, test_view_constants.FEATURED_PROJECTS_SECTION_ID
+        )
+
+        self._assert_text_of_element_by_tag_and_id(
+            section,
+            html_tag=HtmlTag.H2,
+            element_id=test_view_constants.FEATURED_PROJECTS_TITLE_ID,
+            expected_text=test_view_constants.FEATURED_PROJECTS_SECTION_TITLE[self.language],
+        )
+
+        grid = self._find_element_by_id(section, test_view_constants.FEATURED_PROJECTS_GRID_ID)
+
+        # Featured project 1 — title, problem-oriented description and its technology badges
+        card_1 = self._find_element_by_tag_and_id(
+            grid, HtmlTag.ARTICLE, test_view_constants.PROJECT_CARD_ID_TEMPLATE.format(id=1)
+        )
+        self._assert_text_of_elements(
+            card_1,
+            ElementText(
+                html_tag=HtmlTag.H3,
+                element_id=test_view_constants.PROJECT_TITLE_ID_TEMPLATE.format(id=1),
+                expected_text=test_view_constants.PROJECT_1_TITLE[self.language],
+            ),
+            ElementText(
+                html_tag=HtmlTag.P,
+                element_id=test_view_constants.PROJECT_SUMMARY_ID_TEMPLATE.format(id=1),
+                expected_text=test_view_constants.PROJECT_1_SUMMARY[self.language],
+            ),
+        )
+        self._assert_list_of_strings(
+            self._find_element_by_id(card_1, test_view_constants.PROJECT_TECHNOLOGIES_ID_TEMPLATE.format(id=1)),
+            [
+                test_view_constants.TECHNOLOGY_1[self.language],
+                test_view_constants.TECHNOLOGY_2[self.language],
+            ],
+        )
+
+        # Featured project 2
+        card_2 = self._find_element_by_tag_and_id(
+            grid, HtmlTag.ARTICLE, test_view_constants.PROJECT_CARD_ID_TEMPLATE.format(id=2)
+        )
+        self._assert_text_of_elements(
+            card_2,
+            ElementText(
+                html_tag=HtmlTag.H3,
+                element_id=test_view_constants.PROJECT_TITLE_ID_TEMPLATE.format(id=2),
+                expected_text=test_view_constants.PROJECT_2_TITLE[self.language],
+            ),
+            ElementText(
+                html_tag=HtmlTag.P,
+                element_id=test_view_constants.PROJECT_SUMMARY_ID_TEMPLATE.format(id=2),
+                expected_text=test_view_constants.PROJECT_2_SUMMARY[self.language],
+            ),
+        )
+        self._assert_list_of_strings(
+            self._find_element_by_id(card_2, test_view_constants.PROJECT_TECHNOLOGIES_ID_TEMPLATE.format(id=2)),
+            [test_view_constants.TECHNOLOGY_3[self.language]],
+        )
+
+        # Non-featured project must not be rendered in the grid
+        self._assert_element_not_exists(grid, test_view_constants.PROJECT_CARD_ID_TEMPLATE.format(id=3))
+
 
 class TestHomeViewEnglish(BaseTestHomeViewContent):
     language = Language.ENGLISH

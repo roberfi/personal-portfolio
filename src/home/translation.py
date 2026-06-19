@@ -32,6 +32,7 @@ class ExperienceTranslationOptions(TranslationOptions):
 class ProjectTranslationOptions(TranslationOptions):
     fields = (
         "title",
+        "summary",
         "problem",
         "approach",
         "outcome",

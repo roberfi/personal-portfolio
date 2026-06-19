@@ -4,7 +4,7 @@ from typing import TYPE_CHECKING, ContextManager
 from unittest.mock import patch
 
 import home.tests.test_views.utils.constants as test_view_constants
-from home.models import Education, Experience, PersonalInfo, Technology
+from home.models import Education, Experience, PersonalInfo, Project, Technology
 from utils.test_utils.base_view_test_case import CommonPageTestsMixin
 from utils.test_utils.constants import Language
 from utils.test_utils.mocks import get_date_with_mocked_today
@@ -86,6 +86,54 @@ class BaseHomeViewTest(CommonPageTestsMixin):
         )
 
         experience_2.technologies.set((test_technology_4, test_technology_1, test_technology_2))
+
+        test_project_1 = Project.objects.create(
+            id=1,
+            title=test_view_constants.PROJECT_1_TITLE[Language.ENGLISH],
+            title_es=test_view_constants.PROJECT_1_TITLE[Language.SPANISH],
+            slug=test_view_constants.PROJECT_1_SLUG,
+            summary=test_view_constants.PROJECT_1_SUMMARY[Language.ENGLISH],
+            summary_es=test_view_constants.PROJECT_1_SUMMARY[Language.SPANISH],
+            problem=test_view_constants.PROJECT_1_PROBLEM[Language.ENGLISH],
+            problem_es=test_view_constants.PROJECT_1_PROBLEM[Language.SPANISH],
+            approach="Approach 1",
+            outcome="Outcome 1",
+            featured=True,
+            order=1,
+        )
+        test_project_1.technologies.set((test_technology_1, test_technology_2))
+
+        test_project_2 = Project.objects.create(
+            id=2,
+            title=test_view_constants.PROJECT_2_TITLE[Language.ENGLISH],
+            title_es=test_view_constants.PROJECT_2_TITLE[Language.SPANISH],
+            slug=test_view_constants.PROJECT_2_SLUG,
+            summary=test_view_constants.PROJECT_2_SUMMARY[Language.ENGLISH],
+            summary_es=test_view_constants.PROJECT_2_SUMMARY[Language.SPANISH],
+            problem=test_view_constants.PROJECT_2_PROBLEM[Language.ENGLISH],
+            problem_es=test_view_constants.PROJECT_2_PROBLEM[Language.SPANISH],
+            approach="Approach 2",
+            outcome="Outcome 2",
+            featured=True,
+            order=2,
+        )
+        test_project_2.technologies.set((test_technology_3,))
+
+        # Non-featured project — must not appear in the featured grid
+        Project.objects.create(
+            id=3,
+            title=test_view_constants.PROJECT_NON_FEATURED_TITLE[Language.ENGLISH],
+            title_es=test_view_constants.PROJECT_NON_FEATURED_TITLE[Language.SPANISH],
+            slug=test_view_constants.PROJECT_NON_FEATURED_SLUG,
+            summary=test_view_constants.PROJECT_NON_FEATURED_SUMMARY[Language.ENGLISH],
+            summary_es=test_view_constants.PROJECT_NON_FEATURED_SUMMARY[Language.SPANISH],
+            problem=test_view_constants.PROJECT_NON_FEATURED_PROBLEM[Language.ENGLISH],
+            problem_es=test_view_constants.PROJECT_NON_FEATURED_PROBLEM[Language.SPANISH],
+            approach="Approach 3",
+            outcome="Outcome 3",
+            featured=False,
+            order=3,
+        )
 
         Education.objects.create(
             id=1,

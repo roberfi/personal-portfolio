@@ -9,6 +9,7 @@ from home.models import Project, Technology
 
 TEST_TITLE = "Test Project"
 TEST_SLUG = "test-project"
+TEST_SUMMARY = "A short, problem-oriented excerpt"
 TEST_PROBLEM = "The client had no online presence"
 TEST_APPROACH = "Built a Django-based website with Tailwind CSS"
 TEST_OUTCOME = "Increased leads by 40% in the first quarter"
@@ -17,6 +18,7 @@ TEST_OUTCOME = "Increased leads by 40% in the first quarter"
 class ProjectFields(NamedTuple):
     title: str = TEST_TITLE
     slug: str = TEST_SLUG
+    summary: str = TEST_SUMMARY
     problem: str = TEST_PROBLEM
     approach: str = TEST_APPROACH
     outcome: str = TEST_OUTCOME
@@ -32,6 +34,7 @@ class BaseTestProjectModel(TestCase):
         return Project.objects.create(
             title=fields.title,
             slug=fields.slug,
+            summary=fields.summary,
             problem=fields.problem,
             approach=fields.approach,
             outcome=fields.outcome,

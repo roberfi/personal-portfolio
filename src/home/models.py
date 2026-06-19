@@ -136,6 +136,7 @@ class Experience(DatedModel):  # type: ignore[django-manager-missing] # https://
 class Project(models.Model):  # type: ignore[django-manager-missing] # https://github.com/typeddjango/django-stubs/issues/1023
     title = models.CharField(max_length=200)
     slug = models.SlugField(max_length=200, unique=True)
+    summary = models.CharField(max_length=200, help_text="Short, problem-oriented excerpt shown on project cards.")
     problem = models.TextField()
     approach = models.TextField()
     outcome = models.TextField()
