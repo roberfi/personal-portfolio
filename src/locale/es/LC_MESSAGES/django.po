@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-18 16:56+0000\n"
+"POT-Creation-Date: 2026-06-18 17:32+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -38,15 +38,15 @@ msgstr "Configuración de Cookies"
 msgid "Save"
 msgstr "Guardar"
 
-#: base/templates/cotton/cta_block.html:16
+#: base/templates/cotton/cta_block.html:19
 msgid "Ready to start?"
 msgstr "¿Listo para empezar?"
 
-#: base/templates/cotton/cta_block.html:21
+#: base/templates/cotton/cta_block.html:24
 msgid "Do you have a project in mind?"
 msgstr "¿Tienes un proyecto en mente?"
 
-#: base/templates/cotton/cta_block.html:28
+#: base/templates/cotton/cta_block.html:31
 msgid "Let's talk"
 msgstr "Hablemos"
 
@@ -302,6 +302,14 @@ msgstr "Ver más"
 msgid "Detail"
 msgstr "Detalle"
 
+#: home/templates/cotton/featured_projects.html:14
+msgid "My work"
+msgstr "Mi trabajo"
+
+#: home/templates/cotton/featured_projects.html:21
+msgid "Featured projects"
+msgstr "Proyectos destacados"
+
 #: home/templates/cotton/hero.html:89
 msgid "More about me"
 msgstr "Más sobre mí"
@@ -330,19 +338,19 @@ msgstr "Educación"
 msgid "Background"
 msgstr "Formación"
 
-#: home/views.py:83
+#: home/views.py:84
 msgid "Personal Portfolio"
 msgstr "Portfolio Personal"
 
-#: home/views.py:84
+#: home/views.py:85
 msgid "Welcome to my personal portfolio website."
 msgstr "Bienvendido/a a la página web de mi portfolio personal."
 
-#: home/views.py:232
+#: home/views.py:234
 msgid "My Career | Professional Experience & Education"
 msgstr "Mi Carrera | Experiencia Profesional y Educación"
 
-#: home/views.py:234
+#: home/views.py:236
 msgid ""
 "Professional experience and educational background. View my complete career "
 "history, work experience, and academic qualifications."
@@ -350,7 +358,7 @@ msgstr ""
 "Experiencia profesional y formación académica. Consulta mi historial "
 "profesional completo, experiencia laboral y cualificaciones académicas."
 
-#: home/views.py:237
+#: home/views.py:239
 msgid "experience, education, professional background, work history"
 msgstr "experiencia, educación, trayectoria profesional, historia laboral"
 

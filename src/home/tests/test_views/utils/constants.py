@@ -22,6 +22,15 @@ HOME_CTA_EYEBROW_ID = "home-cta-eyebrow"
 HOME_CTA_TITLE_ID = "home-cta-title"
 HOME_CTA_PRIMARY_ID = "home-cta-primary"
 
+# Featured projects ids
+FEATURED_PROJECTS_SECTION_ID = "featured-projects"
+FEATURED_PROJECTS_TITLE_ID = "featured-projects-title"
+FEATURED_PROJECTS_GRID_ID = "featured-projects-grid"
+PROJECT_CARD_ID_TEMPLATE = "project-{id}-card"
+PROJECT_TITLE_ID_TEMPLATE = "project-{id}-title"
+PROJECT_SUMMARY_ID_TEMPLATE = "project-{id}-summary"
+PROJECT_TECHNOLOGIES_ID_TEMPLATE = "project-{id}-technologies"
+
 # My Career ids
 MY_CAREER_ID = "my-career"
 MY_EXPERIENCE_TITLE_ID = "my-experience-title"
@@ -147,6 +156,54 @@ PERSONAL_INFO_INTRODUCTION = {
 PERSONAL_INFO_BIOGRAPHY = {
     Language.ENGLISH: "Test biography",
     Language.SPANISH: "Biografía de prueba",
+}
+
+# Featured projects data
+FEATURED_PROJECTS_SECTION_TITLE = {
+    Language.ENGLISH: "Featured projects",
+    Language.SPANISH: "Proyectos destacados",
+}
+
+PROJECT_1_TITLE = {
+    Language.ENGLISH: "Project 1",
+    Language.SPANISH: "Proyecto 1",
+}
+PROJECT_1_SLUG = "project-1"
+PROJECT_1_SUMMARY = {
+    Language.ENGLISH: "Project 1 summary",
+    Language.SPANISH: "Resumen del proyecto 1",
+}
+PROJECT_1_PROBLEM = {
+    Language.ENGLISH: "Project 1 problem",
+    Language.SPANISH: "Problema del proyecto 1",
+}
+
+PROJECT_2_TITLE = {
+    Language.ENGLISH: "Project 2",
+    Language.SPANISH: "Proyecto 2",
+}
+PROJECT_2_SLUG = "project-2"
+PROJECT_2_SUMMARY = {
+    Language.ENGLISH: "Project 2 summary",
+    Language.SPANISH: "Resumen del proyecto 2",
+}
+PROJECT_2_PROBLEM = {
+    Language.ENGLISH: "Project 2 problem",
+    Language.SPANISH: "Problema del proyecto 2",
+}
+
+PROJECT_NON_FEATURED_TITLE = {
+    Language.ENGLISH: "Project 3",
+    Language.SPANISH: "Proyecto 3",
+}
+PROJECT_NON_FEATURED_SLUG = "project-3"
+PROJECT_NON_FEATURED_SUMMARY = {
+    Language.ENGLISH: "Project 3 summary",
+    Language.SPANISH: "Resumen del proyecto 3",
+}
+PROJECT_NON_FEATURED_PROBLEM = {
+    Language.ENGLISH: "Project 3 problem",
+    Language.SPANISH: "Problema del proyecto 3",
 }
 
 # Technologies data
