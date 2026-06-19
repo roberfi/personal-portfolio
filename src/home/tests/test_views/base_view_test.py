@@ -4,7 +4,7 @@ from typing import TYPE_CHECKING, ContextManager
 from unittest.mock import patch
 
 import home.tests.test_views.utils.constants as test_view_constants
-from home.models import Education, Experience, PersonalInfo, Project, Service, Technology
+from home.models import Education, Experience, PersonalInfo, ProcessStep, Project, Service, Technology
 from utils.test_utils.base_view_test_case import CommonPageTestsMixin
 from utils.test_utils.constants import Language
 from utils.test_utils.mocks import get_date_with_mocked_today
@@ -199,4 +199,24 @@ class BaseHomeViewTest(CommonPageTestsMixin):
             description_es=test_view_constants.EDUCATION_2_DESCRIPTION[Language.SPANISH],
             start_date=test_view_constants.EDUCATION_2_START_DATE,
             end_date=test_view_constants.EDUCATION_2_END_DATE,
+        )
+
+        ProcessStep.objects.create(
+            id=1,
+            title=test_view_constants.PROCESS_STEP_1_TITLE[Language.ENGLISH],
+            title_es=test_view_constants.PROCESS_STEP_1_TITLE[Language.SPANISH],
+            description=test_view_constants.PROCESS_STEP_1_DESCRIPTION[Language.ENGLISH],
+            description_es=test_view_constants.PROCESS_STEP_1_DESCRIPTION[Language.SPANISH],
+            icon_name=test_view_constants.PROCESS_STEP_1_ICON_NAME,
+            order=1,
+        )
+
+        ProcessStep.objects.create(
+            id=2,
+            title=test_view_constants.PROCESS_STEP_2_TITLE[Language.ENGLISH],
+            title_es=test_view_constants.PROCESS_STEP_2_TITLE[Language.SPANISH],
+            description=test_view_constants.PROCESS_STEP_2_DESCRIPTION[Language.ENGLISH],
+            description_es=test_view_constants.PROCESS_STEP_2_DESCRIPTION[Language.SPANISH],
+            icon_name=test_view_constants.PROCESS_STEP_2_ICON_NAME,
+            order=2,
         )

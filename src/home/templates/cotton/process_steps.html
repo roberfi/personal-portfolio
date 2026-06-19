@@ -1,0 +1,37 @@
+{% load i18n %}
+
+{% if process_steps %}
+    <section id="process-steps"
+             class="bg-linear-to-br from-base-300 via-base-300 to-base-200 border-t border-primary/15">
+        <div class="max-w-(--breakpoint-lg) mx-auto px-6 py-16 lg:py-24">
+
+            {# ── Section header ── #}
+            <div class="flex flex-col items-center text-center gap-4 mb-12 lg:mb-16">
+                <div class="flex items-center gap-3">
+                    <div class="h-0.5 w-8 rounded-full bg-primary">
+                    </div>
+                    <span class="text-xs font-mono uppercase tracking-[0.18em] text-primary/60">
+                        {% translate "My process" %}
+                    </span>
+                    <div class="h-0.5 w-8 rounded-full bg-primary">
+                    </div>
+                </div>
+                <h2 id="process-steps-title"
+                    class="text-3xl sm:text-4xl font-bold tracking-tight text-base-content">
+                    {% translate "How I work" %}
+                </h2>
+            </div>
+
+            {# ── Steps — 3-col for exactly 3 steps, 2-col otherwise ── #}
+            {% with step_count=process_steps|length %}
+                <div id="process-steps-list"
+                     class="grid gap-8 sm:grid-cols-2 {% if step_count == 3 %}lg:grid-cols-3{% endif %}">
+                    {% for step in process_steps %}
+                        <c-process-step :step="step" :step_number="forloop.counter" />
+                    {% endfor %}
+                </div>
+            {% endwith %}
+
+        </div>
+    </section>
+{% endif %}

@@ -218,6 +218,56 @@ SERVICE_ICON_PATHS: dict[str, ServiceIconPaths] = {
             "-.133-2.052-.382-3.016z"
         ),
     ),
+    "search": ServiceIconPaths(
+        name=_("Search"),
+        path="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z",
+    ),
+    "clock": ServiceIconPaths(
+        name=_("Clock"),
+        path="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z",
+    ),
+    "cog": ServiceIconPaths(
+        name=_("Cog"),
+        path=(
+            "M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066"
+            "c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35"
+            "a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065"
+            "c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37"
+            "a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573"
+            "c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065zM15 12a3 3 0 11-6 0 3 3 0 016 0z"
+        ),
+    ),
+    "pencil": ServiceIconPaths(
+        name=_("Pencil"),
+        path="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z",
+    ),
+    "sparkles": ServiceIconPaths(
+        name=_("Sparkles"),
+        path="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z",
+    ),
+    "eye": ServiceIconPaths(
+        name=_("Eye"),
+        path=(
+            "M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+            "M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7"
+            "-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+        ),
+    ),
+    "phone": ServiceIconPaths(
+        name=_("Phone"),
+        path=(
+            "M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21"
+            "l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502"
+            "l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 7V5z"
+        ),
+    ),
+    "document": ServiceIconPaths(
+        name=_("Document"),
+        path=(
+            "M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293"
+            "l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+        ),
+    ),
 }
 
 DEFAULT_SERVICE_ICON_PATH = ServiceIconPaths(
@@ -255,7 +305,7 @@ class Service(models.Model):  # type: ignore[django-manager-missing] # https://g
 class ProcessStep(models.Model):  # type: ignore[django-manager-missing] # https://github.com/typeddjango/django-stubs/issues/1023
     title = models.CharField(max_length=200)
     description = models.TextField()
-    icon_name = models.CharField(max_length=100, blank=True)
+    icon_name = models.CharField(max_length=100, blank=True, choices=SERVICE_ICON_CHOICES)
     order = models.PositiveIntegerField(default=0)
 
     class Meta:
@@ -263,6 +313,10 @@ class ProcessStep(models.Model):  # type: ignore[django-manager-missing] # https
 
     def __str__(self) -> str:
         return self.title
+
+    @cached_property
+    def icon_path(self) -> str:
+        return SERVICE_ICON_PATHS.get(self.icon_name, DEFAULT_SERVICE_ICON_PATH).path
 
 
 class Education(DatedModel):  # type: ignore[django-manager-missing] # https://github.com/typeddjango/django-stubs/issues/1023

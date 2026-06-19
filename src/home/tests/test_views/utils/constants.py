@@ -31,6 +31,16 @@ PROJECT_TITLE_ID_TEMPLATE = "project-{id}-title"
 PROJECT_SUMMARY_ID_TEMPLATE = "project-{id}-summary"
 PROJECT_TECHNOLOGIES_ID_TEMPLATE = "project-{id}-technologies"
 
+# Process steps ids
+PROCESS_STEPS_SECTION_ID = "process-steps"
+PROCESS_STEPS_TITLE_ID = "process-steps-title"
+PROCESS_STEPS_LIST_ID = "process-steps-list"
+PROCESS_STEP_CARD_ID_TEMPLATE = "process-step-{id}-card"
+PROCESS_STEP_ICON_ID_TEMPLATE = "process-step-{id}-icon"
+PROCESS_STEP_NUMBER_ID_TEMPLATE = "process-step-{id}-number"
+PROCESS_STEP_TITLE_ID_TEMPLATE = "process-step-{id}-title"
+PROCESS_STEP_DESCRIPTION_ID_TEMPLATE = "process-step-{id}-description"
+
 # Services ids
 SERVICES_SECTION_ID = "services"
 SERVICES_TITLE_ID = "services-title"
@@ -443,6 +453,32 @@ SOURCE_CODE_NOTE_TEXT = {
     Language.SPANISH: "El código fuente de este sitio web está disponible en GitHub bajo licencia MIT.",
 }
 SOURCE_CODE_GITHUB_LINK = "https://github.com/roberfi/personal-portfolio"
+
+# Process steps data
+PROCESS_STEPS_SECTION_TITLE = {
+    Language.ENGLISH: "How I work",
+    Language.SPANISH: "Cómo trabajo",
+}
+
+PROCESS_STEP_1_ICON_NAME = "chat"
+PROCESS_STEP_1_TITLE = {
+    Language.ENGLISH: "Discovery",
+    Language.SPANISH: "Descubrimiento",
+}
+PROCESS_STEP_1_DESCRIPTION = {
+    Language.ENGLISH: "We analyze your needs and define the project scope.",
+    Language.SPANISH: "Analizamos tus necesidades y definimos el alcance del proyecto.",
+}
+
+PROCESS_STEP_2_ICON_NAME = "code"
+PROCESS_STEP_2_TITLE = {
+    Language.ENGLISH: "Development",
+    Language.SPANISH: "Desarrollo",
+}
+PROCESS_STEP_2_DESCRIPTION = {
+    Language.ENGLISH: "We build the solution iteratively, with continuous feedback.",
+    Language.SPANISH: "Construimos la solución de forma iterativa, con feedback continuo.",
+}
 
 # Home CTA texts (default copy of the c-cta-block component)
 HOME_CTA_EYEBROW = {
