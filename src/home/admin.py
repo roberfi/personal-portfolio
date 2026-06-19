@@ -76,6 +76,11 @@ class ProjectAdmin(SortableAdminMixin, ModelAdmin[Project]):  # type: ignore[mis
 class ProcessStepAdmin(SortableAdminMixin, ModelAdmin[ProcessStep]):  # type: ignore[misc]
     list_display = ("title", "order")
 
+    def formfield_for_dbfield(self, db_field: Any, request: Any, **kwargs: Any) -> Any:
+        if db_field.name == "icon_name":
+            kwargs["widget"] = IconSelectWidget
+        return super().formfield_for_dbfield(db_field, request, **kwargs)
+
 
 @register(Service)
 class ServiceAdmin(SortableAdminMixin, ModelAdmin[Service]):  # type: ignore[misc]

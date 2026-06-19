@@ -12,7 +12,7 @@ from base.models import SiteMedia
 from utils.helpers import markdown_to_plaintext
 from utils.types import PageMetadata
 
-from .models import Education, Experience, PersonalInfo, Project, Service
+from .models import Education, Experience, PersonalInfo, ProcessStep, Project, Service
 
 if TYPE_CHECKING:
     from django.http import HttpRequest, HttpResponse
@@ -25,6 +25,7 @@ class HomeViewContext(TypedDict):
     personal_info: PersonalInfo | None
     featured_projects: list[Project]
     services: list[Service]
+    process_steps: list[ProcessStep]
 
 
 class MyCareerViewContext(TypedDict):
@@ -114,6 +115,7 @@ class HomeView(View):
                 personal_info=personal_info,
                 featured_projects=list(Project.objects.filter(featured=True).prefetch_related("technologies")),
                 services=list(Service.objects.filter(is_active=True)),
+                process_steps=list(ProcessStep.objects.all()),
             ),
         )
 

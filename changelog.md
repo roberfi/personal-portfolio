@@ -12,6 +12,7 @@
 - Add a call-to-action block to the home page
 - Add a featured projects section to the home page, with a dedicated project summary field for card excerpts
 - Add a services section to the home page
+- Add a "How I work" process steps section to the home page
 - Serve CSS as a static minimized stylesheet extracted from the JS bundle
 
 ## 0.7.0

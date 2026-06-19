@@ -491,6 +491,76 @@ class BaseTestHomeViewContent(BaseHomeViewTest):
         # Inactive service must not be rendered in the grid
         self._assert_element_not_exists(grid, test_view_constants.SERVICE_CARD_ID_TEMPLATE.format(id=3))
 
+    def test_process_steps(self) -> None:
+        section = self._find_element_by_tag_and_id(
+            self.response_data.soup, HtmlTag.SECTION, test_view_constants.PROCESS_STEPS_SECTION_ID
+        )
+
+        self._assert_text_of_element_by_tag_and_id(
+            section,
+            html_tag=HtmlTag.H2,
+            element_id=test_view_constants.PROCESS_STEPS_TITLE_ID,
+            expected_text=test_view_constants.PROCESS_STEPS_SECTION_TITLE[self.language],
+        )
+
+        step_list = self._find_element_by_id(section, test_view_constants.PROCESS_STEPS_LIST_ID)
+
+        # Step 1 — icon, number, title and description
+        card_1 = self._find_element_by_tag_and_id(
+            step_list, HtmlTag.ARTICLE, test_view_constants.PROCESS_STEP_CARD_ID_TEMPLATE.format(id=1)
+        )
+        self._assert_icon_path(
+            card_1,
+            test_view_constants.PROCESS_STEP_ICON_ID_TEMPLATE.format(id=1),
+            SERVICE_ICON_PATHS[test_view_constants.PROCESS_STEP_1_ICON_NAME].path,
+        )
+        self._assert_text_of_elements(
+            card_1,
+            ElementText(
+                html_tag=HtmlTag.SPAN,
+                element_id=test_view_constants.PROCESS_STEP_NUMBER_ID_TEMPLATE.format(id=1),
+                expected_text="1",
+            ),
+            ElementText(
+                html_tag=HtmlTag.H3,
+                element_id=test_view_constants.PROCESS_STEP_TITLE_ID_TEMPLATE.format(id=1),
+                expected_text=test_view_constants.PROCESS_STEP_1_TITLE[self.language],
+            ),
+            ElementText(
+                html_tag=HtmlTag.P,
+                element_id=test_view_constants.PROCESS_STEP_DESCRIPTION_ID_TEMPLATE.format(id=1),
+                expected_text=test_view_constants.PROCESS_STEP_1_DESCRIPTION[self.language],
+            ),
+        )
+
+        # Step 2 — icon, number, title and description
+        card_2 = self._find_element_by_tag_and_id(
+            step_list, HtmlTag.ARTICLE, test_view_constants.PROCESS_STEP_CARD_ID_TEMPLATE.format(id=2)
+        )
+        self._assert_icon_path(
+            card_2,
+            test_view_constants.PROCESS_STEP_ICON_ID_TEMPLATE.format(id=2),
+            SERVICE_ICON_PATHS[test_view_constants.PROCESS_STEP_2_ICON_NAME].path,
+        )
+        self._assert_text_of_elements(
+            card_2,
+            ElementText(
+                html_tag=HtmlTag.SPAN,
+                element_id=test_view_constants.PROCESS_STEP_NUMBER_ID_TEMPLATE.format(id=2),
+                expected_text="2",
+            ),
+            ElementText(
+                html_tag=HtmlTag.H3,
+                element_id=test_view_constants.PROCESS_STEP_TITLE_ID_TEMPLATE.format(id=2),
+                expected_text=test_view_constants.PROCESS_STEP_2_TITLE[self.language],
+            ),
+            ElementText(
+                html_tag=HtmlTag.P,
+                element_id=test_view_constants.PROCESS_STEP_DESCRIPTION_ID_TEMPLATE.format(id=2),
+                expected_text=test_view_constants.PROCESS_STEP_2_DESCRIPTION[self.language],
+            ),
+        )
+
 
 class TestHomeViewEnglish(BaseTestHomeViewContent):
     language = Language.ENGLISH

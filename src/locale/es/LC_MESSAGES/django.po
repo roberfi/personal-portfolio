@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-19 15:23+0000\n"
+"POT-Creation-Date: 2026-06-19 16:17+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -290,7 +290,7 @@ msgid_plural "%d months"
 msgstr[0] "%d mes"
 msgstr[1] "%d meses"
 
-#: home/models.py:135 home/models.py:278
+#: home/models.py:135 home/models.py:332
 #, python-format
 msgid "%(title)s at %(institution)s"
 msgstr "%(title)s en %(institution)s"
@@ -327,7 +327,39 @@ msgstr "Gráfico"
 msgid "Shield"
 msgstr "Escudo"
 
-#: home/models.py:224
+#: home/models.py:222
+msgid "Search"
+msgstr "Lupa"
+
+#: home/models.py:226
+msgid "Clock"
+msgstr "Reloj"
+
+#: home/models.py:230
+msgid "Cog"
+msgstr "Engranaje"
+
+#: home/models.py:241
+msgid "Pencil"
+msgstr "Lápiz"
+
+#: home/models.py:245
+msgid "Sparkles"
+msgstr "Destellos"
+
+#: home/models.py:249
+msgid "Eye"
+msgstr "Ojo"
+
+#: home/models.py:257
+msgid "Phone"
+msgstr "Teléfono"
+
+#: home/models.py:265
+msgid "Document"
+msgstr "Documento"
+
+#: home/models.py:274
 msgid "— default (check-circle) —"
 msgstr "— por defecto (círculo con check) —"
 
@@ -358,6 +390,14 @@ msgstr "Perfil"
 #: home/templates/cotton/hero.html:175
 msgid "About me"
 msgstr "Sobre mí"
+
+#: home/templates/cotton/process_steps.html:14
+msgid "My process"
+msgstr "Mi proceso"
+
+#: home/templates/cotton/process_steps.html:21
+msgid "How I work"
+msgstr "Cómo trabajo"
 
 #: home/templates/cotton/service_card.html:39
 msgid "Learn more"
@@ -395,19 +435,19 @@ msgstr "Educación"
 msgid "Background"
 msgstr "Formación"
 
-#: home/views.py:85
+#: home/views.py:86
 msgid "Personal Portfolio"
 msgstr "Portfolio Personal"
 
-#: home/views.py:86
+#: home/views.py:87
 msgid "Welcome to my personal portfolio website."
 msgstr "Bienvendido/a a la página web de mi portfolio personal."
 
-#: home/views.py:236
+#: home/views.py:238
 msgid "My Career | Professional Experience & Education"
 msgstr "Mi Carrera | Experiencia Profesional y Educación"
 
-#: home/views.py:238
+#: home/views.py:240
 msgid ""
 "Professional experience and educational background. View my complete career "
 "history, work experience, and academic qualifications."
@@ -415,7 +455,7 @@ msgstr ""
 "Experiencia profesional y formación académica. Consulta mi historial "
 "profesional completo, experiencia laboral y cualificaciones académicas."
 
-#: home/views.py:241
+#: home/views.py:243
 msgid "experience, education, professional background, work history"
 msgstr "experiencia, educación, trayectoria profesional, historia laboral"
 

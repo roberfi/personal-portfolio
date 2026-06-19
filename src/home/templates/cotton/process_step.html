@@ -1,0 +1,38 @@
+<article id="process-step-{{ step.id }}-card"
+         class="group card h-full bg-base-200/60 rounded-2xl shadow-xl shadow-black/20 border border-primary/15 hover:border-primary/30 transition-colors duration-300">
+
+    <div class="card-body gap-4">
+
+        {# Icon + decorative step number #}
+        <div class="flex items-center gap-4">
+            <div class="shrink-0 flex items-center justify-center w-12 h-12 rounded-xl border border-primary/20 bg-primary/5 group-hover:bg-primary/10 transition-colors">
+                <svg id="process-step-{{ step.id }}-icon"
+                     xmlns="http://www.w3.org/2000/svg"
+                     class="h-6 w-6 text-primary"
+                     fill="none"
+                     viewBox="0 0 24 24"
+                     stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="{{ step.icon_path }}" />
+                </svg>
+            </div>
+            <span id="process-step-{{ step.id }}-number"
+                  class="text-5xl font-bold leading-none text-base-content/10 group-hover:text-primary/20 transition-colors duration-300 select-none">
+                {{ step_number }}
+            </span>
+        </div>
+
+        {# Title #}
+        <h3 id="process-step-{{ step.id }}-title"
+            class="text-xl font-bold tracking-tight text-base-content">
+            {{ step.title }}
+        </h3>
+
+        {# Description #}
+        <p id="process-step-{{ step.id }}-description"
+           class="text-sm text-base-content/65 leading-relaxed">
+            {{ step.description }}
+        </p>
+
+    </div>
+
+</article>
