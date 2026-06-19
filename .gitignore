@@ -3,7 +3,8 @@
 .vscode
 .claude
 __pycache__
-static
+src/static
+src/staticfiles
 mediafiles
 
 # File extensions

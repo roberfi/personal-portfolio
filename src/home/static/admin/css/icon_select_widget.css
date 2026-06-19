@@ -1,0 +1,12 @@
+.icon-select-widget {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.icon-select-widget svg {
+  width: 2rem;
+  height: 2rem;
+  flex-shrink: 0;
+  color: #000000;
+}
