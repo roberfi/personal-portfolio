@@ -4,7 +4,7 @@ from typing import TYPE_CHECKING, ContextManager
 from unittest.mock import patch
 
 import home.tests.test_views.utils.constants as test_view_constants
-from home.models import Education, Experience, PersonalInfo, Project, Technology
+from home.models import Education, Experience, PersonalInfo, Project, Service, Technology
 from utils.test_utils.base_view_test_case import CommonPageTestsMixin
 from utils.test_utils.constants import Language
 from utils.test_utils.mocks import get_date_with_mocked_today
@@ -132,6 +132,46 @@ class BaseHomeViewTest(CommonPageTestsMixin):
             approach="Approach 3",
             outcome="Outcome 3",
             featured=False,
+            order=3,
+        )
+
+        Service.objects.create(
+            id=1,
+            title=test_view_constants.SERVICE_1_TITLE[Language.ENGLISH],
+            title_es=test_view_constants.SERVICE_1_TITLE[Language.SPANISH],
+            slug=test_view_constants.SERVICE_1_SLUG,
+            short_description=test_view_constants.SERVICE_1_SHORT_DESCRIPTION[Language.ENGLISH],
+            short_description_es=test_view_constants.SERVICE_1_SHORT_DESCRIPTION[Language.SPANISH],
+            long_description=test_view_constants.SERVICE_1_LONG_DESCRIPTION[Language.ENGLISH],
+            long_description_es=test_view_constants.SERVICE_1_LONG_DESCRIPTION[Language.SPANISH],
+            icon_name="code",
+            is_active=True,
+            order=1,
+        )
+
+        Service.objects.create(
+            id=2,
+            title=test_view_constants.SERVICE_2_TITLE[Language.ENGLISH],
+            title_es=test_view_constants.SERVICE_2_TITLE[Language.SPANISH],
+            slug=test_view_constants.SERVICE_2_SLUG,
+            short_description=test_view_constants.SERVICE_2_SHORT_DESCRIPTION[Language.ENGLISH],
+            short_description_es=test_view_constants.SERVICE_2_SHORT_DESCRIPTION[Language.SPANISH],
+            long_description=test_view_constants.SERVICE_2_LONG_DESCRIPTION[Language.ENGLISH],
+            long_description_es=test_view_constants.SERVICE_2_LONG_DESCRIPTION[Language.SPANISH],
+            is_active=True,
+            order=2,
+        )
+
+        # Inactive service — must not appear in the services grid
+        Service.objects.create(
+            id=3,
+            title=test_view_constants.SERVICE_INACTIVE_TITLE[Language.ENGLISH],
+            title_es=test_view_constants.SERVICE_INACTIVE_TITLE[Language.SPANISH],
+            slug=test_view_constants.SERVICE_INACTIVE_SLUG,
+            short_description=test_view_constants.SERVICE_INACTIVE_SHORT_DESCRIPTION[Language.ENGLISH],
+            short_description_es=test_view_constants.SERVICE_INACTIVE_SHORT_DESCRIPTION[Language.SPANISH],
+            long_description="Long description 3",
+            is_active=False,
             order=3,
         )
 

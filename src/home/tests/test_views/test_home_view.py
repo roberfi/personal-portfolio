@@ -1,13 +1,28 @@
 from __future__ import annotations
 
+from typing import TYPE_CHECKING, NamedTuple
+
 from django.test import TestCase
 
 import home.tests.test_views.utils.constants as test_view_constants
 import utils.test_utils.constants as common_constants
 from base.models import SiteMedia
+from home.models import DEFAULT_SERVICE_ICON_PATH, SERVICE_ICON_PATHS
 from home.tests.test_views.base_view_test import BaseHomeViewTest
 from utils.test_utils.base_view_test_case import ElementText
 from utils.test_utils.constants import HtmlTag, Language
+
+if TYPE_CHECKING:
+    from bs4 import Tag
+
+
+class ExpectedServiceCard(NamedTuple):
+    service_id: int
+    title: str
+    short_description: str
+    long_description: str
+    slug: str
+    icon_path: str
 
 
 class TestHomeViewBasics(TestCase):
@@ -356,6 +371,125 @@ class BaseTestHomeViewContent(BaseHomeViewTest):
 
         # Non-featured project must not be rendered in the grid
         self._assert_element_not_exists(grid, test_view_constants.PROJECT_CARD_ID_TEMPLATE.format(id=3))
+
+    def _assert_service_card(self, grid: Tag, expected: ExpectedServiceCard) -> None:
+        card = self._find_element_by_tag_and_id(
+            grid, HtmlTag.ARTICLE, test_view_constants.SERVICE_CARD_ID_TEMPLATE.format(id=expected.service_id)
+        )
+
+        # Card face — clickable (pointer cursor) and opens the detail modal
+        card_body = self._find_element_by_tag_and_id(
+            card, HtmlTag.DIV, test_view_constants.SERVICE_CARD_BODY_ID_TEMPLATE.format(id=expected.service_id)
+        )
+        self._assert_element_contains_class_name(card_body, common_constants.CLASS_CURSOR_POINTER)
+        self._assert_attribute_of_element(
+            card_body,
+            common_constants.ATTR_ONCLICK,
+            f"{test_view_constants.SERVICE_MODAL_ID_TEMPLATE.format(id=expected.service_id)}.showModal()",
+        )
+
+        # Card face — icon, title and short description
+        self._assert_icon_path(
+            card, test_view_constants.SERVICE_ICON_ID_TEMPLATE.format(id=expected.service_id), expected.icon_path
+        )
+        self._assert_text_of_elements(
+            card_body,
+            ElementText(
+                html_tag=HtmlTag.H3,
+                element_id=test_view_constants.SERVICE_TITLE_ID_TEMPLATE.format(id=expected.service_id),
+                expected_text=expected.title,
+            ),
+            ElementText(
+                html_tag=HtmlTag.P,
+                element_id=test_view_constants.SERVICE_DESCRIPTION_ID_TEMPLATE.format(id=expected.service_id),
+                expected_text=expected.short_description,
+            ),
+        )
+
+        # A keyboard-focusable "Learn more" affordance is present
+        self._find_element_by_tag_and_id(
+            card_body,
+            HtmlTag.BUTTON,
+            test_view_constants.SERVICE_MORE_BUTTON_ID_TEMPLATE.format(id=expected.service_id),
+        )
+
+        # Detail modal — icon, title, long (markdown) description and a contact CTA prefilled with this service
+        modal = self._find_element_by_tag_and_id(
+            card, HtmlTag.DIALOG, test_view_constants.SERVICE_MODAL_ID_TEMPLATE.format(id=expected.service_id)
+        )
+        self._assert_icon_path(
+            modal, test_view_constants.MODAL_SERVICE_ICON_ID_TEMPLATE.format(id=expected.service_id), expected.icon_path
+        )
+        self._assert_text_of_elements(
+            modal,
+            ElementText(
+                html_tag=HtmlTag.H3,
+                element_id=test_view_constants.MODAL_SERVICE_TITLE_ID_TEMPLATE.format(id=expected.service_id),
+                expected_text=expected.title,
+            ),
+            ElementText(
+                html_tag=HtmlTag.DIV,
+                element_id=test_view_constants.MODAL_SERVICE_DESCRIPTION_ID_TEMPLATE.format(id=expected.service_id),
+                expected_text=expected.long_description,
+            ),
+        )
+        self._assert_attribute_of_element(
+            self._find_element_by_tag_and_id(
+                modal, HtmlTag.A, test_view_constants.MODAL_SERVICE_CONTACT_ID_TEMPLATE.format(id=expected.service_id)
+            ),
+            common_constants.ATTR_HREF,
+            f"/{self.language}/contact/?service={expected.slug}",
+        )
+
+    def _assert_icon_path(self, soup: Tag, svg_id: str, expected_path: str) -> None:
+        svg = self._find_element_by_tag_and_id(soup, HtmlTag.SVG, svg_id)
+        self._assert_attribute_of_element(
+            self._find_element_by_html_tag(svg, HtmlTag.PATH),
+            common_constants.ATTR_D,
+            expected_path,
+        )
+
+    def test_services(self) -> None:
+        section = self._find_element_by_tag_and_id(
+            self.response_data.soup, HtmlTag.SECTION, test_view_constants.SERVICES_SECTION_ID
+        )
+
+        self._assert_text_of_element_by_tag_and_id(
+            section,
+            html_tag=HtmlTag.H2,
+            element_id=test_view_constants.SERVICES_TITLE_ID,
+            expected_text=test_view_constants.SERVICES_SECTION_TITLE[self.language],
+        )
+
+        grid = self._find_element_by_id(section, test_view_constants.SERVICES_GRID_ID)
+
+        self._assert_service_card(
+            grid,
+            ExpectedServiceCard(
+                service_id=1,
+                title=test_view_constants.SERVICE_1_TITLE[self.language],
+                short_description=test_view_constants.SERVICE_1_SHORT_DESCRIPTION[self.language],
+                long_description=test_view_constants.SERVICE_1_LONG_DESCRIPTION[self.language],
+                slug=test_view_constants.SERVICE_1_SLUG,
+                # Service 1 was created with icon_name="code"
+                icon_path=SERVICE_ICON_PATHS["code"].path,
+            ),
+        )
+        self._assert_service_card(
+            grid,
+            ExpectedServiceCard(
+                service_id=2,
+                title=test_view_constants.SERVICE_2_TITLE[self.language],
+                short_description=test_view_constants.SERVICE_2_SHORT_DESCRIPTION[self.language],
+                long_description=test_view_constants.SERVICE_2_LONG_DESCRIPTION[self.language],
+                slug=test_view_constants.SERVICE_2_SLUG,
+                # Service 2 has a blank icon_name, so it falls back to the default icon
+                icon_path=DEFAULT_SERVICE_ICON_PATH.path,
+            ),
+        )
+
+        # Inactive service must not be rendered in the grid
+        self._assert_element_not_exists(grid, test_view_constants.SERVICE_CARD_ID_TEMPLATE.format(id=3))
 
 
 class TestHomeViewEnglish(BaseTestHomeViewContent):

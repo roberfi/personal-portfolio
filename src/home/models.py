@@ -2,13 +2,17 @@ from __future__ import annotations
 
 import datetime
 from functools import cached_property
-from typing import NamedTuple
+from typing import TYPE_CHECKING, NamedTuple
 
 from django.db import models
 from django.forms import ValidationError
 from django.template.defaultfilters import date as datefilter
 from django.utils.translation import gettext, ngettext
+from django.utils.translation import gettext_lazy as _
 from solo.models import SingletonModel
+
+if TYPE_CHECKING:
+    from django_stubs_ext import StrOrPromise
 
 
 class Technology(models.Model):  # type: ignore[django-manager-missing] # https://github.com/typeddjango/django-stubs/issues/1023
@@ -152,12 +156,87 @@ class Project(models.Model):  # type: ignore[django-manager-missing] # https://g
         return self.title
 
 
+# Heroicon (outline, 24x24) SVG paths keyed by a short, human-friendly name. The
+# name is chosen in the admin via Service.icon_name; blank or unknown names fall
+# back to DEFAULT_SERVICE_ICON_PATH. This mirrors the raw-path convention already
+# used by the c-heading component.
+class ServiceIconPaths(NamedTuple):
+    name: StrOrPromise
+    path: str
+
+
+SERVICE_ICON_PATHS: dict[str, ServiceIconPaths] = {
+    "code": ServiceIconPaths(
+        name=_("Code"),
+        path="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4",
+    ),
+    "server": ServiceIconPaths(
+        name=_("Server"),
+        path=(
+            "M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2"
+            "M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01"
+        ),
+    ),
+    "lightning": ServiceIconPaths(
+        name=_("Lightning"),
+        path="M13 10V3L4 14h7v7l9-11h-7z",
+    ),
+    "chat": ServiceIconPaths(
+        name=_("Chat"),
+        path=(
+            "M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949"
+            "L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
+        ),
+    ),
+    "globe": ServiceIconPaths(
+        name=_("Globe"),
+        path=(
+            "M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9"
+            "s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"
+        ),
+    ),
+    "briefcase": ServiceIconPaths(
+        name=_("Briefcase"),
+        path=(
+            "M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2"
+            "h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+        ),
+    ),
+    "chart": ServiceIconPaths(
+        name=_("Chart"),
+        path=(
+            "M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2"
+            "h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14"
+            "a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
+        ),
+    ),
+    "shield": ServiceIconPaths(
+        name=_("Shield"),
+        path=(
+            "M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04"
+            "A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042"
+            "-.133-2.052-.382-3.016z"
+        ),
+    ),
+}
+
+DEFAULT_SERVICE_ICON_PATH = ServiceIconPaths(
+    name=_("— default (check-circle) —"),
+    path="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z",
+)
+
+SERVICE_ICON_CHOICES = (
+    ("", DEFAULT_SERVICE_ICON_PATH.name),
+    *((k, v.name) for k, v in SERVICE_ICON_PATHS.items()),
+)
+
+
 class Service(models.Model):  # type: ignore[django-manager-missing] # https://github.com/typeddjango/django-stubs/issues/1023
     title = models.CharField(max_length=200)
     slug = models.SlugField(max_length=200, unique=True)
     short_description = models.CharField(max_length=300)
     long_description = models.TextField()
-    icon_name = models.CharField(max_length=100, blank=True)
+    icon_name = models.CharField(max_length=100, blank=True, choices=SERVICE_ICON_CHOICES)
     order = models.PositiveIntegerField(default=0)
     is_active = models.BooleanField(default=True)
 
@@ -166,6 +245,11 @@ class Service(models.Model):  # type: ignore[django-manager-missing] # https://g
 
     def __str__(self) -> str:
         return self.title
+
+    @cached_property
+    def icon_path(self) -> str:
+        """Return the SVG path for the service icon, falling back to a default."""
+        return SERVICE_ICON_PATHS.get(self.icon_name, DEFAULT_SERVICE_ICON_PATH).path
 
 
 class ProcessStep(models.Model):  # type: ignore[django-manager-missing] # https://github.com/typeddjango/django-stubs/issues/1023
