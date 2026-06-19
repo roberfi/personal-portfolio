@@ -31,6 +31,22 @@ PROJECT_TITLE_ID_TEMPLATE = "project-{id}-title"
 PROJECT_SUMMARY_ID_TEMPLATE = "project-{id}-summary"
 PROJECT_TECHNOLOGIES_ID_TEMPLATE = "project-{id}-technologies"
 
+# Services ids
+SERVICES_SECTION_ID = "services"
+SERVICES_TITLE_ID = "services-title"
+SERVICES_GRID_ID = "services-grid"
+SERVICE_CARD_ID_TEMPLATE = "service-{id}-card"
+SERVICE_CARD_BODY_ID_TEMPLATE = "service-{id}-card-body"
+SERVICE_ICON_ID_TEMPLATE = "service-{id}-icon"
+SERVICE_TITLE_ID_TEMPLATE = "service-{id}-title"
+SERVICE_DESCRIPTION_ID_TEMPLATE = "service-{id}-description"
+SERVICE_MORE_BUTTON_ID_TEMPLATE = "service-{id}-more-button"
+SERVICE_MODAL_ID_TEMPLATE = "service_{id}_modal"
+MODAL_SERVICE_ICON_ID_TEMPLATE = "modal-service-{id}-icon"
+MODAL_SERVICE_TITLE_ID_TEMPLATE = "modal-service-{id}-title"
+MODAL_SERVICE_DESCRIPTION_ID_TEMPLATE = "modal-service-{id}-description"
+MODAL_SERVICE_CONTACT_ID_TEMPLATE = "modal-service-{id}-contact"
+
 # My Career ids
 MY_CAREER_ID = "my-career"
 MY_EXPERIENCE_TITLE_ID = "my-experience-title"
@@ -204,6 +220,50 @@ PROJECT_NON_FEATURED_SUMMARY = {
 PROJECT_NON_FEATURED_PROBLEM = {
     Language.ENGLISH: "Project 3 problem",
     Language.SPANISH: "Problema del proyecto 3",
+}
+
+# Services data
+SERVICES_SECTION_TITLE = {
+    Language.ENGLISH: "Services",
+    Language.SPANISH: "Servicios",
+}
+
+SERVICE_1_TITLE = {
+    Language.ENGLISH: "Service 1",
+    Language.SPANISH: "Servicio 1",
+}
+SERVICE_1_SLUG = "service-1"
+SERVICE_1_SHORT_DESCRIPTION = {
+    Language.ENGLISH: "Service 1 description",
+    Language.SPANISH: "Descripción del servicio 1",
+}
+SERVICE_1_LONG_DESCRIPTION = {
+    Language.ENGLISH: "Service 1 long description",
+    Language.SPANISH: "Descripción larga del servicio 1",
+}
+
+SERVICE_2_TITLE = {
+    Language.ENGLISH: "Service 2",
+    Language.SPANISH: "Servicio 2",
+}
+SERVICE_2_SLUG = "service-2"
+SERVICE_2_SHORT_DESCRIPTION = {
+    Language.ENGLISH: "Service 2 description",
+    Language.SPANISH: "Descripción del servicio 2",
+}
+SERVICE_2_LONG_DESCRIPTION = {
+    Language.ENGLISH: "Service 2 long description",
+    Language.SPANISH: "Descripción larga del servicio 2",
+}
+
+SERVICE_INACTIVE_TITLE = {
+    Language.ENGLISH: "Service 3",
+    Language.SPANISH: "Servicio 3",
+}
+SERVICE_INACTIVE_SLUG = "service-3"
+SERVICE_INACTIVE_SHORT_DESCRIPTION = {
+    Language.ENGLISH: "Service 3 description",
+    Language.SPANISH: "Descripción del servicio 3",
 }
 
 # Technologies data

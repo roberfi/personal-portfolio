@@ -1,0 +1,117 @@
+{% load i18n %}
+{% load filters %}
+
+<article id="service-{{ service.id }}-card"
+         class="group card h-full bg-base-200/60 rounded-2xl shadow-xl shadow-black/20 border border-primary/15 hover:border-primary/30 transition-colors duration-300">
+
+    {# ── Clickable face — opens the detail modal below ── #}
+    <div id="service-{{ service.id }}-card-body"
+         class="card-body gap-4 cursor-pointer"
+         onclick="service_{{ service.id }}_modal.showModal()">
+
+        {# Icon #}
+        <div class="shrink-0 flex items-center justify-center w-12 h-12 rounded-xl border border-primary/20 bg-primary/5 group-hover:bg-primary/10 transition-colors">
+            <svg id="service-{{ service.id }}-icon"
+                 xmlns="http://www.w3.org/2000/svg"
+                 class="h-6 w-6 text-primary"
+                 fill="none"
+                 viewBox="0 0 24 24"
+                 stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="{{ service.icon_path }}" />
+            </svg>
+        </div>
+
+        {# Title & short description #}
+        <h3 id="service-{{ service.id }}-title"
+            class="text-xl font-bold tracking-tight text-base-content">
+            {{ service.title }}
+        </h3>
+
+        <p id="service-{{ service.id }}-description"
+           class="text-sm text-base-content/65 leading-relaxed">
+            {{ service.short_description }}
+        </p>
+
+        {# Affordance — keyboard-focusable; its click bubbles up to the card face #}
+        <button id="service-{{ service.id }}-more-button"
+                type="button"
+                class="mt-auto inline-flex items-center gap-2 pt-2 text-sm font-semibold text-primary hover:text-primary/80 transition-colors w-fit">
+            {% translate "Learn more" %}
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 class="h-4 w-4 group-hover:translate-x-1 transition-transform"
+                 fill="none"
+                 viewBox="0 0 24 24"
+                 stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+            </svg>
+        </button>
+
+    </div>
+
+    {# ── Detail modal — icon, long description (markdown) + contact CTA ── #}
+    <dialog id="service_{{ service.id }}_modal"
+            class="modal modal-bottom sm:modal-middle">
+        <div class="modal-box w-11/12 max-w-3xl mx-auto bg-linear-to-br from-base-300 to-base-200 shadow-2xl shadow-black/60 border border-primary/15 p-0 flex flex-col max-h-[90vh]">
+
+            {# Modal header — icon lockup #}
+            <div class="px-6 pt-6 pb-5 border-b border-primary/15 shrink-0">
+                <div class="flex items-center gap-4">
+                    <div class="shrink-0 flex items-center justify-center w-12 h-12 rounded-xl border border-primary/20 bg-primary/5">
+                        <svg id="modal-service-{{ service.id }}-icon"
+                             xmlns="http://www.w3.org/2000/svg"
+                             class="h-6 w-6 text-primary"
+                             fill="none"
+                             viewBox="0 0 24 24"
+                             stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="{{ service.icon_path }}" />
+                        </svg>
+                    </div>
+                    <div class="flex flex-col gap-1.5">
+                        <span class="text-xs font-mono uppercase tracking-[0.18em] text-primary/60 leading-none">{% translate "Service" %}</span>
+                        <h3 id="modal-service-{{ service.id }}-title"
+                            class="text-2xl sm:text-3xl font-bold tracking-tight text-base-content leading-none">
+                            {{ service.title }}
+                        </h3>
+                    </div>
+                </div>
+            </div>
+
+            {# Modal content — long description as markdown #}
+            <div class="overflow-y-auto flex-1">
+                <div id="modal-service-{{ service.id }}-description"
+                     class="prose max-w-none px-6 py-5 prose-headings:text-primary prose-a:text-primary">
+                    {{ service.long_description|md }}
+                </div>
+            </div>
+
+            {# Modal footer — contact CTA + close #}
+            <div class="modal-action border-t border-primary/15 px-6 py-4 shrink-0 m-0 flex flex-wrap justify-end gap-3">
+                <form method="dialog">
+                    <button class="btn btn-ghost gap-2 border border-base-content/20 hover:border-primary hover:bg-primary/10 hover:text-primary transition-all">
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                             class="h-5 w-5"
+                             fill="none"
+                             viewBox="0 0 24 24"
+                             stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                        <span>{% translate "Close" %}</span>
+                    </button>
+                </form>
+                <a id="modal-service-{{ service.id }}-contact"
+                   href="{% url 'contact' %}?service={{ service.slug }}"
+                   class="btn btn-primary gap-2 group shadow-lg shadow-primary/20 hover:shadow-primary/35 transition-shadow">
+                    {% translate "Talk about this service" %}
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                         class="h-5 w-5 group-hover:translate-x-1 transition-transform"
+                         fill="none"
+                         viewBox="0 0 24 24"
+                         stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                    </svg>
+                </a>
+            </div>
+
+        </div>
+    </dialog>
+</article>

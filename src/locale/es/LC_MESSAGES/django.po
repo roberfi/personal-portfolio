@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-18 17:32+0000\n"
+"POT-Creation-Date: 2026-06-19 15:23+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -57,6 +57,7 @@ msgstr "Condiciones y Privacidad"
 #: base/templates/cotton/footer.html:62
 #: home/templates/cotton/experience_timeline/modal.html:97
 #: home/templates/cotton/hero.html:200
+#: home/templates/cotton/service_card.html:98
 msgid "Close"
 msgstr "Cerrar"
 
@@ -249,50 +250,86 @@ msgstr "Inglés"
 msgid "Spanish"
 msgstr "Español"
 
-#: home/models.py:48
+#: home/models.py:52
 #, python-format
 msgid "Personal web of %(name)s. %(title)s"
 msgstr "Página personal de %(name)s. %(title)s"
 
-#: home/models.py:54
+#: home/models.py:58
 #, python-format
 msgid "specialized in %(tech)s"
 msgstr "especializado en %(tech)s"
 
-#: home/models.py:74
+#: home/models.py:78
 msgid "End date must be after start date"
 msgstr "Las fecha final debe ser posterior a la fecha de inicio"
 
-#: home/models.py:84
+#: home/models.py:88
 msgid "Present"
 msgstr "Actualmente"
 
-#: home/models.py:107
+#: home/models.py:111
 msgid "Not yet started"
 msgstr "Aún no empezado"
 
-#: home/models.py:112
+#: home/models.py:116
 msgid "Less than a month"
 msgstr "Menos de un mes"
 
-#: home/models.py:115
+#: home/models.py:119
 #, python-format
 msgid "%d year"
 msgid_plural "%d years"
 msgstr[0] "%d año"
 msgstr[1] "%d años"
 
-#: home/models.py:116
+#: home/models.py:120
 #, python-format
 msgid "%d month"
 msgid_plural "%d months"
 msgstr[0] "%d mes"
 msgstr[1] "%d meses"
 
-#: home/models.py:131 home/models.py:193
+#: home/models.py:135 home/models.py:278
 #, python-format
 msgid "%(title)s at %(institution)s"
 msgstr "%(title)s en %(institution)s"
+
+#: home/models.py:170
+msgid "Code"
+msgstr "Código"
+
+#: home/models.py:174
+msgid "Server"
+msgstr "Servidor"
+
+#: home/models.py:181
+msgid "Lightning"
+msgstr "Rayo"
+
+#: home/models.py:185
+msgid "Chat"
+msgstr "Chat"
+
+#: home/models.py:192
+msgid "Globe"
+msgstr "Globo"
+
+#: home/models.py:199
+msgid "Briefcase"
+msgstr "Maletín"
+
+#: home/models.py:206
+msgid "Chart"
+msgstr "Gráfico"
+
+#: home/models.py:214
+msgid "Shield"
+msgstr "Escudo"
+
+#: home/models.py:224
+msgid "— default (check-circle) —"
+msgstr "— por defecto (círculo con check) —"
 
 #: home/templates/cotton/experience_timeline/card.html:75
 msgid "View more"
@@ -322,6 +359,26 @@ msgstr "Perfil"
 msgid "About me"
 msgstr "Sobre mí"
 
+#: home/templates/cotton/service_card.html:39
+msgid "Learn more"
+msgstr "Saber más"
+
+#: home/templates/cotton/service_card.html:70
+msgid "Service"
+msgstr "Servicio"
+
+#: home/templates/cotton/service_card.html:104
+msgid "Talk about this service"
+msgstr "Hablemos de este servicio"
+
+#: home/templates/cotton/services_grid.html:14
+msgid "What I can do for you"
+msgstr "Lo que puedo hacer por ti"
+
+#: home/templates/cotton/services_grid.html:21
+msgid "Services"
+msgstr "Servicios"
+
 #: home/templates/my-career.html:8
 msgid "My Experience"
 msgstr "Mi Experiencia"
@@ -338,19 +395,19 @@ msgstr "Educación"
 msgid "Background"
 msgstr "Formación"
 
-#: home/views.py:84
+#: home/views.py:85
 msgid "Personal Portfolio"
 msgstr "Portfolio Personal"
 
-#: home/views.py:85
+#: home/views.py:86
 msgid "Welcome to my personal portfolio website."
 msgstr "Bienvendido/a a la página web de mi portfolio personal."
 
-#: home/views.py:234
+#: home/views.py:236
 msgid "My Career | Professional Experience & Education"
 msgstr "Mi Carrera | Experiencia Profesional y Educación"
 
-#: home/views.py:236
+#: home/views.py:238
 msgid ""
 "Professional experience and educational background. View my complete career "
 "history, work experience, and academic qualifications."
@@ -358,7 +415,7 @@ msgstr ""
 "Experiencia profesional y formación académica. Consulta mi historial "
 "profesional completo, experiencia laboral y cualificaciones académicas."
 
-#: home/views.py:239
+#: home/views.py:241
 msgid "experience, education, professional background, work history"
 msgstr "experiencia, educación, trayectoria profesional, historia laboral"
 

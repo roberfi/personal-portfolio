@@ -40,6 +40,7 @@ class HtmlTag(StrEnum):
 
 # Class Names
 CLASS_TOOLTIP = "tooltip"
+CLASS_CURSOR_POINTER = "cursor-pointer"
 
 # HTML Attributes
 ATTR_D = "d"

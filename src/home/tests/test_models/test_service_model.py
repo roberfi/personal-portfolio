@@ -5,7 +5,7 @@ from typing import ClassVar, NamedTuple
 from django.db import IntegrityError
 from django.test import TestCase
 
-from home.models import Service
+from home.models import DEFAULT_SERVICE_ICON_PATH, SERVICE_ICON_PATHS, Service
 
 TEST_TITLE = "Web Development"
 TEST_SLUG = "web-development"
@@ -69,6 +69,29 @@ class TestServiceModel(BaseTestServiceModel):
             self.service.icon_name,
             "",
             f"Service 'icon_name' field should default to empty string, got '{self.service.icon_name}'",
+        )
+
+    def test_icon_path_defaults_when_icon_name_is_blank(self) -> None:
+        self.assertEqual(
+            icon_path := self.service.icon_path,
+            DEFAULT_SERVICE_ICON_PATH.path,
+            f"A service with a blank icon_name should fall back to the default icon path, got '{icon_path}'",
+        )
+
+    def test_icon_path_maps_known_icon_name(self) -> None:
+        service = self._make(ServiceFields(slug="with-icon", icon_name="code"))
+        self.assertEqual(
+            icon_path := service.icon_path,
+            SERVICE_ICON_PATHS["code"].path,
+            f"A service with icon_name 'code' should map to its SVG path, got '{icon_path}'",
+        )
+
+    def test_icon_path_defaults_when_icon_name_is_unknown(self) -> None:
+        service = self._make(ServiceFields(slug="unknown-icon", icon_name="not-a-real-icon"))
+        self.assertEqual(
+            icon_path := service.icon_path,
+            DEFAULT_SERVICE_ICON_PATH.path,
+            f"A service with an unknown icon_name should fall back to the default icon path, got '{icon_path}'",
         )
 
     def test_slug_is_unique(self) -> None:
