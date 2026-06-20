@@ -326,6 +326,10 @@ class BaseTestHomeViewContent(BaseHomeViewTest):
         card_1 = self._find_element_by_tag_and_id(
             grid, HtmlTag.ARTICLE, test_view_constants.PROJECT_CARD_ID_TEMPLATE.format(id=1)
         )
+        self._assert_element_contains_class_name(
+            card_1,
+            common_constants.CLASS_CURSOR_POINTER,
+        )
         self._assert_text_of_elements(
             card_1,
             ElementText(
@@ -345,6 +349,13 @@ class BaseTestHomeViewContent(BaseHomeViewTest):
                 test_view_constants.TECHNOLOGY_1[self.language],
                 test_view_constants.TECHNOLOGY_2[self.language],
             ],
+        )
+        self._assert_attribute_of_element(
+            self._find_element_by_tag_and_id(
+                card_1, HtmlTag.A, test_view_constants.PROJECT_DETAIL_LINK_ID_TEMPLATE.format(id=1)
+            ),
+            common_constants.ATTR_HREF,
+            f"/{self.language}/projects/{test_view_constants.PROJECT_1_SLUG}/",
         )
 
         # Featured project 2
@@ -371,6 +382,11 @@ class BaseTestHomeViewContent(BaseHomeViewTest):
 
         # Non-featured project must not be rendered in the grid
         self._assert_element_not_exists(grid, test_view_constants.PROJECT_CARD_ID_TEMPLATE.format(id=3))
+
+        # "See all projects" CTA links to the projects list page
+        see_all = self._find_element_by_tag_and_id(section, HtmlTag.A, test_view_constants.FEATURED_PROJECTS_SEE_ALL_ID)
+        self._assert_text_of_element(see_all, test_view_constants.FEATURED_PROJECTS_SEE_ALL_TEXT[self.language])
+        self._assert_attribute_of_element(see_all, common_constants.ATTR_HREF, f"/{self.language}/projects/")
 
     def _assert_service_card(self, grid: Tag, expected: ExpectedServiceCard) -> None:
         card = self._find_element_by_tag_and_id(
