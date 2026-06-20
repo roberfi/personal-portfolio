@@ -6,9 +6,11 @@
     {# ── Visual — hero image or CSS fallback ── #}
     <figure class="relative aspect-video overflow-hidden">
         {% if project.hero_image %}
-            <img src="{{ project.hero_image.url }}"
+            <img src="{{ project.card_image.url }}"
                  alt="{{ project.title }}"
                  loading="lazy"
+                 width="800"
+                 height="450"
                  class="w-full h-full object-cover brightness-95 transition duration-500 group-hover:scale-105 group-hover:brightness-100" />
 
             {# Mute bright screenshots so they sit in the dark theme; lift the tint on hover #}

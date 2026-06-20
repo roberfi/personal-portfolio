@@ -1,9 +1,12 @@
 from __future__ import annotations
 
+from io import BytesIO
 from typing import ClassVar, NamedTuple
 
+from django.core.files.uploadedfile import SimpleUploadedFile
 from django.db import IntegrityError
 from django.test import TestCase
+from PIL import Image
 
 from home.models import Project, Technology
 
@@ -147,6 +150,42 @@ class TestProjectFeatured(BaseTestProjectModel):
             featured,
             f"Unfeatured project '{self.unfeatured_project.title}' should not appear in featured queryset",
         )
+
+
+def _build_uploaded_image(name: str, size: tuple[int, int], image_format: str = "JPEG") -> SimpleUploadedFile:
+    buffer = BytesIO()
+    Image.new("RGB", size, color="red").save(buffer, format=image_format)
+
+    return SimpleUploadedFile(name, buffer.getvalue(), content_type=f"image/{image_format.lower()}")
+
+
+class TestProjectImageThumbnails(BaseTestProjectModel):
+    def _project_with_image(self, size: tuple[int, int]) -> Project:
+        project = self._get_new_project_instance()
+        project.hero_image = _build_uploaded_image("hero.jpg", size)
+        project.save()
+
+        return project
+
+    def test_card_image_is_resized_to_fill(self) -> None:
+        project = self._project_with_image((3000, 2000))
+
+        with Image.open(project.card_image.path) as image:
+            self.assertEqual(
+                image.size,
+                expected_size := (800, 450),
+                f"Expected card_image to be resized to '{expected_size}', got '{image.size}'",
+            )
+
+    def test_hero_display_is_resized_to_fill(self) -> None:
+        project = self._project_with_image((3000, 2000))
+
+        with Image.open(project.hero_display.path) as image:
+            self.assertEqual(
+                image.size,
+                expected_size := (1600, 900),
+                f"Expected hero_display to be resized to '{expected_size}', got '{image.size}'",
+            )
 
 
 class TestProjectTechnologiesRelation(BaseTestProjectModel):
