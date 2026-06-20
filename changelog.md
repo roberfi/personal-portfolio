@@ -21,6 +21,7 @@
 - Improve technology badges
 - Use Inter font
 - Create a custom 404 page
+- Implement maintenance mode
 
 ## 0.7.0
 
