@@ -14,6 +14,8 @@
 - Add a services section to the home page
 - Add a "How I work" process steps section to the home page
 - Add projects list page (`/projects/`) and project detail page (`/projects/<slug>/`)
+- Simplify main navigation to Home · Projects · Contact
+- Move My Career page link to the footer under a new "More" section
 - Serve CSS as a static minimized stylesheet extracted from the JS bundle
 
 ## 0.7.0
