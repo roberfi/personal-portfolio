@@ -249,8 +249,10 @@ class MyCareerView(View):
         Returns:
             A PageMetadata dictionary containing SEO metadata.
         """
+        name = PersonalInfo.objects.values_list("name", flat=True).first()
+        suffix = f" | {name}" if name else ""
         return PageMetadata(
-            page_title=gettext("My Career | Professional Experience & Education"),
+            page_title=gettext("My Career") + suffix,
             page_description=gettext(
                 "Professional experience and educational background."
                 " View my complete career history, work experience, and academic qualifications."
@@ -319,8 +321,10 @@ class ProjectListView(View):
 
     @classmethod
     def __get_page_metadata(cls, projects: list[Project], request: HttpRequest) -> PageMetadata:
+        name = PersonalInfo.objects.values_list("name", flat=True).first()
+        suffix = f" | {name}" if name else ""
         return PageMetadata(
-            page_title=gettext("Projects | Portfolio"),
+            page_title=gettext("Projects") + suffix,
             page_description=gettext("Browse all my projects — problem, approach, and outcomes."),
             page_keywords=gettext("projects, software development, case studies"),
             json_ld=cls.__get_json_ld(projects, request),
@@ -365,8 +369,10 @@ class ProjectDetailView(View):
 
     @classmethod
     def __get_page_metadata(cls, project: Project, request: HttpRequest) -> PageMetadata:
+        name = PersonalInfo.objects.values_list("name", flat=True).first()
+        suffix = f" | {name}" if name else ""
         return PageMetadata(
-            page_title=gettext("%(title)s | Portfolio") % {"title": project.title},
+            page_title=f"{project.title}{suffix}",
             page_description=project.summary,
             page_keywords=", ".join(tech.name for tech in project.technologies.all()),
             json_ld=cls.__get_json_ld(project, request),

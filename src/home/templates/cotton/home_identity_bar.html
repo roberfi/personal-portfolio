@@ -1,0 +1,26 @@
+{% comment %}
+Home identity bar.
+
+A frosted bar pinned under the navbar that fades and slides in progressively
+as the hero scrolls away, then stays for the rest of the page. Driven by the
+`--hero-progress` custom property (0 → 1) set by `initHeroScroll()`, so it is
+not a binary toggle like `c-page-heading`'s compact bar.
+
+Props:
+  personal_info — the PersonalInfo instance (name + title).
+{% endcomment %}
+
+{# 0-height rail keeps the bar out of the layout flow so it overlays content. #}
+<div class="sticky top-0 z-30 h-0">
+    <div data-home-bar
+         class="h-14 flex items-center border-b border-base-content/10 bg-base-300/85 backdrop-blur-md shadow-md shadow-black/10">
+        <div class="w-full max-w-(--breakpoint-lg) mx-auto px-6 flex items-center gap-3">
+            <div class="h-5 w-0.5 rounded-full bg-primary shrink-0">
+            </div>
+            <div class="flex flex-col justify-center gap-0.5 min-w-0">
+                <span class="text-[10px] font-mono uppercase tracking-[0.18em] text-primary/55 leading-tight truncate">{{ personal_info.title }}</span>
+                <span class="text-base sm:text-lg font-bold text-base-content leading-tight truncate">{{ personal_info.name }}</span>
+            </div>
+        </div>
+    </div>
+</div>

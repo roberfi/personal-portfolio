@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-20 10:29+0000\n"
+"POT-Creation-Date: 2026-06-20 15:41+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -50,30 +50,35 @@ msgstr "¿Tienes un proyecto en mente?"
 msgid "Let's talk"
 msgstr "Hablemos"
 
-#: base/templates/cotton/footer.html:16 base/templates/cotton/footer.html:33
+#: base/templates/cotton/footer.html:14
+msgid "More"
+msgstr "Más"
+
+#: base/templates/cotton/footer.html:19 home/templates/my-career.html:7
+#: home/views.py:255
+msgid "My Career"
+msgstr "Mi Carrera"
+
+#: base/templates/cotton/footer.html:28 base/templates/cotton/footer.html:45
 msgid "Legal & Privacy"
 msgstr "Condiciones y Privacidad"
 
-#: base/templates/cotton/footer.html:62
+#: base/templates/cotton/footer.html:74
 #: home/templates/cotton/experience_timeline/modal.html:97
-#: home/templates/cotton/hero.html:200
+#: home/templates/cotton/hero.html:201
 #: home/templates/cotton/service_card.html:98
 msgid "Close"
 msgstr "Cerrar"
 
-#: base/templates/cotton/footer.html:22
-msgid "More"
-msgstr "Más"
-
-#: base/templates/cotton/footer.html:89
+#: base/templates/cotton/footer.html:91
 msgid "Follow Me"
 msgstr "Sígueme"
 
-#: base/templates/cotton/footer.html:110
+#: base/templates/cotton/footer.html:122
 msgid "The source code of this website is available on"
 msgstr "El código fuente de este sitio web está disponible en"
 
-#: base/templates/cotton/footer.html:116
+#: base/templates/cotton/footer.html:128
 msgid "under the MIT License"
 msgstr "bajo licencia MIT"
 
@@ -81,17 +86,12 @@ msgstr "bajo licencia MIT"
 msgid "Home"
 msgstr "Inicio"
 
-#: base/templatetags/base_tags.py:36 home/templates/my-career.html:3
-msgid "My Career"
-msgstr "Mi Carrera"
-
-#: base/templatetags/base_tags.py:41 home/templates/projects.html:3
-#: home/templates/projects.html:21 home/views.py:305
+#: base/templatetags/base_tags.py:36 home/views.py:307 home/views.py:327
 msgid "Projects"
 msgstr "Proyectos"
 
-#: base/templatetags/base_tags.py:46 contact/templates/contact.html:10
-#: contact/views.py:58
+#: base/templatetags/base_tags.py:41 contact/templates/contact.html:8
+#: contact/views.py:61
 msgid "Contact"
 msgstr "Contacto"
 
@@ -194,9 +194,9 @@ msgstr "Este campo es obligatorio si se usa la API de Brevo."
 
 #: contact/templates/contact.html:9
 msgid "Get in Touch"
-msgstr "Contactar conmigo"
+msgstr "Escríbeme"
 
-#: contact/templates/contact.html:17
+#: contact/templates/contact.html:13
 msgid ""
 "Do you have a question or want to work together? Feel free to send me a "
 "message and I will respond as soon as possible."
@@ -204,42 +204,42 @@ msgstr ""
 "¿Tienes alguna pregunta o quieres trabajar conmigo? Envíame un mensaje y te "
 "responderé lo antes posible."
 
-#: contact/templates/contact.html:166
+#: contact/templates/contact.html:164
 msgid "I accept the"
 msgstr "Acepto la"
 
-#: contact/templates/contact.html:193
+#: contact/templates/contact.html:191
 msgid "Send Message"
 msgstr "Enviar Mensaje"
 
-#: contact/templates/contact.html:208
+#: contact/templates/contact.html:206
 msgid "Sending..."
 msgstr "Enviando..."
 
-#: contact/templates/contact.html:224
+#: contact/templates/contact.html:222
 msgid "There was an error with the security verification. Please try again."
 msgstr ""
 "Hubo un error con la verificación de seguridad. Por favor, inténtalo de "
 "nuevo."
 
-#: contact/templates/contact.html:247
+#: contact/templates/contact.html:245
 msgid ""
 "Your information is safe and will only be used to respond to your inquiry."
 msgstr ""
 "Tu información está segura y sólo se utilizará para responder a tu consulta."
 
-#: contact/views.py:59
+#: contact/views.py:62
 msgid ""
 "Get in touch with me. Send me a message and I'll respond as soon as possible."
 msgstr ""
 "Ponte en contacto conmigo. Envíame un mensaje y te responderé lo antes "
 "posible."
 
-#: contact/views.py:60
+#: contact/views.py:63
 msgid "contact, get in touch, message, email"
 msgstr "contacto, contactar, mensaje, correo electrónico, email"
 
-#: contact/views.py:229
+#: contact/views.py:232
 msgid ""
 "reCAPTCHA verification failed. Please try again. If the problem persists, "
 "contact me directly."
@@ -247,7 +247,7 @@ msgstr ""
 "La verificación de reCAPTCHA ha fallado. Por favor, inténtalo de nuevo. Si "
 "el problema persiste, contacta directamente."
 
-#: contact/views.py:247
+#: contact/views.py:250
 msgid "Thank you for your message! I'll get back to you as soon as possible."
 msgstr "¡Gracias por tu mensaje! Te responderé lo antes posible."
 
@@ -381,9 +381,8 @@ msgid "Detail"
 msgstr "Detalle"
 
 #: home/templates/cotton/featured_projects.html:14
-#: home/templates/projects.html:14
 msgid "My work"
-msgstr "Mi trabajo"
+msgstr ""
 
 #: home/templates/cotton/featured_projects.html:21
 msgid "Featured projects"
@@ -393,15 +392,15 @@ msgstr "Proyectos destacados"
 msgid "See all projects"
 msgstr "Ver todos los proyectos"
 
-#: home/templates/cotton/hero.html:89
+#: home/templates/cotton/hero.html:90
 msgid "More about me"
 msgstr "Más sobre mí"
 
-#: home/templates/cotton/hero.html:171
+#: home/templates/cotton/hero.html:172
 msgid "Profile"
 msgstr "Perfil"
 
-#: home/templates/cotton/hero.html:175
+#: home/templates/cotton/hero.html:176
 msgid "About me"
 msgstr "Sobre mí"
 
@@ -417,15 +416,15 @@ msgstr "Cómo trabajo"
 msgid "View project"
 msgstr "Ver proyecto"
 
-#: home/templates/cotton/project_detail.html:23
+#: home/templates/cotton/project_detail.html:20
 msgid "The Problem"
 msgstr "El Problema"
 
-#: home/templates/cotton/project_detail.html:50
+#: home/templates/cotton/project_detail.html:44
 msgid "The Approach"
 msgstr "El Enfoque"
 
-#: home/templates/cotton/project_detail.html:77
+#: home/templates/cotton/project_detail.html:68
 msgid "The Outcome"
 msgstr "El Resultado"
 
@@ -450,34 +449,46 @@ msgid "Services"
 msgstr "Servicios"
 
 #: home/templates/my-career.html:8
+msgid "Journey"
+msgstr "Trayectoria"
+
+#: home/templates/my-career.html:14
 msgid "My Experience"
 msgstr "Mi Experiencia"
 
-#: home/templates/my-career.html:9
-msgid "Career"
-msgstr "Trayectoria"
+#: home/templates/my-career.html:15
+msgid "Work history"
+msgstr "Historial laboral"
 
-#: home/templates/my-career.html:22
+#: home/templates/my-career.html:29
 msgid "Education"
 msgstr "Educación"
 
-#: home/templates/my-career.html:23
-msgid "Background"
-msgstr "Formación"
+#: home/templates/my-career.html:30
+msgid "Studies"
+msgstr "Estudios"
 
-#: home/templates/project-detail.html:19
-msgid "All projects"
-msgstr "Todos los proyectos"
+#: home/templates/project-detail.html:8
+msgid "Project"
+msgstr "Proyecto"
 
-#: home/templates/project-detail.html:69
+#: home/templates/project-detail.html:54
 msgid "Back to projects"
 msgstr "Volver a proyectos"
 
-#: home/templates/project-detail.html:73
+#: home/templates/project-detail.html:58
 msgid "Let's work together"
 msgstr "Trabajemos juntos"
 
-#: home/templates/projects.html:25 home/views.py:306 home/views.py:324
+#: home/templates/projects.html:7
+msgid "My Projects"
+msgstr "Mis Proyectos"
+
+#: home/templates/projects.html:8
+msgid "Portfolio"
+msgstr "Portfolio"
+
+#: home/templates/projects.html:12 home/views.py:308 home/views.py:328
 msgid "Browse all my projects — problem, approach, and outcomes."
 msgstr "Explora todos mis proyectos — problema, enfoque y resultados."
 
@@ -489,11 +500,7 @@ msgstr "Portfolio Personal"
 msgid "Welcome to my personal portfolio website."
 msgstr "Bienvendido/a a la página web de mi portfolio personal."
 
-#: home/views.py:253
-msgid "My Career | Professional Experience & Education"
-msgstr "Mi Carrera | Experiencia Profesional y Educación"
-
-#: home/views.py:255
+#: home/views.py:257
 msgid ""
 "Professional experience and educational background. View my complete career "
 "history, work experience, and academic qualifications."
@@ -501,25 +508,10 @@ msgstr ""
 "Experiencia profesional y formación académica. Consulta mi historial "
 "profesional completo, experiencia laboral y cualificaciones académicas."
 
-#: home/views.py:258
+#: home/views.py:260
 msgid "experience, education, professional background, work history"
 msgstr "experiencia, educación, trayectoria profesional, historia laboral"
 
-#: home/views.py:323
-msgid "Projects | Portfolio"
-msgstr "Proyectos | Portfolio"
-
-#: home/views.py:325
+#: home/views.py:329
 msgid "projects, software development, case studies"
 msgstr "proyectos, desarrollo de software, casos de estudio"
-
-#: home/views.py:369
-#, python-format
-msgid "%(title)s | Portfolio"
-msgstr "%(title)s | Portfolio"
-
-#~ msgid "Professional profile of"
-#~ msgstr "Perfil profesional de"
-
-#~ msgid "Contact me"
-#~ msgstr "Contáctame"

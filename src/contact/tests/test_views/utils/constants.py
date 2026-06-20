@@ -7,7 +7,7 @@ from utils.test_utils.constants import Language
 # Contact page ids
 CONTACT_CONTAINER_ID = "contact"
 
-CONTACT_TITLE_ID = "get-in-touch-title"
+CONTACT_TITLE_ID = "contact-title"
 
 CONTACT_RESPONSE_ALERTS_ID = "response-alerts"
 
@@ -57,8 +57,8 @@ MOCKED_ERROR_MESSAGE = "Test error message"
 
 # Expected texts
 CONTACT_PAGE_TITLE = {
-    Language.ENGLISH: "Get in Touch",
-    Language.SPANISH: "Contactar conmigo",
+    Language.ENGLISH: "Contact",
+    Language.SPANISH: "Contacto",
 }
 
 CONTACT_PAGE_DESCRIPTION = {
@@ -141,8 +141,8 @@ VALIDATION_ERROR_PRIVACY_POLICY_NOT_ACCEPTED = {
 
 # Metadata constants
 META_TITLE = {
-    Language.ENGLISH: "Contact | Portfolio",
-    Language.SPANISH: "Contacto | Portfolio",
+    Language.ENGLISH: "Contact",
+    Language.SPANISH: "Contacto",
 }
 
 META_DESCRIPTION = {

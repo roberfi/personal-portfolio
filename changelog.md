@@ -17,6 +17,7 @@
 - Simplify main navigation to Home · Projects · Contact
 - Move My Career page link to the footer under a new "More" section
 - Serve CSS as a static minimized stylesheet extracted from the JS bundle
+- Normalize and improve page titles and headings across views
 
 ## 0.7.0
 

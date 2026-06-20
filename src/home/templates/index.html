@@ -1,6 +1,10 @@
 {% load base_tags %}
 
-<c-base name="{{ personal_info.name }}">
+<c-base>
+    {% if personal_info %}
+        {# Identity bar — fades in progressively as the hero scrolls away #}
+        <c-home-identity-bar :personal_info="personal_info" />
+    {% endif %}
     <c-hero />
     <c-services-grid />
     <c-process-steps />

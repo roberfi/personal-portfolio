@@ -1,0 +1,75 @@
+{% load i18n %}
+
+{% comment %}
+Page-level heading.
+
+Renders a large, centered title (the page H1) and a compact frosted bar
+that slides down and pins under the navbar once the title scrolls away.
+
+Props:
+  title      — heading text (required)
+  eyebrow    — small mono label above the title (optional)
+  id-prefix  — builds the `{prefix}-title` id on the H1 (for tests / a11y)
+  icon-path  — optional SVG path drawn inside the compact bar's chip
+  slot       — optional content shown under the title (e.g. a description)
+
+Accent is always `primary` (the page title); subsections use
+`c-section-heading`, which supports other accents.
+
+Requires `initStickyHeadings()` (frontend) to toggle `.is-stuck` on scroll.
+{% endcomment %}
+
+{# Compact bar — frosted, pinned under the navbar, revealed on scroll #}
+<div class="sticky top-0 z-30 h-0">
+    <div data-compact-bar
+         data-heading="{{ id_prefix }}"
+         class="h-14 flex items-center border-b border-base-content/10 bg-base-300/85 backdrop-blur-md shadow-md shadow-black/10">
+        <div class="w-full max-w-(--breakpoint-lg) mx-auto px-6 flex items-center gap-3">
+            {% if icon_path %}
+                <div class="flex items-center justify-center w-9 h-9 rounded-xl bg-primary/8 border border-primary/15 shrink-0">
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                         class="h-5 w-5 text-primary/60"
+                         fill="none"
+                         viewBox="0 0 24 24"
+                         stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="{{ icon_path }}" />
+                    </svg>
+                </div>
+            {% else %}
+                <div class="h-5 w-0.5 rounded-full bg-primary shrink-0">
+                </div>
+            {% endif %}
+            <div class="flex flex-col justify-center gap-0.5 min-w-0">
+                {% if eyebrow %}
+                    <span class="text-[10px] font-mono uppercase tracking-[0.18em] text-primary/55 leading-tight truncate">{{ eyebrow }}</span>
+                {% endif %}
+                <span class="text-base sm:text-lg font-bold text-base-content leading-tight truncate">{{ title }}</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+{# Expanded heading — large and centered, scrolls away on its own. #}
+<div class="px-6 pt-14 pb-12 lg:pt-20 lg:pb-16">
+    <div class="max-w-(--breakpoint-lg) mx-auto flex flex-col items-center text-center gap-4">
+        {% if eyebrow %}
+            <div class="flex items-center gap-3">
+                <div class="h-0.5 w-8 rounded-full bg-primary">
+                </div>
+                <span class="text-xs font-mono uppercase tracking-[0.18em] text-primary/60">{{ eyebrow }}</span>
+                <div class="h-0.5 w-8 rounded-full bg-primary">
+                </div>
+            </div>
+        {% endif %}
+        <h1 id="{{ id_prefix }}-title"
+            class="relative text-3xl sm:text-4xl font-bold tracking-tight text-base-content">
+            {{ title }}
+            {# Sentinel at the H1 baseline: reveals the compact bar as the title leaves #}
+            <span data-heading-sentinel
+                  data-heading="{{ id_prefix }}"
+                  aria-hidden="true"
+                  class="absolute left-0 -bottom-px h-px w-px"></span>
+        </h1>
+        {{ slot }}
+    </div>
+</div>

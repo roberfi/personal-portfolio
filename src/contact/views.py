@@ -14,6 +14,7 @@ from django.utils.safestring import mark_safe
 from django.utils.translation import get_language, gettext
 from django.views import View
 
+from home.models import PersonalInfo
 from utils.types import PageMetadata
 
 from .forms import ContactForm
@@ -55,7 +56,9 @@ class ContactView(View):
             A PageMetadata dictionary with the metadata for the contact page.
         """
 
-        page_title = gettext("Contact") + " | Portfolio"
+        name = PersonalInfo.objects.values_list("name", flat=True).first()
+        suffix = f" | {name}" if name else ""
+        page_title = gettext("Contact") + suffix
         page_description = gettext("Get in touch with me. Send me a message and I'll respond as soon as possible.")
         page_keywords = gettext("contact, get in touch, message, email")
 
