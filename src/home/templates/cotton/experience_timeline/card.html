@@ -71,13 +71,7 @@
                         class="btn btn-primary btn-sm gap-2 group"
                         onclick="{{ item_type|default:'item' }}_{{ item.id }}_modal.showModal()">
                     <span>{% translate "View more" %}</span>
-                    <svg xmlns="http://www.w3.org/2000/svg"
-                         class="h-5 w-5 group-hover:translate-x-1 transition-transform"
-                         fill="none"
-                         viewBox="0 0 24 24"
-                         stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                    </svg>
+                    <c-arrow-right-icon size="h-5 w-5" />
                 </button>
             </div>
         </div>
