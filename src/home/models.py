@@ -9,6 +9,8 @@ from django.forms import ValidationError
 from django.template.defaultfilters import date as datefilter
 from django.utils.translation import gettext, ngettext
 from django.utils.translation import gettext_lazy as _
+from imagekit.models import ImageSpecField
+from imagekit.processors import SmartResize
 from solo.models import SingletonModel
 
 if TYPE_CHECKING:
@@ -146,6 +148,23 @@ class Project(models.Model):  # type: ignore[django-manager-missing] # https://g
     outcome = models.TextField()
     technologies = models.ManyToManyField(Technology, blank=True, related_name="projects")
     hero_image = models.ImageField(upload_to="projects/", blank=True, null=True)
+
+    # Card thumbnail — keeps the listing/featured grids light
+    card_image = ImageSpecField(
+        source="hero_image",
+        processors=[SmartResize(800, 450)],
+        format="JPEG",
+        options={"quality": 80},
+    )
+
+    # Larger 16:9 render for the project detail hero.
+    hero_display = ImageSpecField(
+        source="hero_image",
+        processors=[SmartResize(1600, 900)],
+        format="JPEG",
+        options={"quality": 85},
+    )
+
     featured = models.BooleanField(default=False)
     order = models.PositiveIntegerField(default=0)
 
