@@ -1,0 +1,12 @@
+{% comment %}
+Reusable technology badge.
+
+Props:
+  name — technology name (required)
+  id   — optional HTML id
+{% endcomment %}
+
+<span {% if id %}id="{{ id }}"{% endif %}
+      class="inline-flex items-center px-2.5 py-1.5 rounded-md text-xs font-mono leading-none tracking-wide text-base-content/75 bg-base-100/50 border border-base-content/10 shadow-sm shadow-black/10 hover:bg-base-100/70 hover:text-base-content/95 hover:border-base-content/20 transition-colors duration-200 whitespace-nowrap">
+    {{ name }}
+</span>

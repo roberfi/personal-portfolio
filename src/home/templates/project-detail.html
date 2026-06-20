@@ -12,9 +12,7 @@
                 <div id="project-detail-technologies"
                      class="flex flex-wrap justify-center gap-2">
                     {% for tech in project.technologies.all %}
-                        <span class="badge badge-sm badge-primary badge-outline font-semibold">
-                            {{ tech.name }}
-                        </span>
+                        <c-tech-badge name="{{ tech.name }}" />
                     {% endfor %}
                 </div>
             {% endif %}

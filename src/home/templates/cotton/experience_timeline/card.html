@@ -60,10 +60,8 @@
                 <div id="{{ item_type|default:'item' }}-{{ item.id }}-technologies"
                      class="mt-4 flex flex-wrap gap-2 {% if forloop.counter|divisibleby:2 %}md:justify-end{% endif %}">
                     {% for tech in item.technologies.all %}
-                        <span id="{{ item_type|default:'item' }}-{{ item.id }}-technology-{{ tech.id }}"
-                              class="badge badge-primary badge-outline hover:badge-primary transition-colors duration-200 font-semibold">
-                            {{ tech.name }}
-                        </span>
+                        <c-tech-badge name="{{ tech.name }}"
+                                      id="{{ item_type|default:'item' }}-{{ item.id }}-technology-{{ tech.id }}" />
                     {% endfor %}
                 </div>
             {% endif %}
