@@ -1,5 +1,7 @@
+{% load i18n %}
+
 <article id="project-{{ project.id }}-card"
-         class="group card h-full bg-base-200/60 rounded-2xl shadow-xl shadow-black/20 border border-primary/15 hover:border-primary/30 transition-colors duration-300 overflow-hidden">
+         class="group card h-full bg-base-200/60 rounded-2xl shadow-xl shadow-black/20 border border-primary/15 hover:border-primary/30 transition-colors duration-300 overflow-hidden relative cursor-pointer">
 
     {# ── Visual — hero image or CSS fallback ── #}
     <figure class="relative aspect-video overflow-hidden">
@@ -37,7 +39,7 @@
 
         {% if project.technologies.exists %}
             <div id="project-{{ project.id }}-technologies"
-                 class="mt-auto flex flex-wrap gap-2 pt-2">
+                 class="flex flex-wrap gap-2 pt-2">
                 {% for tech in project.technologies.all %}
                     <span id="project-{{ project.id }}-technology-{{ tech.id }}"
                           class="badge badge-sm badge-primary badge-outline font-semibold">
@@ -46,5 +48,18 @@
                 {% endfor %}
             </div>
         {% endif %}
+
+        <a id="project-{{ project.id }}-detail-link"
+           href="{% url 'project-detail' project.slug %}"
+           class="mt-auto inline-flex items-center gap-2 pt-2 text-sm font-semibold text-primary hover:text-primary/80 transition-colors w-fit after:absolute after:inset-0">
+            {% translate "View project" %}
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 class="h-4 w-4 group-hover:translate-x-1 transition-transform"
+                 fill="none"
+                 viewBox="0 0 24 24"
+                 stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+            </svg>
+        </a>
     </div>
 </article>

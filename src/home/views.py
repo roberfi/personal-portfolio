@@ -3,7 +3,8 @@ from __future__ import annotations
 import json
 from typing import TYPE_CHECKING, Any, TypedDict
 
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
+from django.urls import reverse
 from django.utils.safestring import SafeString, mark_safe
 from django.utils.translation import get_language, gettext
 from django.views import View
@@ -34,6 +35,20 @@ class MyCareerViewContext(TypedDict):
     page_metadata: PageMetadata
     experiences: list[Experience]
     education_entries: list[Education]
+
+
+class ProjectListViewContext(TypedDict):
+    """Context for the ProjectListView."""
+
+    page_metadata: PageMetadata
+    projects: list[Project]
+
+
+class ProjectDetailViewContext(TypedDict):
+    """Context for the ProjectDetailView."""
+
+    page_metadata: PageMetadata
+    project: Project
 
 
 class HomeView(View):
@@ -271,5 +286,99 @@ class MyCareerView(View):
                 page_metadata=self.__get_page_metadata(experiences, education_entries),
                 experiences=experiences,
                 education_entries=education_entries,
+            ),
+        )
+
+
+class ProjectListView(View):
+    @staticmethod
+    def __get_json_ld(projects: list[Project], request: HttpRequest) -> SafeString:
+        base_url = f"{request.scheme}://{request.get_host()}"
+        current_lang = get_language()
+
+        schema: dict[str, Any] = {
+            "@context": {
+                "@vocab": "https://schema.org/",
+                "@language": current_lang,
+            },
+            "@type": "ItemList",
+            "name": gettext("Projects"),
+            "description": gettext("Browse all my projects — problem, approach, and outcomes."),
+            "itemListElement": [
+                {
+                    "@type": "ListItem",
+                    "position": i + 1,
+                    "name": project.title,
+                    "url": f"{base_url}{reverse('project-detail', kwargs={'slug': project.slug})}",
+                }
+                for i, project in enumerate(projects)
+            ],
+        }
+
+        return mark_safe(json.dumps(schema, ensure_ascii=False))
+
+    @classmethod
+    def __get_page_metadata(cls, projects: list[Project], request: HttpRequest) -> PageMetadata:
+        return PageMetadata(
+            page_title=gettext("Projects | Portfolio"),
+            page_description=gettext("Browse all my projects — problem, approach, and outcomes."),
+            page_keywords=gettext("projects, software development, case studies"),
+            json_ld=cls.__get_json_ld(projects, request),
+        )
+
+    def get(self, request: HttpRequest) -> HttpResponse:
+        projects = list(Project.objects.prefetch_related("technologies"))
+        return render(
+            request,
+            "projects.html",
+            ProjectListViewContext(
+                page_metadata=self.__get_page_metadata(projects, request),
+                projects=projects,
+            ),
+        )
+
+
+class ProjectDetailView(View):
+    @staticmethod
+    def __get_json_ld(project: Project, request: HttpRequest) -> SafeString:
+        base_url = f"{request.scheme}://{request.get_host()}"
+        current_lang = get_language()
+
+        schema: dict[str, Any] = {
+            "@context": {
+                "@vocab": "https://schema.org/",
+                "@language": current_lang,
+            },
+            "@type": "CreativeWork",
+            "name": project.title,
+            "description": markdown_to_plaintext(project.summary),
+            "url": f"{base_url}{reverse('project-detail', kwargs={'slug': project.slug})}",
+        }
+
+        if project.technologies.exists():
+            schema["keywords"] = ", ".join(tech.name for tech in project.technologies.all())
+
+        if project.hero_image:
+            schema["image"] = f"{base_url}{project.hero_image.url}"
+
+        return mark_safe(json.dumps(schema, ensure_ascii=False))
+
+    @classmethod
+    def __get_page_metadata(cls, project: Project, request: HttpRequest) -> PageMetadata:
+        return PageMetadata(
+            page_title=gettext("%(title)s | Portfolio") % {"title": project.title},
+            page_description=project.summary,
+            page_keywords=", ".join(tech.name for tech in project.technologies.all()),
+            json_ld=cls.__get_json_ld(project, request),
+        )
+
+    def get(self, request: HttpRequest, slug: str) -> HttpResponse:
+        project: Project = get_object_or_404(Project.objects.prefetch_related("technologies"), slug=slug)
+        return render(
+            request,
+            "project-detail.html",
+            ProjectDetailViewContext(
+                page_metadata=self.__get_page_metadata(project, request),
+                project=project,
             ),
         )

@@ -1,0 +1,40 @@
+{% load i18n %}
+
+<c-base name="{% translate "Projects" %}">
+    <section id="projects"
+             class="min-h-screen bg-linear-to-br from-base-300 via-base-300 to-base-200">
+        <div class="max-w-(--breakpoint-lg) mx-auto px-6 py-16 lg:py-24">
+
+            {# ── Section header ── #}
+            <div class="flex flex-col items-center text-center gap-4 mb-12 lg:mb-16">
+                <div class="flex items-center gap-3">
+                    <div class="h-0.5 w-8 rounded-full bg-primary">
+                    </div>
+                    <span class="text-xs font-mono uppercase tracking-[0.18em] text-primary/60">
+                        {% translate "My work" %}
+                    </span>
+                    <div class="h-0.5 w-8 rounded-full bg-primary">
+                    </div>
+                </div>
+                <h1 id="projects-title"
+                    class="text-3xl sm:text-4xl font-bold tracking-tight text-base-content">
+                    {% translate "Projects" %}
+                </h1>
+                <p id="projects-description"
+                   class="text-base-content/65 max-w-xl leading-relaxed">
+                    {% translate "Browse all my projects — problem, approach, and outcomes." %}
+                </p>
+            </div>
+
+            {# ── Grid ── #}
+            {% if projects %}
+                <div id="projects-grid" class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+                    {% for project in projects %}
+                        <c-project-card :project="project" />
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+        </div>
+    </section>
+</c-base>

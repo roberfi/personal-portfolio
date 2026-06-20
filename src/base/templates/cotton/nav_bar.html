@@ -59,7 +59,7 @@
                         <li>
                             <form class="block p-0" action="{% url 'set_language' %}" method="post">
                                 {% csrf_token %}
-                                <input name="next" type="hidden" value="{% url url_name %}">
+                                <input name="next" type="hidden" value="{% current_page_url %}">
                                 <input name="language" type="hidden" value="{{ language.code }}">
                                 <button type="submit"
                                         class="btn btn-lg w-full justify-start transition-all{% if language.code == CURRENT_LANGUAGE %} bg-primary/15 text-primary border border-primary/20 font-semibold{% else %} btn-ghost text-base-content/70 hover:bg-primary/10 hover:text-primary{% endif %}">

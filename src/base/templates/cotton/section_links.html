@@ -6,11 +6,11 @@
     {% with request.resolver_match.url_name as url_name %}
         {% for link in navbar_data.links %}
             {% if mode == "tabs" %}
-                <a class="section-link tab font-mono text-sm uppercase tracking-[0.12em] transition-colors{% if url_name == link.url %} tab-active text-primary{% else %} text-base-content/60 hover:text-primary{% endif %}"
+                <a class="section-link tab font-mono text-sm uppercase tracking-[0.12em] transition-colors{% if link|is_active:url_name %} tab-active text-primary{% else %} text-base-content/60 hover:text-primary{% endif %}"
                    href="{% url link.url %}">{{ link.name }}</a>
             {% elif mode == "dropdown" %}
                 <li>
-                    <a class="btn btn-lg w-full justify-start font-mono text-sm uppercase tracking-[0.12em] transition-all{% if url_name == link.url %} bg-primary/15 text-primary border border-primary/20{% else %} btn-ghost text-base-content/70 hover:bg-primary/10 hover:text-primary{% endif %}"
+                    <a class="btn btn-lg w-full justify-start font-mono text-sm uppercase tracking-[0.12em] transition-all{% if link|is_active:url_name %} bg-primary/15 text-primary border border-primary/20{% else %} btn-ghost text-base-content/70 hover:bg-primary/10 hover:text-primary{% endif %}"
                        role="button"
                        href="{% url link.url %}">
                         <span class="flex-1 text-left">{{ link.name }}</span>

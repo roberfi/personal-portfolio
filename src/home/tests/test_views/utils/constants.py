@@ -26,10 +26,26 @@ HOME_CTA_PRIMARY_ID = "home-cta-primary"
 FEATURED_PROJECTS_SECTION_ID = "featured-projects"
 FEATURED_PROJECTS_TITLE_ID = "featured-projects-title"
 FEATURED_PROJECTS_GRID_ID = "featured-projects-grid"
+FEATURED_PROJECTS_SEE_ALL_ID = "featured-projects-see-all"
 PROJECT_CARD_ID_TEMPLATE = "project-{id}-card"
 PROJECT_TITLE_ID_TEMPLATE = "project-{id}-title"
 PROJECT_SUMMARY_ID_TEMPLATE = "project-{id}-summary"
 PROJECT_TECHNOLOGIES_ID_TEMPLATE = "project-{id}-technologies"
+PROJECT_DETAIL_LINK_ID_TEMPLATE = "project-{id}-detail-link"
+
+# Projects list page ids
+PROJECTS_SECTION_ID = "projects"
+PROJECTS_TITLE_ID = "projects-title"
+PROJECTS_GRID_ID = "projects-grid"
+
+# Project detail page ids
+PROJECT_DETAIL_ID = "project-detail"
+PROJECT_DETAIL_TITLE_ID = "project-detail-title"
+PROJECT_DETAIL_BACK_LINK_ID = "project-detail-back-link"
+PROJECT_DETAIL_TECHNOLOGIES_ID = "project-detail-technologies"
+PROJECT_DETAIL_PROBLEM_ID = "project-detail-problem"
+PROJECT_DETAIL_APPROACH_ID = "project-detail-approach"
+PROJECT_DETAIL_OUTCOME_ID = "project-detail-outcome"
 
 # Process steps ids
 PROCESS_STEPS_SECTION_ID = "process-steps"
@@ -153,6 +169,24 @@ MY_CAREER_VIEW_META_TITLE = {
     Language.ENGLISH: "My Career | Professional Experience & Education",
     Language.SPANISH: "Mi Carrera | Experiencia Profesional y Educación",
 }
+
+PROJECTS_VIEW_META_TITLE = {
+    Language.ENGLISH: "Projects | Portfolio",
+    Language.SPANISH: "Proyectos | Portfolio",
+}
+PROJECTS_VIEW_META_DESCRIPTION = {
+    Language.ENGLISH: "Browse all my projects — problem, approach, and outcomes.",
+    Language.SPANISH: "Explora todos mis proyectos — problema, enfoque y resultados.",
+}
+PROJECTS_VIEW_META_KEYWORDS = {
+    Language.ENGLISH: ("projects", "software development", "case studies"),
+    Language.SPANISH: ("proyectos", "desarrollo de software", "casos de estudio"),
+}
+
+PROJECT_DETAIL_VIEW_META_TITLE_TEMPLATE = {
+    Language.ENGLISH: "{title} | Portfolio",
+    Language.SPANISH: "{title} | Portfolio",
+}
 MY_CAREER_VIEW_META_DESCRIPTION = {
     Language.ENGLISH: (
         "Professional experience and educational background."
@@ -184,10 +218,20 @@ PERSONAL_INFO_BIOGRAPHY = {
     Language.SPANISH: "Biografía de prueba",
 }
 
+# Projects list page texts
+PROJECTS_SECTION_TITLE = {
+    Language.ENGLISH: "Projects",
+    Language.SPANISH: "Proyectos",
+}
+
 # Featured projects data
 FEATURED_PROJECTS_SECTION_TITLE = {
     Language.ENGLISH: "Featured projects",
     Language.SPANISH: "Proyectos destacados",
+}
+FEATURED_PROJECTS_SEE_ALL_TEXT = {
+    Language.ENGLISH: "See all projects",
+    Language.SPANISH: "Ver todos los proyectos",
 }
 
 PROJECT_1_TITLE = {
@@ -202,6 +246,14 @@ PROJECT_1_SUMMARY = {
 PROJECT_1_PROBLEM = {
     Language.ENGLISH: "Project 1 problem",
     Language.SPANISH: "Problema del proyecto 1",
+}
+PROJECT_1_APPROACH = {
+    Language.ENGLISH: "Project 1 approach",
+    Language.SPANISH: "Enfoque del proyecto 1",
+}
+PROJECT_1_OUTCOME = {
+    Language.ENGLISH: "Project 1 outcome",
+    Language.SPANISH: "Resultado del proyecto 1",
 }
 
 PROJECT_2_TITLE = {

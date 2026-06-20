@@ -96,8 +96,10 @@ class BaseHomeViewTest(CommonPageTestsMixin):
             summary_es=test_view_constants.PROJECT_1_SUMMARY[Language.SPANISH],
             problem=test_view_constants.PROJECT_1_PROBLEM[Language.ENGLISH],
             problem_es=test_view_constants.PROJECT_1_PROBLEM[Language.SPANISH],
-            approach="Approach 1",
-            outcome="Outcome 1",
+            approach=test_view_constants.PROJECT_1_APPROACH[Language.ENGLISH],
+            approach_es=test_view_constants.PROJECT_1_APPROACH[Language.SPANISH],
+            outcome=test_view_constants.PROJECT_1_OUTCOME[Language.ENGLISH],
+            outcome_es=test_view_constants.PROJECT_1_OUTCOME[Language.SPANISH],
             featured=True,
             order=1,
         )
