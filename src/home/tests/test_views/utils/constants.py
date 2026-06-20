@@ -119,6 +119,9 @@ LEGAL_AND_PRIVACY_LINK_ID_TEMPLATE = "legal-and-privacy-{id}-link"
 LEGAL_AND_PRIVACY_MODAL_ID_TEMPLATE = "legal_and_privacy_{id}_modal"
 LEGAL_AND_PRIVACY_TITLE_ID_TEMPLATE = "legal-and-privacy-{id}-title"
 LEGAL_AND_PRIVACY_TEXT_ID_TEMPLATE = "legal-and-privacy-{id}-text"
+FOOTER_PAGES_ID = "footer-pages"
+FOOTER_PAGES_TITLE_ID = "footer-pages-title"
+FOOTER_MY_CAREER_LINK_ID = "footer-my-career-link"
 FOLLOW_ME_LINKS_ID = "follow-me-links"
 FOLLOW_ME_LINKS_TITLE_ID = "follow-me-links-title"
 FOLLOW_ME_LINK_CONTAINER_ID_TEMPLATE = "follow-me-link-{id}-container"
@@ -451,6 +454,15 @@ EXPECTED_NUMBER_OF_EDUCATION_ENTRIES = 2
 MOCKED_TODAY = date(2024, 7, 15)
 
 # Footer
+FOOTER_PAGES_TITLE = {
+    Language.ENGLISH: "More",
+    Language.SPANISH: "Más",
+}
+FOOTER_MY_CAREER_LINK_TEXT = {
+    Language.ENGLISH: "My Career",
+    Language.SPANISH: "Mi Carrera",
+}
+
 LEGAL_AND_PRIVACY_TITLE = {
     Language.ENGLISH: "Legal & Privacy",
     Language.SPANISH: "Condiciones y Privacidad",

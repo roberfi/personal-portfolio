@@ -8,6 +8,18 @@
     <footer id="upper-footer"
             class="footer lg:footer-horizontal lg:max-w-(--breakpoint-lg) lg:mx-auto pb-10">
 
+        <nav id="footer-pages" class="lg:mx-auto">
+            <h6 id="footer-pages-title"
+                class="footer-title font-mono text-xs uppercase tracking-[0.18em] text-primary/60">
+                {% translate "More" %}
+            </h6>
+            <a id="footer-my-career-link"
+               href="{% url 'my-career' %}"
+               class="link link-hover text-base-content/70 hover:text-primary transition-colors">
+                {% translate "My Career" %}
+            </a>
+        </nav>
+
         {% with legal_and_privacy=data.legal_and_privacy %}
             {% if legal_and_privacy %}
                 <nav id="legal-and-privacy" class="lg:mx-auto">

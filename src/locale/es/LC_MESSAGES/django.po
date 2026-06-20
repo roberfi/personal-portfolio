@@ -61,7 +61,11 @@ msgstr "Condiciones y Privacidad"
 msgid "Close"
 msgstr "Cerrar"
 
-#: base/templates/cotton/footer.html:79
+#: base/templates/cotton/footer.html:22
+msgid "More"
+msgstr "Más"
+
+#: base/templates/cotton/footer.html:89
 msgid "Follow Me"
 msgstr "Sígueme"
 

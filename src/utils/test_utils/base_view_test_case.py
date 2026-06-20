@@ -203,6 +203,21 @@ class BaseViewTestCase(TestCase, ABC):
 class CommonPageTestsMixin(BaseViewTestCase, ABC):
     """Mixin with tests for elements common to every full-page view (footer, SEO tags)."""
 
+    def test_footer_pages(self) -> None:
+        upper_footer = self._find_element_by_tag_and_id(
+            self.response_data.soup, HtmlTag.FOOTER, test_view_constants.UPPER_FOOTER_ID
+        )
+        pages_section = self._find_element_by_tag_and_id(upper_footer, HtmlTag.NAV, test_view_constants.FOOTER_PAGES_ID)
+        self._assert_text_of_element_by_tag_and_id(
+            pages_section,
+            html_tag=HtmlTag.H6,
+            element_id=test_view_constants.FOOTER_PAGES_TITLE_ID,
+            expected_text=test_view_constants.FOOTER_PAGES_TITLE[self.language],
+        )
+        link = self._find_element_by_tag_and_id(pages_section, HtmlTag.A, test_view_constants.FOOTER_MY_CAREER_LINK_ID)
+        self._assert_text_of_element(link, test_view_constants.FOOTER_MY_CAREER_LINK_TEXT[self.language])
+        self._assert_attribute_of_element(link, common_constants.ATTR_HREF, f"/{self.language}/my-career/")
+
     def test_legal_and_privacy(self) -> None:
         legal_and_privacy_section = self._find_element_by_tag_and_id(
             self._find_element_by_tag_and_id(

@@ -33,11 +33,6 @@ NAVBAR_DATA: NavbarDataDict = NavbarDataDict(
             child_urls=(),
         ),
         LinksDict(
-            name=gettext_lazy("My Career"),
-            url="my-career",
-            child_urls=(),
-        ),
-        LinksDict(
             name=gettext_lazy("Projects"),
             url="projects",
             child_urls=("project-detail",),
