@@ -20,6 +20,7 @@
 - Normalize and improve page titles and headings across views
 - Improve technology badges
 - Use Inter font
+- Create a custom 404 page
 
 ## 0.7.0
 

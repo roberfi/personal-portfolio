@@ -54,6 +54,8 @@ def current_page_url(context: dict[str, Any]) -> str:
     NoReverseMatch because the URL requires kwargs.
     """
     request = context["request"]
+    if request.resolver_match is None or request.resolver_match.url_name is None:
+        return reverse("home")
     return reverse(request.resolver_match.url_name, kwargs=request.resolver_match.kwargs)
 
 

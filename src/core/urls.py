@@ -27,6 +27,8 @@ from core import settings
 from core.sitemaps import StaticViewSitemap
 from core.views import RobotsTxtView
 
+handler404 = "core.views.page_not_found"
+
 sitemaps = {
     "static": StaticViewSitemap,
 }

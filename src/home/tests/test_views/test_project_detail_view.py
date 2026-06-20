@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import logging
+
 from django.test import TestCase
 
 import home.tests.test_views.utils.constants as test_view_constants
@@ -11,6 +13,11 @@ from utils.test_utils.constants import HtmlTag, Language
 
 
 class TestProjectDetailViewBasics(TestCase):
+    def setUp(self) -> None:
+        logger = logging.getLogger("django.request")
+        self.addCleanup(logger.setLevel, logger.level)
+        logger.setLevel(logging.CRITICAL)
+
     def test_non_existent_slug_returns_404(self) -> None:
         response = self.client.get("/en/projects/does-not-exist/")
         self.assertEqual(
