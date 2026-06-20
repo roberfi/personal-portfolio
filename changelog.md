@@ -19,6 +19,7 @@
 - Serve CSS as a static minimized stylesheet extracted from the JS bundle
 - Normalize and improve page titles and headings across views
 - Improve technology badges
+- Use Inter font
 
 ## 0.7.0
 
