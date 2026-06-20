@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-20 15:41+0000\n"
+"POT-Creation-Date: 2026-06-20 16:35+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,6 +17,18 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n == 1 ? 0 : 1;\n"
+
+#: base/templates/404.html:14 core/views.py:23
+msgid "Page not found"
+msgstr "Página no encontrada"
+
+#: base/templates/404.html:18
+msgid "The page you are looking for does not exist or has been moved."
+msgstr "La página que buscas no existe o ha sido movida."
+
+#: base/templates/404.html:21
+msgid "Go back home"
+msgstr "Volver al inicio"
 
 #: base/templates/cotton/base.html:18
 msgid "portfolio, CV, biography, career"
@@ -64,8 +76,8 @@ msgid "Legal & Privacy"
 msgstr "Condiciones y Privacidad"
 
 #: base/templates/cotton/footer.html:74
-#: home/templates/cotton/experience_timeline/modal.html:97
-#: home/templates/cotton/hero.html:201
+#: home/templates/cotton/experience_timeline/modal.html:95
+#: home/templates/cotton/hero.html:204
 #: home/templates/cotton/service_card.html:98
 msgid "Close"
 msgstr "Cerrar"
@@ -259,120 +271,124 @@ msgstr "Inglés"
 msgid "Spanish"
 msgstr "Español"
 
-#: home/models.py:52
+#: core/views.py:24
+msgid "The page you are looking for does not exist."
+msgstr "La página que buscas no existe."
+
+#: home/models.py:54
 #, python-format
 msgid "Personal web of %(name)s. %(title)s"
 msgstr "Página personal de %(name)s. %(title)s"
 
-#: home/models.py:58
+#: home/models.py:60
 #, python-format
 msgid "specialized in %(tech)s"
 msgstr "especializado en %(tech)s"
 
-#: home/models.py:78
+#: home/models.py:80
 msgid "End date must be after start date"
 msgstr "Las fecha final debe ser posterior a la fecha de inicio"
 
-#: home/models.py:88
+#: home/models.py:90
 msgid "Present"
 msgstr "Actualmente"
 
-#: home/models.py:111
+#: home/models.py:113
 msgid "Not yet started"
 msgstr "Aún no empezado"
 
-#: home/models.py:116
+#: home/models.py:118
 msgid "Less than a month"
 msgstr "Menos de un mes"
 
-#: home/models.py:119
+#: home/models.py:121
 #, python-format
 msgid "%d year"
 msgid_plural "%d years"
 msgstr[0] "%d año"
 msgstr[1] "%d años"
 
-#: home/models.py:120
+#: home/models.py:122
 #, python-format
 msgid "%d month"
 msgid_plural "%d months"
 msgstr[0] "%d mes"
 msgstr[1] "%d meses"
 
-#: home/models.py:135 home/models.py:332
+#: home/models.py:137 home/models.py:351
 #, python-format
 msgid "%(title)s at %(institution)s"
 msgstr "%(title)s en %(institution)s"
 
-#: home/models.py:170
+#: home/models.py:189
 msgid "Code"
 msgstr "Código"
 
-#: home/models.py:174
+#: home/models.py:193
 msgid "Server"
 msgstr "Servidor"
 
-#: home/models.py:181
+#: home/models.py:200
 msgid "Lightning"
 msgstr "Rayo"
 
-#: home/models.py:185
+#: home/models.py:204
 msgid "Chat"
 msgstr "Chat"
 
-#: home/models.py:192
+#: home/models.py:211
 msgid "Globe"
 msgstr "Globo"
 
-#: home/models.py:199
+#: home/models.py:218
 msgid "Briefcase"
 msgstr "Maletín"
 
-#: home/models.py:206
+#: home/models.py:225
 msgid "Chart"
 msgstr "Gráfico"
 
-#: home/models.py:214
+#: home/models.py:233
 msgid "Shield"
 msgstr "Escudo"
 
-#: home/models.py:222
+#: home/models.py:241
 msgid "Search"
 msgstr "Lupa"
 
-#: home/models.py:226
+#: home/models.py:245
 msgid "Clock"
 msgstr "Reloj"
 
-#: home/models.py:230
+#: home/models.py:249
 msgid "Cog"
 msgstr "Engranaje"
 
-#: home/models.py:241
+#: home/models.py:260
 msgid "Pencil"
 msgstr "Lápiz"
 
-#: home/models.py:245
+#: home/models.py:264
 msgid "Sparkles"
 msgstr "Destellos"
 
-#: home/models.py:249
+#: home/models.py:268
 msgid "Eye"
 msgstr "Ojo"
 
-#: home/models.py:257
+#: home/models.py:276
 msgid "Phone"
 msgstr "Teléfono"
 
-#: home/models.py:265
+#: home/models.py:284
 msgid "Document"
 msgstr "Documento"
 
-#: home/models.py:274
+#: home/models.py:293
 msgid "— default (check-circle) —"
 msgstr "— por defecto (círculo con check) —"
 
-#: home/templates/cotton/experience_timeline/card.html:75
+#: home/templates/cotton/experience_timeline/card.html:73
 msgid "View more"
 msgstr "Ver más"
 
@@ -392,15 +408,15 @@ msgstr "Proyectos destacados"
 msgid "See all projects"
 msgstr "Ver todos los proyectos"
 
-#: home/templates/cotton/hero.html:90
+#: home/templates/cotton/hero.html:92
 msgid "More about me"
 msgstr "Más sobre mí"
 
-#: home/templates/cotton/hero.html:172
+#: home/templates/cotton/hero.html:175
 msgid "Profile"
 msgstr "Perfil"
 
-#: home/templates/cotton/hero.html:176
+#: home/templates/cotton/hero.html:179
 msgid "About me"
 msgstr "Sobre mí"
 
@@ -472,11 +488,11 @@ msgstr "Estudios"
 msgid "Project"
 msgstr "Proyecto"
 
-#: home/templates/project-detail.html:54
+#: home/templates/project-detail.html:55
 msgid "Back to projects"
 msgstr "Volver a proyectos"
 
-#: home/templates/project-detail.html:58
+#: home/templates/project-detail.html:59
 msgid "Let's work together"
 msgstr "Trabajemos juntos"
 
