@@ -31,6 +31,7 @@ env = environ.Env(
     DEBUG=(bool, False),
     SECRET_KEY=str,
     ALLOWED_HOSTS=(str, ""),
+    MAINTENANCE_MODE=(bool, False),
 )
 
 environ.Env.read_env(os.path.join(BASE_DIR, ".env"))
@@ -38,6 +39,7 @@ environ.Env.read_env(os.path.join(BASE_DIR, ".env"))
 DEBUG = env("DEBUG")
 SECRET_KEY = env("SECRET_KEY")
 ALLOWED_HOSTS = env("ALLOWED_HOSTS").split(" ")
+MAINTENANCE_MODE = env("MAINTENANCE_MODE")
 CSRF_TRUSTED_ORIGINS = [f"https://{allowed_host}" for allowed_host in ALLOWED_HOSTS]
 
 DATABASES = {
@@ -78,6 +80,7 @@ MODELTRANSLATION_TRANSLATION_FILES = ("third_party.django_cooco.translation",)
 
 
 MIDDLEWARE = [
+    "core.middleware.MaintenanceModeMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.locale.LocaleMiddleware",

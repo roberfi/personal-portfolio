@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-20 16:35+0000\n"
+"POT-Creation-Date: 2026-06-20 17:10+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,15 +18,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n == 1 ? 0 : 1;\n"
 
-#: base/templates/404.html:14 core/views.py:23
+#: base/templates/404.html:16 core/views.py:23
 msgid "Page not found"
 msgstr "Página no encontrada"
 
-#: base/templates/404.html:18
+#: base/templates/404.html:20
 msgid "The page you are looking for does not exist or has been moved."
 msgstr "La página que buscas no existe o ha sido movida."
 
-#: base/templates/404.html:21
+#: base/templates/404.html:23
 msgid "Go back home"
 msgstr "Volver al inicio"
 
@@ -263,13 +263,21 @@ msgstr ""
 msgid "Thank you for your message! I'll get back to you as soon as possible."
 msgstr "¡Gracias por tu mensaje! Te responderé lo antes posible."
 
-#: core/settings.py:143
+#: core/settings.py:146
 msgid "English"
 msgstr "Inglés"
 
-#: core/settings.py:144
+#: core/settings.py:147
 msgid "Spanish"
 msgstr "Español"
+
+#: core/templates/maintenance.html:11 core/templates/maintenance.html:47
+msgid "The site is temporarily down for maintenance. It will be back shortly."
+msgstr "El sitio está temporalmente en mantenimiento. Volverá en breve."
+
+#: core/templates/maintenance.html:13 core/templates/maintenance.html:43
+msgid "Under maintenance"
+msgstr "En mantenimiento"
 
 #: core/views.py:24
 msgid "The page you are looking for does not exist."
