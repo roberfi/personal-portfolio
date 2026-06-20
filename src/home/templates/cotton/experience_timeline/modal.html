@@ -65,10 +65,8 @@
                     <div id="modal-{{ item_type|default:'item' }}-{{ item.id }}-technologies"
                          class="flex flex-wrap gap-2 mb-4">
                         {% for tech in item.technologies.all %}
-                            <span id="modal-{{ item_type|default:'item' }}-{{ item.id }}-technology-{{ tech.id }}"
-                                  class="badge badge-primary badge-outline hover:badge-primary transition-colors duration-200 font-semibold whitespace-nowrap max-w-full truncate inline-block">
-                                {{ tech.name }}
-                            </span>
+                            <c-tech-badge name="{{ tech.name }}"
+                                          id="modal-{{ item_type|default:'item' }}-{{ item.id }}-technology-{{ tech.id }}" />
                         {% endfor %}
                     </div>
                 {% endif %}
