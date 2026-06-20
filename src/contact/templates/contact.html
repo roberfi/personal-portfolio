@@ -3,20 +3,18 @@
 
 <c-base>
     <div id="contact"
-         class="relative px-5 pb-5 pt-3 sm:p-5 min-h-screen bg-linear-to-br from-base-300 via-base-300 to-base-200">
-        <div class="max-w-4xl w-full mx-auto pt-2 pb-8 sm:py-8">
-            <!-- Header Section -->
-            <c-heading title="{% translate "Get in Touch" %}"
-                       eyebrow="{% translate "Contact" %}"
-                       id-prefix="get-in-touch"
-                       icon-path="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+         class="relative min-h-screen bg-linear-to-br from-base-300 via-base-300 to-base-200">
 
-            <div class="text-center mb-8">
-                <p id="contact-description"
-                   class="text-lg text-base-content/70 max-w-2xl mx-auto">
-                    {% translate "Do you have a question or want to work together? Feel free to send me a message and I will respond as soon as possible." %}
-                </p>
-            </div>
+        <c-page-heading title="{% translate "Contact" %}"
+                        eyebrow="{% translate "Get in Touch" %}"
+                        id-prefix="contact">
+            <p id="contact-description"
+               class="text-lg text-base-content/70 max-w-2xl mx-auto">
+                {% translate "Do you have a question or want to work together? Feel free to send me a message and I will respond as soon as possible." %}
+            </p>
+        </c-page-heading>
+
+        <div class="max-w-4xl w-full mx-auto px-5 pb-8 sm:pb-12">
             <!-- Messages -->
             <div id="response-alerts" class="mb-10 space-y-4 max-w-2xl mx-auto">
                 {% for message in messages %}

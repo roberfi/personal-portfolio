@@ -359,7 +359,7 @@ class BaseTestMyCareerViewContent(BaseHomeViewTest):
 
         self._assert_text_of_element_by_tag_and_id(
             my_career,
-            HtmlTag.H1,
+            HtmlTag.H2,
             test_view_constants.MY_EXPERIENCE_TITLE_ID,
             test_view_constants.MY_CAREER_TITLE[self.language],
         )
@@ -570,7 +570,7 @@ class BaseTestMyCareerViewContent(BaseHomeViewTest):
 
         self._assert_text_of_element_by_tag_and_id(
             my_career,
-            HtmlTag.H1,
+            HtmlTag.H2,
             test_view_constants.EDUCATION_TITLE_ID,
             test_view_constants.EDUCATION_TITLE[self.language],
         )

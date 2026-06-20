@@ -1,0 +1,58 @@
+{% load i18n %}
+
+{% comment %}
+Section-level heading (H2).
+
+A compact, always-visible bar that sticks just below the page heading bar
+(top-14) as you scroll through a section. Visually subordinate to
+`c-page-heading` so the two never read as the same level.
+
+Props:
+  title      — heading text (required)
+  eyebrow    — small mono label above the title (optional)
+  id-prefix  — builds the `{prefix}-title` id on the H2
+  color      — "secondary" for the secondary accent; primary otherwise
+  icon-path  — SVG path drawn inside the chip
+
+Color classes are spelled out literally (not interpolated) so Tailwind's
+scanner keeps them in the bundle.
+{% endcomment %}
+
+<div class="sticky top-14 z-20 -mx-5 px-5 py-3 mb-10 bg-base-300/80 backdrop-blur-md border-b border-base-content/8">
+    <div class="lg:max-w-(--breakpoint-lg) lg:mx-auto flex items-center gap-4">
+        {% if color == "secondary" %}
+            <div class="flex items-center justify-center w-9 h-9 rounded-xl bg-secondary/8 border border-secondary/15 shrink-0">
+                <svg xmlns="http://www.w3.org/2000/svg"
+                     class="h-5 w-5 text-secondary/60"
+                     fill="none"
+                     viewBox="0 0 24 24"
+                     stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="{{ icon_path }}" />
+                </svg>
+            </div>
+        {% else %}
+            <div class="flex items-center justify-center w-9 h-9 rounded-xl bg-primary/8 border border-primary/15 shrink-0">
+                <svg xmlns="http://www.w3.org/2000/svg"
+                     class="h-5 w-5 text-primary/60"
+                     fill="none"
+                     viewBox="0 0 24 24"
+                     stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="{{ icon_path }}" />
+                </svg>
+            </div>
+        {% endif %}
+        <div class="flex flex-col justify-center gap-0.5">
+            {% if eyebrow %}
+                {% if color == "secondary" %}
+                    <span class="text-[10px] font-mono uppercase tracking-[0.18em] text-secondary/55 leading-none">{{ eyebrow }}</span>
+                {% else %}
+                    <span class="text-[10px] font-mono uppercase tracking-[0.18em] text-primary/55 leading-none">{{ eyebrow }}</span>
+                {% endif %}
+            {% endif %}
+            <h2 id="{{ id_prefix }}-title"
+                class="text-lg sm:text-xl font-bold text-base-content leading-none">
+                {{ title }}
+            </h2>
+        </div>
+    </div>
+</div>

@@ -152,6 +152,9 @@ EDUCATION_TITLE = {
     Language.SPANISH: "Educación",
 }
 
+# Personal Info data
+PERSONAL_INFO_NAME = "Test Name"
+
 # SEO texts
 COMMON_META_KEYWORDS = {
     Language.ENGLISH: ("portfolio", "CV", "biography", "career"),
@@ -169,13 +172,13 @@ HOME_VIEW_META_DESCRIPTION_TEMPLATE = {
 
 
 MY_CAREER_VIEW_META_TITLE = {
-    Language.ENGLISH: "My Career | Professional Experience & Education",
-    Language.SPANISH: "Mi Carrera | Experiencia Profesional y Educación",
+    Language.ENGLISH: f"My Career | {PERSONAL_INFO_NAME}",
+    Language.SPANISH: f"Mi Carrera | {PERSONAL_INFO_NAME}",
 }
 
 PROJECTS_VIEW_META_TITLE = {
-    Language.ENGLISH: "Projects | Portfolio",
-    Language.SPANISH: "Proyectos | Portfolio",
+    Language.ENGLISH: f"Projects | {PERSONAL_INFO_NAME}",
+    Language.SPANISH: f"Proyectos | {PERSONAL_INFO_NAME}",
 }
 PROJECTS_VIEW_META_DESCRIPTION = {
     Language.ENGLISH: "Browse all my projects — problem, approach, and outcomes.",
@@ -187,8 +190,8 @@ PROJECTS_VIEW_META_KEYWORDS = {
 }
 
 PROJECT_DETAIL_VIEW_META_TITLE_TEMPLATE = {
-    Language.ENGLISH: "{title} | Portfolio",
-    Language.SPANISH: "{title} | Portfolio",
+    Language.ENGLISH: "{title} | " + PERSONAL_INFO_NAME,
+    Language.SPANISH: "{title} | " + PERSONAL_INFO_NAME,
 }
 MY_CAREER_VIEW_META_DESCRIPTION = {
     Language.ENGLISH: (
@@ -206,8 +209,6 @@ MY_CAREER_VIEW_META_KEYWORDS = {
 }
 
 
-# Personal Info data
-PERSONAL_INFO_NAME = "Test Name"
 PERSONAL_INFO_TITLE = {
     Language.ENGLISH: "Test title",
     Language.SPANISH: "Título de prueba",
@@ -223,8 +224,8 @@ PERSONAL_INFO_BIOGRAPHY = {
 
 # Projects list page texts
 PROJECTS_SECTION_TITLE = {
-    Language.ENGLISH: "Projects",
-    Language.SPANISH: "Proyectos",
+    Language.ENGLISH: "My Projects",
+    Language.SPANISH: "Mis Proyectos",
 }
 
 # Featured projects data
