@@ -31,7 +31,7 @@ Action checklist to get from the current state to the goal above, then to a stab
 - [x] **Use logging in contact flow** — replace silent paths in [src/contact/views.py](src/contact/views.py) with the new loggers (submission, reCAPTCHA score, send failures). _`feat: log contact form and reCAPTCHA events`_
 - [x] **Add djlint to CI** — extend the `python-lint` job in [.github/workflows/lint-and-test.yml](.github/workflows/lint-and-test.yml) to run `djlint` (already in pre-commit). _`ci: run djlint on templates`_
 
-## v0.8.0 — Structural redesign (homepage, projects & navigation)
+## v0.8.0 — Structural redesign (homepage, projects & navigation) ✅ Released
 
 - [x] **Project model (replaces SubProject)** — add `home.Project` (title, slug, problem, approach, outcome, technologies M2M → `Technology`, `hero_image`, featured, order) + modeltranslation + admin + migration. Remove the `SubProject` model, its FK/M2M and migration, and the `sub_project.html` / `sub_project_list.html` templates; update `experience_timeline` to no longer render sub-projects. The "Freelance Developer" experience entry keeps a short, generic description (no sub-projects); its individual engagements become independent `Project` rows, flagged `featured` where relevant. _`feat: add Project model, remove SubProject`_
 - [x] **Service model** — add `home.Service` (title, slug, `short_description`, `long_description`, `icon_name`, order, `is_active`) + modeltranslation + admin + migration. _`feat: add Service model`_

@@ -1,6 +1,6 @@
 # Changelog
 
-## Next Release
+## 0.8.0 — 2026-06-21
 
 - Add projects with Problem → Approach → Outcome structure, replacing sub-projects
 - Add drag-and-drop project ordering in the admin
