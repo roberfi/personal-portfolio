@@ -22,6 +22,7 @@
 - Use Inter font
 - Create a custom 404 page
 - Implement maintenance mode
+- Make the contact page intro text configurable from the admin
 
 ## 0.7.0
 

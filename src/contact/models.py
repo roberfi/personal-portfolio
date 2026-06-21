@@ -46,6 +46,11 @@ class ContactFormConfiguration(SingletonModel):
         "use_ssl, username, password, timeout. For Brevo API: api_key.",
     )
 
+    intro = models.TextField(
+        blank=True,
+        help_text="Text shown above the contact form. Leave empty to use the default.",
+    )
+
     legal_and_privacy = models.ForeignKey(
         LegalAndPrivacy,
         on_delete=models.SET_NULL,
