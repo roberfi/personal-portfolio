@@ -2,20 +2,61 @@
 
 from __future__ import annotations
 
+from urllib.parse import urlparse
 from xml.etree import ElementTree as ET
 
 from django.test import TestCase
+from django.urls import URLPattern, URLResolver, get_resolver, resolve
+from django.utils import translation
 
-from home.models import PersonalInfo
+from home.models import PersonalInfo, Project
 
-EXPECTED_SITEMAP_URLS = (
-    "/en/",
-    "/es/",
-    "/en/my-career/",
-    "/es/my-career/",
-    "/en/contact/",
-    "/es/contact/",
+# URL names intentionally excluded from the sitemap.
+# Add a one-line reason for each entry so reviewers know it was a conscious choice.
+_EXCLUDED_FROM_SITEMAP: frozenset[str] = frozenset(
+    {
+        "robots_txt",  # meta: crawlers read this, not users
+        "django.contrib.sitemaps.views.sitemap",  # meta: the sitemap file itself
+        "set_language",  # Django i18n language switcher
+        "accept_all_cookies",  # cookie-consent action (django_cooco)
+        "set_cookie_preferences",  # cookie-consent action (django_cooco)
+    }
 )
+
+
+def _collect_url_names(resolver: URLResolver) -> set[str]:
+    """Recursively collect named URL patterns, skipping namespaced includes (e.g. admin)."""
+    names: set[str] = set()
+    for pattern in resolver.url_patterns:
+        if isinstance(pattern, URLResolver):
+            if pattern.namespace:
+                continue  # skip admin and other namespaced apps
+            names.update(_collect_url_names(pattern))
+        elif isinstance(pattern, URLPattern) and pattern.name:
+            names.add(pattern.name)
+    return names
+
+
+def _url_names_from_sitemap_response(content: bytes) -> set[str]:
+    """Parse sitemap XML and resolve each <loc> path back to its URL name.
+
+    LocalePrefixPattern matches based on the active language, so we activate
+    the language embedded in each path (e.g. 'es' from '/es/projects/') before
+    calling resolve().
+    """
+    root = ET.fromstring(content)
+    namespace = {"ns": "http://www.sitemaps.org/schemas/sitemap/0.9"}
+    names: set[str] = set()
+    for loc in root.findall(".//ns:loc", namespace):
+        if loc.text is None:
+            continue
+        path = urlparse(loc.text).path
+        lang = path.lstrip("/").split("/")[0]
+        with translation.override(lang):
+            url_name = resolve(path).url_name
+        if url_name is not None:
+            names.add(url_name)
+    return names
 
 
 class TestRobotsTxt(TestCase):
@@ -47,14 +88,23 @@ class TestRobotsTxt(TestCase):
 
 
 class TestSitemapXml(TestCase):
+    project: Project
+
     @classmethod
     def setUpTestData(cls) -> None:
-        # Create minimal data needed for sitemap
         PersonalInfo.objects.create(
             name="Test User",
             title="Test Developer",
             introduction="Test intro",
             biography="Test bio",
+        )
+        cls.project = Project.objects.create(
+            title="Test Project",
+            slug="test-project",
+            summary="A test project",
+            problem="Problem",
+            approach="Approach",
+            outcome="Outcome",
         )
 
     def test_sitemap_accessible(self) -> None:
@@ -75,24 +125,18 @@ class TestSitemapXml(TestCase):
         except ET.ParseError as e:
             self.fail(f"Sitemap is not valid XML: {e}")
 
-    def test_sitemap_contains_expected_urls(self) -> None:
-        """Test that sitemap contains all expected URLs."""
+    def test_all_public_urls_covered_by_sitemap(self) -> None:
+        """Fail when a named URL is added without updating the sitemap or the exclusion list."""
         response = self.client.get("/sitemap.xml")
-        root = ET.fromstring(response.content)
-
-        # Get namespace
-        namespace = {"ns": "http://www.sitemaps.org/schemas/sitemap/0.9"}
-
-        # Get all location URLs
-        locations = [loc.text for loc in root.findall(".//ns:loc", namespace)]
-
-        # Check that we have entries for both languages
-        self.assertEqual(
-            len(locations), len(EXPECTED_SITEMAP_URLS), f"Sitemap should contain {len(EXPECTED_SITEMAP_URLS)} URLs"
+        sitemap_names = _url_names_from_sitemap_response(response.content)
+        all_names = _collect_url_names(get_resolver())
+        missing = all_names - sitemap_names - _EXCLUDED_FROM_SITEMAP
+        self.assertFalse(
+            missing,
+            f"URL name(s) {sorted(missing)} are not in the sitemap or _EXCLUDED_FROM_SITEMAP. "
+            "Either add them to a sitemap class in core/sitemaps.py, "
+            "or add them to _EXCLUDED_FROM_SITEMAP with a reason.",
         )
-        for expected_url in EXPECTED_SITEMAP_URLS:
-            full_url = f"https://testserver{expected_url}"
-            self.assertIn(full_url, locations, f"Expected '{full_url}' in sitemap locations: {locations}")
 
     def test_sitemap_structure(self) -> None:
         """Test that sitemap has correct structure."""

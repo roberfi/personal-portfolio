@@ -24,13 +24,14 @@ from django.contrib.sitemaps.views import sitemap
 from django.urls import include, path
 
 from core import settings
-from core.sitemaps import StaticViewSitemap
+from core.sitemaps import ProjectSitemap, StaticViewSitemap
 from core.views import RobotsTxtView
 
 handler404 = "core.views.page_not_found"
 
 sitemaps = {
     "static": StaticViewSitemap,
+    "projects": ProjectSitemap,
 }
 
 urlpatterns = (
