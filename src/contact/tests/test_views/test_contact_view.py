@@ -669,3 +669,67 @@ class TestContactViewPrivacyPolicySpanish(BaseTestContactViewPrivacyPolicy):
     """Test contact view privacy policy consent checkbox in Spanish."""
 
     language = Language.SPANISH
+
+
+@override_settings(
+    IS_RECAPTCHA_CONFIGURED=False,
+    RECAPTCHA_SITE_KEY=None,
+    RECAPTCHA_SECRET_KEY=None,
+)
+class BaseTestContactViewIntro(BaseContactViewTest):
+    """Base class for testing the configurable intro text on the contact page."""
+
+    request_path = "contact/"
+
+    @classmethod
+    def init_db(cls) -> None:
+        """Set a custom intro on the ContactFormConfiguration singleton."""
+        config = ContactFormConfiguration.get_solo()
+        ContactFormConfiguration.objects.filter(pk=config.pk).update(
+            intro_en=test_view_constants.CONTACT_FORM_CUSTOM_INTRO[Language.ENGLISH],
+            intro_es=test_view_constants.CONTACT_FORM_CUSTOM_INTRO[Language.SPANISH],
+        )
+
+    def test_custom_intro_is_shown(self) -> None:
+        """Test that the custom intro text from the model is shown instead of the default."""
+        contact_container = self._find_element_by_tag_and_id(
+            self.response_data.soup, HtmlTag.DIV, test_view_constants.CONTACT_CONTAINER_ID
+        )
+
+        expected = test_view_constants.CONTACT_FORM_CUSTOM_INTRO[self.language]
+        self._assert_text_of_element_by_tag_and_id(
+            contact_container,
+            HtmlTag.P,
+            "contact-description",
+            expected_text=expected,
+        )
+
+    def test_default_intro_is_shown_when_intro_is_empty(self) -> None:
+        """Test that the default (translated) intro is shown when the model field is blank."""
+        config = ContactFormConfiguration.get_solo()
+        ContactFormConfiguration.objects.filter(pk=config.pk).update(intro_en="", intro_es="")
+
+        response = self.client.get(f"/{self.language}/{self.request_path}")
+        soup = get_beautiful_soup_from_response(response)
+        contact_container = self._find_element_by_tag_and_id(
+            soup, HtmlTag.DIV, test_view_constants.CONTACT_CONTAINER_ID
+        )
+
+        self._assert_text_of_element_by_tag_and_id(
+            contact_container,
+            HtmlTag.P,
+            "contact-description",
+            expected_text=test_view_constants.CONTACT_PAGE_DESCRIPTION[self.language],
+        )
+
+
+class TestContactViewIntroEnglish(BaseTestContactViewIntro):
+    """Test configurable contact intro in English."""
+
+    language = Language.ENGLISH
+
+
+class TestContactViewIntroSpanish(BaseTestContactViewIntro):
+    """Test configurable contact intro in Spanish."""
+
+    language = Language.SPANISH

@@ -166,3 +166,8 @@ RECAPTCHA_VERIFICATION_FAILED = {
         "Si el problema persiste, contacta directamente."
     ),
 }
+
+CONTACT_FORM_CUSTOM_INTRO = {
+    Language.ENGLISH: "Tell me briefly about your project. No commitment.",
+    Language.SPANISH: "Cuéntame brevemente tu proyecto. Sin compromiso.",
+}

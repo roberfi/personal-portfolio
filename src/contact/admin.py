@@ -62,6 +62,7 @@ class ContactFormConfigurationAdmin(SingletonModelAdmin):
                 "fields": ("brevo_api_key",),
             },
         ),
+        (gettext_lazy("Contact page"), {"fields": ("intro_es", "intro_en")}),
         (gettext_lazy("Privacy notice"), {"fields": ("legal_and_privacy",)}),
     )
 
