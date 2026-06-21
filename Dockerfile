@@ -38,7 +38,7 @@ COPY ./src /app/src
 RUN uv sync --frozen --no-dev --group prod
 
 # Install node dependencies
-RUN npm install --omit=dev
+RUN npm install
 
 # Build frontend
 COPY tailwind.config.js webpack.config.js /app/
