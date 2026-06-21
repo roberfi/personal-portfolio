@@ -5,7 +5,7 @@
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Code style: ruff](https://img.shields.io/badge/code%20style-ruff-000000.svg)](https://github.com/astral-sh/ruff)
 
-This is a project to create a single personal portfolio page with a clear and simple structure.
+A personal portfolio website with a client-first design — featuring case-study projects, service offerings, and a multi-language admin-editable content system.
 
 🌐 **Live Website**: [https://roberfi.com](https://roberfi.com)
 
@@ -15,7 +15,10 @@ This is a project to create a single personal portfolio page with a clear and si
 - 🎨 **Modern UI** with Tailwind CSS and DaisyUI
 - 🔐 **Cookie consent management** with django-cooco
 - 📝 **Admin-editable content** - No code changes needed to update your portfolio
+- 🗂️ **Projects page** — case-study layout per project (Problem → Approach → Outcome) at `/projects/`
+- 🏠 **Rich home page** — featured projects, services grid, and a "how I work" process section
 - 📧 **Contact form** with email notifications and database storage
+- 🔧 **Maintenance mode** — togglable from an environment variable
 - 📊 **Structured logging** - JSON logs in production, human-readable logs in development
 - 📱 **Fully responsive** design
 - 🐳 **Docker-ready** for easy deployment
