@@ -41,6 +41,8 @@ SECRET_KEY = env("SECRET_KEY")
 ALLOWED_HOSTS = env("ALLOWED_HOSTS").split(" ")
 MAINTENANCE_MODE = env("MAINTENANCE_MODE")
 PREPEND_WWW = env.bool("PREPEND_WWW", default=False)
+if not DEBUG:
+    SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 CSRF_TRUSTED_ORIGINS = [f"https://{allowed_host}" for allowed_host in ALLOWED_HOSTS]
 
 DATABASES = {

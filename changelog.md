@@ -4,6 +4,7 @@
 
 - Support standalone and reverse-proxy nginx deployment modes via Docker Compose profiles
 - Redirect non-www requests to `www.` via the `PREPEND_WWW` environment variable
+- Trust `X-Forwarded-Proto: https` from the upstream proxy in production so Django generates correct `https://` URLs
 
 ## 0.8.0 — 2026-06-21
 
