@@ -149,8 +149,8 @@ A personal portfolio website with a client-first design — featuring case-study
 Deployments are driven from your machine through the `Makefile`: the Docker image
 is **built locally and shipped to the server**, which never builds anything.
 The server only holds a _deploy bundle_: configuration, secrets and media.
-The `docker-compose.yml` and `nginx/nginx.conf` are pushed automatically
-on every deploy, so they never drift.
+The `docker-compose.yml` and both `nginx/nginx-standalone.conf` and
+`nginx/nginx-proxy.conf` are pushed automatically on every deploy, so they never drift.
 
 Every command that talks to the server requires `SSH_HOST=user@host`.
 
@@ -184,7 +184,7 @@ mkdir -p ~/personal-portfolio/{ssl,mediafiles,nginx}
    RECAPTCHA_SCORE_THRESHOLD=0.5 # Score threshold (0.0-1.0), default 0.5
    ```
 
-2. **SSL certificates** — place your `cert.pem` and `key.pem` in
+2. **SSL certificates** _(standalone mode only)_ — place your `cert.pem` and `key.pem` in
    `~/personal-portfolio/ssl/`.
    Note: to test locally, dummy untrusted certificates can be generated with:
 
@@ -215,6 +215,19 @@ SHA; pass `TAG=` to override it (e.g. `make deploy SSH_HOST=user@your-server TAG
 If the bundle lives somewhere other than `~/personal-portfolio`, override the path
 with `REMOTE_DIR=` (e.g. `REMOTE_DIR=/srv/portfolio`).
 
+The nginx deployment mode is controlled by `NGINX_MODE` (default: `proxy`):
+
+- **`proxy`** — nginx listens on `NGINX_PORT` (default `8080`) over plain HTTP; an
+  external reverse-proxy (e.g. the host's nginx) handles TLS and forwards traffic.
+  Set `NGINX_PORT` in `.env` if you need a different port.
+- **`standalone`** — nginx terminates TLS itself on ports 80/443, using the
+  certificates in `~/personal-portfolio/ssl/`. Use this when the container is the
+  only service on the server.
+
+```bash
+make deploy SSH_HOST=user@your-server NGINX_MODE=standalone
+```
+
 #### Makefile commands
 
 Run `make` (or `make help`) to list them. Commands marked _remote_ require `SSH_HOST=user@host`.
@@ -225,7 +238,7 @@ Run `make` (or `make help`) to list them. Commands marked _remote_ require `SSH_
 | `make test`           | local  | Run the Django test suite.                                                              |
 | `make build`          | local  | Build the production Docker image locally.                                              |
 | `make deploy`         | remote | Test, build, ship the image, sync the config and restart the stack.                     |
-| `make sync-config`    | remote | Push `docker-compose.yml` and `nginx/nginx.conf` to the server (never touches secrets). |
+| `make sync-config`    | remote | Push `docker-compose.yml` and both nginx configs to the server (never touches secrets). |
 | `make restart`        | remote | Restart the remote stack without rebuilding or shipping.                                |
 | `make logs`           | remote | Tail the application logs on the server.                                                |
 | `make ps`             | remote | Show the status of the remote stack.                                                    |
