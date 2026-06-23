@@ -1,5 +1,9 @@
 # Changelog
 
+## Next release
+
+- Support standalone and reverse-proxy nginx deployment modes via Docker Compose profiles
+
 ## 0.8.0 — 2026-06-21
 
 - Add projects with Problem → Approach → Outcome structure, replacing sub-projects

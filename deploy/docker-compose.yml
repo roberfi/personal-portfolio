@@ -36,17 +36,32 @@ services:
       RECAPTCHA_SCORE_THRESHOLD: ${RECAPTCHA_SCORE_THRESHOLD:-0.5}
       MAINTENANCE_MODE: ${MAINTENANCE_MODE:-false}
 
-  nginx:
+  nginx-standalone:
+    profiles: ["standalone"]
     image: nginx:1.27.3-alpine
     ports:
       - 80:80
       - 443:443
     volumes:
-      - ./nginx/nginx.conf:/etc/nginx/templates/default.conf.template:ro
+      - ./nginx/nginx-standalone.conf:/etc/nginx/templates/default.conf.template:ro
       - staticfiles:/staticfiles
       - ./mediafiles:/mediafiles
       - ./ssl/key.pem:/root/ssl/key.pem
       - ./ssl/cert.pem:/root/ssl/cert.pem
+    depends_on:
+      - web
+    environment:
+      SERVER_NAMES: ${SERVER_NAMES}
+
+  nginx-proxy:
+    profiles: ["proxy"]
+    image: nginx:1.27.3-alpine
+    ports:
+      - ${NGINX_PORT:-8080}:8080
+    volumes:
+      - ./nginx/nginx-proxy.conf:/etc/nginx/templates/default.conf.template:ro
+      - staticfiles:/staticfiles
+      - ./mediafiles:/mediafiles
     depends_on:
       - web
     environment:

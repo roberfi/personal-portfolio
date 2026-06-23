@@ -12,6 +12,7 @@ SSH_HOST   ?=
 REMOTE_DIR ?= ~/personal-portfolio
 IMAGE      ?= personal-portfolio-web
 TAG        ?= $(shell git rev-parse --short HEAD)
+NGINX_MODE ?= proxy
 
 # Fail fast and propagate errors through pipes (docker save | gzip | ssh ...).
 SHELL       := bash
@@ -37,20 +38,21 @@ prune-local: ## Free disk locally: drop old app image tags (keeps :latest) and d
 	docker images $(IMAGE) --format "{{.Tag}}" | { grep -vxE "latest|<none>" || true; } | xargs -r -I{} docker rmi $(IMAGE):{}
 	docker image prune -f
 
-sync-config: require-host ## Push the compose file and nginx config to the server (never touches secrets)
+sync-config: require-host ## Push the compose file and nginx configs to the server (never touches secrets)
 	scp deploy/docker-compose.yml $(SSH_HOST):$(REMOTE_DIR)/docker-compose.yml
-	scp deploy/nginx/nginx.conf $(SSH_HOST):$(REMOTE_DIR)/nginx/nginx.conf
+	scp deploy/nginx/nginx-standalone.conf $(SSH_HOST):$(REMOTE_DIR)/nginx/nginx-standalone.conf
+	scp deploy/nginx/nginx-proxy.conf $(SSH_HOST):$(REMOTE_DIR)/nginx/nginx-proxy.conf
 
 deploy: require-host test build sync-config ## Test, build, ship the image and restart the stack
 	@echo ">> Shipping $(IMAGE):$(TAG) to $(SSH_HOST)"
 	docker save $(IMAGE):$(TAG) | gzip | ssh $(SSH_HOST) 'gunzip | docker load'
 	@echo ">> Restarting stack on $(SSH_HOST)"
 	ssh $(SSH_HOST) 'docker tag $(IMAGE):$(TAG) $(IMAGE):latest \
-		&& cd $(REMOTE_DIR) && docker compose down && docker compose up -d'
+		&& cd $(REMOTE_DIR) && docker compose down && docker compose --profile $(NGINX_MODE) up -d'
 	@echo ">> Deployed $(IMAGE):$(TAG)"
 
 restart: require-host ## Restart the remote stack without rebuilding/shipping
-	ssh $(SSH_HOST) 'cd $(REMOTE_DIR) && docker compose down && docker compose up -d'
+	ssh $(SSH_HOST) 'cd $(REMOTE_DIR) && docker compose down && docker compose --profile $(NGINX_MODE) up -d'
 
 logs: require-host ## Tail the remote application logs
 	ssh $(SSH_HOST) 'cd $(REMOTE_DIR) && docker compose logs -f --tail=100'
