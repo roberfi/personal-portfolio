@@ -3,6 +3,7 @@
 ## Next release
 
 - Support standalone and reverse-proxy nginx deployment modes via Docker Compose profiles
+- Redirect non-www requests to `www.` via the `PREPEND_WWW` environment variable
 
 ## 0.8.0 — 2026-06-21
 
