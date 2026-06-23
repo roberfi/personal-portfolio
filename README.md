@@ -182,6 +182,10 @@ mkdir -p ~/personal-portfolio/{ssl,mediafiles,nginx}
    RECAPTCHA_SITE_KEY=<your site key from Google reCAPTCHA>
    RECAPTCHA_SECRET_KEY=<your secret key from Google reCAPTCHA>
    RECAPTCHA_SCORE_THRESHOLD=0.5 # Score threshold (0.0-1.0), default 0.5
+
+   # Redirect non-www requests to www (resolves "Google chose different canonical" warnings).
+   # Set to true when the site is served at www.yourdomain.com.
+   PREPEND_WWW=true
    ```
 
 2. **SSL certificates** _(standalone mode only)_ — place your `cert.pem` and `key.pem` in
