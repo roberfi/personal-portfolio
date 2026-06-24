@@ -3,6 +3,7 @@
 ## Next release
 
 - Improve performance, accessibility and SEO based on PageSpeed Insights
+- Add `make regenerate-images` to clear the imagekit thumbnail cache and regenerate all images on the server
 
 ## 0.8.1 — 2026-06-24
 
