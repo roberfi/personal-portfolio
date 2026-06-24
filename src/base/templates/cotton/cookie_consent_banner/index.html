@@ -1,32 +1,34 @@
+{% load i18n %}
 {% load cooco %}
 
 {% get_cooco_banner_config as banner %}
 {% if banner.show_banner %}
     <div id="cooco_banner"
-         class="fixed w-full bottom-0 left-0 md:p-10 p-5 z-50">
+         class="fixed bottom-4 left-4 right-4 sm:left-auto sm:right-8 sm:max-w-sm z-50">
         <div role="alert"
-             class="alert alert-vertical sm:alert-horizontal md:px-10 border-2 border-primary/30 bg-linear-to-br from-base-300 to-base-200 shadow-2xl backdrop-blur-md relative">
+             class="card bg-base-100 border border-primary/20 shadow-2xl shadow-black/70">
+            <div class="card-body p-4 gap-4">
 
-            <div class="sm:col-span-2">
-                <h2 class="mb-2 text-xl font-bold text-primary">
-                    {{ banner.title }}
-                </h2>
-                <p class="text-base-content/80">
-                    {{ banner.text }}
-                </p>
-            </div>
+                <div>
+                    <p class="font-semibold text-sm text-base-content">
+                        {{ banner.title }}
+                    </p>
+                    <p class="text-xs text-base-content/70 mt-1">
+                        {{ banner.text }}
+                    </p>
+                </div>
 
-            <div class="flex flex-row gap-2 flex-wrap">
+                <div class="grid grid-cols-2 gap-2">
+                    <c-cookie-consent-banner.buttons.reject-button />
+                    <c-cookie-consent-banner.buttons.accept-button />
+                </div>
+
                 {% get_cookie_groups as cookie_groups %}
                 {% if cookie_groups|any_optional_cookie_group %}
                     <c-cookie-consent-banner.buttons.settings-button />
                 {% endif %}
 
-                <c-cookie-consent-banner.buttons.accept-button />
             </div>
-
-            <c-cookie-consent-banner.buttons.close-button position-classes="absolute right-2 top-2" onclick="document.getElementById('cooco_banner').classList.add('hidden')" />
-
         </div>
     </div>
     <c-cookie-consent-banner.modal />

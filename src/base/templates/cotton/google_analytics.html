@@ -9,7 +9,10 @@
         function gtag(){dataLayer.push(arguments);}
 
         gtag("consent", "default", {
-            "analytics_storage": {% if cooco_manager|is_cookie_group_accepted:analytics.cookie_consent %}"granted"{% else %}"denied"{% endif%}
+            "analytics_storage": {% if cooco_manager|is_cookie_group_accepted:analytics.cookie_consent %}"granted"{% else %}"denied"{% endif %},
+            "ad_storage": "denied",
+            "ad_user_data": "denied",
+            "ad_personalization": "denied"
         });
     </script>
 

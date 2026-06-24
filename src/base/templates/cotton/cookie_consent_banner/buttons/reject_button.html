@@ -1,0 +1,9 @@
+{% load i18n %}
+<form action="{% url 'reject_all_cookies' %}" method="post">
+    {% csrf_token %}
+    <input name="next" type="hidden" value="{{ request.path }}">
+    <button class="btn btn-sm btn-ghost w-full border border-base-content/15"
+            type="submit">
+        {% translate "Reject all" %}
+    </button>
+</form>

@@ -3,64 +3,87 @@
 
 <dialog id="cookies_settings_modal"
         class="modal modal-bottom sm:modal-middle">
-    <div class="modal-box w-11/12 max-w-5xl mx-auto bg-linear-to-br from-base-100 to-base-200 shadow-2xl p-0 flex flex-col max-h-[90vh] overflow-hidden">
-        <!-- Close button -->
-        <form method="dialog" class="absolute right-4 top-4 z-10">
-            <c-cookie-consent-banner.buttons.close-button />
-        </form>
+    <div class="modal-box w-11/12 max-w-3xl mx-auto bg-linear-to-br from-base-300 to-base-200 shadow-2xl shadow-black/60 border border-primary/15 p-0 flex flex-col max-h-[90vh]">
 
-        <!-- Header section - fixed at top -->
-        <div class="bg-linear-to-r from-primary/10 to-transparent p-4 sm:p-6 border-b-2 border-primary/20 backdrop-blur-sm bg-base-100/95 shrink-0">
-            <h3 class="text-2xl sm:text-3xl font-bold bg-linear-to-r from-primary to-primary/60 bg-clip-text text-transparent pr-8">
+        <!-- Header -->
+        <div class="px-4 sm:px-6 pt-5 sm:pt-6 pb-5 border-b border-primary/15 shrink-0">
+            <div class="flex items-center gap-3 mb-3">
+                <div class="h-0.5 w-6 rounded-full bg-primary shrink-0">
+                </div>
+                <span class="text-xs font-mono uppercase tracking-[0.18em] text-primary/60">Cookies</span>
+            </div>
+            <h3 class="text-2xl sm:text-3xl font-bold tracking-tight text-base-content">
                 {% translate "Cookie Settings" %}
             </h3>
         </div>
 
-        <!-- Scrollable content area -->
-        <div class="overflow-y-auto flex-1">
-            <form class="p-4 sm:p-6"
-                  action="{% url 'set_cookie_preferences' %}"
-                  method="post">
-                {% csrf_token %}
-                <input name="next" type="hidden" value="{{ request.path }}" />
+        <!-- Scrollable cookie groups -->
+        <form id="cookie-preferences-form"
+              class="overflow-y-auto flex-1 px-4 sm:px-6 py-5 flex flex-col gap-3"
+              action="{% url 'set_cookie_preferences' %}"
+              method="post">
+            {% csrf_token %}
+            <input name="next" type="hidden" value="{{ request.path }}" />
 
-                <div class="grid grid-cols-1 gap-4">
-                    {% get_cookie_groups as cookie_groups %}
-                    {% for cookie_group in cookie_groups %}
-                        <div class="card border-2 border-base-300 hover:border-primary/30 transition-colors bg-linear-to-r from-base-200 to-base-100 shadow-md">
-                            <div class="card-body">
-                                <h2 class="card-title text-primary font-bold">
-                                    {{ cookie_group.name }}
-                                </h2>
-                                <div class="text-left text-base-content/80">
-                                    {{ cookie_group.description }}
-                                </div>
-                                <div class="flex justify-end">
-                                    <input name="{{ cookie_group.cookie_id }}"
-                                           type="checkbox"
-                                           class="toggle toggle-success"
-                                           checked="checked"
-                                           {% if cookie_group.is_required %}disabled{% endif %} />
-                                </div>
-                            </div>
+            {% get_cookie_groups as cookie_groups %}
+            {% for cookie_group in cookie_groups %}
+                <div class="flex items-start gap-4 p-4 rounded-xl bg-base-200/50 border border-primary/10">
+                    <div class="flex-1 min-w-0">
+                        <div class="flex items-center gap-2 mb-1">
+                            <span class="font-semibold text-sm text-base-content">{{ cookie_group.name }}</span>
+                            {% if cookie_group.is_required %}
+                                <span class="badge badge-xs badge-neutral">{% translate "Required" %}</span>
+                            {% endif %}
                         </div>
-                    {% endfor %}
+                        <p class="text-sm text-base-content/60 leading-relaxed">
+                            {{ cookie_group.description }}
+                        </p>
+                    </div>
+                    <div class="shrink-0 pt-0.5">
+                        <input name="{{ cookie_group.cookie_id }}"
+                               type="checkbox"
+                               class="toggle toggle-sm toggle-success"
+                               checked
+                               {% if cookie_group.is_required %}disabled{% endif %} />
+                    </div>
                 </div>
+            {% endfor %}
+        </form>
 
-                <!-- Footer - fixed at bottom -->
-                <div class="modal-action mt-6">
-                    <button class="btn btn-primary gap-2 group" type="submit">
-                        <svg xmlns="http://www.w3.org/2000/svg"
-                             class="h-5 w-5"
-                             fill="none"
-                             viewBox="0 0 24 24"
-                             stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                        </svg>
-                        <span>{% translate "Save" %}</span>
-                    </button>
-                </div>
+        <!-- Footer -->
+        <div class="border-t border-primary/15 px-4 sm:px-6 py-4 shrink-0 flex justify-end gap-3">
+            <form method="dialog">
+                <button class="btn btn-ghost gap-2 border border-base-content/20 hover:border-primary hover:text-primary transition-all">
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                         class="h-5 w-5"
+                         fill="none"
+                         viewBox="0 0 24 24"
+                         stroke="currentColor"
+                         aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                    <span>{% translate "Close" %}</span>
+                </button>
             </form>
+            <button class="btn btn-primary gap-2"
+                    form="cookie-preferences-form"
+                    type="submit">
+                <svg xmlns="http://www.w3.org/2000/svg"
+                     class="h-5 w-5"
+                     fill="none"
+                     viewBox="0 0 24 24"
+                     stroke="currentColor"
+                     aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+                <span>{% translate "Save" %}</span>
+            </button>
         </div>
+
     </div>
+    <form method="dialog" class="modal-backdrop">
+        <button>
+            {% translate "Close" %}
+        </button>
+    </form>
 </dialog>
