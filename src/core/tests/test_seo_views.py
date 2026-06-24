@@ -19,6 +19,7 @@ _EXCLUDED_FROM_SITEMAP: frozenset[str] = frozenset(
         "django.contrib.sitemaps.views.sitemap",  # meta: the sitemap file itself
         "set_language",  # Django i18n language switcher
         "accept_all_cookies",  # cookie-consent action (django_cooco)
+        "reject_all_cookies",  # cookie-consent action (django_cooco)
         "set_cookie_preferences",  # cookie-consent action (django_cooco)
     }
 )

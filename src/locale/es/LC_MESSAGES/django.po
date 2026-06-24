@@ -38,6 +38,10 @@ msgstr "portfolio, CV, biografía, carrera"
 msgid "Accept"
 msgstr "Aceptar"
 
+#: base/templates/cotton/cookie_consent_banner/buttons/reject_button.html:20
+msgid "Reject all"
+msgstr "Rechazar todo"
+
 #: base/templates/cotton/cookie_consent_banner/buttons/close_button.html:3
 #: base/templates/cotton/footer.html:74
 #: home/templates/cotton/experience_timeline/modal.html:95
@@ -50,11 +54,15 @@ msgstr "Cerrar"
 msgid "Settings"
 msgstr "Opciones"
 
-#: base/templates/cotton/cookie_consent_banner/modal.html:15
+#: base/templates/cotton/cookie_consent_banner/modal.html:13
 msgid "Cookie Settings"
 msgstr "Configuración de Cookies"
 
-#: base/templates/cotton/cookie_consent_banner/modal.html:60
+#: base/templates/cotton/cookie_consent_banner/modal.html:31
+msgid "Required"
+msgstr "Obligatoria"
+
+#: base/templates/cotton/cookie_consent_banner/modal.html:56
 msgid "Save"
 msgstr "Guardar"
 

@@ -1,23 +1,8 @@
 {% load i18n %}
-<form class="inline-block"
-      action="{% url 'accept_all_cookies' %}"
-      method="post">
+<form action="{% url 'accept_all_cookies' %}" method="post">
     {% csrf_token %}
     <input name="next" type="hidden" value="{{ request.path }}">
-    <button class="btn btn-sm btn-success gap-2 hover:scale-105 transition-transform"
-            type="submit">
-        <svg class="w-4 h-4"
-             xmlns="http://www.w3.org/2000/svg"
-             width="16"
-             height="16"
-             viewBox="0 0 24 24"
-             fill="none"
-             stroke="currentColor"
-             stroke-width="2"
-             stroke-linecap="round"
-             stroke-linejoin="round">
-            <polyline points="20 6 9 17 4 12" />
-        </svg>
+    <button class="btn btn-sm btn-primary w-full" type="submit">
         {% translate "Accept" %}
     </button>
 </form>
