@@ -19,7 +19,7 @@ SHELL       := bash
 .SHELLFLAGS := -e -o pipefail -c
 
 .DEFAULT_GOAL := help
-.PHONY: help test build deploy sync-config restart logs ps ssh prune prune-local pull-prod-data require-host
+.PHONY: help test build deploy sync-config restart logs ps ssh prune prune-local pull-prod-data regenerate-images require-host
 
 help: ## Show this help
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) \
@@ -67,6 +67,9 @@ pull-prod-data: require-host ## Replace the local dev database with a copy of pr
 		--exclude auth --exclude contenttypes --exclude admin.logentry --exclude sessions --exclude contact' > "$$tmp" && \
 	(cd src && uv run python manage.py flush --no-input && uv run python manage.py loaddata "$$tmp"); \
 	rm -f "$$tmp"
+
+regenerate-images: require-host ## Clear the imagekit CACHE and regenerate all thumbnails on the server
+	ssh $(SSH_HOST) 'cd $(REMOTE_DIR) && docker compose exec -T web sh -c "rm -rf /app/mediafiles/CACHE && python manage.py generateimages"'
 
 prune: require-host ## Free disk on the server: drop old app image tags (keeps :latest) and dangling layers
 	ssh $(SSH_HOST) 'docker images $(IMAGE) --format "{{.Tag}}" | grep -vxE "latest|<none>" | xargs -r -I{} docker rmi $(IMAGE):{}; docker image prune -f'

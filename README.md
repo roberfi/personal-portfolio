@@ -240,20 +240,21 @@ make deploy SSH_HOST=user@your-server NGINX_MODE=standalone
 
 Run `make` (or `make help`) to list them. Commands marked _remote_ require `SSH_HOST=user@host`.
 
-| Command               | Scope  | Description                                                                             |
-| --------------------- | ------ | --------------------------------------------------------------------------------------- |
-| `make help`           | local  | List all available commands (default target).                                           |
-| `make test`           | local  | Run the Django test suite.                                                              |
-| `make build`          | local  | Build the production Docker image locally.                                              |
-| `make deploy`         | remote | Test, build, ship the image, sync the config and restart the stack.                     |
-| `make sync-config`    | remote | Push `docker-compose.yml` and both nginx configs to the server (never touches secrets). |
-| `make restart`        | remote | Restart the remote stack without rebuilding or shipping.                                |
-| `make logs`           | remote | Tail the application logs on the server.                                                |
-| `make ps`             | remote | Show the status of the remote stack.                                                    |
-| `make prune`          | remote | Free disk on the server: drop old image tags (keeps `latest`) and dangling layers.      |
-| `make prune-local`    | local  | Same image cleanup on your local machine.                                               |
-| `make pull-prod-data` | remote | Replace the local dev database with a copy of production data (wipes local data).       |
-| `make ssh`            | remote | Open an interactive SSH session on the server.                                          |
+| Command                  | Scope  | Description                                                                             |
+| ------------------------ | ------ | --------------------------------------------------------------------------------------- |
+| `make help`              | local  | List all available commands (default target).                                           |
+| `make test`              | local  | Run the Django test suite.                                                              |
+| `make build`             | local  | Build the production Docker image locally.                                              |
+| `make deploy`            | remote | Test, build, ship the image, sync the config and restart the stack.                     |
+| `make sync-config`       | remote | Push `docker-compose.yml` and both nginx configs to the server (never touches secrets). |
+| `make restart`           | remote | Restart the remote stack without rebuilding or shipping.                                |
+| `make logs`              | remote | Tail the application logs on the server.                                                |
+| `make ps`                | remote | Show the status of the remote stack.                                                    |
+| `make prune`             | remote | Free disk on the server: drop old image tags (keeps `latest`) and dangling layers.      |
+| `make prune-local`       | local  | Same image cleanup on your local machine.                                               |
+| `make pull-prod-data`    | remote | Replace the local dev database with a copy of production data (wipes local data).       |
+| `make regenerate-images` | remote | Clear the imagekit thumbnail cache (`mediafiles/CACHE/`) and regenerate all images.     |
+| `make ssh`               | remote | Open an interactive SSH session on the server.                                          |
 
 `make pull-prod-data` dumps production data (excluding `auth` users, sessions,
 admin logs and contact form submissions) and loads it into the local database via
