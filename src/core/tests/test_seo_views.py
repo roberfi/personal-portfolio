@@ -5,7 +5,7 @@ from __future__ import annotations
 from urllib.parse import urlparse
 from xml.etree import ElementTree as ET
 
-from django.test import TestCase
+from django.test import TestCase, override_settings
 from django.urls import URLPattern, URLResolver, get_resolver, resolve
 from django.utils import translation
 
@@ -84,6 +84,46 @@ class TestRobotsTxt(TestCase):
             "Sitemap: http://testserver/sitemap.xml",
             content,
             f"Expected a sitemap reference in robots.txt content: {content}",
+        )
+
+
+@override_settings(ROBOTS_DISALLOW_PATHS=["/cdn-cgi/", "/private/"])
+class TestRobotsTxtDisallowPaths(TestCase):
+    def test_disallow_lines_are_rendered(self) -> None:
+        response = self.client.get("/robots.txt")
+        content = response.content.decode("utf-8")
+        self.assertIn(
+            "Disallow: /cdn-cgi/",
+            content,
+            f"Expected 'Disallow: /cdn-cgi/' in robots.txt content: {content}",
+        )
+        self.assertIn(
+            "Disallow: /private/",
+            content,
+            f"Expected 'Disallow: /private/' in robots.txt content: {content}",
+        )
+
+    def test_disallow_lines_appear_before_sitemap(self) -> None:
+        response = self.client.get("/robots.txt")
+        content = response.content.decode("utf-8")
+        disallow_pos = content.index("Disallow:")
+        sitemap_pos = content.index("Sitemap:")
+        self.assertLess(
+            disallow_pos,
+            sitemap_pos,
+            msg="Disallow directives should appear before the Sitemap line",
+        )
+
+
+@override_settings(ROBOTS_DISALLOW_PATHS=[])
+class TestRobotsTxtNoDisallowPaths(TestCase):
+    def test_no_disallow_lines_when_empty(self) -> None:
+        response = self.client.get("/robots.txt")
+        content = response.content.decode("utf-8")
+        self.assertNotIn(
+            "Disallow:",
+            content,
+            f"Expected no 'Disallow:' lines when ROBOTS_DISALLOW_PATHS is empty: {content}",
         )
 
 

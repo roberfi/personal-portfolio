@@ -186,6 +186,10 @@ mkdir -p ~/personal-portfolio/{ssl,mediafiles,nginx}
    # Redirect non-www requests to www (resolves "Google chose different canonical" warnings).
    # Set to true when the site is served at www.yourdomain.com.
    PREPEND_WWW=true
+
+   # Comma-separated URL path prefixes to add as Disallow directives in robots.txt.
+   # Use this to block crawlers from Cloudflare's email-protection path or similar.
+   ROBOTS_DISALLOW_PATHS=/cdn-cgi/
    ```
 
 2. **SSL certificates** _(standalone mode only)_ — place your `cert.pem` and `key.pem` in
