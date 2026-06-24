@@ -6,7 +6,7 @@
     {% with request.resolver_match.url_name as url_name %}
         {% for link in navbar_data.links %}
             {% if mode == "tabs" %}
-                <a class="section-link tab font-mono text-sm uppercase tracking-[0.12em] transition-colors{% if link|is_active:url_name %} tab-active text-primary{% else %} text-base-content/60 hover:text-primary{% endif %}"
+                <a class="section-link tab font-mono text-sm uppercase tracking-[0.12em] transition-colors{% if link|is_active:url_name %} tab-active text-primary{% else %} text-base-content/70 hover:text-primary{% endif %}"
                    href="{% url link.url %}">{{ link.name }}</a>
             {% elif mode == "dropdown" %}
                 <li>

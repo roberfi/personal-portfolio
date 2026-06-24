@@ -1,5 +1,9 @@
 # Changelog
 
+## Next release
+
+- Improve performance, accessibility and SEO based on PageSpeed Insights
+
 ## 0.8.1 — 2026-06-24
 
 - Support standalone and reverse-proxy nginx deployment modes via Docker Compose profiles

@@ -9,10 +9,10 @@
             class="footer lg:footer-horizontal lg:max-w-(--breakpoint-lg) lg:mx-auto pb-10">
 
         <nav id="footer-pages" class="lg:mx-auto">
-            <h6 id="footer-pages-title"
-                class="footer-title font-mono text-xs uppercase tracking-[0.18em] text-primary/60">
+            <p id="footer-pages-title"
+               class="footer-title font-mono text-xs uppercase tracking-[0.18em] text-primary/60">
                 {% translate "More" %}
-            </h6>
+            </p>
             <a id="footer-my-career-link"
                href="{% url 'my-career' %}"
                class="link link-hover text-base-content/70 hover:text-primary transition-colors">
@@ -23,10 +23,10 @@
         {% with legal_and_privacy=data.legal_and_privacy %}
             {% if legal_and_privacy %}
                 <nav id="legal-and-privacy" class="lg:mx-auto">
-                    <h6 id="legal-and-privacy-title"
-                        class="footer-title font-mono text-xs uppercase tracking-[0.18em] text-primary/60">
+                    <p id="legal-and-privacy-title"
+                       class="footer-title font-mono text-xs uppercase tracking-[0.18em] text-primary/60">
                         {% translate "Legal & Privacy" %}
-                    </h6>
+                    </p>
 
                     {% for section in legal_and_privacy %}
                         <button id="legal-and-privacy-{{ section.id }}-link"
@@ -86,10 +86,10 @@
         {% with follow_me_links=data.follow_me_links %}
             {% if follow_me_links %}
                 <nav id="follow-me-links" class="lg:mx-auto">
-                    <h6 id="follow-me-links-title"
-                        class="footer-title font-mono text-xs uppercase tracking-[0.18em] text-primary/60">
+                    <p id="follow-me-links-title"
+                       class="footer-title font-mono text-xs uppercase tracking-[0.18em] text-primary/60">
                         {% translate "Follow Me" %}
-                    </h6>
+                    </p>
                     <div class="grid grid-flow-col gap-4">
                         {% for link in follow_me_links %}
                             <div id="follow-me-link-{{ link.id }}-container"
@@ -98,8 +98,10 @@
                                 <a id="follow-me-link-{{ link.id }}"
                                    class="inline-block hover:text-primary transition-all hover:scale-110"
                                    role="button"
+                                   aria-label="{{ link.name }}"
                                    href="{{ link.link }}"
-                                   target="_blank">
+                                   target="_blank"
+                                   rel="noopener noreferrer">
                                     <svg xmlns="http://www.w3.org/2000/svg"
                                          class="h-6 w-6"
                                          fill="currentColor"

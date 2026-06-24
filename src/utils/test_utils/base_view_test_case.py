@@ -210,7 +210,7 @@ class CommonPageTestsMixin(BaseViewTestCase, ABC):
         pages_section = self._find_element_by_tag_and_id(upper_footer, HtmlTag.NAV, test_view_constants.FOOTER_PAGES_ID)
         self._assert_text_of_element_by_tag_and_id(
             pages_section,
-            html_tag=HtmlTag.H6,
+            html_tag=HtmlTag.P,
             element_id=test_view_constants.FOOTER_PAGES_TITLE_ID,
             expected_text=test_view_constants.FOOTER_PAGES_TITLE[self.language],
         )
@@ -229,7 +229,7 @@ class CommonPageTestsMixin(BaseViewTestCase, ABC):
 
         self._assert_text_of_element_by_tag_and_id(
             legal_and_privacy_section,
-            html_tag=HtmlTag.H6,
+            html_tag=HtmlTag.P,
             element_id=test_view_constants.LEGAL_AND_PRIVACY_TITLE_ID,
             expected_text=test_view_constants.LEGAL_AND_PRIVACY_TITLE[self.language],
         )
@@ -315,7 +315,7 @@ class CommonPageTestsMixin(BaseViewTestCase, ABC):
 
         self._assert_text_of_element_by_tag_and_id(
             follow_me_links_section,
-            html_tag=HtmlTag.H6,
+            html_tag=HtmlTag.P,
             element_id=test_view_constants.FOLLOW_ME_LINKS_TITLE_ID,
             expected_text=test_view_constants.FOLLOW_ME_LINKS_TITLE[self.language],
         )

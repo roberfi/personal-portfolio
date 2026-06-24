@@ -63,6 +63,7 @@
         <meta name="twitter:image"
               content="{{ request.scheme }}://{{ request.get_host }}{{ site_media.twitter_preview_image_display.url }}" />
 
+        <link rel="preload" href="{% static 'bundle.css' %}" as="style">
         <link rel="stylesheet" href="{% static 'bundle.css' %}">
         <script type="module" src="{% static 'bundle.js' %}"></script>
 

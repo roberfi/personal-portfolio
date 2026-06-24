@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-20 17:10+0000\n"
+"POT-Creation-Date: 2026-06-24 10:44+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n == 1 ? 0 : 1;\n"
 
-#: base/templates/404.html:16 core/views.py:23
+#: base/templates/404.html:16 core/views.py:24
 msgid "Page not found"
 msgstr "Página no encontrada"
 
@@ -37,6 +37,14 @@ msgstr "portfolio, CV, biografía, carrera"
 #: base/templates/cotton/cookie_consent_banner/buttons/accept_button.html:21
 msgid "Accept"
 msgstr "Aceptar"
+
+#: base/templates/cotton/cookie_consent_banner/buttons/close_button.html:3
+#: base/templates/cotton/footer.html:74
+#: home/templates/cotton/experience_timeline/modal.html:95
+#: home/templates/cotton/hero.html:200
+#: home/templates/cotton/service_card.html:92
+msgid "Close"
+msgstr "Cerrar"
 
 #: base/templates/cotton/cookie_consent_banner/buttons/settings_button.html:18
 msgid "Settings"
@@ -75,28 +83,34 @@ msgstr "Mi Carrera"
 msgid "Legal & Privacy"
 msgstr "Condiciones y Privacidad"
 
-#: base/templates/cotton/footer.html:74
-#: home/templates/cotton/experience_timeline/modal.html:95
-#: home/templates/cotton/hero.html:204
-#: home/templates/cotton/service_card.html:98
-msgid "Close"
-msgstr "Cerrar"
-
 #: base/templates/cotton/footer.html:91
 msgid "Follow Me"
 msgstr "Sígueme"
 
-#: base/templates/cotton/footer.html:122
+#: base/templates/cotton/footer.html:124
 msgid "The source code of this website is available on"
 msgstr "El código fuente de este sitio web está disponible en"
 
-#: base/templates/cotton/footer.html:128
+#: base/templates/cotton/footer.html:130
 msgid "under the MIT License"
 msgstr "bajo licencia MIT"
 
-#: base/templatetags/base_tags.py:31
+#: base/templates/cotton/nav_bar.html:14
+msgid "Open menu"
+msgstr "Abrir menú"
+
+#: base/templates/cotton/nav_bar.html:30 base/templatetags/base_tags.py:31
 msgid "Home"
 msgstr "Inicio"
+
+#: base/templates/cotton/nav_bar.html:33 home/templates/cotton/hero.html:46
+#: home/templates/cotton/hero.html:62
+msgid "Site logo"
+msgstr "Logo del sitio"
+
+#: base/templates/cotton/nav_bar.html:47
+msgid "Select language"
+msgstr "Seleccionar lenguaje"
 
 #: base/templatetags/base_tags.py:36 home/views.py:307 home/views.py:327
 msgid "Projects"
@@ -116,6 +130,10 @@ msgid "Brevo API settings"
 msgstr "Configuración de la API de Brevo"
 
 #: contact/admin.py:65
+msgid "Contact page"
+msgstr "Contacto"
+
+#: contact/admin.py:66
 msgid "Privacy notice"
 msgstr "Aviso de privacidad"
 
@@ -208,7 +226,7 @@ msgstr "Este campo es obligatorio si se usa la API de Brevo."
 msgid "Get in Touch"
 msgstr "Escríbeme"
 
-#: contact/templates/contact.html:13
+#: contact/templates/contact.html:16
 msgid ""
 "Do you have a question or want to work together? Feel free to send me a "
 "message and I will respond as soon as possible."
@@ -216,25 +234,25 @@ msgstr ""
 "¿Tienes alguna pregunta o quieres trabajar conmigo? Envíame un mensaje y te "
 "responderé lo antes posible."
 
-#: contact/templates/contact.html:164
+#: contact/templates/contact.html:168
 msgid "I accept the"
 msgstr "Acepto la"
 
-#: contact/templates/contact.html:191
+#: contact/templates/contact.html:195
 msgid "Send Message"
 msgstr "Enviar Mensaje"
 
-#: contact/templates/contact.html:206
+#: contact/templates/contact.html:210
 msgid "Sending..."
 msgstr "Enviando..."
 
-#: contact/templates/contact.html:222
+#: contact/templates/contact.html:226
 msgid "There was an error with the security verification. Please try again."
 msgstr ""
 "Hubo un error con la verificación de seguridad. Por favor, inténtalo de "
 "nuevo."
 
-#: contact/templates/contact.html:245
+#: contact/templates/contact.html:249
 msgid ""
 "Your information is safe and will only be used to respond to your inquiry."
 msgstr ""
@@ -263,23 +281,23 @@ msgstr ""
 msgid "Thank you for your message! I'll get back to you as soon as possible."
 msgstr "¡Gracias por tu mensaje! Te responderé lo antes posible."
 
-#: core/settings.py:146
+#: core/settings.py:152
 msgid "English"
 msgstr "Inglés"
 
-#: core/settings.py:147
+#: core/settings.py:153
 msgid "Spanish"
 msgstr "Español"
 
-#: core/templates/maintenance.html:11 core/templates/maintenance.html:47
+#: core/templates/maintenance.html:12 core/templates/maintenance.html:48
 msgid "The site is temporarily down for maintenance. It will be back shortly."
 msgstr "El sitio está temporalmente en mantenimiento. Volverá en breve."
 
-#: core/templates/maintenance.html:13 core/templates/maintenance.html:43
+#: core/templates/maintenance.html:14 core/templates/maintenance.html:44
 msgid "Under maintenance"
 msgstr "En mantenimiento"
 
-#: core/views.py:24
+#: core/views.py:25
 msgid "The page you are looking for does not exist."
 msgstr "La página que buscas no existe."
 
@@ -416,15 +434,15 @@ msgstr "Proyectos destacados"
 msgid "See all projects"
 msgstr "Ver todos los proyectos"
 
-#: home/templates/cotton/hero.html:92
+#: home/templates/cotton/hero.html:93
 msgid "More about me"
 msgstr "Más sobre mí"
 
-#: home/templates/cotton/hero.html:175
+#: home/templates/cotton/hero.html:171
 msgid "Profile"
 msgstr "Perfil"
 
-#: home/templates/cotton/hero.html:179
+#: home/templates/cotton/hero.html:175
 msgid "About me"
 msgstr "Sobre mí"
 
@@ -456,11 +474,11 @@ msgstr "El Resultado"
 msgid "Learn more"
 msgstr "Saber más"
 
-#: home/templates/cotton/service_card.html:70
+#: home/templates/cotton/service_card.html:64
 msgid "Service"
 msgstr "Servicio"
 
-#: home/templates/cotton/service_card.html:104
+#: home/templates/cotton/service_card.html:98
 msgid "Talk about this service"
 msgstr "Hablemos de este servicio"
 

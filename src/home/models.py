@@ -152,8 +152,8 @@ class Project(models.Model):  # type: ignore[django-manager-missing] # https://g
     # Card thumbnail — keeps the listing/featured grids light
     card_image = ImageSpecField(
         source="hero_image",
-        processors=[SmartResize(800, 450)],
-        format="JPEG",
+        processors=[SmartResize(400, 225)],
+        format="WEBP",
         options={"quality": 80},
     )
 
@@ -161,7 +161,7 @@ class Project(models.Model):  # type: ignore[django-manager-missing] # https://g
     hero_display = ImageSpecField(
         source="hero_image",
         processors=[SmartResize(1600, 900)],
-        format="JPEG",
+        format="WEBP",
         options={"quality": 85},
     )
 
