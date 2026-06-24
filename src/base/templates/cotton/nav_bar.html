@@ -11,7 +11,10 @@
          class="navbar bg-base-300/85 shadow-lg shadow-black/20 border-b border-primary/15 backdrop-blur-md z-50">
         <div class="navbar-start">
             <div class="dropdown">
-                <div tabindex="0" role="button" class="btn btn-ghost btn-circle lg:hidden">
+                <div tabindex="0"
+                     role="button"
+                     aria-label="{% translate "Open menu" %}"
+                     class="btn btn-ghost btn-circle lg:hidden">
                     <svg class="w-5 h-5"
                          aria-hidden="true"
                          xmlns="http://www.w3.org/2000/svg"
@@ -26,11 +29,13 @@
                 </ul>
             </div>
             <a class="lg:mx-4 shrink-0 flex items-center justify-center w-11 h-11 rounded-xl border border-primary/20 bg-primary/5 hover:border-primary/40 hover:bg-primary/10 transition-all"
-               href="{% url "home" %}">
-                <image class="w-7 h-7 object-contain"
-                       src="{{ site_media.logo_display.url }}" />
+               href="{% url "home" %}"
+               aria-label="{% translate "Home" %}">
+                <img class="w-7 h-7 object-contain"
+                     src="{{ site_media.logo_display.url }}"
+                     alt="{% translate "Site logo" %}" />
             </a>
-            <div role="tablist" class="tabs tabs-border max-lg:hidden">
+            <div class="tabs tabs-border max-lg:hidden">
                 <c-section-links mode="tabs" />
             </div>
         </div>
@@ -42,6 +47,7 @@
             <div class="dropdown dropdown-end">
                 <div tabindex="0"
                      role="button"
+                     aria-label="{% translate "Select language" %}"
                      class="btn btn-ghost border border-base-content/15 hover:border-primary hover:bg-primary/10 hover:text-primary transition-all gap-2">
                     <svg xmlns="http://www.w3.org/2000/svg"
                          class="w-5 h-5"

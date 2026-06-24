@@ -53,14 +53,14 @@ class SiteMedia(SingletonModel):
     portrait_display = ImageSpecField(
         source="portrait_image",
         processors=[ResizeToFit(1920, 1080, upscale=False)],
-        format="JPEG",
+        format="WEBP",
         options={"quality": 85},
     )
 
     portrait_mobile_display = ImageSpecField(
         source="portrait_image",
         processors=[ResizeToFit(900, 506, upscale=False)],
-        format="JPEG",
+        format="WEBP",
         options={"quality": 80},
     )
 
@@ -84,8 +84,8 @@ class SiteMedia(SingletonModel):
     logo_display = ImageSpecField(
         source="logo",
         processors=[ResizeToFit(64, 64, upscale=False)],
-        format="PNG",
-        options={"optimize": True},
+        format="WEBP",
+        options={"lossless": True},
     )
 
     def __str__(self) -> str:

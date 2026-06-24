@@ -173,7 +173,7 @@ class TestProjectImageThumbnails(BaseTestProjectModel):
         with Image.open(project.card_image.path) as image:
             self.assertEqual(
                 image.size,
-                expected_size := (800, 450),
+                expected_size := (400, 225),
                 f"Expected card_image to be resized to '{expected_size}', got '{image.size}'",
             )
 
