@@ -32,6 +32,8 @@ env = environ.Env(
     SECRET_KEY=str,
     ALLOWED_HOSTS=(str, ""),
     MAINTENANCE_MODE=(bool, False),
+    PREPEND_WWW=(bool, False),
+    ROBOTS_DISALLOW_PATHS=(list, []),
 )
 
 environ.Env.read_env(os.path.join(BASE_DIR, ".env"))
@@ -40,7 +42,8 @@ DEBUG = env("DEBUG")
 SECRET_KEY = env("SECRET_KEY")
 ALLOWED_HOSTS = env("ALLOWED_HOSTS").split(" ")
 MAINTENANCE_MODE = env("MAINTENANCE_MODE")
-PREPEND_WWW = env.bool("PREPEND_WWW", default=False)
+PREPEND_WWW = env("PREPEND_WWW")
+ROBOTS_DISALLOW_PATHS: list[str] = env("ROBOTS_DISALLOW_PATHS")
 if not DEBUG:
     SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 CSRF_TRUSTED_ORIGINS = [f"https://{allowed_host}" for allowed_host in ALLOWED_HOSTS]

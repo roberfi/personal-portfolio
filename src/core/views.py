@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
+from django.conf import settings
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.utils.safestring import mark_safe
@@ -45,6 +46,7 @@ class RobotsTxtView(View):
         lines = [
             "User-agent: *",
             "Allow: /",
+            *[f"Disallow: {path}" for path in settings.ROBOTS_DISALLOW_PATHS],
             "",
             f"Sitemap: {request.scheme}://{request.get_host()}/sitemap.xml",
         ]
