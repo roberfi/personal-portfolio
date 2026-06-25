@@ -17,7 +17,7 @@ if TYPE_CHECKING:
     from django_stubs_ext import StrOrPromise
 
 
-class Technology(models.Model):  # type: ignore[django-manager-missing] # https://github.com/typeddjango/django-stubs/issues/1023
+class Technology(models.Model):
     name = models.CharField(max_length=100, unique=True)
     priority = models.PositiveIntegerField(default=0)
 
@@ -29,7 +29,7 @@ class Technology(models.Model):  # type: ignore[django-manager-missing] # https:
         return self.name
 
 
-class PersonalInfo(SingletonModel):  # type: ignore[django-manager-missing] # https://github.com/typeddjango/django-stubs/issues/1023
+class PersonalInfo(SingletonModel):
     name = models.CharField(max_length=100)
     title = models.CharField(max_length=100)
     location = models.CharField(max_length=200, blank=True)
@@ -126,7 +126,7 @@ class DatedModel(models.Model):
         return ", ".join((p for p in parts if p))
 
 
-class Experience(DatedModel):  # type: ignore[django-manager-missing] # https://github.com/typeddjango/django-stubs/issues/1023
+class Experience(DatedModel):
     title = models.CharField(max_length=200)
     location = models.CharField(max_length=200)
     institution = models.CharField(max_length=200, blank=True, verbose_name="Company")
@@ -140,7 +140,7 @@ class Experience(DatedModel):  # type: ignore[django-manager-missing] # https://
         return self.title
 
 
-class Project(models.Model):  # type: ignore[django-manager-missing] # https://github.com/typeddjango/django-stubs/issues/1023
+class Project(models.Model):
     title = models.CharField(max_length=200)
     slug = models.SlugField(max_length=200, unique=True)
     summary = models.CharField(max_length=200, help_text="Short, problem-oriented excerpt shown on project cards.")
@@ -301,7 +301,7 @@ SERVICE_ICON_CHOICES = (
 )
 
 
-class Service(models.Model):  # type: ignore[django-manager-missing] # https://github.com/typeddjango/django-stubs/issues/1023
+class Service(models.Model):
     title = models.CharField(max_length=200)
     slug = models.SlugField(max_length=200, unique=True)
     short_description = models.CharField(max_length=300)
@@ -322,7 +322,7 @@ class Service(models.Model):  # type: ignore[django-manager-missing] # https://g
         return SERVICE_ICON_PATHS.get(self.icon_name, DEFAULT_SERVICE_ICON_PATH).path
 
 
-class ProcessStep(models.Model):  # type: ignore[django-manager-missing] # https://github.com/typeddjango/django-stubs/issues/1023
+class ProcessStep(models.Model):
     title = models.CharField(max_length=200)
     description = models.TextField()
     icon_name = models.CharField(max_length=100, blank=True, choices=SERVICE_ICON_CHOICES)
@@ -339,7 +339,7 @@ class ProcessStep(models.Model):  # type: ignore[django-manager-missing] # https
         return SERVICE_ICON_PATHS.get(self.icon_name, DEFAULT_SERVICE_ICON_PATH).path
 
 
-class Education(DatedModel):  # type: ignore[django-manager-missing] # https://github.com/typeddjango/django-stubs/issues/1023
+class Education(DatedModel):
     title = models.CharField(max_length=200)
     institution = models.CharField(max_length=200)
     location = models.CharField(max_length=200)
