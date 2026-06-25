@@ -102,6 +102,17 @@ class BaseTestHomeViewContent(BaseHomeViewTest):
             f"Expected 'knowsAbout' to be '{expected_technologies}', got '{knows_about}'",
         )
 
+        # Verify homeLocation
+        expected_home_location = {
+            "@type": "Place",
+            "name": test_view_constants.PERSONAL_INFO_LOCATION[self.language],
+        }
+        self.assertEqual(
+            home_location := data["homeLocation"],
+            expected_home_location,
+            f"Expected 'homeLocation' to be '{expected_home_location}', got '{home_location}'",
+        )
+
     def test_meta_tags(self) -> None:
         """Test that meta tags have correct values for home page."""
         self._assert_text_of_element(
@@ -243,6 +254,11 @@ class BaseTestHomeViewContent(BaseHomeViewTest):
                 html_tag=HtmlTag.SPAN,
                 element_id=test_view_constants.PERSONAL_INFO_TITLE_ID,
                 expected_text=test_view_constants.PERSONAL_INFO_TITLE[self.language],
+            ),
+            ElementText(
+                html_tag=HtmlTag.SPAN,
+                element_id=test_view_constants.PERSONAL_INFO_LOCATION_ID,
+                expected_text=test_view_constants.PERSONAL_INFO_LOCATION[self.language],
             ),
             ElementText(
                 html_tag=HtmlTag.BUTTON,

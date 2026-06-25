@@ -32,6 +32,7 @@ class Technology(models.Model):  # type: ignore[django-manager-missing] # https:
 class PersonalInfo(SingletonModel):  # type: ignore[django-manager-missing] # https://github.com/typeddjango/django-stubs/issues/1023
     name = models.CharField(max_length=100)
     title = models.CharField(max_length=100)
+    location = models.CharField(max_length=200, blank=True)
     introduction = models.TextField(max_length=500)
     biography = models.TextField()
     technologies = models.ManyToManyField(Technology, blank=True, related_name="personal_info")
