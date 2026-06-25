@@ -297,6 +297,24 @@ class BaseTestHomeViewContent(BaseHomeViewTest):
             ),
         )
 
+    def test_home_identity_bar(self) -> None:
+        """The home identity bar appears once the hero has scrolled away (compact bar pattern)."""
+        soup = self.response_data.soup
+        name = test_view_constants.PERSONAL_INFO_NAME
+        title = test_view_constants.PERSONAL_INFO_TITLE[self.language]
+
+        bar = soup.find(attrs={"data-compact-bar": True, "data-heading": "home"})
+        assert bar is not None, "Expected '[data-compact-bar][data-heading=\"home\"]' to be rendered"
+        bar_text = bar.get_text(strip=True, separator=" ")
+        self.assertIn(name, bar_text, f"Home identity bar should contain the name; got '{bar_text}'")
+        self.assertIn(title, bar_text, f"Home identity bar should contain the title; got '{bar_text}'")
+
+        # Sentinel in the hero that triggers the bar via initStickyHeadings.
+        self.assertIsNotNone(
+            soup.find(attrs={"data-heading-sentinel": True, "data-heading": "home"}),
+            "Expected '[data-heading-sentinel][data-heading=\"home\"]' sentinel in the hero",
+        )
+
     def test_cta_block(self) -> None:
         cta_section = self._find_element_by_tag_and_id(
             self.response_data.soup, HtmlTag.SECTION, test_view_constants.HOME_CTA_ID

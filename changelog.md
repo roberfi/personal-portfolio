@@ -2,6 +2,7 @@
 
 ## Next release
 
+- Replace hero scroll effect with a clean sticky identity bar that slides in once the hero scrolls away (same compact-bar pattern as other pages, no hero opacity effects)
 - Show location in the hero section and include it as `homeLocation` in the Person JSON-LD for local SEO
 - Improve performance, accessibility and SEO based on PageSpeed Insights
 - Add `make regenerate-images` to clear the imagekit thumbnail cache and regenerate all images on the server

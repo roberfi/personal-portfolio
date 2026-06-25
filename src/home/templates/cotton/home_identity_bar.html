@@ -1,10 +1,10 @@
 {% comment %}
 Home identity bar.
 
-A frosted bar pinned under the navbar that fades and slides in progressively
-as the hero scrolls away, then stays for the rest of the page. Driven by the
-`--hero-progress` custom property (0 → 1) set by `initHeroScroll()`, so it is
-not a binary toggle like `c-page-heading`'s compact bar.
+A frosted bar pinned under the navbar that slides in once the hero has scrolled
+away. Works exactly like `c-page-heading`'s compact bar: `initStickyHeadings`
+toggles `.is-stuck` when the `[data-heading-sentinel][data-heading="home"]`
+sentinel (placed at the bottom of the hero) crosses above the container top.
 
 Props:
   personal_info — the PersonalInfo instance (name + title).
@@ -12,7 +12,8 @@ Props:
 
 {# 0-height rail keeps the bar out of the layout flow so it overlays content. #}
 <div class="sticky top-0 z-30 h-0">
-    <div data-home-bar
+    <div data-compact-bar
+         data-heading="home"
          class="h-14 flex items-center border-b border-base-content/10 bg-base-300/85 backdrop-blur-md shadow-md shadow-black/10">
         <div class="w-full max-w-(--breakpoint-lg) mx-auto px-6 flex items-center gap-3">
             <div class="h-5 w-0.5 rounded-full bg-primary shrink-0">
