@@ -83,20 +83,3 @@ html {
   opacity: 1;
   pointer-events: auto;
 }
-
-/* Home hero: progressively fades out and drifts up as you scroll, driven by
-   `--hero-progress` (0 → 1) set by `initHeroScroll`. */
-[data-hero-fade] {
-  opacity: calc(1 - var(--hero-progress, 0));
-  transform: translateY(calc(var(--hero-progress, 0) * -2.5rem));
-  will-change: opacity, transform;
-}
-
-/* Home identity bar: the inverse of the hero — slides down and fades in as the
-   hero leaves, then stays pinned. */
-[data-home-bar] {
-  opacity: var(--hero-progress, 0);
-  transform: translateY(calc((var(--hero-progress, 0) - 1) * 100%));
-  pointer-events: none;
-  will-change: opacity, transform;
-}
