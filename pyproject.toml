@@ -2,7 +2,7 @@
 name = "personal-portfolio"
 version = "0.0.0"
 description = ""
-authors = [{ name = "Roberto Fernández Iglesias", email = "roberfi@gmail.com" }]
+authors = [{ name = "Roberto Fernández Iglesias", email = "development@roberfi.com" }]
 readme = "README.md"
 requires-python = ">=3.13,<3.14"
 dependencies = [
