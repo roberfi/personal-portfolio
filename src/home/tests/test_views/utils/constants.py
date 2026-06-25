@@ -8,6 +8,7 @@ from utils.test_utils.constants import Language
 HOME_ID = "home"
 PERSONAL_INFO_NAME_ID = "personal-info-name"
 PERSONAL_INFO_TITLE_ID = "personal-info-title"
+PERSONAL_INFO_LOCATION_ID = "personal-info-location"
 PERSONAL_INFO_INTRODUCTION_ID = "personal-info-introduction"
 PERSONAL_INFO_TECHNOLOGIES_ID = "personal-info-technologies"
 ABOUT_ME_BUTTON_ID = "about-me-button"
@@ -212,6 +213,10 @@ MY_CAREER_VIEW_META_KEYWORDS = {
 PERSONAL_INFO_TITLE = {
     Language.ENGLISH: "Test title",
     Language.SPANISH: "Título de prueba",
+}
+PERSONAL_INFO_LOCATION = {
+    Language.ENGLISH: "Test City, Test Country",
+    Language.SPANISH: "Ciudad de prueba, País de prueba",
 }
 PERSONAL_INFO_INTRODUCTION = {
     Language.ENGLISH: "Test introduction",

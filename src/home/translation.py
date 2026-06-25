@@ -14,6 +14,7 @@ class TechnologyTranslationOptions(TranslationOptions):
 class PersonalInfoTranslationOptions(TranslationOptions):
     fields = (
         "title",
+        "location",
         "introduction",
         "biography",
     )

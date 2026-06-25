@@ -2,6 +2,7 @@
 
 ## Next release
 
+- Show location in the hero section and include it as `homeLocation` in the Person JSON-LD for local SEO
 - Improve performance, accessibility and SEO based on PageSpeed Insights
 - Add `make regenerate-images` to clear the imagekit thumbnail cache and regenerate all images on the server
 - GDPR-compliant cookie consent: add "Reject all" button, set `httponly=True` on the consent cookie (via django-cooco 0.1.0), and send all four Google Analytics Consent Mode v2 signals (`ad_storage`, `ad_user_data` and `ad_personalization` are always denied — no ads on this site)

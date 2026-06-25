@@ -80,6 +80,9 @@ class HomeView(View):
             "image": f"{base_url}{site_media.portrait_display.url}",
         }
 
+        if personal_info.location:
+            schema["homeLocation"] = {"@type": "Place", "name": personal_info.location}
+
         if personal_info.technologies.exists():
             schema["knowsAbout"] = personal_info.technology_names
 

@@ -52,6 +52,8 @@ class BaseHomeViewTest(CommonPageTestsMixin):
             name=test_view_constants.PERSONAL_INFO_NAME,
             title=test_view_constants.PERSONAL_INFO_TITLE[Language.ENGLISH],
             title_es=test_view_constants.PERSONAL_INFO_TITLE[Language.SPANISH],
+            location=test_view_constants.PERSONAL_INFO_LOCATION[Language.ENGLISH],
+            location_es=test_view_constants.PERSONAL_INFO_LOCATION[Language.SPANISH],
             introduction=test_view_constants.PERSONAL_INFO_INTRODUCTION[Language.ENGLISH],
             introduction_es=test_view_constants.PERSONAL_INFO_INTRODUCTION[Language.SPANISH],
             biography=test_view_constants.PERSONAL_INFO_BIOGRAPHY[Language.ENGLISH],
