@@ -16,11 +16,16 @@ class ContactMessageAdmin(ModelAdmin[ContactMessage]):
         "name",
         "email",
         "subject",
+        "service_interest",
+        "budget_range",
+        "timeline",
         "created_at",
         "message",
         "error",
         "recaptcha_score",
     )
+
+    list_filter = ("service_interest", "budget_range", "timeline", "is_read")
 
     search_fields = (
         "name",

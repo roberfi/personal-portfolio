@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from django.db import models
+from django.utils.translation import gettext_lazy
 from solo.models import SingletonModel
 
 from base.models import LegalAndPrivacy
@@ -14,6 +15,20 @@ class EmailProvider(models.TextChoices):
     BREVO_API = "brevo_api", "Brevo API"
 
 
+class BudgetRange(models.TextChoices):
+    UNDER_1K = "under_1k", gettext_lazy("Under €1,000")
+    BETWEEN_1K_5K = "1k_5k", gettext_lazy("€1,000 \u2013 €5,000")
+    BETWEEN_5K_15K = "5k_15k", gettext_lazy("€5,000 \u2013 €15,000")
+    OVER_15K = "over_15k", gettext_lazy("Over €15,000")
+
+
+class Timeline(models.TextChoices):
+    UNDER_1_MONTH = "under_1m", gettext_lazy("Less than 1 month")
+    BETWEEN_1_3_MONTHS = "1m_3m", gettext_lazy("1 \u2013 3 months")
+    BETWEEN_3_6_MONTHS = "3m_6m", gettext_lazy("3 \u2013 6 months")
+    OVER_6_MONTHS = "over_6m", gettext_lazy("6+ months")
+
+
 class ContactMessage(models.Model):
     """Model to store contact form submissions."""
 
@@ -21,6 +36,15 @@ class ContactMessage(models.Model):
     email = models.EmailField()
     subject = models.CharField(max_length=200)
     message = models.TextField()
+    service_interest = models.ForeignKey(
+        "home.Service",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="contact_messages",
+    )
+    budget_range = models.CharField(max_length=20, choices=BudgetRange.choices, blank=True)
+    timeline = models.CharField(max_length=20, choices=Timeline.choices, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     is_read = models.BooleanField(default=False)
     error = models.TextField(blank=True)
@@ -33,7 +57,7 @@ class ContactMessage(models.Model):
         return f"{self.name} - {self.subject}"
 
 
-class ContactFormConfiguration(SingletonModel):
+class ContactFormConfiguration(SingletonModel):  # type: ignore[django-manager-missing] # https://github.com/typeddjango/django-stubs/issues/1023
     """Singleton configuration for the contact form: privacy notice and email sending."""
 
     email_provider = models.CharField(max_length=20, choices=EmailProvider.choices, default=EmailProvider.SMTP)

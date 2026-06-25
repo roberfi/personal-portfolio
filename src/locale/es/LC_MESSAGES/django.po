@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-24 10:44+0000\n"
+"POT-Creation-Date: 2026-06-25 16:04+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -34,35 +34,36 @@ msgstr "Volver al inicio"
 msgid "portfolio, CV, biography, career"
 msgstr "portfolio, CV, biografía, carrera"
 
-#: base/templates/cotton/cookie_consent_banner/buttons/accept_button.html:21
+#: base/templates/cotton/cookie_consent_banner/buttons/accept_button.html:6
 msgid "Accept"
 msgstr "Aceptar"
 
-#: base/templates/cotton/cookie_consent_banner/buttons/reject_button.html:20
+#: base/templates/cotton/cookie_consent_banner/buttons/reject_button.html:7
 msgid "Reject all"
 msgstr "Rechazar todo"
 
-#: base/templates/cotton/cookie_consent_banner/buttons/close_button.html:3
+#: base/templates/cotton/cookie_consent_banner/buttons/settings_button.html:16
+msgid "Settings"
+msgstr "Opciones"
+
+#: base/templates/cotton/cookie_consent_banner/modal.html:16
+msgid "Cookie Settings"
+msgstr "Configuración de Cookies"
+
+#: base/templates/cotton/cookie_consent_banner/modal.html:35
+msgid "Required"
+msgstr "Obligatoria"
+
+#: base/templates/cotton/cookie_consent_banner/modal.html:65
+#: base/templates/cotton/cookie_consent_banner/modal.html:86
 #: base/templates/cotton/footer.html:74
 #: home/templates/cotton/experience_timeline/modal.html:95
-#: home/templates/cotton/hero.html:200
+#: home/templates/cotton/hero.html:226
 #: home/templates/cotton/service_card.html:92
 msgid "Close"
 msgstr "Cerrar"
 
-#: base/templates/cotton/cookie_consent_banner/buttons/settings_button.html:18
-msgid "Settings"
-msgstr "Opciones"
-
-#: base/templates/cotton/cookie_consent_banner/modal.html:13
-msgid "Cookie Settings"
-msgstr "Configuración de Cookies"
-
-#: base/templates/cotton/cookie_consent_banner/modal.html:31
-msgid "Required"
-msgstr "Obligatoria"
-
-#: base/templates/cotton/cookie_consent_banner/modal.html:56
+#: base/templates/cotton/cookie_consent_banner/modal.html:79
 msgid "Save"
 msgstr "Guardar"
 
@@ -83,7 +84,7 @@ msgid "More"
 msgstr "Más"
 
 #: base/templates/cotton/footer.html:19 home/templates/my-career.html:7
-#: home/views.py:255
+#: home/views.py:258
 msgid "My Career"
 msgstr "Mi Carrera"
 
@@ -103,24 +104,24 @@ msgstr "El código fuente de este sitio web está disponible en"
 msgid "under the MIT License"
 msgstr "bajo licencia MIT"
 
-#: base/templates/cotton/nav_bar.html:14
+#: base/templates/cotton/nav_bar.html:16
 msgid "Open menu"
 msgstr "Abrir menú"
 
-#: base/templates/cotton/nav_bar.html:30 base/templatetags/base_tags.py:31
+#: base/templates/cotton/nav_bar.html:33 base/templatetags/base_tags.py:31
 msgid "Home"
 msgstr "Inicio"
 
-#: base/templates/cotton/nav_bar.html:33 home/templates/cotton/hero.html:46
-#: home/templates/cotton/hero.html:62
+#: base/templates/cotton/nav_bar.html:36 home/templates/cotton/hero.html:46
+#: home/templates/cotton/hero.html:75
 msgid "Site logo"
 msgstr "Logo del sitio"
 
-#: base/templates/cotton/nav_bar.html:47
+#: base/templates/cotton/nav_bar.html:50
 msgid "Select language"
 msgstr "Seleccionar lenguaje"
 
-#: base/templatetags/base_tags.py:36 home/views.py:307 home/views.py:327
+#: base/templatetags/base_tags.py:36 home/views.py:310 home/views.py:330
 msgid "Projects"
 msgstr "Proyectos"
 
@@ -129,106 +130,158 @@ msgstr "Proyectos"
 msgid "Contact"
 msgstr "Contacto"
 
-#: contact/admin.py:44
+#: contact/admin.py:49
 msgid "SMTP settings"
 msgstr "Configuración SMTP"
 
-#: contact/admin.py:59
+#: contact/admin.py:64
 msgid "Brevo API settings"
 msgstr "Configuración de la API de Brevo"
 
-#: contact/admin.py:65
+#: contact/admin.py:70
 msgid "Contact page"
 msgstr "Contacto"
 
-#: contact/admin.py:66
+#: contact/admin.py:71
 msgid "Privacy notice"
 msgstr "Aviso de privacidad"
 
-#: contact/forms.py:28
+#: contact/forms.py:37
 msgid "You must accept the privacy policy to send this message."
 msgstr "Debes aceptar la política de privacidad para enviar este mensaje."
 
-#: contact/forms.py:47
+#: contact/forms.py:42
+msgid "No specific service"
+msgstr "Sin servicio específico"
+
+#: contact/forms.py:44
+msgid "Service Interest"
+msgstr "Servicio de interés"
+
+#: contact/forms.py:47 contact/forms.py:53
+msgid "Not specified"
+msgstr "Sin especificar"
+
+#: contact/forms.py:50
+msgid "Budget Range"
+msgstr "Presupuesto"
+
+#: contact/forms.py:56
+msgid "Timeline"
+msgstr "Plazo"
+
+#: contact/forms.py:78
 msgid "Your name"
 msgstr "Tu nombre"
 
-#: contact/forms.py:56
+#: contact/forms.py:87
 msgid "your.email@example.com"
 msgstr "tu.email@ejemplo.com"
 
-#: contact/forms.py:65
+#: contact/forms.py:96
 msgid "Message subject"
 msgstr "Asunto del mensaje"
 
-#: contact/forms.py:74
+#: contact/forms.py:105
 msgid "Write your message here..."
 msgstr "Escribe aquí tu mensaje..."
 
-#: contact/forms.py:82
+#: contact/forms.py:113
 msgid "Name"
 msgstr "Nombre"
 
-#: contact/forms.py:83
+#: contact/forms.py:114
 msgid "Email"
 msgstr "Correo electrónico"
 
-#: contact/forms.py:84
+#: contact/forms.py:115
 msgid "Subject"
 msgstr "Asunto"
 
-#: contact/forms.py:85
+#: contact/forms.py:116
 msgid "Message"
 msgstr "Mensaje"
 
-#: contact/forms.py:100
+#: contact/forms.py:131
 msgid "Invalid message."
 msgstr "Mensaje inválido."
 
-#: contact/forms.py:104
+#: contact/forms.py:135
 #, python-format
 msgid "Message must be at least %(min_length)d characters long."
 msgstr "El mensaje debe tener al menos %(min_length)d caracteres."
 
-#: contact/forms.py:114
+#: contact/forms.py:145
 msgid "Host"
 msgstr "Servidor"
 
-#: contact/forms.py:115
+#: contact/forms.py:146
 msgid "Port"
 msgstr "Puerto"
 
-#: contact/forms.py:116
+#: contact/forms.py:147
 msgid "Use TLS"
 msgstr "Usar TLS"
 
-#: contact/forms.py:117
+#: contact/forms.py:148
 msgid "Use SSL"
 msgstr "Usar SSL"
 
-#: contact/forms.py:118
+#: contact/forms.py:149
 msgid "Username"
 msgstr "Nombre de usuario"
 
-#: contact/forms.py:120
+#: contact/forms.py:151
 msgid "Password"
 msgstr "Contraseña"
 
-#: contact/forms.py:122
+#: contact/forms.py:153
 msgid "Timeout (seconds)"
 msgstr "Tiempo de espera (segundos)"
 
-#: contact/forms.py:124
+#: contact/forms.py:155
 msgid "API key"
 msgstr "Clave de API"
 
-#: contact/forms.py:148
+#: contact/forms.py:179
 msgid "This field is required when using SMTP."
 msgstr "Este campo es obligatorio si se usa SMTP."
 
-#: contact/forms.py:151
+#: contact/forms.py:182
 msgid "This field is required when using the Brevo API."
 msgstr "Este campo es obligatorio si se usa la API de Brevo."
+
+#: contact/models.py:19
+msgid "Under €1,000"
+msgstr "Menos de 1.000 €"
+
+#: contact/models.py:20
+msgid "€1,000 – €5,000"
+msgstr "1.000 € – 5.000 €"
+
+#: contact/models.py:21
+msgid "€5,000 – €15,000"
+msgstr "5.000 € – 15.000 €"
+
+#: contact/models.py:22
+msgid "Over €15,000"
+msgstr "Más de 15.000 €"
+
+#: contact/models.py:26
+msgid "Less than 1 month"
+msgstr "Menos de 1 mes"
+
+#: contact/models.py:27
+msgid "1 – 3 months"
+msgstr "1 – 3 meses"
+
+#: contact/models.py:28
+msgid "3 – 6 months"
+msgstr "3 – 6 meses"
+
+#: contact/models.py:29
+msgid "6+ months"
+msgstr "Más de 6 meses"
 
 #: contact/templates/contact.html:9
 msgid "Get in Touch"
@@ -242,25 +295,25 @@ msgstr ""
 "¿Tienes alguna pregunta o quieres trabajar conmigo? Envíame un mensaje y te "
 "responderé lo antes posible."
 
-#: contact/templates/contact.html:168
+#: contact/templates/contact.html:242
 msgid "I accept the"
 msgstr "Acepto la"
 
-#: contact/templates/contact.html:195
+#: contact/templates/contact.html:269
 msgid "Send Message"
 msgstr "Enviar Mensaje"
 
-#: contact/templates/contact.html:210
+#: contact/templates/contact.html:284
 msgid "Sending..."
 msgstr "Enviando..."
 
-#: contact/templates/contact.html:226
+#: contact/templates/contact.html:300
 msgid "There was an error with the security verification. Please try again."
 msgstr ""
 "Hubo un error con la verificación de seguridad. Por favor, inténtalo de "
 "nuevo."
 
-#: contact/templates/contact.html:249
+#: contact/templates/contact.html:323
 msgid ""
 "Your information is safe and will only be used to respond to your inquiry."
 msgstr ""
@@ -277,7 +330,7 @@ msgstr ""
 msgid "contact, get in touch, message, email"
 msgstr "contacto, contactar, mensaje, correo electrónico, email"
 
-#: contact/views.py:232
+#: contact/views.py:248
 msgid ""
 "reCAPTCHA verification failed. Please try again. If the problem persists, "
 "contact me directly."
@@ -285,7 +338,7 @@ msgstr ""
 "La verificación de reCAPTCHA ha fallado. Por favor, inténtalo de nuevo. Si "
 "el problema persiste, contacta directamente."
 
-#: contact/views.py:250
+#: contact/views.py:266
 msgid "Thank you for your message! I'll get back to you as soon as possible."
 msgstr "¡Gracias por tu mensaje! Te responderé lo antes posible."
 
@@ -309,116 +362,116 @@ msgstr "En mantenimiento"
 msgid "The page you are looking for does not exist."
 msgstr "La página que buscas no existe."
 
-#: home/models.py:54
+#: home/models.py:55
 #, python-format
 msgid "Personal web of %(name)s. %(title)s"
 msgstr "Página personal de %(name)s. %(title)s"
 
-#: home/models.py:60
+#: home/models.py:61
 #, python-format
 msgid "specialized in %(tech)s"
 msgstr "especializado en %(tech)s"
 
-#: home/models.py:80
+#: home/models.py:81
 msgid "End date must be after start date"
 msgstr "Las fecha final debe ser posterior a la fecha de inicio"
 
-#: home/models.py:90
+#: home/models.py:91
 msgid "Present"
 msgstr "Actualmente"
 
-#: home/models.py:113
+#: home/models.py:114
 msgid "Not yet started"
 msgstr "Aún no empezado"
 
-#: home/models.py:118
+#: home/models.py:119
 msgid "Less than a month"
 msgstr "Menos de un mes"
 
-#: home/models.py:121
+#: home/models.py:122
 #, python-format
 msgid "%d year"
 msgid_plural "%d years"
 msgstr[0] "%d año"
 msgstr[1] "%d años"
 
-#: home/models.py:122
+#: home/models.py:123
 #, python-format
 msgid "%d month"
 msgid_plural "%d months"
 msgstr[0] "%d mes"
 msgstr[1] "%d meses"
 
-#: home/models.py:137 home/models.py:351
+#: home/models.py:138 home/models.py:352
 #, python-format
 msgid "%(title)s at %(institution)s"
 msgstr "%(title)s en %(institution)s"
 
-#: home/models.py:189
+#: home/models.py:190
 msgid "Code"
 msgstr "Código"
 
-#: home/models.py:193
+#: home/models.py:194
 msgid "Server"
 msgstr "Servidor"
 
-#: home/models.py:200
+#: home/models.py:201
 msgid "Lightning"
 msgstr "Rayo"
 
-#: home/models.py:204
+#: home/models.py:205
 msgid "Chat"
 msgstr "Chat"
 
-#: home/models.py:211
+#: home/models.py:212
 msgid "Globe"
 msgstr "Globo"
 
-#: home/models.py:218
+#: home/models.py:219
 msgid "Briefcase"
 msgstr "Maletín"
 
-#: home/models.py:225
+#: home/models.py:226
 msgid "Chart"
 msgstr "Gráfico"
 
-#: home/models.py:233
+#: home/models.py:234
 msgid "Shield"
 msgstr "Escudo"
 
-#: home/models.py:241
+#: home/models.py:242
 msgid "Search"
 msgstr "Lupa"
 
-#: home/models.py:245
+#: home/models.py:246
 msgid "Clock"
 msgstr "Reloj"
 
-#: home/models.py:249
+#: home/models.py:250
 msgid "Cog"
 msgstr "Engranaje"
 
-#: home/models.py:260
+#: home/models.py:261
 msgid "Pencil"
 msgstr "Lápiz"
 
-#: home/models.py:264
+#: home/models.py:265
 msgid "Sparkles"
 msgstr "Destellos"
 
-#: home/models.py:268
+#: home/models.py:269
 msgid "Eye"
 msgstr "Ojo"
 
-#: home/models.py:276
+#: home/models.py:277
 msgid "Phone"
 msgstr "Teléfono"
 
-#: home/models.py:284
+#: home/models.py:285
 msgid "Document"
 msgstr "Documento"
 
-#: home/models.py:293
+#: home/models.py:294
 msgid "— default (check-circle) —"
 msgstr "— por defecto (círculo con check) —"
 
@@ -442,15 +495,15 @@ msgstr "Proyectos destacados"
 msgid "See all projects"
 msgstr "Ver todos los proyectos"
 
-#: home/templates/cotton/hero.html:93
+#: home/templates/cotton/hero.html:120
 msgid "More about me"
 msgstr "Más sobre mí"
 
-#: home/templates/cotton/hero.html:171
+#: home/templates/cotton/hero.html:197
 msgid "Profile"
 msgstr "Perfil"
 
-#: home/templates/cotton/hero.html:175
+#: home/templates/cotton/hero.html:201
 msgid "About me"
 msgstr "Sobre mí"
 
@@ -538,19 +591,19 @@ msgstr "Mis Proyectos"
 msgid "Portfolio"
 msgstr "Portfolio"
 
-#: home/templates/projects.html:12 home/views.py:308 home/views.py:328
+#: home/templates/projects.html:12 home/views.py:311 home/views.py:331
 msgid "Browse all my projects — problem, approach, and outcomes."
 msgstr "Explora todos mis proyectos — problema, enfoque y resultados."
 
-#: home/views.py:101
+#: home/views.py:104
 msgid "Personal Portfolio"
 msgstr "Portfolio Personal"
 
-#: home/views.py:102
+#: home/views.py:105
 msgid "Welcome to my personal portfolio website."
 msgstr "Bienvendido/a a la página web de mi portfolio personal."
 
-#: home/views.py:257
+#: home/views.py:260
 msgid ""
 "Professional experience and educational background. View my complete career "
 "history, work experience, and academic qualifications."
@@ -558,10 +611,10 @@ msgstr ""
 "Experiencia profesional y formación académica. Consulta mi historial "
 "profesional completo, experiencia laboral y cualificaciones académicas."
 
-#: home/views.py:260
+#: home/views.py:263
 msgid "experience, education, professional background, work history"
 msgstr "experiencia, educación, trayectoria profesional, historia laboral"
 
-#: home/views.py:329
+#: home/views.py:332
 msgid "projects, software development, case studies"
 msgstr "proyectos, desarrollo de software, casos de estudio"

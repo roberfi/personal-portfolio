@@ -32,6 +32,14 @@ CONTACT_FORM_MESSAGE_ERROR_ID = "contact-form-message-error"
 
 CONTACT_ADDITIONAL_INFO_ID = "contact-additional-info"
 
+CONTACT_FORM_SERVICE_INTEREST_LABEL_ID = "contact-form-service-interest-label"
+CONTACT_FORM_BUDGET_RANGE_LABEL_ID = "contact-form-budget-range-label"
+CONTACT_FORM_TIMELINE_LABEL_ID = "contact-form-timeline-label"
+
+CONTACT_FORM_SERVICE_INTEREST_ID = "id_service_interest"
+CONTACT_FORM_BUDGET_RANGE_ID = "id_budget_range"
+CONTACT_FORM_TIMELINE_ID = "id_timeline"
+
 CONTACT_FORM_PRIVACY_POLICY_ID = "contact-form-privacy-policy"
 CONTACT_FORM_PRIVACY_POLICY_CHECKBOX_ID = "id_privacy_policy_accepted"
 CONTACT_FORM_PRIVACY_POLICY_LINK_ID = "contact-form-privacy-policy-link"
@@ -45,10 +53,33 @@ TEST_MESSAGE = "This is a test message with enough characters to pass validation
 TEST_SHORT_MESSAGE = "Short"  # Less than 10 characters
 TEST_INVALID_EMAIL = "invalid-email"
 
+TEST_SERVICE_SLUG = "test-service"
+TEST_SERVICE_TITLE = "Test Service"
+TEST_SERVICE_INACTIVE_SLUG = "inactive-service"
+TEST_BUDGET_RANGE_VALUE = "1k_5k"
+TEST_BUDGET_RANGE_DISPLAY = {
+    Language.ENGLISH: "€1,000 \u2013 €5,000",
+    Language.SPANISH: "1.000 € \u2013 5.000 €",
+}
+TEST_TIMELINE_VALUE = "1m_3m"
+TEST_TIMELINE_DISPLAY = {
+    Language.ENGLISH: "1 \u2013 3 months",
+    Language.SPANISH: "1 \u2013 3 meses",
+}
+
 TO_EMAIL_ADDRESS = "contact@localhost"
 FROM_EMAIL_ADDRESS = "noreply@localhost"
 
 EMAIL_BODY_TEMPLATE = "New contact message from {name}\n\nEmail: {email}\nSubject: {subject}\n\nMessage:\n{message}\n"
+EMAIL_BODY_WITH_QUALIFICATION_TEMPLATE = (
+    "New contact message from {name}\n\n"
+    "Email: {email}\n"
+    "Subject: {subject}\n\n"
+    "Message:\n{message}\n"
+    "\n{service_interest_label}: {service_interest}\n"
+    "{budget_range_label}: {budget_range}\n"
+    "{timeline_label}: {timeline}\n"
+)
 
 # Mocked now datetime
 MOCKED_NOW = datetime(2026, 1, 10, 12, 21, 43, 123456, tzinfo=timezone.utc)
@@ -91,6 +122,18 @@ LABEL_SUBJECT_TEXT = {
 LABEL_MESSAGE_TEXT = {
     Language.ENGLISH: "Message",
     Language.SPANISH: "Mensaje",
+}
+LABEL_SERVICE_INTEREST_TEXT = {
+    Language.ENGLISH: "Service Interest",
+    Language.SPANISH: "Servicio de interés",
+}
+LABEL_BUDGET_RANGE_TEXT = {
+    Language.ENGLISH: "Budget Range",
+    Language.SPANISH: "Presupuesto",
+}
+LABEL_TIMELINE_TEXT = {
+    Language.ENGLISH: "Timeline",
+    Language.SPANISH: "Plazo",
 }
 
 INPUT_NAME_PLACEHOLDER = {

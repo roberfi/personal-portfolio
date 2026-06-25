@@ -6,13 +6,22 @@ from typing import Any
 from django import forms
 from django.utils.translation import gettext_lazy
 
-from contact.models import ContactFormConfiguration, ContactMessage, EmailProvider
+from contact.models import BudgetRange, ContactFormConfiguration, ContactMessage, EmailProvider, Timeline
+from home.models import Service
 
 MINIMUM_MESSAGE_LENGTH = 10
+
+_SELECT_CSS = (
+    "select select-bordered w-full bg-base-200 focus:outline-none focus:border-primary/50"
+    " focus:ring-2 focus:ring-primary/20 transition-all duration-200"
+)
 
 CONTACT_FORM_FIELD_NAME = "name"
 CONTACT_FORM_FIELD_EMAIL = "email"
 CONTACT_FORM_FIELD_SUBJECT = "subject"
+CONTACT_FORM_FIELD_SERVICE_INTEREST = "service_interest"
+CONTACT_FORM_FIELD_BUDGET_RANGE = "budget_range"
+CONTACT_FORM_FIELD_TIMELINE = "timeline"
 CONTACT_FORM_FIELD_MESSAGE = "message"
 CONTACT_FORM_FIELD_RECAPTCHA = "recaptcha_token"
 CONTACT_FORM_FIELD_PRIVACY_POLICY_ACCEPTED = "privacy_policy_accepted"
@@ -27,6 +36,25 @@ class ContactForm(forms.ModelForm[ContactMessage]):
         widget=forms.CheckboxInput(attrs={"class": "checkbox checkbox-primary"}),
         error_messages={"required": gettext_lazy("You must accept the privacy policy to send this message.")},
     )
+    service_interest: forms.ModelChoiceField[Service] = forms.ModelChoiceField(
+        queryset=Service.objects.filter(is_active=True),
+        required=False,
+        empty_label=gettext_lazy("No specific service"),
+        widget=forms.Select(attrs={"class": _SELECT_CSS}),
+        label=gettext_lazy("Service Interest"),
+    )
+    budget_range = forms.ChoiceField(
+        choices=[("", gettext_lazy("Not specified")), *BudgetRange.choices],
+        required=False,
+        widget=forms.Select(attrs={"class": _SELECT_CSS}),
+        label=gettext_lazy("Budget Range"),
+    )
+    timeline = forms.ChoiceField(
+        choices=[("", gettext_lazy("Not specified")), *Timeline.choices],
+        required=False,
+        widget=forms.Select(attrs={"class": _SELECT_CSS}),
+        label=gettext_lazy("Timeline"),
+    )
 
     class Meta:
         model = ContactMessage
@@ -34,6 +62,9 @@ class ContactForm(forms.ModelForm[ContactMessage]):
             CONTACT_FORM_FIELD_NAME,
             CONTACT_FORM_FIELD_EMAIL,
             CONTACT_FORM_FIELD_SUBJECT,
+            CONTACT_FORM_FIELD_SERVICE_INTEREST,
+            CONTACT_FORM_FIELD_BUDGET_RANGE,
+            CONTACT_FORM_FIELD_TIMELINE,
             CONTACT_FORM_FIELD_MESSAGE,
         )
         widgets = MappingProxyType(
