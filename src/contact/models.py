@@ -57,7 +57,7 @@ class ContactMessage(models.Model):
         return f"{self.name} - {self.subject}"
 
 
-class ContactFormConfiguration(SingletonModel):  # type: ignore[django-manager-missing] # https://github.com/typeddjango/django-stubs/issues/1023
+class ContactFormConfiguration(SingletonModel):
     """Singleton configuration for the contact form: privacy notice and email sending."""
 
     email_provider = models.CharField(max_length=20, choices=EmailProvider.choices, default=EmailProvider.SMTP)
