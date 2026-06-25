@@ -14,7 +14,7 @@ from django.utils.safestring import mark_safe
 from django.utils.translation import get_language, gettext
 from django.views import View
 
-from home.models import PersonalInfo
+from home.models import PersonalInfo, Service
 from utils.types import PageMetadata
 
 from .forms import ContactForm
@@ -118,6 +118,16 @@ class ContactView(View):
                 f"Message:\n{contact_message.message}\n"
             )
 
+            qualification_lines = []
+            if contact_message.service_interest:
+                qualification_lines.append(f"{gettext('Service Interest')}: {contact_message.service_interest.title}")
+            if contact_message.budget_range:
+                qualification_lines.append(f"{gettext('Budget Range')}: {contact_message.get_budget_range_display()}")
+            if contact_message.timeline:
+                qualification_lines.append(f"{gettext('Timeline')}: {contact_message.get_timeline_display()}")
+            if qualification_lines:
+                message_body += "\n" + "\n".join(qualification_lines) + "\n"
+
             email = EmailMessage(
                 subject=subject,
                 body=message_body,
@@ -204,7 +214,13 @@ class ContactView(View):
         Returns:
             An HttpResponse with the rendered contact form.
         """
-        form = ContactForm()
+        initial: dict[str, Any] = {}
+        service_slug = request.GET.get("service")
+        if service_slug:
+            service = Service.objects.filter(slug=service_slug, is_active=True).first()
+            if service:
+                initial["service_interest"] = service
+        form = ContactForm(initial=initial)
         return render(request, "contact.html", self.__get_view_context(form))
 
     def post(self, request: HttpRequest) -> HttpResponse:

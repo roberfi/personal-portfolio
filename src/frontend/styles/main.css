@@ -67,6 +67,24 @@ html {
   background-color: inherit;
 }
 
+/* Replace DaisyUI's 4×4px gradient select arrow (pixelated on Chrome desktop) with a clean SVG chevron */
+select.select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23dde0e5' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' opacity='0.5'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-position: right 0.75rem center;
+  background-repeat: no-repeat;
+  background-size: 1rem 1rem;
+}
+
+/* Required field label indicator */
+.label-required::after {
+  content: " *";
+  color: var(--color-error);
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: normal;
+  line-height: 1;
+}
+
 /* Page-heading compact bar: hidden above the viewport until `initStickyHeadings`
    marks it stuck, then it slides down to pin under the navbar. */
 [data-compact-bar] {
