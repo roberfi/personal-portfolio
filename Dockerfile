@@ -20,10 +20,10 @@ ENV PATH="/root/.local/bin:$PATH" \
     PIP_DISABLE_PIP_VERSION_CHECK=1 \
     PIP_NO_CACHE_DIR=1
 
-# Install nodejs
+# Install system dependencies
 RUN apt-get update \
-    && apt-get install -y curl \
-    && apt-get -y autoclean \
+    && apt-get install -y --no-install-recommends curl gettext \
+    && rm -rf /var/lib/apt/lists/* \
     && curl -fsSL https://astral.sh/uv/0.9.9/install.sh | bash - \
     && curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
     && apt-get install -y nodejs
@@ -36,6 +36,9 @@ COPY ./src /app/src
 
 # Instal virtual environment
 RUN uv sync --frozen --no-dev --group prod
+
+# Compile translation files
+RUN uv run python src/manage.py compilemessages
 
 # Install node dependencies
 RUN npm install

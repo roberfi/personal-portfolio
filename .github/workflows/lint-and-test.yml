@@ -64,6 +64,12 @@ jobs:
       run:
         working-directory: src
 
+    env:
+      DEBUG: "true"
+      SECRET_KEY: "dummySecretKey"
+      DATABASE_URL: "sqlite:///:memory:"
+      FIELD_ENCRYPTION_KEY: "RQB4OyWyWCB403eRmRCnobvByxGKUewNRIS1m8vVUPU="
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -71,10 +77,9 @@ jobs:
         with:
           python-version: ${{ env.PYTHON_VERSION }}
           uv-version: ${{ env.UV_VERSION }}
+      - name: Install gettext
+        run: sudo apt-get install -y gettext
+      - name: Compile translation files
+        run: uv run --no-sync python manage.py compilemessages
       - name: Run Django tests
         run: uv run --no-sync python manage.py test
-        env:
-          DEBUG: "true"
-          SECRET_KEY: "dummySecretKey"
-          DATABASE_URL: "sqlite:///:memory:"
-          FIELD_ENCRYPTION_KEY: "RQB4OyWyWCB403eRmRCnobvByxGKUewNRIS1m8vVUPU="
