@@ -2,6 +2,7 @@
 
 ## Next release
 
+- Enrich structured data: add `sameAs` (social profile links) to the Person JSON-LD and include a `Service` schema entry for each active service
 - Qualify contact form submissions: add optional Service Interest, Budget Range, and Timeline fields; pre-fill service from `?service=<slug>`; include filled fields in the notification email
 - Replace hero scroll effect with a clean sticky identity bar that slides in once the hero scrolls away (same compact-bar pattern as other pages, no hero opacity effects)
 - Show location in the hero section and include it as `homeLocation` in the Person JSON-LD for local SEO
