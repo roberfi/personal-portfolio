@@ -9,7 +9,7 @@ from django.utils.safestring import SafeString, mark_safe
 from django.utils.translation import get_language, gettext
 from django.views import View
 
-from base.models import SiteMedia
+from base.models import FollowMeLink, SiteMedia
 from utils.helpers import markdown_to_plaintext
 from utils.types import PageMetadata
 
@@ -53,12 +53,19 @@ class ProjectDetailViewContext(TypedDict):
 
 class HomeView(View):
     @staticmethod
-    def __get_json_ld(personal_info: PersonalInfo, request: HttpRequest) -> SafeString:
-        """Generate Person schema JSON-LD for the personal info.
+    def __get_json_ld(
+        personal_info: PersonalInfo,
+        request: HttpRequest,
+        services: list[Service],
+        social_links: list[str],
+    ) -> SafeString:
+        """Generate JSON-LD @graph with Person and Service schemas.
 
         Args:
             personal_info: The personal information instance.
             request: The HTTP request object.
+            services: Active services to include as Service schema entries.
+            social_links: URLs for the Person sameAs property.
 
         Returns:
             A SafeString containing the JSON-LD representation.
@@ -67,11 +74,7 @@ class HomeView(View):
         current_lang = get_language()
         site_media = SiteMedia.get_solo()
 
-        schema = {
-            "@context": {
-                "@vocab": "https://schema.org/",
-                "@language": current_lang,
-            },
+        person: dict[str, Any] = {
             "@type": "Person",
             "name": personal_info.name,
             "jobTitle": personal_info.title,
@@ -81,20 +84,51 @@ class HomeView(View):
         }
 
         if personal_info.location:
-            schema["homeLocation"] = {"@type": "Place", "name": personal_info.location}
+            person["homeLocation"] = {"@type": "Place", "name": personal_info.location}
 
         if personal_info.technologies.exists():
-            schema["knowsAbout"] = personal_info.technology_names
+            person["knowsAbout"] = personal_info.technology_names
+
+        if social_links:
+            person["sameAs"] = social_links
+
+        graph: list[dict[str, Any]] = [person]
+
+        for service in services:
+            graph.append(
+                {
+                    "@type": "Service",
+                    "name": service.title,
+                    "description": service.short_description,
+                    "url": f"{base_url}{reverse('contact')}?service={service.slug}",
+                }
+            )
+
+        schema: dict[str, Any] = {
+            "@context": {
+                "@vocab": "https://schema.org/",
+                "@language": current_lang,
+            },
+            "@graph": graph,
+        }
 
         return mark_safe(json.dumps(schema, ensure_ascii=False))
 
     @classmethod
-    def __get_page_metadata(cls, personal_info: PersonalInfo | None, request: HttpRequest) -> PageMetadata:
+    def __get_page_metadata(
+        cls,
+        personal_info: PersonalInfo | None,
+        request: HttpRequest,
+        services: list[Service],
+        social_links: list[str],
+    ) -> PageMetadata:
         """Get page metadata for the home page.
 
         Args:
             personal_info: The personal information instance or None.
             request: The HTTP request object.
+            services: Active services passed through to the JSON-LD generator.
+            social_links: Social profile URLs passed through to the JSON-LD generator.
 
         Returns:
             A PageMetadata dictionary containing SEO metadata.
@@ -111,7 +145,7 @@ class HomeView(View):
             page_title=personal_info.get_page_title(),
             page_description=personal_info.get_page_description(),
             page_keywords=personal_info.get_page_keywords(),
-            json_ld=cls.__get_json_ld(personal_info, request),
+            json_ld=cls.__get_json_ld(personal_info, request, services, social_links),
         )
 
     def get(self, request: HttpRequest) -> HttpResponse:
@@ -124,15 +158,17 @@ class HomeView(View):
             An HttpResponse rendering the home page.
         """
         personal_info = PersonalInfo.objects.first()
+        services = list(Service.objects.filter(is_active=True))
+        social_links = list(FollowMeLink.objects.values_list("link", flat=True))
 
         return render(
             request,
             "index.html",
             HomeViewContext(
-                page_metadata=self.__get_page_metadata(personal_info, request),
+                page_metadata=self.__get_page_metadata(personal_info, request, services, social_links),
                 personal_info=personal_info,
                 featured_projects=list(Project.objects.filter(featured=True).prefetch_related("technologies")),
-                services=list(Service.objects.filter(is_active=True)),
+                services=services,
                 process_steps=list(ProcessStep.objects.all()),
             ),
         )

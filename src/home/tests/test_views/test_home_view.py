@@ -40,7 +40,7 @@ class BaseTestHomeViewContent(BaseHomeViewTest):
         self._assert_template_is_used("cotton/base.html")
 
     def test_json_ld_person_schema(self) -> None:
-        """Test that home view includes valid JSON-LD Person schema."""
+        """Test that home view includes valid JSON-LD Person schema inside @graph."""
         data = self._get_json_ld_data()
 
         # Verify @context structure
@@ -61,30 +61,32 @@ class BaseTestHomeViewContent(BaseHomeViewTest):
             f"Expected '@context.@language' to be '{self.language}', got '{language}'",
         )
 
-        # Verify @type
-        self.assertEqual(type_ := data["@type"], "Person", f"Expected '@type' to be 'Person', got '{type_}'")
+        # Verify @graph contains a Person entity
+        graph = data.get("@graph", [])
+        person = next((item for item in graph if item.get("@type") == "Person"), None)
+        assert person is not None, f"Expected a Person entity inside '@graph', got: {graph}"
 
         # Verify specific fields from test data
         self.assertEqual(
-            name := data["name"],
+            name := person["name"],
             test_view_constants.PERSONAL_INFO_NAME,
             f"Expected 'name' to be '{test_view_constants.PERSONAL_INFO_NAME}', got '{name}'",
         )
         self.assertEqual(
-            job_title := data["jobTitle"],
+            job_title := person["jobTitle"],
             expected_job_title := test_view_constants.PERSONAL_INFO_TITLE[self.language],
             f"Expected 'jobTitle' to be '{expected_job_title}', got '{job_title}'",
         )
         self.assertEqual(
-            description := data["description"],
+            description := person["description"],
             expected_description := test_view_constants.PERSONAL_INFO_INTRODUCTION[self.language],
             f"Expected 'description' to be '{expected_description}', got '{description}'",
         )
         self.assertEqual(
-            url := data["url"], "http://testserver", f"Expected 'url' to be 'http://testserver', got '{url}'"
+            url := person["url"], "http://testserver", f"Expected 'url' to be 'http://testserver', got '{url}'"
         )
         self.assertEqual(
-            image := data["image"],
+            image := person["image"],
             expected_image := f"http://testserver{SiteMedia.get_solo().portrait_display.url}",
             f"Expected 'image' to be '{expected_image}', got '{image}'",
         )
@@ -97,7 +99,7 @@ class BaseTestHomeViewContent(BaseHomeViewTest):
             test_view_constants.TECHNOLOGY_3[self.language],
         ]
         self.assertEqual(
-            knows_about := data["knowsAbout"],
+            knows_about := person["knowsAbout"],
             expected_technologies,
             f"Expected 'knowsAbout' to be '{expected_technologies}', got '{knows_about}'",
         )
@@ -108,9 +110,68 @@ class BaseTestHomeViewContent(BaseHomeViewTest):
             "name": test_view_constants.PERSONAL_INFO_LOCATION[self.language],
         }
         self.assertEqual(
-            home_location := data["homeLocation"],
+            home_location := person["homeLocation"],
             expected_home_location,
             f"Expected 'homeLocation' to be '{expected_home_location}', got '{home_location}'",
+        )
+
+        # Verify sameAs contains FollowMeLink URLs
+        self.assertEqual(
+            same_as := person["sameAs"],
+            expected_same_as := [test_view_constants.FOLLOW_ME_LINK],
+            f"Expected 'sameAs' to be '{expected_same_as}', got '{same_as}'",
+        )
+
+    def test_json_ld_services_schema(self) -> None:
+        """Test that home view includes a JSON-LD Service entity for each active service."""
+        data = self._get_json_ld_data()
+
+        graph = data.get("@graph", [])
+        service_entities = [item for item in graph if item.get("@type") == "Service"]
+
+        # Two active services (service 3 is inactive and must be excluded)
+        self.assertEqual(
+            len(service_entities),
+            2,
+            f"Expected 2 Service entities in '@graph', got {len(service_entities)}: {service_entities}",
+        )
+
+        service_1 = next(
+            (s for s in service_entities if s.get("name") == test_view_constants.SERVICE_1_TITLE[self.language]),
+            None,
+        )
+        assert service_1 is not None, (
+            f"Expected a Service entity with name '{test_view_constants.SERVICE_1_TITLE[self.language]}'"
+        )
+
+        self.assertEqual(
+            service_1["description"],
+            test_view_constants.SERVICE_1_SHORT_DESCRIPTION[self.language],
+            f"Expected service 1 description to be '{test_view_constants.SERVICE_1_SHORT_DESCRIPTION[self.language]}'",
+        )
+        self.assertEqual(
+            service_1["url"],
+            f"http://testserver/{self.language}/contact/?service={test_view_constants.SERVICE_1_SLUG}",
+            "Expected service 1 url to link to the contact page pre-filled with its slug",
+        )
+
+        service_2 = next(
+            (s for s in service_entities if s.get("name") == test_view_constants.SERVICE_2_TITLE[self.language]),
+            None,
+        )
+        assert service_2 is not None, (
+            f"Expected a Service entity with name '{test_view_constants.SERVICE_2_TITLE[self.language]}'"
+        )
+
+        self.assertEqual(
+            service_2["description"],
+            test_view_constants.SERVICE_2_SHORT_DESCRIPTION[self.language],
+            f"Expected service 2 description to be '{test_view_constants.SERVICE_2_SHORT_DESCRIPTION[self.language]}'",
+        )
+        self.assertEqual(
+            service_2["url"],
+            f"http://testserver/{self.language}/contact/?service={test_view_constants.SERVICE_2_SLUG}",
+            "Expected service 2 url to link to the contact page pre-filled with its slug",
         )
 
     def test_meta_tags(self) -> None:
