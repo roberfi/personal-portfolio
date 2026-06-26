@@ -1,6 +1,6 @@
 # Changelog
 
-## Next release
+## 0.9.0 — 2026-06-26
 
 - Enrich structured data: add `sameAs` (social profile links) to the Person JSON-LD and include a `Service` schema entry for each active service
 - Qualify contact form submissions: add optional Service Interest, Budget Range, and Timeline fields; pre-fill service from `?service=<slug>`; include filled fields in the notification email
