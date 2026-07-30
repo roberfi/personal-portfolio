@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Fix `PREPEND_WWW` and `ROBOTS_DISALLOW_PATHS` not reaching the production container, so the non-www to www redirect and the robots.txt `Disallow` rule now actually take effect
+
 ## 0.9.0 — 2026-06-26
 
 - Enrich structured data: add `sameAs` (social profile links) to the Person JSON-LD and include a `Service` schema entry for each active service
