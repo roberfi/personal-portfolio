@@ -10,6 +10,7 @@ from django.urls import reverse
 from home.models import Project
 
 if TYPE_CHECKING:
+    import datetime
     from typing import Iterable
 
 
@@ -55,3 +56,6 @@ class ProjectSitemap(Sitemap[Project]):
 
     def location(self, item: Project) -> str:
         return reverse("project-detail", kwargs={"slug": item.slug})
+
+    def lastmod(self, item: Project) -> datetime.datetime:
+        return item.updated_at

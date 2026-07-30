@@ -168,6 +168,7 @@ class Project(models.Model):
 
     featured = models.BooleanField(default=False)
     order = models.PositiveIntegerField(default=0)
+    updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
         ordering = ("order", "title")

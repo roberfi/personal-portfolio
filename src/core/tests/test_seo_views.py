@@ -252,3 +252,29 @@ class TestSitemapXml(TestCase):
                 f"Expected priority '{expected_priority}' for '{expected_loc}', got "
                 f"'{priorities_by_loc[expected_loc]}'",
             )
+
+    def test_project_lastmod(self) -> None:
+        """Test that project URLs carry a <lastmod> matching their updated_at date."""
+        response = self.client.get("/sitemap.xml")
+        root = ET.fromstring(response.content)
+
+        namespace = {"ns": "http://www.sitemaps.org/schemas/sitemap/0.9"}
+        url = next(
+            (
+                url
+                for url in root.findall("ns:url", namespace)
+                if (loc := url.find("ns:loc", namespace)) is not None
+                and loc.text is not None
+                and self.project.slug in loc.text
+            ),
+            None,
+        )
+        assert url is not None, "Could not find the test project's <url> entry in the sitemap"
+
+        lastmod = url.find("ns:lastmod", namespace)
+        assert lastmod is not None and lastmod.text is not None, "Project URL entry missing <lastmod> element"
+        self.assertEqual(
+            lastmod.text,
+            self.project.updated_at.date().isoformat(),
+            f"Expected <lastmod> '{self.project.updated_at.date().isoformat()}', got '{lastmod.text}'",
+        )
