@@ -10,7 +10,7 @@ from django.utils.translation import get_language, gettext
 from django.views import View
 
 from base.models import FollowMeLink, SiteMedia
-from utils.helpers import markdown_to_plaintext
+from utils.helpers import get_canonical_base_url, markdown_to_plaintext
 from utils.types import PageMetadata
 
 from .models import Education, Experience, PersonalInfo, ProcessStep, Project, Service
@@ -70,7 +70,7 @@ class HomeView(View):
         Returns:
             A SafeString containing the JSON-LD representation.
         """
-        base_url = f"{request.scheme}://{request.get_host()}"
+        base_url = get_canonical_base_url(request)
         current_lang = get_language()
         site_media = SiteMedia.get_solo()
 
@@ -334,7 +334,7 @@ class MyCareerView(View):
 class ProjectListView(View):
     @staticmethod
     def __get_json_ld(projects: list[Project], request: HttpRequest) -> SafeString:
-        base_url = f"{request.scheme}://{request.get_host()}"
+        base_url = get_canonical_base_url(request)
         current_lang = get_language()
 
         schema: dict[str, Any] = {
@@ -384,7 +384,7 @@ class ProjectListView(View):
 class ProjectDetailView(View):
     @staticmethod
     def __get_json_ld(project: Project, request: HttpRequest) -> SafeString:
-        base_url = f"{request.scheme}://{request.get_host()}"
+        base_url = get_canonical_base_url(request)
         current_lang = get_language()
 
         schema: dict[str, Any] = {

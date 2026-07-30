@@ -34,6 +34,7 @@ env = environ.Env(
     MAINTENANCE_MODE=(bool, False),
     PREPEND_WWW=(bool, False),
     ROBOTS_DISALLOW_PATHS=(list, []),
+    CANONICAL_HOST=(str, ""),
 )
 
 environ.Env.read_env(os.path.join(BASE_DIR, ".env"))
@@ -44,6 +45,9 @@ ALLOWED_HOSTS = env("ALLOWED_HOSTS").split(" ")
 MAINTENANCE_MODE = env("MAINTENANCE_MODE")
 PREPEND_WWW = env("PREPEND_WWW")
 ROBOTS_DISALLOW_PATHS: list[str] = env("ROBOTS_DISALLOW_PATHS")
+# Explicit host used to build absolute URLs (canonical, hreflang, OG, JSON-LD, robots.txt).
+# Falls back to the request's scheme/host when unset, so local development needs no config.
+CANONICAL_HOST = env("CANONICAL_HOST")
 if not DEBUG:
     SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 CSRF_TRUSTED_ORIGINS = [f"https://{allowed_host}" for allowed_host in ALLOWED_HOSTS]
@@ -113,6 +117,7 @@ TEMPLATES = (
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
                 "django.template.context_processors.media",
+                "core.context_processors.canonical_base_url",
             ],
             "libraries": {
                 "filters": "core.templatetags.filters",

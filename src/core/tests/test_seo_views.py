@@ -89,6 +89,19 @@ class TestRobotsTxt(TestCase):
         )
 
 
+@override_settings(CANONICAL_HOST="www.example.com")
+class TestRobotsTxtCanonicalHost(TestCase):
+    def test_sitemap_line_uses_canonical_host(self) -> None:
+        """Test that the Sitemap line uses CANONICAL_HOST instead of the request's Host header."""
+        response = self.client.get("/robots.txt")
+        content = response.content.decode("utf-8")
+        self.assertIn(
+            "Sitemap: https://www.example.com/sitemap.xml",
+            content,
+            f"Expected the canonical host in the sitemap reference: {content}",
+        )
+
+
 @override_settings(ROBOTS_DISALLOW_PATHS=["/cdn-cgi/", "/private/"])
 class TestRobotsTxtDisallowPaths(TestCase):
     def test_disallow_lines_are_rendered(self) -> None:

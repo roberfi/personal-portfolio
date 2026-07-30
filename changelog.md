@@ -6,6 +6,7 @@
 - Move Legal Notice, Privacy Policy and Cookies Policy out of footer modals into their own pages, reducing duplicated boilerplate on every page and fixing a duplicate `h1` issue on project pages
 - Add language (hreflang) alternates and differentiated priorities to the sitemap, and fix a locale setting that was silently dropping the `x-default` hreflang tag
 - Add a last-modified date to each project's sitemap entry, giving search engines a freshness signal
+- Add a `CANONICAL_HOST` setting so canonical, hreflang, Open Graph, Twitter Card, JSON-LD and robots.txt metadata always point to the same host, regardless of which host actually received the request
 
 ## 0.9.0 — 2026-06-26
 

@@ -190,6 +190,11 @@ mkdir -p ~/personal-portfolio/{ssl,mediafiles,nginx}
    # Comma-separated URL path prefixes to add as Disallow directives in robots.txt.
    # Use this to block crawlers from Cloudflare's email-protection path or similar.
    ROBOTS_DISALLOW_PATHS=/cdn-cgi/
+
+   # Host used to build absolute URLs (canonical, hreflang, Open Graph, JSON-LD, robots.txt).
+   # Set to the same host PREPEND_WWW redirects to, so metadata always points to it
+   # regardless of which host actually received the request.
+   CANONICAL_HOST=www.yourdomain.com
    ```
 
 2. **SSL certificates** _(standalone mode only)_ — place your `cert.pem` and `key.pem` in

@@ -37,6 +37,7 @@ services:
       MAINTENANCE_MODE: ${MAINTENANCE_MODE:-false}
       PREPEND_WWW: ${PREPEND_WWW:-false}
       ROBOTS_DISALLOW_PATHS: ${ROBOTS_DISALLOW_PATHS:-}
+      CANONICAL_HOST: ${CANONICAL_HOST:-}
 
   nginx-standalone:
     profiles: ["standalone"]

@@ -24,21 +24,20 @@
               type="{{ site_media.favicon_content_type }}">
 
         <!-- Canonical URL -->
-        <link rel="canonical"
-              href="{{ request.scheme }}://{{ request.get_host }}{{ request.path }}" />
+        <link rel="canonical" href="{{ canonical_base_url }}{{ request.path }}" />
 
         <!-- Hreflang tags for multilanguage support -->
         {% for lang_code, lang_name in LANGUAGES %}
             {% language lang_code %}
                 <link rel="alternate"
                       hreflang="{{ lang_code }}"
-                      href="{{ request.scheme }}://{{ request.get_host }}{% current_page_url %}" />
+                      href="{{ canonical_base_url }}{% current_page_url %}" />
             {% endlanguage %}
         {% endfor %}
         {% language 'en' %}
             <link rel="alternate"
                   hreflang="x-default"
-                  href="{{ request.scheme }}://{{ request.get_host }}{% current_page_url %}" />
+                  href="{{ canonical_base_url }}{% current_page_url %}" />
         {% endlanguage %}
 
         <!-- Meta description -->
@@ -50,9 +49,9 @@
               content="{{ page_metadata.page_description }}" />
         <meta property="og:image"
               itemprop="image"
-              content="{{ request.scheme }}://{{ request.get_host }}{{ site_media.og_preview_image_display.url }}">
+              content="{{ canonical_base_url }}{{ site_media.og_preview_image_display.url }}">
         <meta property="og:url"
-              content="{{ request.scheme }}://{{ request.get_host }}{{ request.path }}" />
+              content="{{ canonical_base_url }}{{ request.path }}" />
         <meta property="og:type" content="profile" />
 
         <!-- Twitter Cards -->
@@ -61,7 +60,7 @@
         <meta name="twitter:description"
               content="{{ page_metadata.page_description }}" />
         <meta name="twitter:image"
-              content="{{ request.scheme }}://{{ request.get_host }}{{ site_media.twitter_preview_image_display.url }}" />
+              content="{{ canonical_base_url }}{{ site_media.twitter_preview_image_display.url }}" />
 
         <link rel="preload" href="{% static 'bundle.css' %}" as="style">
         <link rel="stylesheet" href="{% static 'bundle.css' %}">

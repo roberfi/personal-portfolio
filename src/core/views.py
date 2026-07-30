@@ -9,6 +9,7 @@ from django.utils.safestring import mark_safe
 from django.utils.translation import gettext
 from django.views import View
 
+from utils.helpers import get_canonical_base_url
 from utils.types import PageMetadata
 
 if TYPE_CHECKING:
@@ -48,6 +49,6 @@ class RobotsTxtView(View):
             "Allow: /",
             *[f"Disallow: {path}" for path in settings.ROBOTS_DISALLOW_PATHS],
             "",
-            f"Sitemap: {request.scheme}://{request.get_host()}/sitemap.xml",
+            f"Sitemap: {get_canonical_base_url(request)}/sitemap.xml",
         ]
         return HttpResponse("\n".join(lines), content_type="text/plain")
