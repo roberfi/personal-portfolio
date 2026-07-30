@@ -595,10 +595,10 @@ class BaseTestContactViewPrivacyPolicy(BaseContactViewTest):
 
         self._assert_attribute_of_element(
             self._find_element_by_tag_and_id(
-                privacy_policy_control, HtmlTag.BUTTON, test_view_constants.CONTACT_FORM_PRIVACY_POLICY_LINK_ID
+                privacy_policy_control, HtmlTag.A, test_view_constants.CONTACT_FORM_PRIVACY_POLICY_LINK_ID
             ),
-            common_constants.ATTR_ONCLICK,
-            f"{home_test_view_constants.LEGAL_AND_PRIVACY_MODAL_ID_TEMPLATE.format(id=1)}.showModal()",
+            common_constants.ATTR_HREF,
+            f"/{self.language}/legal/{home_test_view_constants.LEGAL_SECTION_1_SLUG}/",
         )
 
     def test_submission_rejected_without_consent(self) -> None:

@@ -1,0 +1,16 @@
+{% load filters %}
+
+<c-base>
+    <div id="legal-and-privacy-detail"
+         class="min-h-screen bg-linear-to-br from-base-300 via-base-300 to-base-200">
+
+        <c-page-heading title="{{ section.title }}" id-prefix="legal-and-privacy-detail" />
+
+        <div class="max-w-3xl mx-auto px-6 pb-16 lg:pb-24">
+            <div id="legal-and-privacy-detail-text"
+                 class="prose max-w-none prose-headings:text-primary prose-a:text-primary">
+                {{ section.text|md }}
+            </div>
+        </div>
+    </div>
+</c-base>

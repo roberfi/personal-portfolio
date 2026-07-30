@@ -117,9 +117,6 @@ UPPER_FOOTER_ID = "upper-footer"
 LEGAL_AND_PRIVACY_ID = "legal-and-privacy"
 LEGAL_AND_PRIVACY_TITLE_ID = "legal-and-privacy-title"
 LEGAL_AND_PRIVACY_LINK_ID_TEMPLATE = "legal-and-privacy-{id}-link"
-LEGAL_AND_PRIVACY_MODAL_ID_TEMPLATE = "legal_and_privacy_{id}_modal"
-LEGAL_AND_PRIVACY_TITLE_ID_TEMPLATE = "legal-and-privacy-{id}-title"
-LEGAL_AND_PRIVACY_TEXT_ID_TEMPLATE = "legal-and-privacy-{id}-text"
 FOOTER_PAGES_ID = "footer-pages"
 FOOTER_PAGES_TITLE_ID = "footer-pages-title"
 FOOTER_MY_CAREER_LINK_ID = "footer-my-career-link"
@@ -478,6 +475,7 @@ LEGAL_SECTION_1 = {
     Language.ENGLISH: "Legal Section 1",
     Language.SPANISH: "Sección Legal 1",
 }
+LEGAL_SECTION_1_SLUG = "legal-section-1"
 LEGAL_TEXT_1 = {
     Language.ENGLISH: "Legal Text 1",
     Language.SPANISH: "Texto Legal 1",
@@ -487,6 +485,7 @@ LEGAL_SECTION_2 = {
     Language.ENGLISH: "Legal Section 2",
     Language.SPANISH: "Sección Legal 2",
 }
+LEGAL_SECTION_2_SLUG = "legal-section-2"
 LEGAL_TEXT_2 = {
     Language.ENGLISH: "Legal Text 2",
     Language.SPANISH: "Texto Legal 2",

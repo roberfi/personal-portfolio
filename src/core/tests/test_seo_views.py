@@ -21,6 +21,7 @@ _EXCLUDED_FROM_SITEMAP: frozenset[str] = frozenset(
         "accept_all_cookies",  # cookie-consent action (django_cooco)
         "reject_all_cookies",  # cookie-consent action (django_cooco)
         "set_cookie_preferences",  # cookie-consent action (django_cooco)
+        "legal-and-privacy-detail",  # legal boilerplate, not intended to rank
     }
 )
 

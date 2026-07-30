@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import mimetypes
-from functools import cached_property
 
 from django.db import models
 from django_cooco.models import CookieGroup
@@ -12,14 +11,14 @@ from solo.models import SingletonModel
 
 class LegalAndPrivacy(models.Model):  # type: ignore[django-manager-missing] # https://github.com/typeddjango/django-stubs/issues/1023
     title = models.CharField(max_length=100, unique=True)
+    slug = models.SlugField(max_length=100, unique=True)
     text = models.TextField()
+
+    class Meta:
+        ordering = ("id",)
 
     def __str__(self) -> str:
         return self.title
-
-    @cached_property
-    def modal_name(self) -> str:
-        return f"legal_and_privacy_{self.id}_modal"
 
 
 class FollowMeLink(models.Model):

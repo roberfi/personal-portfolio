@@ -12,18 +12,11 @@ class TestLegalAndPrivacyModel(TestCase):
 
     @classmethod
     def setUpTestData(cls) -> None:
-        cls.legal_and_privacy = LegalAndPrivacy(id=1, title="Legal text", text="Privacy text")
+        cls.legal_and_privacy = LegalAndPrivacy(id=1, title="Legal text", slug="legal-text", text="Privacy text")
 
     def test_str(self) -> None:
         self.assertEqual(
             returned_str := str(self.legal_and_privacy),
             expected_str := self.legal_and_privacy.title,
             f"The __str__ method is returning '{returned_str}' instead the expected value '{expected_str}'",
-        )
-
-    def test_model_name(self) -> None:
-        self.assertEqual(
-            returned_name := self.legal_and_privacy.modal_name,
-            expected_name := "legal_and_privacy_1_modal",
-            f"The modal_name property is returning '{returned_name}' instead the expected value '{expected_name}'",
         )

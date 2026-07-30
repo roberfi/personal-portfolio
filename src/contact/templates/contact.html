@@ -242,12 +242,13 @@
                                         {{ form.privacy_policy_accepted }}
                                         <span class="label-text text-sm text-base-content/60">
                                             {% translate "I accept the" %}
-                                            <button type="button"
-                                                    id="contact-form-privacy-policy-link"
-                                                    class="link link-primary"
-                                                    onclick="{{ privacy_notice.legal_and_privacy.modal_name }}.showModal()">
+                                            <a id="contact-form-privacy-policy-link"
+                                               class="link link-primary"
+                                               href="{% url 'legal-and-privacy-detail' slug=privacy_notice.legal_and_privacy.slug %}"
+                                               target="_blank"
+                                               rel="noopener noreferrer">
                                                 {{ privacy_notice.legal_and_privacy.title }}
-                                            </button>
+                                            </a>
                                         </span>
                                     </label>
                                     {% if form.privacy_policy_accepted.errors %}

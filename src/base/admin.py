@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from typing import ClassVar, Sequence
+
 from django.contrib.admin import ModelAdmin, register
 from solo.admin import SingletonModelAdmin
 
@@ -8,7 +10,7 @@ from base.models import FollowMeLink, GoogleAnalytics, LegalAndPrivacy, SiteMedi
 
 @register(LegalAndPrivacy)
 class LegalAndPrivacyAdmin(ModelAdmin[LegalAndPrivacy]):
-    pass
+    prepopulated_fields: ClassVar[dict[str, Sequence[str]]] = {"slug": ("title",)}
 
 
 @register(FollowMeLink)

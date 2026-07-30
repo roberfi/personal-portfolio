@@ -3,6 +3,7 @@
 ## Unreleased
 
 - Fix `PREPEND_WWW` and `ROBOTS_DISALLOW_PATHS` not reaching the production container, so the non-www to www redirect and the robots.txt `Disallow` rule now actually take effect
+- Move Legal Notice, Privacy Policy and Cookies Policy out of footer modals into their own pages, reducing duplicated boilerplate on every page and fixing a duplicate `h1` issue on project pages
 
 ## 0.9.0 — 2026-06-26
 

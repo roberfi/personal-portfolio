@@ -1,6 +1,5 @@
 {% load i18n %}
 {% load base_tags %}
-{% load filters %}
 
 {% get_footer_data as data %}
 
@@ -29,54 +28,11 @@
                     </p>
 
                     {% for section in legal_and_privacy %}
-                        <button id="legal-and-privacy-{{ section.id }}-link"
-                                class="link link-hover text-base-content/70 hover:text-primary transition-colors"
-                                onclick="{{ section.modal_name }}.showModal()">
+                        <a id="legal-and-privacy-{{ section.id }}-link"
+                           href="{% url 'legal-and-privacy-detail' slug=section.slug %}"
+                           class="link link-hover text-base-content/70 hover:text-primary transition-colors">
                             {{ section.title }}
-                        </button>
-                        <dialog id="{{ section.modal_name }}"
-                                class="modal modal-bottom sm:modal-middle">
-                            <div class="modal-box w-11/12 max-w-5xl mx-auto bg-linear-to-br from-base-300 to-base-200 shadow-2xl shadow-black/60 border border-primary/15 p-0 flex flex-col max-h-[90vh]">
-                                <!-- Header section - fixed at top -->
-                                <div class="px-4 sm:px-6 pt-5 sm:pt-6 pb-5 border-b border-primary/15 shrink-0">
-                                    <div class="flex items-center gap-3 mb-3">
-                                        <div class="h-0.5 w-6 rounded-full bg-primary shrink-0">
-                                        </div>
-                                        <span class="text-xs font-mono uppercase tracking-[0.18em] text-primary/60">{% translate "Legal & Privacy" %}</span>
-                                    </div>
-                                    <h1 id="legal-and-privacy-{{ section.id }}-title"
-                                        class="text-3xl sm:text-4xl font-bold tracking-tight text-base-content">
-                                        {{ section.title }}
-                                    </h1>
-                                </div>
-
-                                <!-- Scrollable content area -->
-                                <div class="overflow-y-auto flex-1">
-                                    <div class="p-4 sm:p-6">
-                                        <div id="legal-and-privacy-{{ section.id }}-text"
-                                             class="prose max-w-none prose-headings:text-primary prose-a:text-primary">
-                                            {{ section.text|md }}
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Footer - fixed at bottom -->
-                                <div class="modal-action border-t border-primary/15 px-4 sm:px-6 py-4 shrink-0 m-0 flex justify-end">
-                                    <form method="dialog">
-                                        <button class="btn btn-ghost gap-2 border border-base-content/20 hover:border-primary hover:bg-primary/10 hover:text-primary transition-all">
-                                            <svg xmlns="http://www.w3.org/2000/svg"
-                                                 class="h-5 w-5"
-                                                 fill="none"
-                                                 viewBox="0 0 24 24"
-                                                 stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                                            </svg>
-                                            <span>{% translate "Close" %}</span>
-                                        </button>
-                                    </form>
-                                </div>
-                            </div>
-                        </dialog>
+                        </a>
                     {% endfor %}
 
                 </nav>

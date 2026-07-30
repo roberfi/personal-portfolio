@@ -181,6 +181,7 @@ class BaseViewTestCase(TestCase, ABC):
         LegalAndPrivacy.objects.create(
             title=test_view_constants.LEGAL_SECTION_1[Language.ENGLISH],
             title_es=test_view_constants.LEGAL_SECTION_1[Language.SPANISH],
+            slug=test_view_constants.LEGAL_SECTION_1_SLUG,
             text=test_view_constants.LEGAL_TEXT_1[Language.ENGLISH],
             text_es=test_view_constants.LEGAL_TEXT_1[Language.SPANISH],
         )
@@ -188,6 +189,7 @@ class BaseViewTestCase(TestCase, ABC):
         LegalAndPrivacy.objects.create(
             title=test_view_constants.LEGAL_SECTION_2[Language.ENGLISH],
             title_es=test_view_constants.LEGAL_SECTION_2[Language.SPANISH],
+            slug=test_view_constants.LEGAL_SECTION_2_SLUG,
             text=test_view_constants.LEGAL_TEXT_2[Language.ENGLISH],
             text_es=test_view_constants.LEGAL_TEXT_2[Language.SPANISH],
         )
@@ -237,12 +239,12 @@ class CommonPageTestsMixin(BaseViewTestCase, ABC):
         self._assert_text_of_elements(
             legal_and_privacy_section,
             ElementText(
-                html_tag=HtmlTag.BUTTON,
+                html_tag=HtmlTag.A,
                 element_id=test_view_constants.LEGAL_AND_PRIVACY_LINK_ID_TEMPLATE.format(id=1),
                 expected_text=test_view_constants.LEGAL_SECTION_1[self.language],
             ),
             ElementText(
-                html_tag=HtmlTag.BUTTON,
+                html_tag=HtmlTag.A,
                 element_id=test_view_constants.LEGAL_AND_PRIVACY_LINK_ID_TEMPLATE.format(id=2),
                 expected_text=test_view_constants.LEGAL_SECTION_2[self.language],
             ),
@@ -251,57 +253,21 @@ class CommonPageTestsMixin(BaseViewTestCase, ABC):
         self._assert_attribute_of_element(
             self._find_element_by_tag_and_id(
                 legal_and_privacy_section,
-                HtmlTag.BUTTON,
+                HtmlTag.A,
                 test_view_constants.LEGAL_AND_PRIVACY_LINK_ID_TEMPLATE.format(id=1),
             ),
-            common_constants.ATTR_ONCLICK,
-            f"{test_view_constants.LEGAL_AND_PRIVACY_MODAL_ID_TEMPLATE.format(id=1)}.showModal()",
+            common_constants.ATTR_HREF,
+            f"/{self.language}/legal/{test_view_constants.LEGAL_SECTION_1_SLUG}/",
         )
 
         self._assert_attribute_of_element(
             self._find_element_by_tag_and_id(
                 legal_and_privacy_section,
-                HtmlTag.BUTTON,
+                HtmlTag.A,
                 test_view_constants.LEGAL_AND_PRIVACY_LINK_ID_TEMPLATE.format(id=2),
             ),
-            common_constants.ATTR_ONCLICK,
-            f"{test_view_constants.LEGAL_AND_PRIVACY_MODAL_ID_TEMPLATE.format(id=2)}.showModal()",
-        )
-
-        self._assert_text_of_elements(
-            self._find_element_by_tag_and_id(
-                legal_and_privacy_section,
-                html_tag=HtmlTag.DIALOG,
-                element_id=test_view_constants.LEGAL_AND_PRIVACY_MODAL_ID_TEMPLATE.format(id=1),
-            ),
-            ElementText(
-                html_tag=HtmlTag.H1,
-                element_id=test_view_constants.LEGAL_AND_PRIVACY_TITLE_ID_TEMPLATE.format(id=1),
-                expected_text=test_view_constants.LEGAL_SECTION_1[self.language],
-            ),
-            ElementText(
-                html_tag=HtmlTag.DIV,
-                element_id=test_view_constants.LEGAL_AND_PRIVACY_TEXT_ID_TEMPLATE.format(id=1),
-                expected_text=test_view_constants.LEGAL_TEXT_1[self.language],
-            ),
-        )
-
-        self._assert_text_of_elements(
-            self._find_element_by_tag_and_id(
-                legal_and_privacy_section,
-                html_tag=HtmlTag.DIALOG,
-                element_id=test_view_constants.LEGAL_AND_PRIVACY_MODAL_ID_TEMPLATE.format(id=2),
-            ),
-            ElementText(
-                html_tag=HtmlTag.H1,
-                element_id=test_view_constants.LEGAL_AND_PRIVACY_TITLE_ID_TEMPLATE.format(id=2),
-                expected_text=test_view_constants.LEGAL_SECTION_2[self.language],
-            ),
-            ElementText(
-                html_tag=HtmlTag.DIV,
-                element_id=test_view_constants.LEGAL_AND_PRIVACY_TEXT_ID_TEMPLATE.format(id=2),
-                expected_text=test_view_constants.LEGAL_TEXT_2[self.language],
-            ),
+            common_constants.ATTR_HREF,
+            f"/{self.language}/legal/{test_view_constants.LEGAL_SECTION_2_SLUG}/",
         )
 
     def test_follow_me_links(self) -> None:
