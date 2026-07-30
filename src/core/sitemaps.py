@@ -16,10 +16,11 @@ if TYPE_CHECKING:
 class StaticViewSitemap(Sitemap[str]):
     """Sitemap for static pages with multilanguage support."""
 
-    priority = 1.0
     changefreq = "monthly"
     protocol = "https"
     i18n = True
+    alternates = True
+    x_default = True
 
     def items(self) -> Iterable[str]:
         """Return list of URL names to include in sitemap."""
@@ -34,6 +35,10 @@ class StaticViewSitemap(Sitemap[str]):
         """Return the URL path for the given item."""
         return reverse(item)
 
+    def priority(self, item: str) -> float:
+        """Rank the two conversion-relevant pages above the informational ones."""
+        return 1.0 if item in ("home", "projects") else 0.6
+
 
 class ProjectSitemap(Sitemap[Project]):
     """Sitemap for individual project detail pages."""
@@ -42,6 +47,8 @@ class ProjectSitemap(Sitemap[Project]):
     changefreq = "monthly"
     protocol = "https"
     i18n = True
+    alternates = True
+    x_default = True
 
     def items(self) -> Iterable[Project]:
         return Project.objects.all()

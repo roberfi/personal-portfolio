@@ -206,3 +206,49 @@ class TestSitemapXml(TestCase):
 
             priority = url.find("ns:priority", namespace)
             self.assertIsNotNone(priority, "URL entry missing <priority> element")
+
+    def test_sitemap_hreflang_alternates(self) -> None:
+        """Test that every URL carries en/es/x-default hreflang alternates."""
+        response = self.client.get("/sitemap.xml")
+        root = ET.fromstring(response.content)
+
+        namespace = {
+            "ns": "http://www.sitemaps.org/schemas/sitemap/0.9",
+            "xhtml": "http://www.w3.org/1999/xhtml",
+        }
+
+        for url in root.findall("ns:url", namespace):
+            hreflangs = {alternate.get("hreflang") for alternate in url.findall("xhtml:link", namespace)}
+            self.assertEqual(
+                hreflangs,
+                {"en", "es", "x-default"},
+                f"Expected hreflang alternates 'en', 'es' and 'x-default', got {hreflangs}",
+            )
+
+    def test_sitemap_priority_values(self) -> None:
+        """Test that conversion-relevant pages outrank informational ones."""
+        response = self.client.get("/sitemap.xml")
+        root = ET.fromstring(response.content)
+
+        namespace = {"ns": "http://www.sitemaps.org/schemas/sitemap/0.9"}
+        priorities_by_loc: dict[str, str] = {}
+        for url in root.findall("ns:url", namespace):
+            loc = url.find("ns:loc", namespace)
+            priority = url.find("ns:priority", namespace)
+            assert loc is not None and loc.text is not None, "URL entry missing <loc> element"
+            assert priority is not None and priority.text is not None, "URL entry missing <priority> element"
+            priorities_by_loc[loc.text] = priority.text
+
+        expected_priorities = {
+            "https://testserver/en/": "1.0",
+            "https://testserver/en/projects/": "1.0",
+            "https://testserver/en/my-career/": "0.6",
+            "https://testserver/en/contact/": "0.6",
+        }
+        for expected_loc, expected_priority in expected_priorities.items():
+            self.assertEqual(
+                priorities_by_loc[expected_loc],
+                expected_priority,
+                f"Expected priority '{expected_priority}' for '{expected_loc}', got "
+                f"'{priorities_by_loc[expected_loc]}'",
+            )
