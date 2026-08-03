@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 0.10.1 — 2026-08-03
 
 - Open outbound links from Markdown content (project outcome, bio, services...) in a new tab
 
