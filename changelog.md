@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Open outbound links from Markdown content (project outcome, bio, services...) in a new tab
+
 ## 0.10.0 — 2026-07-30
 
 - Fix `PREPEND_WWW` and `ROBOTS_DISALLOW_PATHS` not reaching the production container, so the non-www to www redirect and the robots.txt `Disallow` rule now actually take effect
