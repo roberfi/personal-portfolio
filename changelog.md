@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 0.10.2 — 2026-10-14
 
 - Bump python and javascript dependencies to fix security vulnerabilities
 
