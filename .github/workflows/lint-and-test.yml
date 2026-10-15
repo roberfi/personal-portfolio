@@ -78,7 +78,11 @@ jobs:
           python-version: ${{ env.PYTHON_VERSION }}
           uv-version: ${{ env.UV_VERSION }}
       - name: Install gettext
-        run: sudo apt-get install -y gettext
+        # Forgejo runner images run as root without sudo
+        run: |
+          SUDO=$(command -v sudo || true)
+          $SUDO apt-get update
+          $SUDO apt-get install -y gettext
       - name: Compile translation files
         run: uv run --no-sync python manage.py compilemessages
       - name: Run Django tests
