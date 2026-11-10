@@ -6,7 +6,6 @@
 [![Code style: ruff](https://img.shields.io/badge/code%20style-ruff-000000.svg)](https://github.com/astral-sh/ruff)
 
 A personal portfolio website with a client-first design — featuring case-study projects, service offerings, and a multi-language admin-editable content system.
-
 🌐 **Live Website**: [https://roberfi.com](https://roberfi.com)
 
 ## ✨ Features
@@ -240,6 +239,8 @@ The nginx deployment mode is controlled by `NGINX_MODE` (default: `proxy`):
 ```bash
 make deploy SSH_HOST=user@your-server NGINX_MODE=standalone
 ```
+
+In both modes nginx handles language negotiation at `/`: browsers whose `Accept-Language` starts with `es` go to `/es/`, everything else to `/en/`.
 
 #### Makefile commands
 
